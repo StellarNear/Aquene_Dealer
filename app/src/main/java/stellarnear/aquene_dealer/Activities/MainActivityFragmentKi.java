@@ -1,7 +1,8 @@
-package stellarnear.aquene_dealer;
+package stellarnear.aquene_dealer.Activities;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.design.widget.FloatingActionButton;
@@ -9,12 +10,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import stellarnear.aquene_dealer.R;
+
 /**
  * A placeholder fragment containing a simple view.
  */
-public class MainActivityFragmentCombat extends Fragment {
+public class MainActivityFragmentKi extends Fragment {
 
-    public MainActivityFragmentCombat() {
+    public MainActivityFragmentKi() {
     }
 
     @Override
@@ -25,13 +28,13 @@ public class MainActivityFragmentCombat extends Fragment {
             container.removeAllViews();
         }
 
+        View returnFragView= inflater.inflate(R.layout.fragment_main_ki, container, false);
 
-        View returnFragView= inflater.inflate(R.layout.fragment_main_combat, container, false);
-
-        FloatingActionButton fabMain = (FloatingActionButton) returnFragView.findViewById(R.id.fab_frag_combat_to_main);
+        FloatingActionButton fabMain = (FloatingActionButton) returnFragView.findViewById(R.id.fab_frag_ki_to_main);
         fabMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                unlockOrient();
                 Fragment fragment = new MainActivityFragment();
                 FragmentManager fragmentManager = getActivity().getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -45,4 +48,8 @@ public class MainActivityFragmentCombat extends Fragment {
         return returnFragView;
     }
 
+
+    private void unlockOrient() {
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+    }
 }

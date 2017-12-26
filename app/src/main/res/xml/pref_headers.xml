@@ -1,0 +1,40 @@
+<preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- These settings headers are only used on tablets. -->
+
+    <header
+        android:fragment="stellarnear.aquene_dealer.Activities.SettingsActivity$GeneralPreferenceFragment"
+        android:icon="@drawable/ic_person_pin_black_24dp"
+        android:title="Paramètres généraux"
+        android:summary="Statistiques de base du personnage et paramètres de l'application"/>
+
+    <header
+        android:fragment="stellarnear.aquene_dealer.Activities.SettingsActivity$CombatPreferenceFragment"
+        android:icon="@drawable/ic_playlist_add_check_black_24dp"
+        android:summary="Ensemble des dons connus"
+        android:title="Dons actifs" />
+
+
+    <header
+        android:fragment="stellarnear.aquene_dealer.Activities.SettingsActivity$InfosPreferenceFragment"
+        android:icon="@drawable/ic_info_black_24dp"
+        android:title="Infos"
+        android:summary="Résumé d'informations sur l'application"/>
+
+    <header
+        android:id="@+id/raz"
+        android:fragment="stellarnear.aquene_dealer.Activities.SettingsActivity$RazPreferenceFragment"
+        android:key="clearCache"
+        android:summary="Réinitialise tout les paramètres"
+        android:icon="@drawable/ic_undo_black_24dp"
+        android:title="Reset des paramètres" />
+
+
+    <header
+        android:fragment="stellarnear.aquene_dealer.Activities.SettingsActivity$SleepPreferenceFragment"
+        android:icon="@drawable/ic_brightness_3_black_24dp"
+        android:title="Repos (une bonne nuit de sommeil)"
+        android:summary="Remet les sorts disponibles journaliers à fond"/>
+
+
+</preference-headers>

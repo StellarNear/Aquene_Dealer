@@ -1,16 +1,24 @@
-package stellarnear.aquene_dealer;
+package stellarnear.aquene_dealer.Activities;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
+import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.app.Fragment;
+import android.view.Display;
+import android.view.Surface;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
+
+import stellarnear.aquene_dealer.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -54,9 +62,33 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            startActivity(new Intent(this, SettingsActivity.class));
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        final Display display = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+
+        switch (display.getRotation()) {
+            case Surface.ROTATION_0:
+                //on y est déja
+                break;
+
+            case Surface.ROTATION_90:
+                Intent intent_stance = new Intent(MainActivity.this, StanceActivity.class);
+                startActivity(intent_stance);
+                break;
+
+            case Surface.ROTATION_270:
+                Intent intent_help = new Intent(MainActivity.this, HelpActivity.class);
+                startActivity(intent_help);
+                break;
+        }
     }
 }
