@@ -1,6 +1,8 @@
 package stellarnear.aquene_dealer.Perso;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 
 import org.w3c.dom.Document;
@@ -14,7 +16,7 @@ import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-
+import stellarnear.aquene_dealer.R;
 /**
  * Created by jchatron on 27/12/2017.
  */
@@ -68,7 +70,10 @@ public class AllPostures {
 
             int id = mC.getResources().getIdentifier(node.getNodeValue(), "drawable", mC.getPackageName());
 
-            return mC.getDrawable(id);
+            Bitmap b = ((BitmapDrawable) mC.getDrawable(id)).getBitmap();
+            Bitmap bitmapResized = Bitmap.createScaledBitmap(b, (int) mC.getResources().getDimension(R.dimen.stance_icon), (int)mC.getResources().getDimension(R.dimen.stance_icon), false);
+            return new BitmapDrawable(mC.getResources(), bitmapResized);
+
         } catch (Exception e){
             return null;
         }

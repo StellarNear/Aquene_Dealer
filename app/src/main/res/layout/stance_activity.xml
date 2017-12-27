@@ -17,11 +17,11 @@
     </LinearLayout>
 
         <TextView
-            android:id="@+id/editText3"
+            android:id="@+id/editText_test"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:text="LOL STANCE OK !!!!" />
+            android:text="STANCE OK !! :" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
