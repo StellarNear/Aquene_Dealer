@@ -9,6 +9,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import stellarnear.aquene_dealer.R;
 
@@ -30,8 +31,8 @@ public class MainActivityFragmentKi extends Fragment {
 
         View returnFragView= inflater.inflate(R.layout.fragment_main_ki, container, false);
 
-        FloatingActionButton fabMain = (FloatingActionButton) returnFragView.findViewById(R.id.fab_frag_ki_to_main);
-        fabMain.setOnClickListener(new View.OnClickListener() {
+        ImageButton buttonMain = (ImageButton) returnFragView.findViewById(R.id.button_frag_ki_to_main);
+        buttonMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 unlockOrient();

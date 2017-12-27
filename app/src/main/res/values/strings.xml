@@ -2,5 +2,8 @@
     <string name="app_name">Aquene_Dealer</string>
     <string name="action_settings">Paramètres</string>
     <string name="char1">+15</string>
+    <string name="main_action_ki">Ki</string>
+    <string name="main_action_combat">Combat</string>
+    <string name="main_action_skill">Compétences</string>
 
 </resources>

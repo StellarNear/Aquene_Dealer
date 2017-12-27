@@ -1,7 +1,10 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
-    <dimen name="size_icon_main_rota">40dp</dimen>
-    <dimen name="size_icon_main">60dp</dimen>
+    <dimen name="size_icon_main_rota">30dp</dimen>
+    <dimen name="size_icon_main">50dp</dimen>
+    <dimen name="fab_margin_rota">5dp</dimen>
+    <dimen name="size_icon_main_actions">80dp</dimen>
+    <dimen name="size_text_main_actions">12sp</dimen>
 
 
 </resources>

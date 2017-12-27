@@ -17,22 +17,97 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_frag_to_combat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/fab_margin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_frag_to_ki"
+    <LinearLayout
+        android:orientation="vertical"
+        android:gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            tools:ignore="ContentDescription"
+            android:id="@+id/button_frag_to_ki"
+            android:layout_width="@dimen/size_icon_main_actions"
+            android:layout_height="@dimen/size_icon_main_actions"
+            app:srcCompat="@drawable/ki"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:backgroundTint="@android:color/transparent"
+            />
+
+        <TextView
+            android:id="@+id/textKi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/main_action_ki"
+            android:textSize="@dimen/size_text_main_actions"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            tools:ignore="ContentDescription"
+            android:id="@+id/button_frag_to_combat"
+            android:layout_width="@dimen/size_icon_main_actions"
+            android:layout_height="@dimen/size_icon_main_actions"
+            app:srcCompat="@drawable/combat"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:backgroundTint="@android:color/transparent"
+            />
+
+        <TextView
+            android:id="@+id/textCombat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/main_action_combat"
+            android:textSize="@dimen/size_text_main_actions"
+            />
+
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <ImageButton
+            tools:ignore="ContentDescription"
+            android:id="@+id/button_frag_to_skill"
+            android:layout_width="@dimen/size_icon_main_actions"
+            android:layout_height="@dimen/size_icon_main_actions"
+            app:srcCompat="@drawable/skill"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:backgroundTint="@android:color/transparent"
+            />
+
+        <TextView
+            android:id="@+id/textSkill"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/main_action_skill"
+            android:textSize="@dimen/size_text_main_actions"
+            />
+
+
+    </LinearLayout>
+
+
 
 </android.support.constraint.ConstraintLayout>

@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="stellarnear.aquene_dealer.Activities.MainActivityFragmentKi"
+    tools:context="stellarnear.aquene_dealer.Activities.MainActivityFragmentCombat"
     tools:showIn="@layout/activity_main">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="gestion du ki"
+        android:text=" a lot of skill!"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -18,15 +18,16 @@
 
     <ImageButton
         tools:ignore="ContentDescription"
-        android:id="@+id/button_frag_ki_to_main"
+        android:id="@+id/button_frag_skill_to_main"
         android:layout_width="@dimen/size_icon_main_actions"
         android:layout_height="@dimen/size_icon_main_actions"
         android:layout_margin="@dimen/fab_margin"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ki_back"
+        app:srcCompat="@drawable/skill_back"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
         android:backgroundTint="@android:color/transparent"/>
+
 
 </android.support.constraint.ConstraintLayout>

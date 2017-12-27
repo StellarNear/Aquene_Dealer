@@ -2,8 +2,10 @@ package stellarnear.aquene_dealer.Activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Display;
 import android.view.Surface;
@@ -21,7 +23,10 @@ public class HelpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.help_activity);
+        checkOrientStart(ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE);
     }
+
+
 
 
     @Override
@@ -45,5 +50,17 @@ public class HelpActivity extends AppCompatActivity {
                 break;
         }
     }
+    private void checkOrientStart(int screenOrientation) {
+        if (getRequestedOrientation()!=screenOrientation) {
+            setRequestedOrientation(screenOrientation);
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
+                }
+            }, 2500);
 
+        }
+    }
 }

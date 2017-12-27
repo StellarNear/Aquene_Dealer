@@ -33,43 +33,60 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:weightSum="8">
+            android:weightSum="2"
+         >
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="left"
+                android:layout_weight="1">
+                <ImageButton
+                    android:id="@+id/button_to_stance"
+                    android:layout_width="@dimen/size_icon_main"
+                    android:layout_height="@dimen/size_icon_main"
+                    android:scaleType="fitCenter"
+                    android:layout_gravity="center_vertical|left"
+                    app:srcCompat="@drawable/stance_icon"
+                    android:padding="@dimen/fab_margin_rota"
+                    android:backgroundTint="@android:color/transparent"
+                    />
 
-            <ImageButton
-                android:id="@+id/imageButton"
-                android:layout_width="@dimen/size_icon_main"
-                android:layout_height="@dimen/size_icon_main"
-                android:scaleType="fitCenter"
-                android:layout_weight="0.2"
-                app:srcCompat="@drawable/stance_icon"
-                android:backgroundTint="@android:color/transparent"/>
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="@dimen/size_icon_main_rota"
+                    android:layout_height="@dimen/size_icon_main_rota"
+                    android:scaleType="fitCenter"
+                    android:layout_gravity="center_vertical|left"
+                    app:srcCompat="@drawable/rotate_left" />
+            </LinearLayout>
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="@dimen/size_icon_main_rota"
-                android:layout_height="@dimen/size_icon_main_rota"
-                android:scaleType="fitCenter"
-                android:layout_weight="0.2"
-                app:srcCompat="@drawable/rotate_left" />
-
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="right"
+                android:layout_weight="1">
             <ImageView
                 android:id="@+id/imageView2"
                 android:layout_width="@dimen/size_icon_main_rota"
                 android:layout_height="@dimen/size_icon_main_rota"
                 android:scaleType="fitCenter"
+                android:layout_gravity="center_vertical|right"
 
-                android:layout_weight="0.2"
                 app:srcCompat="@drawable/rotate_right" />
 
             <ImageButton
-                android:id="@+id/imageButton2"
+                android:id="@+id/button_to_help"
                 android:layout_width="@dimen/size_icon_main"
                 android:layout_height="@dimen/size_icon_main"
+                android:layout_gravity="center_vertical|right"
+                android:padding="@dimen/fab_margin_rota"
+                android:backgroundTint="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:layout_weight="0.2"
-                app:srcCompat="@drawable/help"
-                android:backgroundTint="@android:color/transparent"/>
+                app:srcCompat="@drawable/help" />
+        </LinearLayout>
 
         </LinearLayout>
 
@@ -77,14 +94,8 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
-
-        <EditText
-            android:id="@+id/editText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textEmailAddress" />
+            android:text="Main Screen"
+            android:textAlignment="center"/>
 
         <include
             layout="@layout/content_main"/>
