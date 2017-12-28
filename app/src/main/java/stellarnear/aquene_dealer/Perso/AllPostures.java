@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.ScaleDrawable;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -45,6 +46,7 @@ public class AllPostures {
                     Element element2 = (Element) node;
                     all_stance.add(new Posture(
                             readValue("name", element2),
+                            readValue("type", element2),
                             readValue("descr", element2),
                             readDrawable("drawable", element2)));
                 }
@@ -70,9 +72,7 @@ public class AllPostures {
 
             int id = mC.getResources().getIdentifier(node.getNodeValue(), "drawable", mC.getPackageName());
 
-            Bitmap b = ((BitmapDrawable) mC.getDrawable(id)).getBitmap();
-            Bitmap bitmapResized = Bitmap.createScaledBitmap(b, (int) mC.getResources().getDimension(R.dimen.stance_icon), (int)mC.getResources().getDimension(R.dimen.stance_icon), false);
-            return new BitmapDrawable(mC.getResources(), bitmapResized);
+            return mC.getDrawable(id);
 
         } catch (Exception e){
             return null;

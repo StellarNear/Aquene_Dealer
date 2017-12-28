@@ -1,6 +1,8 @@
 package stellarnear.aquene_dealer.Perso;
 
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.ScaleDrawable;
+
 import stellarnear.aquene_dealer.R;
 
 /**
@@ -9,10 +11,12 @@ import stellarnear.aquene_dealer.R;
 
 public class Posture {
     String name;
+    String type;
     String descr;
     Drawable img;
-    public Posture(String name,String descr, Drawable img){
+    public Posture(String name,String type,String descr, Drawable img){
         this.name=name;
+        this.type=type;
         this.descr=descr;
         this.img=img;
     }
@@ -25,6 +29,9 @@ public class Posture {
     }
     public String getName(){
         return name;
+    }
+    public String getType(){
+        return type;
     }
 
 }
