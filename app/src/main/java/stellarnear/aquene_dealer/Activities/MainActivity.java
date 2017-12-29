@@ -29,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        checkOrientStart(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -37,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_main, fragment);
-        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -74,6 +72,13 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        checkOrientStart(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

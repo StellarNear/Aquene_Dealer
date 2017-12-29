@@ -11,11 +11,13 @@ import stellarnear.aquene_dealer.R;
 
 public class Posture {
     String name;
+    String shortname;
     String type;
     String descr;
     Drawable img;
-    public Posture(String name,String type,String descr, Drawable img){
+    public Posture(String name,String shortname,String type,String descr, Drawable img){
         this.name=name;
+        this.shortname=shortname;
         this.type=type;
         this.descr=descr;
         this.img=img;
@@ -29,6 +31,9 @@ public class Posture {
     }
     public String getName(){
         return name;
+    }
+    public String getShortName(){
+        return shortname;
     }
     public String getType(){
         return type;

@@ -2,17 +2,61 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+
+>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-    <LinearLayout
-        android:id="@+id/stance_linear"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"></LinearLayout>
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:padding="5dp"
+             >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+
+            android:weightSum="3">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="@dimen/text_size_stance_cat"
+                android:text="@string/stance_cat_1" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="@dimen/text_size_stance_cat"
+                android:text="@string/stance_cat_2" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="@dimen/text_size_stance_cat"
+                android:text="@string/stance_cat_3" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/stance_linear"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"></LinearLayout>
 
     </LinearLayout>
 

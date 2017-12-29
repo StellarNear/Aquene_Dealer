@@ -46,6 +46,7 @@ public class AllPostures {
                     Element element2 = (Element) node;
                     all_stance.add(new Posture(
                             readValue("name", element2),
+                            readShortName("shortname", element2),
                             readValue("type", element2),
                             readValue("descr", element2),
                             readDrawable("drawable", element2)));
@@ -56,6 +57,18 @@ public class AllPostures {
             e.printStackTrace();
         }
     }
+
+    private String readShortName(String shortname, Element element2) {
+        String val = readValue("shortname", element2);
+        if(val.equals(""))
+        {
+            return readValue("name", element2);
+        }
+        else {
+            return val;
+        }
+    }
+
     public String readValue(String tag, Element element) {
         try {
             NodeList nodeList = element.getElementsByTagName(tag).item(0).getChildNodes();

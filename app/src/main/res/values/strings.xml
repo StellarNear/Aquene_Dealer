@@ -5,5 +5,8 @@
     <string name="main_action_ki">Ki</string>
     <string name="main_action_combat">Combat</string>
     <string name="main_action_skill">Compétences</string>
+    <string name="stance_cat_1">Défense</string>
+    <string name="stance_cat_3">Autre</string>
+    <string name="stance_cat_2">Attaque</string>
 
 </resources>

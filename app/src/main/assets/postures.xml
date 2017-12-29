@@ -65,6 +65,7 @@
     </stance>
     <stance>
         <name>Chien esquiveur</name>
+        <shortname>Esquiveur</shortname>
         <type>defense</type>
         <descr>Rayon d’énergie positive. Le personnage doit réussir une attaque de contact à distance pour atteindre le mort-vivant.</descr>
         <drawable>@drawable/leopard_stance_selector</drawable>
@@ -96,7 +97,7 @@
         <drawable>@drawable/dragon_stance_selector</drawable>
     </stance>
     <stance>
-        <name>Chauve souris</name>
+        <name>Chauve-souris</name>
         <type>autre</type>
         <descr>Rayon d’énergie positive. Le personnage doit réussir une attaque de contact à distance pour atteindre le mort-vivant.</descr>
         <drawable>@drawable/leopard_stance_selector</drawable>
@@ -109,6 +110,7 @@
     </stance>
     <stance>
         <name>Chapardeur Ethéré</name>
+        <shortname>Chapardeur</shortname>
         <type>autre</type>
         <descr>Rayon d’énergie positive. Le personnage doit réussir une attaque de contact à distance pour atteindre le mort-vivant.</descr>
         <drawable>@drawable/dragon_stance_selector</drawable>

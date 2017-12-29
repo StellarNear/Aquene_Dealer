@@ -23,8 +23,15 @@ public class HelpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.help_activity);
+
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
         checkOrientStart(ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE);
     }
+
 
 
 
