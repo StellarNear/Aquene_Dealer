@@ -2,42 +2,42 @@
 <records>
     <stance>
         <name>Dragon</name>
-        <type>attaque</type>
+        <type>Attaque</type>
         <descr>Grâce à ce sort, le personnage peut repérer les auras magiques. Les informations fournies par détection de la magie dépendent du temps que le personnage passe à étudier le sujet et ou la zone. Premier round : présence ou absence d’auras magiques. Deuxième round : nombre d’auras magiques et intensité de la plus puissante. Troisième round : intensité et emplacement précis de chaque aura</descr>
         <drawable>@drawable/dragon_stance_selector</drawable>
     </stance>
 
     <stance>
         <name>Faucon</name>
-        <type>attaque</type>
+        <type>Attaque</type>
         <descr>Grâce à ce sort, le personnage peut repérer les auras magiques. Les informations fournies par détection de la magie dépendent du temps que le personnage passe à étudier le sujet et ou la zone. Premier round : présence ou absence d’auras magiques. Deuxième round : nombre d’auras magiques et intensité de la plus puissante. Troisième round : intensité et emplacement précis de chaque aura</descr>
         <drawable>@drawable/falcon_stance_selector</drawable>
     </stance>
 
     <stance>
         <name>Lion</name>
-        <type>attaque</type>
+        <type>Attaque</type>
         <descr>Rayon d’énergie positive. Le personnage doit réussir une attaque de contact à distance pour atteindre le mort-vivant.</descr>
         <drawable>@drawable/lion_stance_selector</drawable>
     </stance>
 
     <stance>
         <name>Loup</name>
-        <type>attaque</type>
+        <type>Attaque</type>
         <descr>Grâce à ce sort, le personnage peut repérer les auras magiques. Les informations fournies par détection de la magie dépendent du temps que le personnage passe à étudier le sujet et ou la zone. Premier round : présence ou absence d’auras magiques. Deuxième round : nombre d’auras magiques et intensité de la plus puissante. Troisième round : intensité et emplacement précis de chaque aura</descr>
         <drawable>@drawable/wolf_stance_selector</drawable>
     </stance>
 
     <stance>
         <name>Oxydeur</name>
-        <type>attaque</type>
+        <type>Attaque</type>
         <descr>Rayon d’énergie positive. Le personnage doit réussir une attaque de contact à distance pour atteindre le mort-vivant.</descr>
         <drawable>@drawable/oxyder_stance_selector</drawable>
     </stance>
 
     <stance>
         <name>Rat</name>
-        <type>attaque</type>
+        <type>Attaque</type>
         <descr>Rayon d’énergie positive. Le personnage doit réussir une attaque de contact à distance pour atteindre le mort-vivant.</descr>
         <drawable>@drawable/rat_stance_selector</drawable>
     </stance>
@@ -45,7 +45,7 @@
 
     <stance>
         <name>Chimpanzé</name>
-        <type>defense</type>
+        <type>Défense</type>
         <descr>Rayon d’énergie positive. Le personnage doit réussir une attaque de contact à distance pour atteindre le mort-vivant.</descr>
         <drawable>@drawable/chimpanzee_stance_selector</drawable>
     </stance>
@@ -53,35 +53,35 @@
     <stance>
         <name>Chien esquiveur</name>
         <shortname>Esquiveur</shortname>
-        <type>defense</type>
+        <type>Défense</type>
         <descr>Rayon d’énergie positive. Le personnage doit réussir une attaque de contact à distance pour atteindre le mort-vivant.</descr>
         <drawable>@drawable/dog_stance_selector</drawable>
     </stance>
 
     <stance>
         <name>Lézard</name>
-        <type>defense</type>
+        <type>Défense</type>
         <descr>Rayon d’énergie positive. Le personnage doit réussir une attaque de contact à distance pour atteindre le mort-vivant.</descr>
         <drawable>@drawable/lizard_stance_selector</drawable>
     </stance>
 
     <stance>
         <name>Ours</name>
-        <type>defense</type>
+        <type>Défense</type>
         <descr>Rayon d’énergie positive. Le personnage doit réussir une attaque de contact à distance pour atteindre le mort-vivant.</descr>
         <drawable>@drawable/bear_stance_selector</drawable>
     </stance>
 
     <stance>
         <name>Phénix</name>
-        <type>defense</type>
+        <type>Défense</type>
         <descr>Rayon d’énergie positive. Le personnage doit réussir une attaque de contact à distance pour atteindre le mort-vivant.</descr>
         <drawable>@drawable/phenix_stance_selector</drawable>
     </stance>
 
     <stance>
         <name>Pieuvre</name>
-        <type>defense</type>
+        <type>Défense</type>
         <descr>Rayon d’énergie positive. Le personnage doit réussir une attaque de contact à distance pour atteindre le mort-vivant.</descr>
         <drawable>@drawable/octopus_stance_selector</drawable>
     </stance>
@@ -90,42 +90,42 @@
     <stance>
         <name>Chapardeur Ethéré</name>
         <shortname>Chapardeur</shortname>
-        <type>autre</type>
+        <type>Autre</type>
         <descr>Rayon d’énergie positive. Le personnage doit réussir une attaque de contact à distance pour atteindre le mort-vivant.</descr>
         <drawable>@drawable/chaparder_stance_selector</drawable>
     </stance>
 
     <stance>
         <name>Chauve-souris</name>
-        <type>autre</type>
+        <type>Autre</type>
         <descr>Rayon d’énergie positive. Le personnage doit réussir une attaque de contact à distance pour atteindre le mort-vivant.</descr>
-        <drawable>@drawable/leopard_stance_selector</drawable>
+        <drawable>@drawable/bat_stance_selector</drawable>
     </stance>
 
     <stance>
         <name>Crabe</name>
-        <type>autre</type>
+        <type>Autre</type>
         <descr>Rayon d’énergie positive. Le personnage doit réussir une attaque de contact à distance pour atteindre le mort-vivant.</descr>
         <drawable>@drawable/crab_stance_selector</drawable>
     </stance>
 
     <stance>
         <name>Léopard</name>
-        <type>autre</type>
+        <type>Autre</type>
         <descr>Rayon d’énergie positive. Le personnage doit réussir une attaque de contact à distance pour atteindre le mort-vivant.</descr>
         <drawable>@drawable/leopard_stance_selector</drawable>
     </stance>
 
     <stance>
         <name>Licorne</name>
-        <type>autre</type>
+        <type>Autre</type>
         <descr>Rayon d’énergie positive. Le personnage doit réussir une attaque de contact à distance pour atteindre le mort-vivant.</descr>
         <drawable>@drawable/unicorn_stance_selector</drawable>
     </stance>
 
     <stance>
         <name>Scorpion</name>
-        <type>autre</type>
+        <type>Autre</type>
         <descr>Rayon d’énergie positive. Le personnage doit réussir une attaque de contact à distance pour atteindre le mort-vivant.</descr>
         <drawable>@drawable/scorpio_stance_selector</drawable>
     </stance>

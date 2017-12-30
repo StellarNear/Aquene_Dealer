@@ -9,13 +9,13 @@ import stellarnear.aquene_dealer.R;
  * Created by jchatron on 27/12/2017.
  */
 
-public class Posture {
+public class Stance {
     String name;
     String shortname;
     String type;
     String descr;
     Drawable img;
-    public Posture(String name,String shortname,String type,String descr, Drawable img){
+    public Stance(String name, String shortname, String type, String descr, Drawable img){
         this.name=name;
         this.shortname=shortname;
         this.type=type;

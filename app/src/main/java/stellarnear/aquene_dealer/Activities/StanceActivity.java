@@ -1,29 +1,19 @@
 package stellarnear.aquene_dealer.Activities;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.InsetDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Layout;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.Surface;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -36,7 +26,7 @@ import java.util.List;
 import java.util.Map;
 
 import stellarnear.aquene_dealer.Perso.Perso;
-import stellarnear.aquene_dealer.Perso.Posture;
+import stellarnear.aquene_dealer.Perso.Stance;
 import stellarnear.aquene_dealer.R;
 
 /**
@@ -45,7 +35,7 @@ import stellarnear.aquene_dealer.R;
 
 public class StanceActivity extends AppCompatActivity {
 
-    Map<RadioButton,Posture> Map_radio_buton_Stance = new HashMap<RadioButton, Posture>();
+    Map<RadioButton,Stance> Map_radio_buton_Stance = new HashMap<RadioButton, Stance>();
     List<RadioGroup> listRadioGroups= new ArrayList<RadioGroup>();
 
     @Override
@@ -55,14 +45,13 @@ public class StanceActivity extends AppCompatActivity {
         Perso Aquene = new Perso(getApplicationContext());
 
         LinearLayout all_rows_stances = findViewById(R.id.stance_linear);
-        all_rows_stances.setWeightSum(12);
+        //all_rows_stances.setWeightSum(12);
 
         RadioGroup select_stance_att = new RadioGroup(this);
         listRadioGroups.add(select_stance_att);
         setListnerMultiRadio(select_stance_att);
-        setParam(select_stance_att);
+
         LinearLayout select_stance_att_names = new LinearLayout(this);
-        setParam(select_stance_att_names);
 
         all_rows_stances.addView(select_stance_att);
         all_rows_stances.addView(select_stance_att_names);
@@ -70,28 +59,26 @@ public class StanceActivity extends AppCompatActivity {
         RadioGroup select_stance_def = new RadioGroup(this);
         listRadioGroups.add(select_stance_def);
         setListnerMultiRadio(select_stance_def);
-        setParam(select_stance_def);
+
         LinearLayout select_stance_def_names = new LinearLayout(this);
-        setParam(select_stance_def_names);
 
         all_rows_stances.addView(select_stance_def);
         all_rows_stances.addView(select_stance_def_names);
 
-        RadioGroup select_stance_autre = new RadioGroup(this);
-        listRadioGroups.add(select_stance_autre);
-        setListnerMultiRadio(select_stance_autre);
-        setParam(select_stance_autre);
-        LinearLayout select_stance_autre_names = new LinearLayout(this);
-        setParam(select_stance_autre_names);
+        RadioGroup select_stance_else = new RadioGroup(this);
+        listRadioGroups.add(select_stance_else);
+        setListnerMultiRadio(select_stance_else);
 
-        all_rows_stances.addView(select_stance_autre);
-        all_rows_stances.addView(select_stance_autre_names);
+        LinearLayout select_stance_else_names = new LinearLayout(this);
 
-        for (Posture stance : Aquene.getStances().getStancesList()){
+        all_rows_stances.addView(select_stance_else);
+        all_rows_stances.addView(select_stance_else_names);
+
+        for (Stance stance : Aquene.getStances().getStancesList()){
             RadioButton icon =new RadioButton(this);
             icon.setButtonDrawable(null);
             icon.setBackground(stance.getImg());
-            LinearLayout.LayoutParams params =new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT,1);
+            LinearLayout.LayoutParams params =new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT);
             params.width=(int) getResources().getDimension(R.dimen.stance_icon);
             params.height=(int) getResources().getDimension(R.dimen.stance_icon);
 
@@ -99,29 +86,37 @@ public class StanceActivity extends AppCompatActivity {
 
             TextView name = new TextView(this);
             name.setText(stance.getShortName());
-            name.setLayoutParams(params);
+            LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(params);
+            params2.height= (int)( 4*  getResources().getDimension(R.dimen.text_size_stance_icons));
+            name.setLayoutParams(params2);
             name.setSingleLine(true);
+            name.setGravity(Gravity.CENTER);
             tooltip(stance,name);
             name.setTextSize(getResources().getDimension(R.dimen.text_size_stance_icons));
-            name.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
             name.setTextColor(Color.DKGRAY);
 
-            if (stance.getType().equals("attaque")){
+            if (stance.getType().equals(getResources().getString(R.string.stance_cat_1))){
                 select_stance_att.addView(icon);
-                select_stance_att_names.addView(name,params);
-            } else if (stance.getType().equals("defense")) {
+                select_stance_att_names.addView(name);
+            } else if (stance.getType().equals(getResources().getString(R.string.stance_cat_2))) {
                 select_stance_def.addView(icon);
                 select_stance_def_names.addView(name);
             } else {
-                select_stance_autre.addView(icon);
-                select_stance_autre_names.addView(name);
+                select_stance_else.addView(icon);
+                select_stance_else_names.addView(name);
             }
 
             Map_radio_buton_Stance.put(icon,stance);
         }
+        setParam(select_stance_att);
+        setParam(select_stance_att_names);
+        setParam(select_stance_def);
+        setParam(select_stance_def_names);
+        setParam(select_stance_else);
+        setParam(select_stance_else_names);
     }
 
-    private void tooltip(final Posture stance,TextView name) {
+    private void tooltip(final Stance stance, TextView name) {
         name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -215,41 +210,23 @@ public class StanceActivity extends AppCompatActivity {
 
     private void setParam(RadioGroup radio) {
         radio.setOrientation(LinearLayout.HORIZONTAL);
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT,3);
-        layoutParams.height=0;
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT);
+        //layoutParams.height=0;
+        //layoutParams.gravity=Gravity.CENTER;
         radio.setLayoutParams(layoutParams);
-        radio.setWeightSum(6);
-        radio.requestLayout();
+        //radio.setWeightSum(6);
+        //radio.setBackgroundColor(Color.BLUE);
+        //radio.requestLayout();
     }
 
     private void setParam(LinearLayout lin) {
         lin.setOrientation(LinearLayout.HORIZONTAL);
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT,1);
-        layoutParams.height=0;
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT);
+        //layoutParams.height=0;
         lin.setLayoutParams(layoutParams);
-        lin.setWeightSum(6);
-        lin.requestLayout();
+        //lin.setBackgroundColor(Color.GRAY);
+        //lin.setWeightSum(6);
+        //lin.requestLayout();
     }
 
-    /*
-    private LinearLayout.LayoutParams elementParam(Drawable img) {
-        int padding =(int)getResources().getDimension(R.dimen.stance_icon_padding);
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT,1);
-        layoutParams.setMargins(padding,padding,padding,padding);
-        smartResize(layoutParams,img);
-        return layoutParams;
-    }
-
-    private void smartResize(LinearLayout.LayoutParams layoutParams, Drawable img) {
-        int max_dim;
-        if (img.getIntrinsicHeight()>img.getIntrinsicWidth()){max_dim=img.getIntrinsicHeight();}else{max_dim=img.getIntrinsicWidth();}
-        int padding =(int)getResources().getDimension(R.dimen.stance_icon_padding);
-      //pour avoir un resize relatif à l'ecran
-
-        //layout.getMeasuredWidth();
-        Float coef = (getResources().getDimension(R.dimen.stance_icon) / max_dim);
-
-        layoutParams.width = (int) ((img.getIntrinsicWidth()+padding)*coef);
-        layoutParams.height=(int) ((img.getIntrinsicHeight()+padding)*coef);
-    }   HARD WAY FAIL */
 }

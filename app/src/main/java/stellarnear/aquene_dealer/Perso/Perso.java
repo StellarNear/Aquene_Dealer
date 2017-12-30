@@ -7,19 +7,19 @@ import android.content.Context;
  */
 
 public class Perso {
-    Caracteristiques cara;
-    Dons dons;
-    Aptitudes apt;
-    Attaques atq;
+    Carac cara;
+    Feats dons;
+    Skills apt;
+    Attacks atq;
     Ki ki;
-    AllPostures stances;
+    AllStances stances;
     Context mC;
     public Perso(Context mC){
         this.mC=mC;
-        stances=new AllPostures(mC);
+        stances=new AllStances(mC);
     }
 
-    public AllPostures getStances() {
+    public AllStances getStances() {
         return stances;
     }
 }

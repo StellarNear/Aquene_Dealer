@@ -1,10 +1,7 @@
 package stellarnear.aquene_dealer.Perso;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.ScaleDrawable;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -17,15 +14,15 @@ import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import stellarnear.aquene_dealer.R;
+
 /**
  * Created by jchatron on 27/12/2017.
  */
 
-public class AllPostures {
-    private List<Posture> all_stance = new ArrayList<Posture>();
+public class AllStances {
+    private List<Stance> all_stance = new ArrayList<Stance>();
     private Context mC;
-    public AllPostures(Context mC) {
+    public AllStances(Context mC) {
         try {
             this.mC=mC;
             InputStream is = mC.getAssets().open("postures.xml");
@@ -44,7 +41,7 @@ public class AllPostures {
                 Node node = nList.item(i);
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
                     Element element2 = (Element) node;
-                    all_stance.add(new Posture(
+                    all_stance.add(new Stance(
                             readValue("name", element2),
                             readShortName("shortname", element2),
                             readValue("type", element2),
@@ -92,7 +89,7 @@ public class AllPostures {
         }
     }
 
-    public List<Posture> getStancesList(){
+    public List<Stance> getStancesList(){
         return all_stance;
     }
 }
