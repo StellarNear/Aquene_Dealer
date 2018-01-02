@@ -6,6 +6,7 @@
     <dimen name="size_icon_main_actions">80dp</dimen>
     <dimen name="size_text_main_actions">12sp</dimen>
     <dimen name="stance_icon">75dp</dimen>
+    <dimen name="stance_icon_tooltip">150dp</dimen>
     <dimen name="stance_icon_padding">3dp</dimen>
     <dimen name="text_size_stance_icons">4sp</dimen>
     <dimen name="text_size_stance_cat">16sp</dimen>

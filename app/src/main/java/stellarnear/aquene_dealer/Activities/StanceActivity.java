@@ -12,9 +12,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Surface;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -54,6 +57,21 @@ public class StanceActivity extends AppCompatActivity {
         createGripSelector(all_rows_stances);
 
         selectActiveStance();
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        checkOrientStart(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        finish();
+        super.onDestroy();
+        Runtime.getRuntime().gc();
+        System.gc();
     }
 
     private void selectActiveStance() {
@@ -141,19 +159,37 @@ public class StanceActivity extends AppCompatActivity {
         setParam(select_stance_else_names);
     }
 
-    private void tooltip(final Stance stance, TextView name) {
+    public void tooltip(final Stance stance, TextView name) {
         name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toatIt(stance.getDescr());
+                toatIt(stance.getSelected_image_path(),stance.getName(),stance.getDescr());
+
             }
         });
     }
 
-    private void toatIt(String descr) {
-        Toast toast = Toast.makeText(getApplicationContext(), descr, Toast.LENGTH_LONG);
+    public void toatIt(String img_path,String name_txt,String descr_txt) {
+        LayoutInflater inflater = getLayoutInflater();
+        View view = inflater.inflate(R.layout.custom_toast,(ViewGroup) findViewById(R.id.toast_RelativeLayout));
+
+        ImageView img =  view.findViewById(R.id.toast_image);
+        int img_id = getResources().getIdentifier(img_path, "drawable", getPackageName());
+        img.setImageResource(img_id);
+        TextView name = view.findViewById(R.id.toast_textName);
+        name.setText(name_txt);
+        TextView descr = view.findViewById(R.id.toast_textDescr);
+        descr.setText(descr_txt);
+
+        Toast toast = new Toast(this);
+        toast.setDuration(Toast.LENGTH_LONG);
+
+
+
+        toast.setView(view);
         toast.setGravity(Gravity.CENTER|Gravity.CENTER_HORIZONTAL,0,0);
         toast.show();
+
     }
 
     private void setListnerMultiRadio(RadioGroup radio_sub) {
@@ -188,11 +224,6 @@ public class StanceActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onResume(){
-        super.onResume();
-        checkOrientStart(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-    }
 
 
 

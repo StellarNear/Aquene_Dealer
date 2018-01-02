@@ -32,6 +32,13 @@ public class HelpActivity extends AppCompatActivity {
         checkOrientStart(ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE);
     }
 
+    @Override
+    protected void onDestroy() {
+        finish();
+        super.onDestroy();
+        Runtime.getRuntime().gc();
+        System.gc();
+    }
 
 
 

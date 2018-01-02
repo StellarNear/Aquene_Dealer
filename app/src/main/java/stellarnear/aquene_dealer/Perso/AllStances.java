@@ -47,7 +47,7 @@ public class AllStances implements Serializable {
                             readShortName("shortname", element2),
                             readValue("type", element2),
                             readValue("descr", element2),
-                            readSelectorPath("drawable", element2)));
+                            readValue("id", element2)));
                 }
             }
 
@@ -72,16 +72,6 @@ public class AllStances implements Serializable {
             NodeList nodeList = element.getElementsByTagName(tag).item(0).getChildNodes();
             Node node = nodeList.item(0);
             return node.getNodeValue();
-        } catch (Exception e){
-            return "";
-        }
-    }
-    public String readSelectorPath(String tag, Element element) {
-        try {
-            NodeList nodeList = element.getElementsByTagName(tag).item(0).getChildNodes();
-            Node node = nodeList.item(0);
-            return node.getNodeValue();
-
         } catch (Exception e){
             return "";
         }

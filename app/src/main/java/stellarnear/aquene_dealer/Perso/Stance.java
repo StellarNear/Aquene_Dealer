@@ -16,19 +16,26 @@ public class Stance implements Serializable {
     String shortname;
     String type;
     String descr;
+    String id;
     String selector_path;
+    String selected_image_path;
     Boolean active;
-    public Stance(String name, String shortname, String type, String descr, String selector_path){
+    public Stance(String name, String shortname, String type, String descr, String id){
         this.active=false;
         this.name=name;
         this.shortname=shortname;
         this.type=type;
         this.descr=descr;
-        this.selector_path=selector_path;
+        this.id=id;
+        this.selector_path=id+"_stance_selector";
+        this.selected_image_path=id+"_select";
     }
 
     public String getSelector_path(){
         return selector_path;
+    }
+    public String getSelected_image_path(){
+        return selected_image_path;
     }
     public String getDescr(){
         return descr;
