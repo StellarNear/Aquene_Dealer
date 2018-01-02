@@ -21,16 +21,30 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 
+import java.io.Serializable;
+
+import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.R;
 
 public class MainActivity extends AppCompatActivity {
-
+    Perso Aquene;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        Intent i = getIntent();
+        if(getIntent().getExtras()!=null) {
+            if (getIntent().getExtras().containsKey("perso")) {
+                Aquene = (Perso) i.getSerializableExtra("perso");
+            } else {
+                Aquene = new Perso(getApplicationContext());
+            }
+        } else {
+            Aquene = new Perso(getApplicationContext());
+        }
+
 
         Fragment fragment = new MainActivityFragment();
         FragmentManager fragmentManager = getFragmentManager();
@@ -109,11 +123,13 @@ public class MainActivity extends AppCompatActivity {
 
             case Surface.ROTATION_90:
                 Intent intent_stance = new Intent(MainActivity.this, StanceActivity.class);
+                intent_stance.putExtra("perso", (Serializable) Aquene);
                 startActivity(intent_stance);
                 break;
 
             case Surface.ROTATION_270:
                 Intent intent_help = new Intent(MainActivity.this, HelpActivity.class);
+                intent_help.putExtra("perso", (Serializable) Aquene);
                 startActivity(intent_help);
                 break;
         }

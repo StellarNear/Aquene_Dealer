@@ -9,6 +9,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import java.io.InputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,9 +20,9 @@ import javax.xml.parsers.DocumentBuilderFactory;
  * Created by jchatron on 27/12/2017.
  */
 
-public class AllStances {
+public class AllStances implements Serializable {
     private List<Stance> all_stance = new ArrayList<Stance>();
-    private Context mC;
+    private transient  Context mC;
     public AllStances(Context mC) {
         try {
             this.mC=mC;
@@ -46,7 +47,7 @@ public class AllStances {
                             readShortName("shortname", element2),
                             readValue("type", element2),
                             readValue("descr", element2),
-                            readDrawable("drawable", element2)));
+                            readSelectorPath("drawable", element2)));
                 }
             }
 
@@ -75,21 +76,25 @@ public class AllStances {
             return "";
         }
     }
-    public Drawable readDrawable(String tag, Element element) {
+    public String readSelectorPath(String tag, Element element) {
         try {
             NodeList nodeList = element.getElementsByTagName(tag).item(0).getChildNodes();
             Node node = nodeList.item(0);
-
-            int id = mC.getResources().getIdentifier(node.getNodeValue(), "drawable", mC.getPackageName());
-
-            return mC.getDrawable(id);
+            return node.getNodeValue();
 
         } catch (Exception e){
-            return null;
+            return "";
         }
     }
 
     public List<Stance> getStancesList(){
         return all_stance;
+    }
+
+    public void activateStance(Stance selected_stance) {
+        for (Stance stance : all_stance ){
+            stance.desactivate();
+        }
+        selected_stance.activate();
     }
 }
