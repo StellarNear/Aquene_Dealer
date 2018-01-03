@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
@@ -14,17 +15,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.app.Fragment;
 import android.view.Display;
+import android.view.MotionEvent;
 import android.view.Surface;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
-import java.io.Serializable;
-
-import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.R;
+import stellarnear.aquene_dealer.Perso.Perso;
+
 
 public class MainActivity extends AppCompatActivity {
     public static Perso aquene;
@@ -32,11 +36,31 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (aquene == null) {
+            aquene = new Perso(getApplicationContext());
+            ImageView image = new ImageView(this);
+            image.setImageDrawable(getDrawable(R.drawable.monk_female_background));
+            image.setBackgroundColor(getColor(R.color.start_back_color));
+
+            setContentView(image);
+
+            image.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View arg0, MotionEvent arg1) {
+                    buildMainPage();
+                    return true;//always return true to consume event
+                }
+            });
+        } else { //si on a déja eu un lancement
+            buildMainPage();
+        }
+    }
+
+    private void buildMainPage() {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        if (aquene == null) {aquene =new Perso(getApplicationContext());}
-
         Fragment fragment = new MainActivityFragment();
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -68,7 +92,6 @@ public class MainActivity extends AppCompatActivity {
                 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE);
             }
         });
-
     }
 
     @Override
@@ -147,6 +170,14 @@ public class MainActivity extends AppCompatActivity {
             }, 2500);
 
         }
+    }
+
+    private void lockOrient() {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+    }
+
+    private void unlockOrient() {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
     }
 
 }
