@@ -1,15 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="version">"pre-alpha"</string>
-    <string name="basic_infos">"Cette application est développée par un ami pour un ami.
-Développée avec amour par Jérémie Chatron en fin 2017 pour son 3/4."
+    <string name="version">"v1.0"</string>
+    <string name="basic_infos">"Cette application est développée par un ami pour son 3/4.
+Développée avec amour par Jérémie Chatron en fin 2017."
     </string>
 
 <string name="patch_list">
     "----------------------------------------------------------------------------------
-    rien pour l'instant
-    lol
-    -test align
+    v1.0
+
+    Activité Principale :
+
+    Activité Aide :
+
+    Activité Posture :
+    -Creation des 18 logos couleur et noir et blanc
+    -Multi ligne selection exclusive
+    -Tooltip auto-généré avec descrription des postures quand clic sur le texte
+    -Sauvegarde dans le Perso de la stance
+
+    Général :
+
     "
 </string>
 

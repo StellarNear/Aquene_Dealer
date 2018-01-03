@@ -10,14 +10,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
+import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.R;
 
 /**
  * A placeholder fragment containing a simple view.
  */
 public class MainActivityFragmentCombat extends Fragment {
-
+    Perso aquene = MainActivity.aquene;
     public MainActivityFragmentCombat() {
     }
 
@@ -31,6 +33,9 @@ public class MainActivityFragmentCombat extends Fragment {
 
 
         View returnFragView= inflater.inflate(R.layout.fragment_main_combat, container, false);
+
+        TextView testTextFor=returnFragView.findViewById(R.id.textCombat);
+        testTextFor.setText("La valeur de la force est :"+aquene.getCurrentFor());
 
         ImageButton buttonMain = (ImageButton) returnFragView.findViewById(R.id.button_frag_combat_to_main);
         buttonMain.setOnClickListener(new View.OnClickListener() {

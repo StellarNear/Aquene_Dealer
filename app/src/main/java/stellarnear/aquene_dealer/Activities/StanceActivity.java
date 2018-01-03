@@ -24,12 +24,10 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.Perso.Stance;
@@ -43,14 +41,11 @@ public class StanceActivity extends AppCompatActivity {
 
     Map<Stance,RadioButton> Map_radio_buton_Stance = new HashMap<Stance,RadioButton>();
     List<RadioGroup> listRadioGroups= new ArrayList<RadioGroup>();
-    Perso Aquene;
+    Perso aquene = MainActivity.aquene;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.stance_activity);
-
-        Intent i = getIntent();
-        Aquene = (Perso) i.getSerializableExtra("perso");
 
         LinearLayout all_rows_stances = findViewById(R.id.stance_linear);
 
@@ -75,11 +70,10 @@ public class StanceActivity extends AppCompatActivity {
     }
 
     private void selectActiveStance() {
-        for (Stance stance : Aquene.getStances().getStancesList()){
-            if (stance.isActive()) {
-                Log.d("-State-","lecture : On a une stance active"+stance.getName());
-                Map_radio_buton_Stance.get(stance).setChecked(true);
-            }
+        Stance currentStance = aquene.getStances().getCurrentStance();
+        if(currentStance!=null)
+        {
+            Map_radio_buton_Stance.get(currentStance).setChecked(true);
         }
     }
 
@@ -112,7 +106,7 @@ public class StanceActivity extends AppCompatActivity {
         all_rows_stances.addView(select_stance_else_names);
 
 
-        for (Stance stance : Aquene.getStances().getStancesList()){
+        for (Stance stance : aquene.getStances().getStancesList()){
             RadioButton icon =new RadioButton(this);
             icon.setButtonDrawable(null);
 
@@ -236,7 +230,6 @@ public class StanceActivity extends AppCompatActivity {
             case Surface.ROTATION_0:
                 saveStance();
                 Intent intent_main = new Intent(StanceActivity.this, MainActivity.class);
-                intent_main.putExtra("perso", (Serializable) Aquene);
                 startActivity(intent_main);
                 break;
 
@@ -244,10 +237,9 @@ public class StanceActivity extends AppCompatActivity {
                 //on y est deja
                 break;
 
-            case Surface.ROTATION_270:
+            case Surface.ROTATION_180:
                 saveStance();
                 Intent intent_help = new Intent(StanceActivity.this, HelpActivity.class);
-                intent_help.putExtra("perso", (Serializable) Aquene);
                 startActivity(intent_help);
                 break;
         }
@@ -257,7 +249,7 @@ public class StanceActivity extends AppCompatActivity {
         for (Map.Entry<Stance,RadioButton> entry : Map_radio_buton_Stance.entrySet()){
             if(entry.getValue().isChecked()){
                 Log.d("-State-","écriture : On a une stance active"+entry.getKey().getName());
-                Aquene.getStances().activateStance(entry.getKey());
+                aquene.getStances().activateStance(entry.getKey());
             }
         }
     }

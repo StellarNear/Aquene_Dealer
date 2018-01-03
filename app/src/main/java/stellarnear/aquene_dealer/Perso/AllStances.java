@@ -20,9 +20,10 @@ import javax.xml.parsers.DocumentBuilderFactory;
  * Created by jchatron on 27/12/2017.
  */
 
-public class AllStances implements Serializable {
+public class AllStances  {
     private List<Stance> all_stance = new ArrayList<Stance>();
-    private transient  Context mC;
+    private Context mC;
+    private Stance currentStance;
     public AllStances(Context mC) {
         try {
             this.mC=mC;
@@ -86,5 +87,17 @@ public class AllStances implements Serializable {
             stance.desactivate();
         }
         selected_stance.activate();
+        currentStance=selected_stance;
+    }
+    public Stance getCurrentStance(){
+        return currentStance;
+    }
+
+    public boolean isActive(String id){
+        boolean active=false;
+        if (currentStance!=null && currentStance.getId().contains(id)){
+            active=true;
+        }
+        return  active;
     }
 }

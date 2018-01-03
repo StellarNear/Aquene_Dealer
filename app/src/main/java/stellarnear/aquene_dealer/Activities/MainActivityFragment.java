@@ -10,13 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
+import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.R;
 
 /**
  * A placeholder fragment containing a simple view.
  */
 public class MainActivityFragment extends Fragment {
-
+    Perso aquene = MainActivity.aquene;
     public MainActivityFragment() {
     }
 
@@ -27,6 +28,7 @@ public class MainActivityFragment extends Fragment {
         if (container != null) {
             container.removeAllViews();
         }
+
         View returnFragView= inflater.inflate(R.layout.fragment_main, container, false);
 
         ImageButton fabCombat = (ImageButton) returnFragView.findViewById(R.id.button_frag_to_combat);

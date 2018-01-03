@@ -2,11 +2,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <stellarnear.aquene_dealer.Divers.EditTextPreference
-        android:defaultValue="@string/char1"
-        android:key="cara1"
-        android:title="Valeur Char1"
+        android:defaultValue="@integer/carac_baseFOR_DEF"
+        android:key="carac_baseFOR"
+        android:title="Valeur Force"
         android:selectAllOnFocus="true"
         android:singleLine="true"
+        android:inputType="number"
         android:summary="Valeur : %s"/>
 
 

@@ -11,6 +11,7 @@ import android.view.Display;
 import android.view.Surface;
 import android.view.WindowManager;
 
+import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.R;
 
 /**
@@ -18,6 +19,7 @@ import stellarnear.aquene_dealer.R;
  */
 
 public class HelpActivity extends AppCompatActivity {
+    Perso aquene = MainActivity.aquene;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +56,7 @@ public class HelpActivity extends AppCompatActivity {
                 startActivity(intent_main);
                 break;
 
-            case Surface.ROTATION_90:
+            case Surface.ROTATION_180:
                 Intent intent_stance = new Intent(HelpActivity.this, StanceActivity.class);
                 startActivity(intent_stance);
                 break;

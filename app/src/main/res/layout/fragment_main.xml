@@ -39,7 +39,7 @@
             />
 
         <TextView
-            android:id="@+id/textKi"
+            android:id="@+id/textKiActionTooltip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/main_action_ki"
@@ -70,7 +70,7 @@
             />
 
         <TextView
-            android:id="@+id/textCombat"
+            android:id="@+id/textCombatActionTooltip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/main_action_combat"
@@ -98,7 +98,7 @@
             />
 
         <TextView
-            android:id="@+id/textSkill"
+            android:id="@+id/textSkillActionTooltip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/main_action_skill"

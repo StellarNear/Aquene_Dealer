@@ -11,7 +11,7 @@ import stellarnear.aquene_dealer.R;
  * Created by jchatron on 27/12/2017.
  */
 
-public class Stance implements Serializable {
+public class Stance {
     String name;
     String shortname;
     String type;
@@ -62,4 +62,7 @@ public class Stance implements Serializable {
         this.active=false;
     }
 
+    public String getId() {
+        return id;
+    }
 }
