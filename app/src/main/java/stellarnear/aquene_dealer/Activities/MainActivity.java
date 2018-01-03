@@ -20,6 +20,7 @@ import android.view.Surface;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -44,10 +45,13 @@ public class MainActivity extends AppCompatActivity {
             image.setBackgroundColor(getColor(R.color.start_back_color));
 
             setContentView(image);
+            final Window window = getWindow();
+            window.setStatusBarColor(getColor(R.color.start_back_color));
 
             image.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View arg0, MotionEvent arg1) {
+                    window.setStatusBarColor(getColor(R.color.colorPrimaryDark));
                     buildMainPage();
                     return true;//always return true to consume event
                 }
