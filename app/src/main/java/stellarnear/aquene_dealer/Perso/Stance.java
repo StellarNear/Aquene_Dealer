@@ -12,14 +12,14 @@ import stellarnear.aquene_dealer.R;
  */
 
 public class Stance {
-    String name;
-    String shortname;
-    String type;
-    String descr;
-    String id;
-    String selector_path;
-    String selected_image_path;
-    Boolean active;
+    private String name;
+    private String shortname;
+    private String type;
+    private String descr;
+    private String id;
+    private String selector_path;
+    private String selected_image_path;
+    private Boolean active;
     public Stance(String name, String shortname, String type, String descr, String id){
         this.active=false;
         this.name=name;

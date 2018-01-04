@@ -39,7 +39,8 @@ import stellarnear.aquene_dealer.R;
 
 public class StanceActivity extends AppCompatActivity {
 
-    Map<Stance,RadioButton> Map_radio_buton_Stance = new HashMap<Stance,RadioButton>();
+    Map<Stance,RadioButton> mapStanceRadioButton = new HashMap<Stance,RadioButton>();
+    Map<RadioButton,Stance> mapRadioButtonStance = new HashMap<RadioButton,Stance>();
     List<RadioGroup> listRadioGroups= new ArrayList<RadioGroup>();
     Perso aquene = MainActivity.aquene;
     @Override
@@ -70,11 +71,14 @@ public class StanceActivity extends AppCompatActivity {
     }
 
     private void selectActiveStance() {
-        Stance currentStance = aquene.getStances().getCurrentStance();
+        Stance currentStance = aquene.getAllStances().getCurrentStance();
+        String title=getString(R.string.stance_activity) +" (sélectionnez une posture)";
         if(currentStance!=null)
         {
-            Map_radio_buton_Stance.get(currentStance).setChecked(true);
+            mapStanceRadioButton.get(currentStance).setChecked(true);
+            title=getString(R.string.stance_activity) +" (posture actuelle : "+currentStance.getName()+")";
         }
+        getSupportActionBar().setTitle(title);
     }
 
     private void createGripSelector(LinearLayout all_rows_stances) {
@@ -106,7 +110,7 @@ public class StanceActivity extends AppCompatActivity {
         all_rows_stances.addView(select_stance_else_names);
 
 
-        for (Stance stance : aquene.getStances().getStancesList()){
+        for (Stance stance : aquene.getAllStances().getStancesList()){
             RadioButton icon =new RadioButton(this);
             icon.setButtonDrawable(null);
 
@@ -143,7 +147,8 @@ public class StanceActivity extends AppCompatActivity {
                 select_stance_else_names.addView(name);
             }
 
-            Map_radio_buton_Stance.put(stance,icon);
+            mapStanceRadioButton.put(stance,icon);
+            mapRadioButtonStance.put(icon,stance);
         }
         setParam(select_stance_att);
         setParam(select_stance_att_names);
@@ -178,8 +183,6 @@ public class StanceActivity extends AppCompatActivity {
         Toast toast = new Toast(this);
         toast.setDuration(Toast.LENGTH_LONG);
 
-
-
         toast.setView(view);
         toast.setGravity(Gravity.CENTER|Gravity.CENTER_HORIZONTAL,0,0);
         toast.show();
@@ -192,7 +195,7 @@ public class StanceActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 Log.d("-State-","Changement de bouton");
-                // checkedId is the RadioButton
+                unCheckAllRadio(group,this);
                 RadioButton checkedRadioButton = (RadioButton)group.findViewById(checkedId);
                 // This puts the value (true/false) into the variable
                 boolean isChecked = checkedRadioButton.isChecked();
@@ -200,9 +203,8 @@ public class StanceActivity extends AppCompatActivity {
                 if (isChecked)
                 {
                     //do stuff with active stance
+                    saveStance(checkedRadioButton);
                 }
-                unCheckAllRadio(group,this);
-                //refreshText(Map_id_radio_buton_Stance.get(checkedId).getName());
             }
         });
 
@@ -226,37 +228,26 @@ public class StanceActivity extends AppCompatActivity {
         super.onConfigurationChanged(newConfig);
         final Display display = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
 
-        switch (display.getRotation()) {
-            case Surface.ROTATION_0:
-                saveStance();
-                Intent intent_main = new Intent(StanceActivity.this, MainActivity.class);
-                startActivity(intent_main);
-                break;
-
-            case Surface.ROTATION_90:
-                //on y est deja
-                break;
-
-            case Surface.ROTATION_180:
-                saveStance();
-                Intent intent_help = new Intent(StanceActivity.this, HelpActivity.class);
-                startActivity(intent_help);
-                break;
+        if (display.getRotation()==Surface.ROTATION_0) {
+            Intent intent_main = new Intent(StanceActivity.this, MainActivity.class);
+            startActivity(intent_main);
+        }
+        if (display.getRotation()==Surface.ROTATION_180) {
+            Intent intent_main = new Intent(StanceActivity.this, MainActivity.class);
+            startActivity(intent_main);
         }
     }
 
-    private void saveStance() {
-        for (Map.Entry<Stance,RadioButton> entry : Map_radio_buton_Stance.entrySet()){
-            if(entry.getValue().isChecked()){
-                Log.d("-State-","écriture : On a une stance active"+entry.getKey().getName());
-                aquene.getStances().activateStance(entry.getKey());
-            }
-        }
+    private void saveStance(RadioButton selectedButton) {
+        aquene.getAllStances().activateStance(mapRadioButtonStance.get(selectedButton));
+        String title=getString(R.string.stance_activity) +" (posture actuelle : "+mapRadioButtonStance.get(selectedButton).getName()+")";
+        getSupportActionBar().setTitle(title);
     }
 
     private void checkOrientStart(int screenOrientation) {
         if (getRequestedOrientation()!=screenOrientation) {
             setRequestedOrientation(screenOrientation);
+
             final Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override

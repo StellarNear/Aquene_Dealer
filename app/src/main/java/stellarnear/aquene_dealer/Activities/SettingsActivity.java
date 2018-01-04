@@ -8,12 +8,14 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
+import android.preference.PreferenceScreen;
+import android.preference.SwitchPreference;
 import android.support.v7.widget.ContentFrameLayout;
 import android.view.Gravity;
 import android.view.MenuItem;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -22,6 +24,8 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import stellarnear.aquene_dealer.Perso.Feat;
+import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.R;
 
 import java.util.List;
@@ -119,10 +123,55 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static class CombatPreferenceFragment extends PreferenceFragment {
+        Perso aquene=MainActivity.aquene;
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.pref_combat);
+            PreferenceScreen screen = this.getPreferenceScreen();
+            PreferenceCategory active= new PreferenceCategory(getContext());
+            active.setTitle(getString(R.string.feat_active));
+            screen.addPreference(active);
+            PreferenceCategory def= new PreferenceCategory(getContext());
+            def.setTitle(getString(R.string.feat_def));
+            screen.addPreference(def);
+            PreferenceCategory atk= new PreferenceCategory(getContext());
+            atk.setTitle(getString(R.string.feat_atk));
+            screen.addPreference(atk);
+            PreferenceCategory other= new PreferenceCategory(getContext());
+            other.setTitle(getString(R.string.feat_other));
+            screen.addPreference(other);
+            PreferenceCategory stance= new PreferenceCategory(getContext());
+            stance.setTitle(getString(R.string.feat_stance));
+            screen.addPreference(stance);
+
+            for (Feat feat : aquene.getAllFeats().getFeatsList()){
+                SwitchPreference switch_feat = new SwitchPreference(getContext());
+                switch_feat.setKey(feat.getId());
+                switch_feat.setTitle(feat.getName());
+                switch_feat.setSummary(feat.getDescr());
+                boolean switch_def=false;
+                try {
+                    int switch_def_id = getResources().getIdentifier(feat.getId(), "bool", getActivity().getPackageName());
+                    switch_def = getResources().getBoolean(switch_def_id);
+                } catch (Exception e){
+                }
+                switch_feat.setDefaultValue(switch_def);
+                if(feat.getType().contains("feat_active")){
+                    active.addPreference(switch_feat);
+                } else if(feat.getType().equals("feat_def")){
+                    def.addPreference(switch_feat);
+                } else if(feat.getType().contains("feat_atk")){
+                    atk.addPreference(switch_feat);
+                } else if(feat.getType().contains("feat_other")){
+                    other.addPreference(switch_feat);
+                } else if(feat.getType().contains("feat_stance")){
+                    stance.addPreference(switch_feat);
+                } else {
+                    screen.addPreference(switch_feat);
+                }
+            }
+
             setHasOptionsMenu(true);
 
         }

@@ -1,5 +1,6 @@
 package stellarnear.aquene_dealer.Perso;
 
+
 import android.content.Context;
 
 import org.w3c.dom.Document;
@@ -9,27 +10,29 @@ import org.w3c.dom.NodeList;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 /**
- * Created by jchatron on 27/12/2017.
+ * Created by jchatron on 26/12/2017.
  */
 
-public class AllStances  {
-    private List<Stance> all_stances = new ArrayList<Stance>();
-    private Context mC;
-    private Stance currentStance;
-    public AllStances(Context mC) {
-        this.mC=mC;
-        buildStancesList();
+public class AllFeats {
+    Context mC;
+    List<Feat> all_feats= new ArrayList<>();
+    public AllFeats(Context mC)
+    {
+        this.mC = mC;
+        buildFeatsList();
     }
 
-    private void buildStancesList() {
+    private void buildFeatsList() {
         try {
-            InputStream is = mC.getAssets().open("postures.xml");
+            InputStream is = mC.getAssets().open("dons.xml");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(is);
@@ -37,19 +40,20 @@ public class AllStances  {
             Element element = doc.getDocumentElement();
             element.normalize();
 
-            NodeList nList = doc.getElementsByTagName("stance");
+            NodeList nList = doc.getElementsByTagName("don");
 
             for (int i = 0; i < nList.getLength(); i++) {
 
                 Node node = nList.item(i);
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
                     Element element2 = (Element) node;
-                    all_stances.add(new Stance(
+                    all_feats.add(new Feat(
                             readValue("name", element2),
-                            readShortName("shortname", element2),
                             readValue("type", element2),
                             readValue("descr", element2),
-                            readValue("id", element2)));
+                            readValue("id", element2),
+                            readValue("stance_id", element2),
+                            mC));
                 }
             }
 
@@ -58,18 +62,31 @@ public class AllStances  {
         }
     }
 
-    private String readShortName(String shortname, Element element2) {
-        String val = readValue("shortname", element2);
-        if(val.equals(""))
-        {
-            return readValue("name", element2);
-        }
-        else {
-            return val;
-        }
+    public List<Feat> getFeatsList(){
+        return all_feats;
     }
 
-    private String readValue(String tag, Element element) {
+    public Feat getFeat(String feat_id) {
+        Feat selected_feat=null;
+        for (Feat feat :all_feats){
+            if (feat.getId().equals(feat_id))
+            {
+                selected_feat=feat;
+            }
+        }
+        return selected_feat;
+    }
+
+    public boolean isActive(String id){
+        Feat wanted_feat=getFeat(id);
+        boolean active=false;
+        if (wanted_feat!=null && wanted_feat.isActive()){
+            active=true;
+        }
+        return  active;
+    }
+
+    public String readValue(String tag, Element element) {
         try {
             NodeList nodeList = element.getElementsByTagName(tag).item(0).getChildNodes();
             Node node = nodeList.item(0);
@@ -79,26 +96,10 @@ public class AllStances  {
         }
     }
 
-    public List<Stance> getStancesList(){
-        return all_stances;
-    }
 
-    public void activateStance(Stance selected_stance) {
-        for (Stance stance : all_stances){
-            stance.desactivate();
+    public void refreshAllSwitch() {
+        for (Feat feat : all_feats){
+            feat.refreshSwitch();
         }
-        selected_stance.activate();
-        currentStance=selected_stance;
-    }
-    public Stance getCurrentStance(){
-        return currentStance;
-    }
-
-    public boolean isActive(String id){
-        boolean active=false;
-        if (currentStance!=null && currentStance.getId().contains(id)){
-            active=true;
-        }
-        return  active;
     }
 }

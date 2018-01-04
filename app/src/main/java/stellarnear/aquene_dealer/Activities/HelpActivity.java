@@ -42,30 +42,21 @@ public class HelpActivity extends AppCompatActivity {
         System.gc();
     }
 
-
-
-
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         final Display display = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
 
-        switch (display.getRotation()) {
-            case Surface.ROTATION_0:
-                Intent intent_main = new Intent(HelpActivity.this, MainActivity.class);
-                startActivity(intent_main);
-                break;
-
-            case Surface.ROTATION_180:
-                Intent intent_stance = new Intent(HelpActivity.this, StanceActivity.class);
-                startActivity(intent_stance);
-                break;
-
-            case Surface.ROTATION_270:
-                //on y est deja
-                break;
+        if (display.getRotation()==Surface.ROTATION_0) {
+            Intent intent_main = new Intent(HelpActivity.this, MainActivity.class);
+            startActivity(intent_main);
+        }
+        if (display.getRotation()==Surface.ROTATION_180) {
+            Intent intent_main = new Intent(HelpActivity.this, MainActivity.class);
+            startActivity(intent_main);
         }
     }
+
     private void checkOrientStart(int screenOrientation) {
         if (getRequestedOrientation()!=screenOrientation) {
             setRequestedOrientation(screenOrientation);

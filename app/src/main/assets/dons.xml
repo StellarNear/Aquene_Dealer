@@ -1,0 +1,150 @@
+<?xml version="1.0"?>
+<records>
+    <!-- feat_active -->
+    <don>
+        <name>Coup étourdissant</name>
+        <type>feat_active</type>
+        <descr>Bam t'es stun :D</descr>
+        <id>stun</id>
+    </don>
+    <don>
+        <name>Science de la vigeur surhumaine</name>
+        <type>feat_active</type>
+        <descr>aaa</descr>
+        <id>inhuman_stamina_sup</id>
+    </don>
+    <don>
+        <name>Science de la volonté de fer</name>
+        <type>feat_active</type>
+        <descr>aaa</descr>
+        <id>iron_will_sup</id>
+    </don>
+    <don>
+        <name>Parade de projectile</name>
+        <type>feat_active</type>
+        <descr>aaa</descr>
+        <id>proj_parade</id>
+    </don>
+    <don>
+        <name>Combat en aveugle</name>
+        <type>feat_active</type>
+        <descr>aaa</descr>
+        <id>blind_fight</id>
+    </don>
+
+    <!-- feat_atk -->
+    <don>
+        <name>Ecole du scorpion</name>
+        <type>feat_atk</type>
+        <descr>Blablalbalba blablalba blabl bablalbalbalba</descr>
+        <id>scorpio</id>
+    </don>
+    <don>
+        <name>Poing de la gorgone</name>
+        <type>feat_atk</type>
+        <descr>Ca tappe fort</descr>
+        <id>gorgon</id>
+    </don>
+    <don>
+        <name>Fureur de la méduse</name>
+        <type>feat_atk</type>
+        <descr>Blablalbalba blablalba blabl bablalbalbalba</descr>
+        <id>medusa</id>
+    </don>
+    <don>
+        <name>Science du critique</name>
+        <type>feat_atk</type>
+        <descr>Blablalbalba blablalba blabl bablalbalbalba</descr>
+        <id>crit_sup</id>
+    </don>
+    <don>
+        <name>Don pour les critiques</name>
+        <type>feat_atk</type>
+        <descr>Blablalbalba blablalba blabl bablalbalbalba</descr>
+        <id>crit</id>
+    </don>
+    <don>
+        <name>Maitrise des écoles</name>
+        <type>feat_atk</type>
+        <descr>Blablalbalba blablalba blabl bablalbalbalba</descr>
+        <id>stance_master</id>
+    </don>
+
+    <don>
+        <name>Esquive totale</name>
+        <type>feat_def</type>
+        <descr>Esquive olé !</descr>
+        <id>total_evade</id>
+    </don>
+
+    <don>
+        <name>Coups Vifs</name>
+        <type>feat_atk</type>
+        <descr>a</descr>
+        <id>keen_strike</id>
+    </don>
+
+    <!-- DEF -->
+    <don>
+        <name>Esquive surnaturelle</name>
+        <type>feat_def</type>
+        <descr>Esquive olé !</descr>
+        <id>inhuman_evade</id>
+    </don>
+    <don>
+        <name>Volonté de fer</name>
+        <type>feat_def</type>
+        <descr>a</descr>
+        <id>iron_will</id>
+    </don>
+    <don>
+        <name>Vigeur surhumaine</name>
+        <type>feat_def</type>
+        <descr>a</descr>
+        <id>inhuman_stamina</id>
+    </don>
+    <don>
+        <name>Souplesse du serpent</name>
+        <type>feat_def</type>
+        <descr>Esquive olé !</descr>
+        <id>snake_dex</id>
+    </don>
+    <don>
+        <name>Robustesse</name>
+        <type>feat_def</type>
+        <descr>a</descr>
+        <id>robustness</id>
+    </don>
+
+    <!-- feat_otherS -->
+    <don>
+        <name>Ki suplémentaire</name>
+        <type>feat_other</type>
+        <descr>a</descr>
+        <id>bonus_ki</id>
+    </don>
+    <don>
+        <name>Science de l'initative</name>
+        <type>feat_other</type>
+        <descr>a</descr>
+        <id>init</id>
+    </don>
+
+    <!-- DONS DES feat_stanceS -->
+    <don>
+        <name>Attaque éclair</name>
+        <type>feat_stance</type>
+        <descr>a</descr>
+        <id>quick_atk</id>
+        <stance_id>falcon</stance_id>
+    </don>
+    <don>
+        <name>Attaque en finesse</name>
+        <type>feat_stance</type>
+        <descr>a</descr>
+        <id>dex_atk</id>
+        <stance_id>rat</stance_id>
+    </don>
+
+
+</records>

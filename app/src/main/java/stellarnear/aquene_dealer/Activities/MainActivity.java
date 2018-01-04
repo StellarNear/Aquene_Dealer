@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume(){
         super.onResume();
         checkOrientStart(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        aquene.getCarac().refreshAllcaracs();
+        aquene.refresh();
     }
 
 
@@ -181,7 +181,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void unlockOrient() {
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
     }
 
 }
