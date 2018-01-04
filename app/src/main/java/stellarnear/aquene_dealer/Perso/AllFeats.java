@@ -24,6 +24,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 public class AllFeats {
     Context mC;
     List<Feat> all_feats= new ArrayList<>();
+    private Map<String,Feat> mapIdFeat=new HashMap<>();
     public AllFeats(Context mC)
     {
         this.mC = mC;
@@ -47,13 +48,15 @@ public class AllFeats {
                 Node node = nList.item(i);
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
                     Element element2 = (Element) node;
-                    all_feats.add(new Feat(
+                    Feat feat=new Feat(
                             readValue("name", element2),
                             readValue("type", element2),
                             readValue("descr", element2),
                             readValue("id", element2),
                             readValue("stance_id", element2),
-                            mC));
+                            mC);
+                    all_feats.add(feat);
+                    mapIdFeat.put(feat.getId(),feat);
                 }
             }
 
@@ -68,12 +71,9 @@ public class AllFeats {
 
     public Feat getFeat(String feat_id) {
         Feat selected_feat=null;
-        for (Feat feat :all_feats){
-            if (feat.getId().equals(feat_id))
-            {
-                selected_feat=feat;
-            }
-        }
+        try {
+            selected_feat=mapIdFeat.get(feat_id);
+        } catch (Exception e){  }
         return selected_feat;
     }
 

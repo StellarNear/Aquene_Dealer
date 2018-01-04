@@ -1,5 +1,6 @@
 package stellarnear.aquene_dealer.Perso;
 
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.ScaleDrawable;
 
@@ -20,7 +21,9 @@ public class Stance {
     private String selector_path;
     private String selected_image_path;
     private Boolean active;
-    public Stance(String name, String shortname, String type, String descr, String id){
+    private Drawable selector;
+    private Context mC;
+    public Stance(String name, String shortname, String type, String descr, String id,Context mC){
         this.active=false;
         this.name=name;
         this.shortname=shortname;
@@ -29,6 +32,8 @@ public class Stance {
         this.id=id;
         this.selector_path=id+"_stance_selector";
         this.selected_image_path=id+"_select";
+        this.mC=mC;
+        this.selector = mC.getDrawable( mC.getResources().getIdentifier(this.selector_path, "drawable", mC.getPackageName()));
     }
 
     public String getSelector_path(){
@@ -64,5 +69,9 @@ public class Stance {
 
     public String getId() {
         return id;
+    }
+
+    public Drawable getDrawableSelector() {
+        return this.selector;
     }
 }

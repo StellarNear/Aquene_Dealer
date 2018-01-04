@@ -9,7 +9,9 @@ import org.w3c.dom.NodeList;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -20,6 +22,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 public class AllStances  {
     private List<Stance> all_stances = new ArrayList<Stance>();
+    private Map<String,Stance> mapIdStance=new HashMap<>();
     private Context mC;
     private Stance currentStance;
     public AllStances(Context mC) {
@@ -44,12 +47,15 @@ public class AllStances  {
                 Node node = nList.item(i);
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
                     Element element2 = (Element) node;
-                    all_stances.add(new Stance(
+                    Stance stance=new Stance(
                             readValue("name", element2),
                             readShortName("shortname", element2),
                             readValue("type", element2),
                             readValue("descr", element2),
-                            readValue("id", element2)));
+                            readValue("id", element2),
+                            mC);
+                    all_stances.add(stance);
+                    mapIdStance.put(stance.getId(),stance);
                 }
             }
 
@@ -81,6 +87,14 @@ public class AllStances  {
 
     public List<Stance> getStancesList(){
         return all_stances;
+    }
+
+    public Stance getStance(String stance_id) {
+        Stance selected_stance=null;
+        try {
+            selected_stance=mapIdStance.get(stance_id);
+        } catch (Exception e){}
+        return selected_stance;
     }
 
     public void activateStance(Stance selected_stance) {

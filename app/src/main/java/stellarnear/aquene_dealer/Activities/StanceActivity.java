@@ -8,7 +8,9 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
+import android.util.ArrayMap;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
@@ -38,9 +40,8 @@ import stellarnear.aquene_dealer.R;
  */
 
 public class StanceActivity extends AppCompatActivity {
-
-    Map<Stance,RadioButton> mapStanceRadioButton = new HashMap<Stance,RadioButton>();
-    Map<RadioButton,Stance> mapRadioButtonStance = new HashMap<RadioButton,Stance>();
+    Map<Integer,String> mapRadioButtonStance = new HashMap<>();
+    Map<String,Integer> mapStanceRadioButton = new HashMap<>();
     List<RadioGroup> listRadioGroups= new ArrayList<RadioGroup>();
     Perso aquene = MainActivity.aquene;
     @Override
@@ -50,7 +51,7 @@ public class StanceActivity extends AppCompatActivity {
 
         LinearLayout all_rows_stances = findViewById(R.id.stance_linear);
 
-        createGripSelector(all_rows_stances);
+        createGridSelector(all_rows_stances);
 
         selectActiveStance();
     }
@@ -75,13 +76,14 @@ public class StanceActivity extends AppCompatActivity {
         String title=getString(R.string.stance_activity) +" (sélectionnez une posture)";
         if(currentStance!=null)
         {
-            mapStanceRadioButton.get(currentStance).setChecked(true);
+            RadioButton radio_selected = findViewById(mapStanceRadioButton.get(currentStance.getId()));
+            radio_selected.setChecked(true);
             title=getString(R.string.stance_activity) +" (posture actuelle : "+currentStance.getName()+")";
         }
         getSupportActionBar().setTitle(title);
     }
 
-    private void createGripSelector(LinearLayout all_rows_stances) {
+    private void createGridSelector(LinearLayout all_rows_stances) {
         RadioGroup select_stance_att = new RadioGroup(this);
         listRadioGroups.add(select_stance_att);
         setListnerMultiRadio(select_stance_att);
@@ -114,8 +116,7 @@ public class StanceActivity extends AppCompatActivity {
             RadioButton icon =new RadioButton(this);
             icon.setButtonDrawable(null);
 
-            int selector_id = getResources().getIdentifier(stance.getSelector_path(), "drawable", getPackageName());
-            Drawable selector_img = getDrawable(selector_id);
+            Drawable selector_img = stance.getDrawableSelector();
 
             icon.setBackground(selector_img);
             LinearLayout.LayoutParams params =new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -146,9 +147,8 @@ public class StanceActivity extends AppCompatActivity {
                 select_stance_else.addView(icon);
                 select_stance_else_names.addView(name);
             }
-
-            mapStanceRadioButton.put(stance,icon);
-            mapRadioButtonStance.put(icon,stance);
+            mapRadioButtonStance.put(icon.getId(),stance.getId());
+            mapStanceRadioButton.put(stance.getId(),icon.getId());
         }
         setParam(select_stance_att);
         setParam(select_stance_att_names);
@@ -163,7 +163,6 @@ public class StanceActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 toatIt(stance.getSelected_image_path(),stance.getName(),stance.getDescr());
-
             }
         });
     }
@@ -220,9 +219,6 @@ public class StanceActivity extends AppCompatActivity {
         }
     }
 
-
-
-
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
@@ -239,9 +235,9 @@ public class StanceActivity extends AppCompatActivity {
     }
 
     private void saveStance(RadioButton selectedButton) {
-        aquene.getAllStances().activateStance(mapRadioButtonStance.get(selectedButton));
-        String title=getString(R.string.stance_activity) +" (posture actuelle : "+mapRadioButtonStance.get(selectedButton).getName()+")";
-        getSupportActionBar().setTitle(title);
+        Stance stance_active=aquene.getAllStances().getStance(mapRadioButtonStance.get(selectedButton.getId()));
+        aquene.getAllStances().activateStance(stance_active);
+        getSupportActionBar().setTitle(getString(R.string.stance_activity) +" (posture actuelle : "+stance_active.getName()+")");
     }
 
     private void checkOrientStart(int screenOrientation) {

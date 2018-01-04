@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         if (aquene == null) {
-            aquene = new Perso(getApplicationContext());
             ImageView image = new ImageView(this);
             image.setImageDrawable(getDrawable(R.drawable.monk_female_background));
             image.setBackgroundColor(getColor(R.color.start_back_color));
@@ -47,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
             setContentView(image);
             final Window window = getWindow();
             window.setStatusBarColor(getColor(R.color.start_back_color));
+
+            aquene = new Perso(getApplicationContext());
 
             image.setOnTouchListener(new View.OnTouchListener() {
                 @Override
