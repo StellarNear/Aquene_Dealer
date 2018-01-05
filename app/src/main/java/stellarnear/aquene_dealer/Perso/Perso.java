@@ -7,18 +7,19 @@ import android.content.Context;
  */
 
 public class Perso {
-    private Carac carac;
+    private Carac baseCarac;
     private AllFeats allFeats;
     private Skills apt;
     private Attacks atq;
     private Ki ki;
     private AllStances allStances;
+
     private Context mC;
 
     public Perso(Context mC){
         this.mC=mC;
         allStances =new AllStances(mC);
-        carac=new Carac(mC);
+        baseCarac=new Carac(mC);
         allFeats =new AllFeats(mC);
     }
 
@@ -26,20 +27,12 @@ public class Perso {
         return allStances;
     }
 
-    public Carac getCarac() {
-        return carac;
+    public CaracCalculator getCarac() {
+        return new CaracCalculator(baseCarac,allStances,allFeats);
     }
 
     public AllFeats getAllFeats() {
         return allFeats;
-    }
-
-    public int getCurrentFor(){
-        if (getAllStances().isActive("bear")) {
-            return carac.getFOR() +4;
-        }else{
-            return carac.getFOR();
-        }
     }
 
     public boolean featIsActive(String feat_id){
@@ -53,7 +46,7 @@ public class Perso {
 
 
     public void refresh() {
-        carac.refreshAllcaracs();
+        baseCarac.refreshAllcaracs();
         allFeats.refreshAllSwitch();
     }
 }
