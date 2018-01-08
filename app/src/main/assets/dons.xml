@@ -136,14 +136,12 @@
         <type>feat_stance</type>
         <descr>a</descr>
         <id>quick_atk</id>
-        <stance_id>falcon</stance_id>
     </don>
     <don>
         <name>Attaque en finesse</name>
         <type>feat_stance</type>
         <descr>a</descr>
         <id>dex_atk</id>
-        <stance_id>rat</stance_id>
     </don>
 
 

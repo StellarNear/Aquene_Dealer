@@ -6,14 +6,13 @@ import android.preference.PreferenceManager;
 import android.view.Gravity;
 import android.widget.Toast;
 
-import stellarnear.aquene_dealer.Activities.MainActivity;
 import stellarnear.aquene_dealer.R;
 
 /**
  * Created by jchatron on 26/12/2017.
  */
 
-public class Carac {
+public class Abilities {
     private int FOR;
     private int DEX;
     private int CON;
@@ -21,15 +20,13 @@ public class Carac {
     private int SAG;
     private int CHA;
     private int CA;
-    private int BMO;
-    private int DMD;
     private Context mC;
-    public Carac(Context mC) {
+    public Abilities(Context mC) {
         this.mC = mC;
-       refreshAllcaracs();
+       refreshAllAbilities();
     }
 
-    public void refreshAllcaracs() {
+    public void refreshAllAbilities() {
         setFOR();
         setDEX();
         setCON();
@@ -37,8 +34,6 @@ public class Carac {
         setSAG();
         setCHA();
         setCA();
-        setBMO();
-        setDMD();
     }
 
     public int getFOR() {
@@ -99,21 +94,6 @@ public class Carac {
         this.CA = CA;
     }
 
-    public int getBMO() {
-        return BMO;
-    }
-
-    public void setBMO() {
-        this.BMO = BMO;
-    }
-
-    public int getDMD() {
-        return DMD;
-    }
-
-    public void setDMD() {
-        this.DMD = DMD;
-    }
 
     private Integer toInt(String key,String field){
         Integer value;

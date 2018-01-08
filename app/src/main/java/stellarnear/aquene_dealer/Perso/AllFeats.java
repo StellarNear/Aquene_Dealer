@@ -22,8 +22,8 @@ import javax.xml.parsers.DocumentBuilderFactory;
  */
 
 public class AllFeats {
-    Context mC;
-    List<Feat> all_feats= new ArrayList<>();
+    private Context mC;
+    private List<Feat> allFeatsList = new ArrayList<>();
     private Map<String,Feat> mapIdFeat=new HashMap<>();
     public AllFeats(Context mC)
     {
@@ -53,9 +53,8 @@ public class AllFeats {
                             readValue("type", element2),
                             readValue("descr", element2),
                             readValue("id", element2),
-                            readValue("stance_id", element2),
                             mC);
-                    all_feats.add(feat);
+                    allFeatsList.add(feat);
                     mapIdFeat.put(feat.getId(),feat);
                 }
             }
@@ -66,21 +65,21 @@ public class AllFeats {
     }
 
     public List<Feat> getFeatsList(){
-        return all_feats;
+        return allFeatsList;
     }
 
-    public Feat getFeat(String feat_id) {
-        Feat selected_feat=null;
+    public Feat getFeat(String featId) {
+        Feat selectedFeat;
         try {
-            selected_feat=mapIdFeat.get(feat_id);
-        } catch (Exception e){  }
-        return selected_feat;
+            selectedFeat=mapIdFeat.get(featId);
+        } catch (Exception e){  selectedFeat=null;  }
+        return selectedFeat;
     }
 
     public boolean isActive(String id){
-        Feat wanted_feat=getFeat(id);
+        Feat wantedFeat=getFeat(id);
         boolean active=false;
-        if (wanted_feat!=null && wanted_feat.isActive()){
+        if (wantedFeat!=null && wantedFeat.isActive()){
             active=true;
         }
         return  active;
@@ -96,9 +95,8 @@ public class AllFeats {
         }
     }
 
-
     public void refreshAllSwitch() {
-        for (Feat feat : all_feats){
+        for (Feat feat : allFeatsList){
             feat.refreshSwitch();
         }
     }

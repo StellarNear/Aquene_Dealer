@@ -18,18 +18,20 @@ public class Stance {
     private String type;
     private String descr;
     private String id;
+    private String featId;
     private String selector_path;
     private String selected_image_path;
     private Boolean active;
     private Drawable selector;
     private Context mC;
-    public Stance(String name, String shortname, String type, String descr, String id,Context mC){
+    public Stance(String name, String shortname, String type, String descr, String id,String featId,Context mC){
         this.active=false;
         this.name=name;
         this.shortname=shortname;
         this.type=type;
         this.descr=descr;
         this.id=id;
+        this.featId=featId;
         this.selector_path=id+"_stance_selector";
         this.selected_image_path=id+"_select";
         this.mC=mC;
@@ -56,7 +58,7 @@ public class Stance {
     }
 
     public boolean isActive(){
-        if (active) {return true;} else {return false;}
+        return active;
     }
 
     public void activate() {
@@ -70,6 +72,8 @@ public class Stance {
     public String getId() {
         return id;
     }
+
+    public String getFeatId() {return featId;}
 
     public Drawable getDrawableSelector() {
         return this.selector;

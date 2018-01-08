@@ -7,7 +7,8 @@ import android.content.Context;
  */
 
 public class Perso {
-    private Carac baseCarac;
+    private Abilities baseAbilities;
+    private AbilitiesCalculator actualAbilities;
     private AllFeats allFeats;
     private Skills apt;
     private Attacks atq;
@@ -18,35 +19,44 @@ public class Perso {
 
     public Perso(Context mC){
         this.mC=mC;
-        allStances =new AllStances(mC);
-        baseCarac=new Carac(mC);
-        allFeats =new AllFeats(mC);
+        baseAbilities = new Abilities(mC);
+        allStances = new AllStances(mC);
+        allFeats = new AllFeats(mC);
+        actualAbilities = new AbilitiesCalculator(baseAbilities,allStances,allFeats);
     }
 
     public AllStances getAllStances() {
         return allStances;
     }
 
-    public CaracCalculator getCarac() {
-        return new CaracCalculator(baseCarac,allStances,allFeats);
+    public void activateStance(String stanceId){
+        Stance selectedStance=allStances.getStance(stanceId);
+        if (selectedStance!=null){
+            allStances.activateStance(selectedStance);
+            actualAbilities = new AbilitiesCalculator(baseAbilities,allStances,allFeats);
+        }
+    }
+
+    public AbilitiesCalculator getAbilities() {
+        return actualAbilities;
     }
 
     public AllFeats getAllFeats() {
         return allFeats;
     }
 
-    public boolean featIsActive(String feat_id){
-        Feat feat = allFeats.getFeat(feat_id);
+    public boolean featIsActive(String featId){
+        Feat feat = allFeats.getFeat(featId);
         boolean active=feat.isActive();
-        if (allStances.getCurrentStance()!=null && allStances.getCurrentStance().getId().equals(feat.getStanceId())){
+        if (allStances.getCurrentStance()!=null && allStances.getCurrentStance().getFeatId().contains(featId)){
             active=true;
         }
         return active;
     }
 
-
     public void refresh() {
-        baseCarac.refreshAllcaracs();
+        baseAbilities.refreshAllAbilities();
         allFeats.refreshAllSwitch();
+        actualAbilities = new AbilitiesCalculator(baseAbilities,allStances,allFeats);
     }
 }

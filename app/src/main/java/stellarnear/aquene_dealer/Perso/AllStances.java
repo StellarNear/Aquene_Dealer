@@ -21,7 +21,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
  */
 
 public class AllStances  {
-    private List<Stance> all_stances = new ArrayList<Stance>();
+    private List<Stance> allStances = new ArrayList<Stance>();
     private Map<String,Stance> mapIdStance=new HashMap<>();
     private Context mC;
     private Stance currentStance;
@@ -53,8 +53,9 @@ public class AllStances  {
                             readValue("type", element2),
                             readValue("descr", element2),
                             readValue("id", element2),
+                            readValue("featid", element2),
                             mC);
-                    all_stances.add(stance);
+                    allStances.add(stance);
                     mapIdStance.put(stance.getId(),stance);
                 }
             }
@@ -86,31 +87,32 @@ public class AllStances  {
     }
 
     public List<Stance> getStancesList(){
-        return all_stances;
+        return allStances;
     }
 
-    public Stance getStance(String stance_id) {
-        Stance selected_stance=null;
+    public Stance getStance(String stanceId) {
+        Stance selectedStance;
         try {
-            selected_stance=mapIdStance.get(stance_id);
-        } catch (Exception e){}
-        return selected_stance;
+            selectedStance=mapIdStance.get(stanceId);
+        } catch (Exception e){selectedStance=null;}
+        return selectedStance;
     }
 
-    public void activateStance(Stance selected_stance) {
-        for (Stance stance : all_stances){
+    public void activateStance(Stance selectedStance) {
+        for (Stance stance : allStances){
             stance.desactivate();
         }
-        selected_stance.activate();
-        currentStance=selected_stance;
+        selectedStance.activate();
+        currentStance=selectedStance;
     }
     public Stance getCurrentStance(){
         return currentStance;
     }
 
     public boolean isActive(String id){
+        Stance wantedStance = getStance(id);
         boolean active=false;
-        if (currentStance!=null && currentStance.getId().contains(id)){
+        if (wantedStance!=null && wantedStance.isActive()){
             active=true;
         }
         return  active;
