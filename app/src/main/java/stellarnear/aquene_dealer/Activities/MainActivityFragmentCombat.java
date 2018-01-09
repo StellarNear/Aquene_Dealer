@@ -6,6 +6,7 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.design.widget.FloatingActionButton;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,7 +52,12 @@ public class MainActivityFragmentCombat extends Fragment {
 
         ImageButton buttonMain = (ImageButton) returnFragView.findViewById(R.id.button_frag_combat_to_main);
 
-        buttonMain.animate().setDuration(2000).translationY(-250).scaleX((float) 0.8).scaleY((float) 0.8);
+        LinearLayout linearHeader = getActivity().findViewById(R.id.LinearMainHeader);
+
+        int pixY = (int)  ( getResources().getDimensionPixelSize(R.dimen.fab_margin) + linearHeader.getMeasuredHeight());
+
+        buttonMain.animate().setDuration(2000).translationY(-pixY);
+
         TextView test= getActivity().findViewById(R.id.textViewMainScreen);
         test.setOnClickListener(new View.OnClickListener() {
             @Override
