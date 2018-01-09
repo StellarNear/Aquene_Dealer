@@ -6,8 +6,6 @@ import android.preference.PreferenceManager;
 import android.view.Gravity;
 import android.widget.Toast;
 
-import stellarnear.aquene_dealer.R;
-
 /**
  * Created by jchatron on 26/12/2017.
  */
@@ -19,7 +17,13 @@ public class Abilities {
     private int INT;
     private int SAG;
     private int CHA;
-    private int CA;
+    private int MS;
+    private int CASTUFF;
+    private int CAMONK;
+    private int HP;
+    private int REF;
+    private int VIG;
+    private int VOL;
     private Context mC;
     public Abilities(Context mC) {
         this.mC = mC;
@@ -33,67 +37,20 @@ public class Abilities {
         setINT();
         setSAG();
         setCHA();
-        setCA();
+        setMS();
+        setCASTUFF();
+        setCAMONK();
+        setHP();
+        setREF();
+        setVIG();
+        setVOL();
     }
 
-    public int getFOR() {
-            return FOR;
-    }
-
-    public void setFOR() {
+    private int readAbility(String key){
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mC);
-        int FOR_val = toInt(settings.getString("carac_baseFOR",String.valueOf(mC.getResources().getInteger(R.integer.carac_baseFOR_DEF))),"Force de base");
-        this.FOR = FOR_val;
+        int resId = mC.getResources().getIdentifier(key+"_DEF", "integer", mC.getPackageName());
+        return toInt(settings.getString(key,String.valueOf(mC.getResources().getInteger(resId))),key);
     }
-
-    public int getDEX() {
-        return DEX;
-    }
-
-    public void setDEX() {
-        this.DEX = DEX;
-    }
-
-    public int getCON() {
-        return CON;
-    }
-
-    public void setCON() {
-        this.CON = CON;
-    }
-
-    public int getINT() {
-        return INT;
-    }
-
-    public void setINT() {
-        this.INT = INT;
-    }
-
-    public int getSAG() {
-        return SAG;
-    }
-
-    public void setSAG() {
-        this.SAG = SAG;
-    }
-
-    public int getCHA() {
-        return CHA;
-    }
-
-    public void setCHA() {
-        this.CHA = CHA;
-    }
-
-    public int getCA() {
-        return CA;
-    }
-
-    public void setCA() {
-        this.CA = CA;
-    }
-
 
     private Integer toInt(String key,String field){
         Integer value;
@@ -107,6 +64,115 @@ public class Abilities {
         }
         return value;
     }
+
+    public int getFOR() {
+            return FOR;
+    }
+
+    private void setFOR() {
+
+        this.FOR = readAbility("carac_baseFOR");
+    }
+
+    public int getDEX() {
+        return DEX;
+    }
+
+    private void setDEX() {
+        this.DEX = readAbility("carac_baseDEX");
+    }
+
+    public int getCON() {
+        return CON;
+    }
+
+    private void setCON() {
+        this.CON = readAbility("carac_baseCON");
+    }
+
+    public int getINT() {
+        return INT;
+    }
+
+    public void setINT() {
+        this.INT = readAbility("carac_baseINT");
+    }
+
+    public int getSAG() {
+        return SAG;
+    }
+
+    public void setSAG() {
+        this.SAG = readAbility("carac_baseSAG");
+    }
+
+    public int getCHA() {
+        return CHA;
+    }
+
+    public void setCHA() {
+        this.CHA = readAbility("carac_baseCHA");
+    }
+
+    public int getCASTUFF() {
+        return CASTUFF;
+    }
+
+    public void setCASTUFF() {
+        this.CASTUFF = readAbility("carac_baseCA_STUFF");
+    }
+
+    public int getCAMONK() {
+        return CASTUFF;
+    }
+
+    public void setCAMONK() {
+        this.CASTUFF = readAbility("carac_baseCA_MONK");
+    }
+
+    public int getMS() {
+        return MS;
+    }
+
+    public void setMS() {
+        this.MS = readAbility("carac_baseMS");
+    }
+
+    public int getHP() {
+        return HP;
+    }
+
+    public void setHP() {
+        this.HP = readAbility("carac_baseHP");
+    }
+
+
+    public int getREF() {
+        return REF;
+    }
+
+    public void setREF() {
+        this.REF = readAbility("carac_baseREF");
+    }
+
+    public int getVIG() {
+        return VIG;
+    }
+
+    public void setVIG() {
+        this.VIG = readAbility("carac_baseVIG");
+    }
+
+    public int getVOL() {
+        return VOL;
+    }
+
+    public void setVOL() {
+        this.VOL = readAbility("carac_baseVOL");
+    }
+
+
+
 
 
 }

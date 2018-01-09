@@ -5,9 +5,12 @@ import android.app.FragmentTransaction;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -46,9 +49,11 @@ public class MainActivityFragmentCombat extends Fragment {
             linearComabatFrag.addView(test);
         }
 
-
         ImageButton buttonMain = (ImageButton) returnFragView.findViewById(R.id.button_frag_combat_to_main);
-        buttonMain.setOnClickListener(new View.OnClickListener() {
+
+        buttonMain.animate().setDuration(2000).translationY(-250).scaleX((float) 0.8).scaleY((float) 0.8);
+        TextView test= getActivity().findViewById(R.id.textViewMainScreen);
+        test.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 unlockOrient();

@@ -4,9 +4,11 @@ import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
@@ -20,6 +22,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -103,7 +106,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             addPreferencesFromResource(R.xml.pref_general);
             setHasOptionsMenu(true);
 
-
         }
 
 
@@ -115,6 +117,16 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 return true;
             }
             return super.onOptionsItemSelected(item);
+        }
+
+        @Override
+        public void onActivityCreated(Bundle savedInstanceState) {
+            super.onActivityCreated(savedInstanceState);
+
+            // remove dividers
+            View rootView = getView();
+            ListView list = (ListView) rootView.findViewById(android.R.id.list);
+            list.setDivider(getActivity().getDrawable(R.drawable.divider_pref));
         }
     }
 
@@ -129,19 +141,24 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.pref_combat);
             PreferenceScreen screen = this.getPreferenceScreen();
-            PreferenceCategory active= new PreferenceCategory(getContext());
+
+            PreferenceCategory active = (PreferenceCategory) findPreference(getString(R.string.feat_active));
             active.setTitle(getString(R.string.feat_active));
             screen.addPreference(active);
-            PreferenceCategory def= new PreferenceCategory(getContext());
+
+            PreferenceCategory def = (PreferenceCategory) findPreference(getString(R.string.feat_def));
             def.setTitle(getString(R.string.feat_def));
             screen.addPreference(def);
-            PreferenceCategory atk= new PreferenceCategory(getContext());
+
+            PreferenceCategory atk = (PreferenceCategory) findPreference(getString(R.string.feat_atk));
             atk.setTitle(getString(R.string.feat_atk));
             screen.addPreference(atk);
-            PreferenceCategory other= new PreferenceCategory(getContext());
+
+            PreferenceCategory other = (PreferenceCategory) findPreference(getString(R.string.feat_other));
             other.setTitle(getString(R.string.feat_other));
             screen.addPreference(other);
-            PreferenceCategory stance= new PreferenceCategory(getContext());
+
+            PreferenceCategory stance = (PreferenceCategory) findPreference(getString(R.string.feat_stance));
             stance.setTitle(getString(R.string.feat_stance));
             screen.addPreference(stance);
 

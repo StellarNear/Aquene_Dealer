@@ -20,13 +20,12 @@
 
     </android.support.design.widget.AppBarLayout>
 
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:id="@+id/LinearMain"
+        android:clipChildren="false"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
@@ -44,6 +43,7 @@
                 android:layout_weight="1">
                 <ImageButton
                     android:id="@+id/button_to_stance"
+                    android:adjustViewBounds="true"
                     android:layout_width="@dimen/size_icon_main"
                     android:layout_height="@dimen/size_icon_main"
                     android:scaleType="fitCenter"
@@ -57,13 +57,14 @@
                     android:id="@+id/imageView"
                     android:layout_width="@dimen/size_icon_main_rota"
                     android:layout_height="@dimen/size_icon_main_rota"
+                    android:adjustViewBounds="true"
                     android:scaleType="fitCenter"
                     android:layout_gravity="center_vertical|left"
                     app:srcCompat="@drawable/rotate_left" />
             </LinearLayout>
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/textViewMainScreen"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"

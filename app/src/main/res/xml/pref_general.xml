@@ -1,14 +1,159 @@
-<PreferenceScreen
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <stellarnear.aquene_dealer.Divers.EditTextPreference
-        android:defaultValue="@integer/carac_baseFOR_DEF"
-        android:key="carac_baseFOR"
-        android:title="Valeur Force"
-        android:selectAllOnFocus="true"
-        android:singleLine="true"
-        android:inputType="number"
-        android:summary="Valeur : %s"/>
+    <PreferenceCategory
+        android:key="base"
+        android:title="Charactéristiques du personnage">
+        <Preference android:layout="@layout/divider_pref" android:selectable="false"/>
+         <stellarnear.aquene_dealer.Divers.EditTextPreference
+             android:defaultValue="@integer/carac_baseFOR_DEF"
+             android:key="carac_baseFOR"
+             android:title="Valeur Force"
+             android:selectAllOnFocus="true"
+             android:singleLine="true"
+             android:inputType="number"
+             android:summary="Valeur : %s"/>
+         <stellarnear.aquene_dealer.Divers.EditTextPreference
+             android:defaultValue="@integer/carac_baseDEX_DEF"
+             android:key="carac_baseDEX"
+             android:title="Valeur Dexterité"
+             android:selectAllOnFocus="true"
+             android:singleLine="true"
+             android:inputType="number"
+             android:summary="Valeur : %s"/>
+         <stellarnear.aquene_dealer.Divers.EditTextPreference
+             android:defaultValue="@integer/carac_baseCON_DEF"
+             android:key="carac_baseCON"
+             android:title="Valeur Constitution"
+             android:selectAllOnFocus="true"
+             android:singleLine="true"
+             android:inputType="number"
+             android:summary="Valeur : %s"/>
+         <stellarnear.aquene_dealer.Divers.EditTextPreference
+             android:defaultValue="@integer/carac_baseINT_DEF"
+             android:key="carac_baseINT"
+             android:title="Valeur Intelligence"
+             android:selectAllOnFocus="true"
+             android:singleLine="true"
+             android:inputType="number"
+             android:summary="Valeur : %s"/>
+         <stellarnear.aquene_dealer.Divers.EditTextPreference
+             android:defaultValue="@integer/carac_baseSAG_DEF"
+             android:key="carac_baseSAG"
+             android:title="Valeur Sagesse"
+             android:selectAllOnFocus="true"
+             android:singleLine="true"
+             android:inputType="number"
+             android:summary="Valeur : %s"/>
+         <stellarnear.aquene_dealer.Divers.EditTextPreference
+             android:defaultValue="@integer/carac_baseCHA_DEF"
+             android:key="carac_baseCHA"
+             android:title="Valeur Charisme"
+             android:selectAllOnFocus="true"
+             android:singleLine="true"
+             android:inputType="number"
+             android:summary="Valeur : %s"/>
+         <stellarnear.aquene_dealer.Divers.EditTextPreference
+             android:defaultValue="@integer/carac_baseMS_DEF"
+             android:key="carac_baseMS"
+             android:title="Vitesse de déplacement"
+             android:selectAllOnFocus="true"
+             android:singleLine="true"
+             android:inputType="number"
+             android:summary="Valeur : %s m"/>
+         <stellarnear.aquene_dealer.Divers.EditTextPreference
+             android:defaultValue="@integer/carac_baseHP_DEF"
+             android:key="carac_baseHP"
+             android:title="Point de vie"
+             android:selectAllOnFocus="true"
+             android:singleLine="true"
+             android:inputType="number"
+             android:summary="Valeur : %s"/>
+    </PreferenceCategory>
+    <Preference android:layout="@layout/divider_pref" android:selectable="false"/>
+    <PreferenceCategory
+        android:key="CA"
+        android:title="Classe d'armure du personnage">
+        <Preference android:layout="@layout/divider_pref" android:selectable="false"/>
+        <stellarnear.aquene_dealer.Divers.EditTextPreference
+            android:defaultValue="@integer/carac_baseCA_MONK_DEF"
+            android:key="carac_baseCA_MONK"
+            android:title="Bonus moine (1/4 lvl)"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:inputType="number"
+            android:summary="Valeur : %s"/>
+        <stellarnear.aquene_dealer.Divers.EditTextPreference
+            android:defaultValue="@integer/carac_baseCA_STUFF_DEF"
+            android:key="carac_baseCA_STUFF"
+            android:title="Equipement"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:inputType="number"
+            android:summary="Valeur : %s"/>
+    </PreferenceCategory>
+    <Preference android:layout="@layout/divider_pref" android:selectable="false"/>
+    <PreferenceCategory
+        android:key="SAVE"
+        android:title="Jets de sauvegarde">
+        <Preference android:layout="@layout/divider_pref" android:selectable="false"/>
+        <SwitchPreference
+            android:defaultValue="@bool/switch_save_race_DEF"
+            android:key="switch_save_race"
+            android:title="Bonus racial +1 (halfelin)" />
+        <SwitchPreference
+            android:defaultValue="@bool/switch_save_coat"
+            android:key="switch_save_coat"
+            android:title="Cape de résistances draconique +5" />
+
+    </PreferenceCategory>
+    <Preference android:layout="@layout/divider_pref" android:selectable="false"/>
+    <PreferenceCategory
+        android:key="REF"
+        android:title="Jets de réflexe">
+        <Preference android:layout="@layout/divider_pref" android:selectable="false"/>
+        <stellarnear.aquene_dealer.Divers.EditTextPreference
+            android:defaultValue="@integer/carac_baseREF_DEF"
+            android:key="carac_baseREF"
+            android:title="Bonus de base"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:inputType="number"
+            android:summary="Valeur : %s"/>
+
+        <SwitchPreference
+            android:defaultValue="@bool/switch_save_ref_boot"
+            android:key="switch_save_ref_boot"
+            android:title="Bottes de rapidité +1" />
+    </PreferenceCategory>
+    <Preference android:layout="@layout/divider_pref" android:selectable="false"/>
+    <PreferenceCategory
+        android:key="VIG"
+        android:title="Jets de vigueur">
+        <Preference android:layout="@layout/divider_pref" android:selectable="false"/>
+        <stellarnear.aquene_dealer.Divers.EditTextPreference
+            android:defaultValue="@integer/carac_baseVIG_DEF"
+            android:key="carac_baseVIG"
+            android:title="Bonus de base"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:inputType="number"
+            android:summary="Valeur : %s"/>
+    </PreferenceCategory>
+    <Preference android:layout="@layout/divider_pref" android:selectable="false"/>
+    <PreferenceCategory
+        android:key="VOL"
+        android:title="Jets de volonté">
+        <Preference android:layout="@layout/divider_pref" android:selectable="false"/>
+        <stellarnear.aquene_dealer.Divers.EditTextPreference
+            android:defaultValue="@integer/carac_baseVOL_DEF"
+            android:key="carac_baseVOL"
+            android:title="Bonus de base"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:inputType="number"
+            android:summary="Valeur : %s"/>
+    </PreferenceCategory>
+    <Preference android:layout="@layout/divider_pref" android:selectable="false"/>
 
 
 </PreferenceScreen>

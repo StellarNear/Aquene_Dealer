@@ -1,4 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <integer name="carac_baseFOR_DEF">21</integer>
+    <integer name="carac_baseDEX_DEF">23</integer>
+    <integer name="carac_baseCON_DEF">16</integer>
+    <integer name="carac_baseINT_DEF">14</integer>
+    <integer name="carac_baseSAG_DEF">20</integer>
+    <integer name="carac_baseCHA_DEF">15</integer>
+    <integer name="carac_baseMS_DEF">30</integer>
+    <integer name="carac_baseHP_DEF">227</integer>
+    <integer name="carac_baseCA_STUFF_DEF">5</integer>
+    <integer name="carac_baseCA_MONK_DEF">5</integer>
+    <integer name="carac_baseVIG_DEF">12</integer>
+    <integer name="carac_baseREF_DEF">12</integer>
+    <integer name="carac_baseVOL_DEF">12</integer>
 </resources>

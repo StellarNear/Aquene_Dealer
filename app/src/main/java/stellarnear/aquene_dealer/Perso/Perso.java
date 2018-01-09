@@ -22,7 +22,7 @@ public class Perso {
         baseAbilities = new Abilities(mC);
         allStances = new AllStances(mC);
         allFeats = new AllFeats(mC);
-        actualAbilities = new AbilitiesCalculator(baseAbilities,allStances,allFeats);
+        actualAbilities = new AbilitiesCalculator(baseAbilities,allStances,allFeats,mC);
     }
 
     public AllStances getAllStances() {
@@ -33,7 +33,7 @@ public class Perso {
         Stance selectedStance=allStances.getStance(stanceId);
         if (selectedStance!=null){
             allStances.activateStance(selectedStance);
-            actualAbilities = new AbilitiesCalculator(baseAbilities,allStances,allFeats);
+            actualAbilities = new AbilitiesCalculator(baseAbilities,allStances,allFeats,mC);
         }
     }
 
@@ -57,6 +57,6 @@ public class Perso {
     public void refresh() {
         baseAbilities.refreshAllAbilities();
         allFeats.refreshAllSwitch();
-        actualAbilities = new AbilitiesCalculator(baseAbilities,allStances,allFeats);
+        actualAbilities = new AbilitiesCalculator(baseAbilities,allStances,allFeats,mC);
     }
 }

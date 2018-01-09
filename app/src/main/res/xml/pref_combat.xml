@@ -1,5 +1,36 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:key="@string/feat_active"
+        android:title="@string/feat_active">
+        <Preference  android:layout="@layout/divider_pref" android:selectable="false"/>
+    </PreferenceCategory>
+    <Preference android:layout="@layout/divider_pref" android:selectable="false"/>
+    <PreferenceCategory
+        android:key="@string/feat_def"
+        android:title="@string/feat_def">
+        <Preference android:layout="@layout/divider_pref" android:selectable="false"/>
 
+    </PreferenceCategory>
+    <Preference android:layout="@layout/divider_pref" android:selectable="false"/>
+    <PreferenceCategory
+        android:key="@string/feat_atk"
+        android:title="@string/feat_atk">
+        <Preference  android:layout="@layout/divider_pref" android:selectable="false"/>
 
+    </PreferenceCategory>
+    <Preference android:layout="@layout/divider_pref" android:selectable="false"/>
+    <PreferenceCategory
+        android:key="@string/feat_other"
+        android:title="@string/feat_other">
+        <Preference   android:layout="@layout/divider_pref" android:selectable="false"/>
 
+    </PreferenceCategory>
+    <Preference android:layout="@layout/divider_pref" android:selectable="false"/>
+    <PreferenceCategory
+        android:key="@string/feat_stance"
+        android:title="@string/feat_stance">
+        <Preference  android:layout="@layout/divider_pref" android:selectable="false"/>
+
+    </PreferenceCategory>
+    <Preference android:layout="@layout/divider_pref" android:selectable="false"/>
 </PreferenceScreen>
