@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
@@ -58,13 +57,10 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public boolean onTouch(View arg0, MotionEvent arg1) {
                     window.setStatusBarColor(getColor(R.color.colorPrimaryDark));
-
                     buildMainPage();
                     return true;//always return true to consume event
                 }
             });
-
-
         } else {
             buildMainPage();
         }
@@ -77,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         Fragment fragment = new MainActivityFragment();
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_main, fragment);
+        fragmentTransaction.replace(R.id.fragment_main_frame_layout, fragment);
         fragmentTransaction.commit();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);

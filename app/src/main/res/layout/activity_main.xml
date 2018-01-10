@@ -55,7 +55,6 @@
                     />
 
                 <ImageView
-                    android:id="@+id/imageView"
                     android:layout_width="@dimen/size_icon_main_rota"
                     android:layout_height="@dimen/size_icon_main_rota"
                     android:adjustViewBounds="true"
@@ -80,7 +79,6 @@
                 android:gravity="right"
                 android:layout_weight="1">
             <ImageView
-                android:id="@+id/imageView2"
                 android:layout_width="@dimen/size_icon_main_rota"
                 android:layout_height="@dimen/size_icon_main_rota"
                 android:scaleType="fitCenter"

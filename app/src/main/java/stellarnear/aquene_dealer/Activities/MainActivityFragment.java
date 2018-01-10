@@ -50,7 +50,7 @@ public class MainActivityFragment extends Fragment {
                 lockOrient();
                 FragmentManager fragmentManager = getActivity().getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_main, ActivityFragment);
+                fragmentTransaction.replace(R.id.fragment_main_frame_layout, ActivityFragment);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }

@@ -59,7 +59,7 @@ public class MainActivityFragmentCombat extends Fragment {
                 Fragment fragment = new MainActivityFragment();
                 FragmentManager fragmentManager = getActivity().getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_main, fragment);
+                fragmentTransaction.replace(R.id.fragment_main_frame_layout, fragment);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }
