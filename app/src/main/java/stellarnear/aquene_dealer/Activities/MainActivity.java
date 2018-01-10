@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
@@ -35,26 +36,26 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (aquene == null) {
+
+        if (aquene==null) {
             ImageView image = new ImageView(this);
             image.setImageDrawable(getDrawable(R.drawable.monk_female_background));
             image.setBackgroundColor(getColor(R.color.start_back_color));
 
+
             setContentView(image);
             final Window window = getWindow();
             window.setStatusBarColor(getColor(R.color.start_back_color));
-
-            aquene = new Perso(getApplicationContext());
-
             image.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View arg0, MotionEvent arg1) {
                     window.setStatusBarColor(getColor(R.color.colorPrimaryDark));
+                    aquene = new Perso(getApplicationContext());
                     buildMainPage();
                     return true;//always return true to consume event
                 }
             });
-        } else { //si on a déja eu un lancement
+        } else {
             buildMainPage();
         }
     }
@@ -107,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume(){
         super.onResume();
         checkOrientStart(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        aquene.refresh();
+        if (aquene!=null) {aquene.refresh();}
     }
 
 
