@@ -3,15 +3,13 @@ package stellarnear.aquene_dealer.Activities;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.pm.ActivityInfo;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.support.design.widget.FloatingActionButton;
-import android.util.TypedValue;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -52,14 +50,9 @@ public class MainActivityFragmentCombat extends Fragment {
 
         ImageButton buttonMain = (ImageButton) returnFragView.findViewById(R.id.button_frag_combat_to_main);
 
-        LinearLayout linearHeader = getActivity().findViewById(R.id.LinearMainHeader);
+        moveTopRight(buttonMain);
 
-        int pixY = (int)  ( getResources().getDimensionPixelSize(R.dimen.fab_margin) + linearHeader.getMeasuredHeight());
-
-        buttonMain.animate().setDuration(2000).translationY(-pixY);
-
-        TextView test= getActivity().findViewById(R.id.textViewMainScreen);
-        test.setOnClickListener(new View.OnClickListener() {
+        buttonMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 unlockOrient();
@@ -76,8 +69,28 @@ public class MainActivityFragmentCombat extends Fragment {
         return returnFragView;
     }
 
+
+
     private void unlockOrient() {
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
     }
 
+
+    private void moveTopRight(final ImageButton buttonMain) {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                Rect rect=new Rect();
+                Rect rectParent=new Rect();
+                buttonMain.getGlobalVisibleRect(rect);
+                View parent = (View) buttonMain.getParent();
+                parent.getGlobalVisibleRect(rectParent);
+                float sizeFactor = 0.75f;
+                int diffRescaleY = (int) ((rect.bottom-rect.top) - ((rect.bottom-rect.top)*sizeFactor) )/2;
+                int diffRescaleX = (int) ((rect.right-rect.left) - ((rect.right-rect.left)*sizeFactor) )/2;
+                buttonMain.animate().translationX( rectParent.right-rect.right+diffRescaleX).translationY(-diffRescaleY).setDuration(1000).scaleX(sizeFactor).scaleY(sizeFactor);
+
+            }
+        }, 25);
+    }
 }
