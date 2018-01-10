@@ -14,6 +14,8 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.List;
+
 import stellarnear.aquene_dealer.Perso.Feat;
 import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.Perso.Skill;
@@ -45,6 +47,13 @@ public class MainActivityFragmentSkill extends Fragment {
             linearSkillFrag.addView(test);
         }
 
+        String[] abilities = { "FOR", "DEX", "CON", "INT", "SAG", "CHA" };
+
+        for (String abi : abilities) {
+            TextView test = new TextView(getActivity());
+            test.setText(abi+ " : "+aquene.getAbilities().getMOD(abi));
+            linearSkillFrag.addView(test);
+        }
 
         ImageButton buttonMain = (ImageButton) returnFragView.findViewById(R.id.button_frag_skill_to_main);
 

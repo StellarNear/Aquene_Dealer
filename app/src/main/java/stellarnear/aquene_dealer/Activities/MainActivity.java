@@ -30,7 +30,6 @@ import stellarnear.aquene_dealer.Perso.Perso;
 
 public class MainActivity extends AppCompatActivity {
     public static Perso aquene;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

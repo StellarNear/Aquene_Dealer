@@ -49,19 +49,14 @@ public class Abilities {
     private int readAbility(String key){
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mC);
         int resId = mC.getResources().getIdentifier(key+"_DEF", "integer", mC.getPackageName());
-        return toInt(settings.getString(key,String.valueOf(mC.getResources().getInteger(resId))),key);
+        return toInt(settings.getString(key,String.valueOf(mC.getResources().getInteger(resId))));
     }
 
-    private Integer toInt(String key,String field){
-        Integer value;
+    private Integer toInt(String key){
+        Integer value=0;
         try {
             value = Integer.parseInt(key);
-        } catch (Exception e){
-            Toast toast = Toast.makeText(mC, "Attention la valeur : "+key+"\nDu champ : "+field+"\nEst incorrecte, valeur mise à 0.", Toast.LENGTH_LONG);
-            toast.setGravity(Gravity.CENTER|Gravity.CENTER_HORIZONTAL,0,0);
-            toast.show();
-            value=0;
-        }
+        } catch (Exception e){   }
         return value;
     }
 
@@ -70,7 +65,6 @@ public class Abilities {
     }
 
     private void setFOR() {
-
         this.FOR = readAbility("carac_baseFOR");
     }
 

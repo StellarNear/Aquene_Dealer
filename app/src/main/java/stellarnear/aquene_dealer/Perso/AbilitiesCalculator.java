@@ -1,6 +1,7 @@
 package stellarnear.aquene_dealer.Perso;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.Gravity;
 import android.widget.Toast;
 
@@ -38,65 +39,77 @@ public class AbilitiesCalculator {
 
     }
 
+    public int getMOD(String key) {
+        int val=0;
+        switch (key){
+            case "FOR":
+                val=this.FOR;
+                break;
+            case "DEX":
+                val=this.DEX;
+                break;
+            case "CON":
+                val=this.CON;
+                break;
+            case "INT":
+                val=this.INT;
+                break;
+            case "SAG":
+                val=this.SAG;
+                break;
+            case "CHA":
+                val=this.CHA;
+                break;
+        }
+        
+        float modFloat=(float) ((val-10)/2.0);
+        int mod=0;
+        if (modFloat>=0){
+            mod=(int) modFloat;
+        } else {
+            mod=-1*Math.round(Math.abs(modFloat));
+        }
+        return mod;
+    }
+
     private void setAll() {
         setFOR();
+        setDEX();
+        setCON();
+        setINT();
+        setSAG();
+        setCHA();
     }
 
 
-    public int getFOR() {
-        return FOR;
-    }
+
 
     public void setFOR() {
-        int val= baseAbilities.getFOR();
+        int val = baseAbilities.getFOR();
         if (allStances.isActive("bear")) {
             val +=4;
         }
         this.FOR = val;
     }
 
-    public int getDEX() {
-        return DEX;
+    public void setDEX() {
+        this.DEX = baseAbilities.getDEX();
     }
 
-    public void setDEX(int DEX) {
-        this.DEX = DEX;
+    public void setCON() {
+        this.CON = baseAbilities.getCON();
     }
 
-    public int getCON() {
-        return CON;
+    public void setINT() {
+        this.INT = baseAbilities.getINT();
     }
 
-    public void setCON(int CON) {
-        this.CON = CON;
+    public void setSAG() {
+        this.SAG = baseAbilities.getSAG();
     }
 
-    public int getINT() {
-        return INT;
-    }
-
-    public void setINT(int INT) {
-        this.INT = INT;
-    }
-
-    public int getSAG() {
-        return SAG;
-    }
-
-    public void setSAG(int SAG) {
-        this.SAG = SAG;
-    }
-
-    public int getCHA() {
-        return CHA;
-    }
-
-    public void setCHA(int CHA) {
-        this.CHA = CHA;
-    }
-
-    public int getCA() {
-        return CA;
+    public void setCHA() {
+        this.CHA = baseAbilities.getCHA();
     }
 
     public void setCA(int CA) {

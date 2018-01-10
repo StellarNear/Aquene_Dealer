@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="version">"v1.0"</string>
-    <string name="time_spend">"23h"</string>
+    <string name="time_spend">"26h"</string>
     <string name="basic_infos">"Cette application est développée par un ami pour son 3/4.
 Développée avec amour par Jérémie Chatron en fin 2017."
     </string>

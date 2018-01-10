@@ -103,7 +103,7 @@ public class Skill {
             SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mC);
             int valDefId = mC.getResources().getIdentifier(this.id+"_rankDEF", "integer", mC.getPackageName());
             int valDef = mC.getResources().getInteger(valDefId);
-            valTemp = settings.getInt(this.id+"_rank", valDef);
+            valTemp = toInt(settings.getString(this.id+"_rank", String.valueOf(valDef)));
         } catch ( Exception e) {}
         this.val= valTemp;
     }

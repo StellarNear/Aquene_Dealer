@@ -143,7 +143,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.pref_skill);
-            PreferenceScreen screen = this.getPreferenceScreen();
             PreferenceCategory rank = (PreferenceCategory) findPreference(getString(R.string.skill_mastery));
             PreferenceCategory bonus = (PreferenceCategory) findPreference(getString(R.string.skill_bonus));
 
