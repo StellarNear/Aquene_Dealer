@@ -38,23 +38,33 @@ public class MainActivity extends AppCompatActivity {
 
 
         if (aquene==null) {
+            Thread t = new Thread(new Runnable() {
+                public void run() {
+                    aquene = new Perso(getApplicationContext());
+                }
+            });
+            t.start();
+
             ImageView image = new ImageView(this);
             image.setImageDrawable(getDrawable(R.drawable.monk_female_background));
             image.setBackgroundColor(getColor(R.color.start_back_color));
 
-
             setContentView(image);
+
             final Window window = getWindow();
             window.setStatusBarColor(getColor(R.color.start_back_color));
+
             image.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View arg0, MotionEvent arg1) {
                     window.setStatusBarColor(getColor(R.color.colorPrimaryDark));
-                    aquene = new Perso(getApplicationContext());
+
                     buildMainPage();
                     return true;//always return true to consume event
                 }
             });
+
+
         } else {
             buildMainPage();
         }
