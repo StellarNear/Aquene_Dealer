@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--  Stat de base du perso  -->
     <integer name="carac_baseFOR_DEF">21</integer>
     <integer name="carac_baseDEX_DEF">23</integer>
     <integer name="carac_baseCON_DEF">16</integer>
@@ -13,4 +14,35 @@
     <integer name="carac_baseVIG_DEF">12</integer>
     <integer name="carac_baseREF_DEF">12</integer>
     <integer name="carac_baseVOL_DEF">12</integer>
+
+    <!--  Rank de maitrise des compétences  -->
+    <integer name="acrob_rankDEF">18</integer>
+    <integer name="myst_rankDEF">6</integer>
+    <integer name="religion_rankDEF">6</integer>
+    <integer name="stealth_rankDEF">19</integer>
+    <integer name="ride_rankDEF">0</integer>
+    <integer name="climb_rankDEF">18</integer>
+    <integer name="escape_rankDEF">19</integer>
+    <integer name="intimidate_rankDEF">0</integer>
+    <integer name="swim_rankDEF">0</integer>
+    <integer name="percept_rankDEF">18</integer>
+    <integer name="heal_rankDEF">21</integer>
+    <integer name="psycho_rankDEF">0</integer>
+    <integer name="survival_rankDEF">21</integer>
+
+    <!--  Bonus des compétences  -->
+    <integer name="acrob_bonusDEF">18</integer>
+    <integer name="myst_bonusDEF">6</integer>
+    <integer name="religion_bonusDEF">6</integer>
+    <integer name="stealth_bonusDEF">19</integer>
+    <integer name="ride_bonusDEF">0</integer>
+    <integer name="climb_bonusDEF">18</integer>
+    <integer name="escape_bonusDEF">19</integer>
+    <integer name="intimidate_bonusDEF">0</integer>
+    <integer name="swim_bonusDEF">0</integer>
+    <integer name="percept_bonusDEF">18</integer>
+    <integer name="heal_bonusDEF">21</integer>
+    <integer name="psycho_bonusDEF">0</integer>
+    <integer name="survival_bonusDEF">21</integer>
+    
 </resources>

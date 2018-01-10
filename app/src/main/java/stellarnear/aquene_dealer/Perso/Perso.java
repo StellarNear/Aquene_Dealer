@@ -10,7 +10,7 @@ public class Perso {
     private Abilities baseAbilities;
     private AbilitiesCalculator actualAbilities;
     private AllFeats allFeats;
-    private Skills apt;
+    private AllSkills allSkills;
     private Attacks atq;
     private Ki ki;
     private AllStances allStances;
@@ -22,6 +22,7 @@ public class Perso {
         baseAbilities = new Abilities(mC);
         allStances = new AllStances(mC);
         allFeats = new AllFeats(mC);
+        allSkills = new AllSkills(mC);
         actualAbilities = new AbilitiesCalculator(baseAbilities,allStances,allFeats,mC);
     }
 
@@ -45,6 +46,11 @@ public class Perso {
         return allFeats;
     }
 
+    public AllSkills getAllSkills() {
+        return allSkills;
+    }
+
+
     public boolean featIsActive(String featId){
         Feat feat = allFeats.getFeat(featId);
         boolean active=feat.isActive();
@@ -57,6 +63,7 @@ public class Perso {
     public void refresh() {
         baseAbilities.refreshAllAbilities();
         allFeats.refreshAllSwitch();
+        allSkills.refreshAllVals();
         actualAbilities = new AbilitiesCalculator(baseAbilities,allStances,allFeats,mC);
     }
 }

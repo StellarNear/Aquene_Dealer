@@ -21,5 +21,7 @@
     <string name="setting_activity">Paramètres</string>
     <string name="stance_activity">Postures de combats</string>
     <string name="help_activity">Centre d\'aide</string>
+    <string name="skill_mastery">Rang de maîtrise</string>
+    <string name="skill_bonus">Bonus divers</string>
 
 </resources>

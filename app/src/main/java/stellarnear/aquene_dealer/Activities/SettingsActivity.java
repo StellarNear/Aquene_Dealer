@@ -14,10 +14,12 @@ import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
 import android.support.v7.widget.ContentFrameLayout;
+import android.text.InputType;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -25,7 +27,9 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import stellarnear.aquene_dealer.Divers.EditTextPreference;
 import stellarnear.aquene_dealer.Perso.Feat;
+import stellarnear.aquene_dealer.Perso.Skill;
 import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.R;
 
@@ -87,6 +91,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         return PreferenceFragment.class.getName().equals(fragmentName)
                 || GeneralPreferenceFragment.class.getName().equals(fragmentName)
                 || CombatPreferenceFragment.class.getName().equals(fragmentName)
+                || SkillsPreferenceFragment.class.getName().equals(fragmentName)
                 || InfosPreferenceFragment.class.getName().equals(fragmentName)
                 || RazPreferenceFragment.class.getName().equals(fragmentName)
                 || SleepPreferenceFragment.class.getName().equals(fragmentName);
@@ -129,6 +134,51 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     }
 
     /**
+     page de compétence
+     */
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public static class SkillsPreferenceFragment extends PreferenceFragment {
+        Perso aquene=MainActivity.aquene;
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            addPreferencesFromResource(R.xml.pref_skill);
+            PreferenceScreen screen = this.getPreferenceScreen();
+            PreferenceCategory rank = (PreferenceCategory) findPreference(getString(R.string.skill_mastery));
+            PreferenceCategory bonus = (PreferenceCategory) findPreference(getString(R.string.skill_bonus));
+
+            for (Skill skill : aquene.getAllSkills().getSkillsList()){
+                EditTextPreference pref = new EditTextPreference(getContext(), InputType.TYPE_CLASS_TEXT);
+                pref.setKey(skill.getId()+"_rank");
+                pref.setTitle(skill.getName());
+                pref.setDefaultValue(String.valueOf(skill.getVal()));
+                pref.setSummary("Valeur : %s");
+                rank.addPreference(pref);
+
+                EditTextPreference pref_bonus = new EditTextPreference(getContext(), InputType.TYPE_CLASS_TEXT);
+                pref_bonus.setKey(skill.getId()+"_bonus");
+                pref_bonus.setTitle(skill.getName());
+                pref_bonus.setDefaultValue(String.valueOf(skill.getBonus()));
+                pref_bonus.setSummary("Valeur : %s");
+                bonus.addPreference(pref_bonus);
+            }
+            setHasOptionsMenu(true);
+        }
+
+
+
+        @Override
+        public boolean onOptionsItemSelected(MenuItem item) {
+            int id = item.getItemId();
+            if (id == android.R.id.home) {
+                startActivity(new Intent(getActivity(), SettingsActivity.class));
+                return true;
+            }
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
+    /**
      page de combat
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
@@ -165,13 +215,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 switch_feat.setKey(feat.getId());
                 switch_feat.setTitle(feat.getName());
                 switch_feat.setSummary(feat.getDescr());
-                boolean switch_def=false;
-                try {
-                    int switch_def_id = getResources().getIdentifier(feat.getId(), "bool", getActivity().getPackageName());
-                    switch_def = getResources().getBoolean(switch_def_id);
-                } catch (Exception e){
-                }
-                switch_feat.setDefaultValue(switch_def);
+                switch_feat.setDefaultValue(feat.isActive());
                 if(feat.getType().contains("feat_active")){
                     active.addPreference(switch_feat);
                 } else if(feat.getType().equals("feat_def")){

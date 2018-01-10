@@ -18,21 +18,21 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 /**
- * Created by jchatron on 26/12/2017.
+ * Created by jchatron on 10/01/2018.
  */
-public class AllFeats {
+public class AllSkills {
     private Context mC;
-    private List<Feat> allFeatsList = new ArrayList<>();
-    private Map<String,Feat> mapIdFeat=new HashMap<>();
-    public AllFeats(Context mC)
+    private List<Skill> allSkillsList = new ArrayList<>();
+    private Map<String,Skill> mapIdSkill=new HashMap<>();
+    public AllSkills(Context mC)
     {
         this.mC = mC;
-        buildFeatsList();
+        buildSkillsList();
     }
 
-    private void buildFeatsList() {
+    private void buildSkillsList() {
         try {
-            InputStream is = mC.getAssets().open("feats.xml");
+            InputStream is = mC.getAssets().open("skills.xml");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(is);
@@ -40,21 +40,21 @@ public class AllFeats {
             Element element = doc.getDocumentElement();
             element.normalize();
 
-            NodeList nList = doc.getElementsByTagName("feat");
+            NodeList nList = doc.getElementsByTagName("skill");
 
             for (int i = 0; i < nList.getLength(); i++) {
 
                 Node node = nList.item(i);
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
                     Element element2 = (Element) node;
-                    Feat feat=new Feat(
+                    Skill skill=new Skill(
                             readValue("name", element2),
-                            readValue("type", element2),
+                            readValue("ability", element2),
                             readValue("descr", element2),
                             readValue("id", element2),
                             mC);
-                    allFeatsList.add(feat);
-                    mapIdFeat.put(feat.getId(),feat);
+                    allSkillsList.add(skill);
+                    mapIdSkill.put(skill.getId(),skill);
                 }
             }
             is.close();
@@ -63,25 +63,16 @@ public class AllFeats {
         }
     }
 
-    public List<Feat> getFeatsList(){
-        return allFeatsList;
+    public List<Skill> getSkillsList(){
+        return allSkillsList;
     }
 
-    public Feat getFeat(String featId) {
-        Feat selectedFeat;
+    public Skill getSkill(String skillId) {
+        Skill selectedSkill;
         try {
-            selectedFeat=mapIdFeat.get(featId);
-        } catch (Exception e){  selectedFeat=null;  }
-        return selectedFeat;
-    }
-
-    public boolean isActive(String id){
-        Feat wantedFeat=getFeat(id);
-        boolean active=false;
-        if (wantedFeat!=null && wantedFeat.isActive()){
-            active=true;
-        }
-        return  active;
+            selectedSkill=mapIdSkill.get(skillId);
+        } catch (Exception e){  selectedSkill=null;  }
+        return selectedSkill;
     }
 
     public String readValue(String tag, Element element) {
@@ -94,9 +85,9 @@ public class AllFeats {
         }
     }
 
-    public void refreshAllSwitch() {
-        for (Feat feat : allFeatsList){
-            feat.refreshSwitch();
+    public void refreshAllVals() {
+        for (Skill skill : allSkillsList){
+            skill.refreshVals();
         }
     }
 }

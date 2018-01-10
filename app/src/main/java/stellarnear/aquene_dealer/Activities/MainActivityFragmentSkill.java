@@ -11,14 +11,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import stellarnear.aquene_dealer.Perso.Feat;
+import stellarnear.aquene_dealer.Perso.Perso;
+import stellarnear.aquene_dealer.Perso.Skill;
 import stellarnear.aquene_dealer.R;
 
 /**
  * A placeholder fragment containing a simple view.
  */
 public class MainActivityFragmentSkill extends Fragment {
-
+    Perso aquene = MainActivity.aquene;
     public MainActivityFragmentSkill() {
     }
 
@@ -31,6 +36,15 @@ public class MainActivityFragmentSkill extends Fragment {
         }
 
         View returnFragView= inflater.inflate(R.layout.fragment_main_skill, container, false);
+
+        LinearLayout linearSkillFrag=returnFragView.findViewById(R.id.linearSkillFrag);
+
+        for (Skill skill : aquene.getAllSkills().getSkillsList()) {
+            TextView test = new TextView(getActivity());
+            test.setText(skill.getName() + " : "+skill.getVal());
+            linearSkillFrag.addView(test);
+        }
+
 
         ImageButton buttonMain = (ImageButton) returnFragView.findViewById(R.id.button_frag_skill_to_main);
 

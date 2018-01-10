@@ -32,7 +32,7 @@ public class AllStances  {
 
     private void buildStancesList() {
         try {
-            InputStream is = mC.getAssets().open("postures.xml");
+            InputStream is = mC.getAssets().open("stances.xml");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(is);
@@ -59,6 +59,7 @@ public class AllStances  {
                     mapIdStance.put(stance.getId(),stance);
                 }
             }
+            is.close();
 
         } catch (Exception e) {
             e.printStackTrace();

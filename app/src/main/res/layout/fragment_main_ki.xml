@@ -15,6 +15,13 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <LinearLayout
+        android:id="@+id/linearKiFrag"
+        android:layout_width="wrap_content"
+        android:orientation="vertical"
+        android:layout_height="wrap_content"></LinearLayout>
+
+
     <ImageButton
         tools:ignore="ContentDescription"
         android:id="@+id/button_frag_ki_to_main"

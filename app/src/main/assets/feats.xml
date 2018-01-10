@@ -1,148 +1,148 @@
 <?xml version="1.0"?>
 <records>
     <!-- feat_active -->
-    <don>
+    <feat>
         <name>Coup étourdissant</name>
         <type>feat_active</type>
         <descr>Bam t'es stun :D</descr>
         <id>stun</id>
-    </don>
-    <don>
+    </feat>
+    <feat>
         <name>Science de la vigeur surhumaine</name>
         <type>feat_active</type>
         <descr>aaa</descr>
         <id>inhuman_stamina_sup</id>
-    </don>
-    <don>
+    </feat>
+    <feat>
         <name>Science de la volonté de fer</name>
         <type>feat_active</type>
         <descr>aaa</descr>
         <id>iron_will_sup</id>
-    </don>
-    <don>
+    </feat>
+    <feat>
         <name>Parade de projectile</name>
         <type>feat_active</type>
         <descr>aaa</descr>
         <id>proj_parade</id>
-    </don>
-    <don>
+    </feat>
+    <feat>
         <name>Combat en aveugle</name>
         <type>feat_active</type>
         <descr>aaa</descr>
         <id>blind_fight</id>
-    </don>
+    </feat>
 
     <!-- feat_atk -->
-    <don>
+    <feat>
         <name>Ecole du scorpion</name>
         <type>feat_atk</type>
         <descr>Blablalbalba blablalba blabl bablalbalbalba</descr>
         <id>scorpio</id>
-    </don>
-    <don>
+    </feat>
+    <feat>
         <name>Poing de la gorgone</name>
         <type>feat_atk</type>
         <descr>Ca tappe fort</descr>
         <id>gorgon</id>
-    </don>
-    <don>
+    </feat>
+    <feat>
         <name>Fureur de la méduse</name>
         <type>feat_atk</type>
         <descr>Blablalbalba blablalba blabl bablalbalbalba</descr>
         <id>medusa</id>
-    </don>
-    <don>
+    </feat>
+    <feat>
         <name>Science du critique</name>
         <type>feat_atk</type>
         <descr>Blablalbalba blablalba blabl bablalbalbalba</descr>
         <id>crit_sup</id>
-    </don>
-    <don>
+    </feat>
+    <feat>
         <name>Don pour les critiques</name>
         <type>feat_atk</type>
         <descr>Blablalbalba blablalba blabl bablalbalbalba</descr>
         <id>crit</id>
-    </don>
-    <don>
+    </feat>
+    <feat>
         <name>Maitrise des écoles</name>
         <type>feat_atk</type>
         <descr>Blablalbalba blablalba blabl bablalbalbalba</descr>
         <id>stance_master</id>
-    </don>
+    </feat>
 
-    <don>
+    <feat>
         <name>Esquive totale</name>
         <type>feat_def</type>
         <descr>Esquive olé !</descr>
         <id>total_evade</id>
-    </don>
+    </feat>
 
-    <don>
+    <feat>
         <name>Coups Vifs</name>
         <type>feat_atk</type>
         <descr>a</descr>
         <id>keen_strike</id>
-    </don>
+    </feat>
 
     <!-- DEF -->
-    <don>
+    <feat>
         <name>Esquive surnaturelle</name>
         <type>feat_def</type>
         <descr>Esquive olé !</descr>
         <id>inhuman_evade</id>
-    </don>
-    <don>
+    </feat>
+    <feat>
         <name>Volonté de fer</name>
         <type>feat_def</type>
         <descr>a</descr>
         <id>iron_will</id>
-    </don>
-    <don>
+    </feat>
+    <feat>
         <name>Vigeur surhumaine</name>
         <type>feat_def</type>
         <descr>a</descr>
         <id>inhuman_stamina</id>
-    </don>
-    <don>
+    </feat>
+    <feat>
         <name>Souplesse du serpent</name>
         <type>feat_def</type>
         <descr>Esquive olé !</descr>
         <id>snake_dex</id>
-    </don>
-    <don>
+    </feat>
+    <feat>
         <name>Robustesse</name>
         <type>feat_def</type>
         <descr>a</descr>
         <id>robustness</id>
-    </don>
+    </feat>
 
     <!-- feat_otherS -->
-    <don>
+    <feat>
         <name>Ki suplémentaire</name>
         <type>feat_other</type>
         <descr>a</descr>
         <id>bonus_ki</id>
-    </don>
-    <don>
+    </feat>
+    <feat>
         <name>Science de l'initative</name>
         <type>feat_other</type>
         <descr>a</descr>
         <id>init</id>
-    </don>
+    </feat>
 
     <!-- DONS DES feat_stanceS -->
-    <don>
+    <feat>
         <name>Attaque éclair</name>
         <type>feat_stance</type>
         <descr>a</descr>
         <id>quick_atk</id>
-    </don>
-    <don>
+    </feat>
+    <feat>
         <name>Attaque en finesse</name>
         <type>feat_stance</type>
         <descr>a</descr>
         <id>dex_atk</id>
-    </don>
+    </feat>
 
 
 </records>
