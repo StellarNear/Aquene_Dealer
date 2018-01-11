@@ -3,170 +3,102 @@ package stellarnear.aquene_dealer.Perso;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.Gravity;
 import android.widget.Toast;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
- * Created by jchatron on 26/12/2017.
+ * Created by jchatron on 05/01/2018.
  */
 
 public class Abilities {
-    private int FOR;
-    private int DEX;
-    private int CON;
-    private int INT;
-    private int SAG;
-    private int CHA;
-    private int MS;
-    private int CASTUFF;
-    private int CAMONK;
-    private int HP;
-    private int REF;
-    private int VIG;
-    private int VOL;
+    private List<String> allAbilities
+            = Arrays.asList("FOR", "DEX", "CON","INT","SAG","CHA","MS","CA",                "HP","REF","VIG","VOL","BMO","DMD","INIT");
+    private List<String> allBaseAbilities
+            = Arrays.asList("FOR", "DEX", "CON","INT","SAG","CHA","MS","CA_STUFF","CA_MONK","HP","REF","VIG","VOL");
+
+    private Map<String,Integer> mapAbidVal=new HashMap<>();
+    private Map<String,Integer> mapBaseAbidVal=new HashMap<>();
+
+    private AllStances allStances;
+    private AllFeats allFeats;
     private Context mC;
-    public Abilities(Context mC) {
-        this.mC = mC;
-       refreshAllAbilities();
+    public Abilities(AllStances allStances, AllFeats allFeats, Context mC) {
+        this.allStances=allStances;
+        this.allFeats=allFeats;
+        this.mC=mC;
+        setAllBaseAbilities();
     }
 
-    public void refreshAllAbilities() {
-        setFOR();
-        setDEX();
-        setCON();
-        setINT();
-        setSAG();
-        setCHA();
-        setMS();
-        setCASTUFF();
-        setCAMONK();
-        setHP();
-        setREF();
-        setVIG();
-        setVOL();
+    public void setAllBaseAbilities() {
+        for (String abiKey : allBaseAbilities){
+            mapBaseAbidVal.put(abiKey,readAbility(abiKey));
+        }
+        refreshAllAbilities();
     }
 
     private int readAbility(String key){
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mC);
-        int resId = mC.getResources().getIdentifier(key+"_DEF", "integer", mC.getPackageName());
-        return toInt(settings.getString(key,String.valueOf(mC.getResources().getInteger(resId))));
+        int resId = mC.getResources().getIdentifier("carac_base"+key+"_DEF", "integer", mC.getPackageName());
+        return toInt(settings.getString("carac_base"+key,String.valueOf(mC.getResources().getInteger(resId))));
+    }
+
+    public void refreshAllAbilities() {
+        for (String abiKey : allAbilities) {
+            int val=0;
+            if(abiKey.equals("FOR") && allStances.getCurrentStance()!=null && allStances.getCurrentStance().getId().equals("bear")) {
+                val = mapBaseAbidVal.put(abiKey,val)+4;
+            } else if (abiKey.equals("CA")) {
+                val=mapBaseAbidVal.get("CA_STUFF")+mapBaseAbidVal.get("CA_MONK");
+            } else if (abiKey.equals("BMO")) {
+                val=mapBaseAbidVal.get("DEX")+10;
+            } else if (abiKey.equals("DMD")) {
+                val=mapBaseAbidVal.get("DEX")+20;
+            } else if (abiKey.equals("INIT")) {
+                val=mapBaseAbidVal.get("DEX");
+            } else {
+                val = mapBaseAbidVal.get(abiKey);
+            }
+            mapAbidVal.put(abiKey,val);
+        }
+    }
+
+    public int getMOD(String key) {
+        int val=0;
+        try {
+            val=mapAbidVal.get(key);
+        } catch (Exception e){}
+
+        float modFloat=(float) ((val-10)/2.0);
+        int mod;
+        if (modFloat>=0){
+            mod=(int) modFloat;
+        } else {
+            mod=-1*Math.round(Math.abs(modFloat));
+        }
+        return mod;
+    }
+
+    public int getAbilityScore(String key){
+        int val=0;
+        try {
+            val=mapAbidVal.get(key);
+        } catch (Exception e){}
+        return val;
     }
 
     private Integer toInt(String key){
         Integer value=0;
         try {
             value = Integer.parseInt(key);
-        } catch (Exception e){   }
+        } catch (Exception e){  }
         return value;
     }
-
-    public int getFOR() {
-            return FOR;
-    }
-
-    private void setFOR() {
-        this.FOR = readAbility("carac_baseFOR");
-    }
-
-    public int getDEX() {
-        return DEX;
-    }
-
-    private void setDEX() {
-        this.DEX = readAbility("carac_baseDEX");
-    }
-
-    public int getCON() {
-        return CON;
-    }
-
-    private void setCON() {
-        this.CON = readAbility("carac_baseCON");
-    }
-
-    public int getINT() {
-        return INT;
-    }
-
-    public void setINT() {
-        this.INT = readAbility("carac_baseINT");
-    }
-
-    public int getSAG() {
-        return SAG;
-    }
-
-    public void setSAG() {
-        this.SAG = readAbility("carac_baseSAG");
-    }
-
-    public int getCHA() {
-        return CHA;
-    }
-
-    public void setCHA() {
-        this.CHA = readAbility("carac_baseCHA");
-    }
-
-    public int getCASTUFF() {
-        return CASTUFF;
-    }
-
-    public void setCASTUFF() {
-        this.CASTUFF = readAbility("carac_baseCA_STUFF");
-    }
-
-    public int getCAMONK() {
-        return CASTUFF;
-    }
-
-    public void setCAMONK() {
-        this.CASTUFF = readAbility("carac_baseCA_MONK");
-    }
-
-    public int getMS() {
-        return MS;
-    }
-
-    public void setMS() {
-        this.MS = readAbility("carac_baseMS");
-    }
-
-    public int getHP() {
-        return HP;
-    }
-
-    public void setHP() {
-        this.HP = readAbility("carac_baseHP");
-    }
-
-
-    public int getREF() {
-        return REF;
-    }
-
-    public void setREF() {
-        this.REF = readAbility("carac_baseREF");
-    }
-
-    public int getVIG() {
-        return VIG;
-    }
-
-    public void setVIG() {
-        this.VIG = readAbility("carac_baseVIG");
-    }
-
-    public int getVOL() {
-        return VOL;
-    }
-
-    public void setVOL() {
-        this.VOL = readAbility("carac_baseVOL");
-    }
-
-
-
 
 
 }
