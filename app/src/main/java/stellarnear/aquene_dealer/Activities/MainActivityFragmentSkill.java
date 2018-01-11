@@ -14,9 +14,6 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.List;
-
-import stellarnear.aquene_dealer.Perso.Feat;
 import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.Perso.Skill;
 import stellarnear.aquene_dealer.R;
@@ -43,7 +40,7 @@ public class MainActivityFragmentSkill extends Fragment {
 
         for (Skill skill : aquene.getAllSkills().getSkillsList()) {
             TextView test = new TextView(getActivity());
-            test.setText(skill.getName() + " : "+skill.getVal());
+            test.setText(skill.getName() + " : "+skill.getRank());
             linearSkillFrag.addView(test);
         }
 

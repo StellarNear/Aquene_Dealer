@@ -9,11 +9,12 @@ import android.content.Context;
 public class Perso {
     private Abilities baseAbilities;
     private AbilitiesCalculator actualAbilities;
+    private AllStances allStances;
     private AllFeats allFeats;
     private AllSkills allSkills;
     private Attacks atq;
     private Ki ki;
-    private AllStances allStances;
+
 
     private Context mC;
 

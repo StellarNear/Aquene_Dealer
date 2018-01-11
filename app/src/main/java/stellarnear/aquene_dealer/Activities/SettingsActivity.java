@@ -19,7 +19,6 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -150,7 +149,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 EditTextPreference pref = new EditTextPreference(getContext(), InputType.TYPE_CLASS_TEXT);
                 pref.setKey(skill.getId()+"_rank");
                 pref.setTitle(skill.getName());
-                pref.setDefaultValue(String.valueOf(skill.getVal()));
+                pref.setDefaultValue(String.valueOf(skill.getRank()));
                 pref.setSummary("Valeur : %s");
                 rank.addPreference(pref);
 

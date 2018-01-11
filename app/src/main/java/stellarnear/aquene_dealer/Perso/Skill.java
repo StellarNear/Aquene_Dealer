@@ -3,8 +3,6 @@ package stellarnear.aquene_dealer.Perso;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.view.Gravity;
-import android.widget.Toast;
 
 /**
  * Created by jchatron on 10/01/2018.
@@ -12,17 +10,17 @@ import android.widget.Toast;
 
 public class Skill {
     private String name;
-    private String type;
+    private String ability;
     private String descr;
     private String id;
-    private int val;
+    private int rank;
     private int bonus;
     private String imagePath;
     private Context mC;
 
-    public Skill(String name, String type, String descr, String id, Context mC){
+    public Skill(String name, String ability, String descr, String id, Context mC){
         this.name=name;
-        this.type=type;
+        this.ability = ability;
         this.descr=descr;
         this.id=id;
         this.imagePath =id+"_skill_img";
@@ -36,13 +34,12 @@ public class Skill {
         return name;
     }
 
-
-    public String getType() {
-        return type;
+    public String getAbility() {
+        return ability;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setAbility(String ability) {
+        this.ability = ability;
     }
 
     public String getDescr() {
@@ -79,7 +76,7 @@ public class Skill {
     }
 
     public void refreshVals() {
-        refreshVal();
+        refreshRank();
         refreshBonus();
     }
 
@@ -97,7 +94,7 @@ public class Skill {
         return this.bonus;
     }
 
-    private void refreshVal() {
+    private void refreshRank() {
         int valTemp=0;
         try {
             SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mC);
@@ -105,10 +102,10 @@ public class Skill {
             int valDef = mC.getResources().getInteger(valDefId);
             valTemp = toInt(settings.getString(this.id+"_rank", String.valueOf(valDef)));
         } catch ( Exception e) {}
-        this.val= valTemp;
+        this.rank = valTemp;
     }
 
-    public int getVal(){
-        return this.val;
+    public int getRank(){
+        return this.rank;
     }
 }
