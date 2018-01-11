@@ -81,9 +81,6 @@ public class AbilitiesCalculator {
         setCHA();
     }
 
-
-
-
     public void setFOR() {
         int val = baseAbilities.getFOR();
         if (allStances.isActive("bear")) {
