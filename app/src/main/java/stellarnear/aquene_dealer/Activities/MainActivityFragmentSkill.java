@@ -48,7 +48,7 @@ public class MainActivityFragmentSkill extends Fragment {
 
         for (String abi : abilities) {
             TextView test = new TextView(getActivity());
-            test.setText(abi+ " : Score: "+aquene.getAbilities().getAbilityScore(abi)+" Mod: "+aquene.getAbilities().getMOD(abi));
+            test.setText(abi+ " : Score: "+aquene.getAbilities().getScore(abi)+" Mod: "+aquene.getAbilities().getMOD(abi));
             linearSkillFrag.addView(test);
         }
 

@@ -39,7 +39,7 @@
 
         <activity android:label="@string/help_activity"
             android:name=".Activities.HelpActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"/>
+            android:configChanges="keyboardHidden|orientation|screenSize" />
 
 
 

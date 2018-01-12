@@ -7,6 +7,7 @@
     <integer name="carac_baseINT_DEF">14</integer>
     <integer name="carac_baseSAG_DEF">20</integer>
     <integer name="carac_baseCHA_DEF">15</integer>
+    <integer name="carac_baseLVL_DEF">21</integer>
     <integer name="carac_baseMS_DEF">30</integer>
     <integer name="carac_baseHP_DEF">227</integer>
     <integer name="carac_baseCA_STUFF_DEF">5</integer>

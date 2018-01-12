@@ -3,79 +3,79 @@
     
     <skill>
         <name>Acrobaties</name>
-        <ability>DEX</ability>
+        <abilityDependence>DEX</abilityDependence>
         <descr>jump</descr>
         <id>acrob</id>
     </skill>
     <skill>
         <name>Connaissance mystère</name>
-        <ability>INT</ability>
+        <abilityDependence>INT</abilityDependence>
         <descr>jump</descr>
         <id>myst</id>
     </skill>
     <skill>
         <name>Connaissance religion</name>
-        <ability>INT</ability>
+        <abilityDependence>INT</abilityDependence>
         <descr>jump</descr>
         <id>religion</id>
     </skill>
     <skill>
         <name>Discretion</name>
-        <ability>DEX</ability>
+        <abilityDependence>DEX</abilityDependence>
         <descr>jump</descr>
         <id>stealth</id>
     </skill>
     <skill>
         <name>Equitation</name>
-        <ability>DEX</ability>
+        <abilityDependence>DEX</abilityDependence>
         <descr>jump</descr>
         <id>ride</id>
     </skill>
     <skill>
         <name>Escalade</name>
-        <ability>DEX</ability>
+        <abilityDependence>DEX</abilityDependence>
         <descr>jump</descr>
         <id>climb</id>
     </skill>
     <skill>
         <name>Evasion</name>
-        <ability>DEX</ability>
+        <abilityDependence>DEX</abilityDependence>
         <descr>jump</descr>
         <id>escape</id>
     </skill>
     <skill>
         <name>Intimidation</name>
-        <ability>FOR</ability>
+        <abilityDependence>FOR</abilityDependence>
         <descr>jump</descr>
         <id>intimidate</id>
     </skill>
     <skill>
         <name>Natation</name>
-        <ability>DEX</ability>
+        <abilityDependence>DEX</abilityDependence>
         <descr>jump</descr>
         <id>swim</id>
     </skill>
     <skill>
         <name>Perception</name>
-        <ability>SAG</ability>
+        <abilityDependence>SAG</abilityDependence>
         <descr>jump</descr>
         <id>percept</id>
     </skill>
     <skill>
         <name>Premiers secours</name>
-        <ability>SAG</ability>
+        <abilityDependence>SAG</abilityDependence>
         <descr>jump</descr>
         <id>heal</id>
     </skill>
     <skill>
         <name>Psychologie</name>
-        <ability>SAG</ability>
+        <abilityDependence>SAG</abilityDependence>
         <descr>jump</descr>
         <id>psycho</id>
     </skill>
     <skill>
         <name>Survie</name>
-        <ability>SAG</ability>
+        <abilityDependence>SAG</abilityDependence>
         <descr>jump</descr>
         <id>survival</id>
     </skill>

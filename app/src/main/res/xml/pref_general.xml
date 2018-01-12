@@ -52,6 +52,14 @@
              android:singleLine="true"
              android:inputType="number"
              android:summary="Valeur : %s"/>
+        <stellarnear.aquene_dealer.Divers.EditTextPreference
+            android:defaultValue="@integer/carac_baseLVL_DEF"
+            android:key="carac_baseLVL"
+            android:title="Niveau de moine"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:inputType="number"
+            android:summary="Valeur : %s"/>
          <stellarnear.aquene_dealer.Divers.EditTextPreference
              android:defaultValue="@integer/carac_baseMS_DEF"
              android:key="carac_baseMS"

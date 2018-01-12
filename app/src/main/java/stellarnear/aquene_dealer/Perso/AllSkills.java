@@ -21,11 +21,13 @@ import javax.xml.parsers.DocumentBuilderFactory;
  * Created by jchatron on 10/01/2018.
  */
 public class AllSkills {
+    private Abilities abilities;
     private Context mC;
     private List<Skill> allSkillsList = new ArrayList<>();
     private Map<String,Skill> mapIdSkill=new HashMap<>();
-    public AllSkills(Context mC)
+    public AllSkills(Abilities abilities,Context mC)
     {
+        this.abilities=abilities;
         this.mC = mC;
         buildSkillsList();
     }
@@ -52,6 +54,7 @@ public class AllSkills {
                             readValue("ability", element2),
                             readValue("descr", element2),
                             readValue("id", element2),
+                            abilities,
                             mC);
                     allSkillsList.add(skill);
                     mapIdSkill.put(skill.getId(),skill);

@@ -18,9 +18,9 @@ import java.util.Map;
 
 public class Abilities {
     private List<String> allAbilities
-            = Arrays.asList("FOR", "DEX", "CON","INT","SAG","CHA","MS","CA",                "HP","REF","VIG","VOL","BMO","DMD","INIT");
+            = Arrays.asList("FOR", "DEX", "CON","INT","SAG","CHA","LVL","MS","CA",                "HP","REF","VIG","VOL","BMO","DMD","INIT");
     private List<String> allBaseAbilities
-            = Arrays.asList("FOR", "DEX", "CON","INT","SAG","CHA","MS","CA_STUFF","CA_MONK","HP","REF","VIG","VOL");
+            = Arrays.asList("FOR", "DEX", "CON","INT","SAG","CHA","LVL","MS","CA_STUFF","CA_MONK","HP","REF","VIG","VOL");
 
     private Map<String,Integer> mapAbidVal=new HashMap<>();
     private Map<String,Integer> mapBaseAbidVal=new HashMap<>();
@@ -68,23 +68,36 @@ public class Abilities {
         }
     }
 
-    public int getMOD(String key) {
+    public void refreshAllAbilities(String mod) {
         int val=0;
-        try {
-            val=mapAbidVal.get(key);
-        } catch (Exception e){}
-
-        float modFloat=(float) ((val-10)/2.0);
-        int mod;
-        if (modFloat>=0){
-            mod=(int) modFloat;
-        } else {
-            mod=-1*Math.round(Math.abs(modFloat));
+        if( allStances.getCurrentStance()!=null && allStances.getCurrentStance().getId().equals("bear")) {
+            val = mapBaseAbidVal.put("FOR",val)+4;
         }
+        mapAbidVal.put("FOR",val);
+    }
+
+    public int getMOD(String key) {
+        List<String> modOk
+                = Arrays.asList("FOR", "DEX", "CON","INT","SAG","CHA");
+        int mod;
+        if (modOk.contains(key)){
+            int val=0;
+            try {
+                val=mapAbidVal.get(key);
+            } catch (Exception e){}
+
+            float modFloat=(float) ((val-10)/2.0);
+            if (modFloat>=0){
+                mod=(int) modFloat;
+            } else {
+                mod=-1*Math.round(Math.abs(modFloat));
+            }
+        } else { mod=0;}
+
         return mod;
     }
 
-    public int getAbilityScore(String key){
+    public int getScore(String key){
         int val=0;
         try {
             val=mapAbidVal.get(key);

@@ -7,8 +7,10 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.view.Display;
 import android.view.Surface;
+import android.view.Window;
 import android.view.WindowManager;
 
 import stellarnear.aquene_dealer.Perso.Perso;
@@ -23,9 +25,12 @@ public class HelpActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
+        String title=getString(R.string.help_activity); //todo stacking des sub directeory genre Help center : Standard action : Round : Attack
+        getSupportActionBar().setTitle((Html.fromHtml("<font color=\""+getColor(R.color.textColorPrimary)+"\">" + title + "</font>")));
         setContentView(R.layout.help_activity);
-
     }
 
     @Override

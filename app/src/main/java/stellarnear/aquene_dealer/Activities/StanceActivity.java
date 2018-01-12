@@ -9,6 +9,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
@@ -16,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -44,7 +46,10 @@ public class StanceActivity extends AppCompatActivity {
     Perso aquene = MainActivity.aquene;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.stance_activity);
 
         LinearLayout all_rows_stances = findViewById(R.id.stance_linear);
@@ -78,7 +83,7 @@ public class StanceActivity extends AppCompatActivity {
             radioSelected.setChecked(true);
             title=getString(R.string.stance_activity) +" (posture actuelle : "+currentStance.getName()+")";
         }
-        getSupportActionBar().setTitle(title);
+        getSupportActionBar().setTitle((Html.fromHtml("<font color=\""+getColor(R.color.textColorPrimary)+"\">" + title + "</font>")));
     }
 
     private void createGridSelector(LinearLayout allRowsStances) {
@@ -235,7 +240,8 @@ public class StanceActivity extends AppCompatActivity {
     private void saveStance(RadioButton selectedButton) {
         Stance stanceActive=aquene.getAllStances().getStance(mapRadioButtonStance.get(selectedButton.getId()));
         aquene.activateStance(stanceActive.getId());
-        getSupportActionBar().setTitle(getString(R.string.stance_activity) +" (posture actuelle : "+stanceActive.getName()+")");
+        String title = getString(R.string.stance_activity) +" (posture actuelle : "+stanceActive.getName()+")";
+        getSupportActionBar().setTitle((Html.fromHtml("<font color=\""+getColor(R.color.textColorPrimary)+"\">" + title + "</font>")));
     }
 
     private void checkOrientStart(int screenOrientation) {

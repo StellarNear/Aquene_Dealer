@@ -21,8 +21,8 @@ public class Perso {
         this.mC=mC;
         allStances = new AllStances(mC);
         allFeats = new AllFeats(mC);
-        allSkills = new AllSkills(mC);
         abilities = new Abilities(allStances,allFeats,mC);
+        allSkills = new AllSkills(abilities,mC);
     }
 
     public AllStances getAllStances() {
@@ -33,7 +33,7 @@ public class Perso {
         Stance selectedStance=allStances.getStance(stanceId);
         if (selectedStance!=null){
             allStances.activateStance(selectedStance);
-            abilities.refreshAllAbilities();
+            abilities.refreshAllAbilities("stance");
         }
     }
 
@@ -60,7 +60,6 @@ public class Perso {
     }
 
     public void refresh() {
-        abilities.refreshAllAbilities();
         allFeats.refreshAllSwitch();
         allSkills.refreshAllVals();
         abilities.setAllBaseAbilities();
