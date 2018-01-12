@@ -2,14 +2,19 @@ package stellarnear.aquene_dealer.Activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.RelativeSizeSpan;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
@@ -46,8 +51,11 @@ public class StanceActivity extends AppCompatActivity {
     Perso aquene = MainActivity.aquene;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        if (settings.getBoolean("switch_fullscreen_mode",getApplicationContext().getResources().getBoolean(R.bool.switch_fullscreen_modeDEF))) {
+            requestWindowFeature(Window.FEATURE_NO_TITLE);
+            this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.stance_activity);
@@ -83,7 +91,10 @@ public class StanceActivity extends AppCompatActivity {
             radioSelected.setChecked(true);
             title=getString(R.string.stance_activity) +" (posture actuelle : "+currentStance.getName()+")";
         }
-        getSupportActionBar().setTitle((Html.fromHtml("<font color=\""+getColor(R.color.textColorPrimary)+"\">" + title + "</font>")));
+        SpannableString titleSpan = new SpannableString(title);
+        titleSpan.setSpan(new ForegroundColorSpan(getColor(R.color.textColorPrimary)),0,title.length(),0);
+        titleSpan.setSpan(new RelativeSizeSpan(1.5f)  ,0,getString(R.string.stance_activity).length()+1,0);
+        getSupportActionBar().setTitle(titleSpan);
     }
 
     private void createGridSelector(LinearLayout allRowsStances) {
@@ -241,7 +252,10 @@ public class StanceActivity extends AppCompatActivity {
         Stance stanceActive=aquene.getAllStances().getStance(mapRadioButtonStance.get(selectedButton.getId()));
         aquene.activateStance(stanceActive.getId());
         String title = getString(R.string.stance_activity) +" (posture actuelle : "+stanceActive.getName()+")";
-        getSupportActionBar().setTitle((Html.fromHtml("<font color=\""+getColor(R.color.textColorPrimary)+"\">" + title + "</font>")));
+        SpannableString titleSpan = new SpannableString(title);
+        titleSpan.setSpan(new ForegroundColorSpan(getColor(R.color.textColorPrimary)),0,title.length(),0);
+        titleSpan.setSpan(new RelativeSizeSpan(1.5f)  ,0,getString(R.string.stance_activity).length()+1,0);
+        getSupportActionBar().setTitle(titleSpan);
     }
 
     private void checkOrientStart(int screenOrientation) {

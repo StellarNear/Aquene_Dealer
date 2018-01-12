@@ -1,6 +1,8 @@
 package stellarnear.aquene_dealer.Activities;
 
 import android.annotation.TargetApi;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -56,8 +58,11 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        if (settings.getBoolean("switch_fullscreen_mode",getApplicationContext().getResources().getBoolean(R.bool.switch_fullscreen_modeDEF))) {
+            requestWindowFeature(Window.FEATURE_NO_TITLE);
+            this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }
         super.onCreate(savedInstanceState);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -95,6 +100,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 || CombatPreferenceFragment.class.getName().equals(fragmentName)
                 || SkillsPreferenceFragment.class.getName().equals(fragmentName)
                 || InfosPreferenceFragment.class.getName().equals(fragmentName)
+                || AppliParaPreferenceFragment.class.getName().equals(fragmentName)
                 || RazPreferenceFragment.class.getName().equals(fragmentName)
                 || SleepPreferenceFragment.class.getName().equals(fragmentName);
     }
@@ -310,6 +316,43 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         }
     }
 
+    /**
+     page appli para
+     */
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public static class AppliParaPreferenceFragment extends PreferenceFragment {
+
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            addPreferencesFromResource(R.xml.pref_appli_para);
+            setHasOptionsMenu(true);
+
+        }
+
+
+        @Override
+        public boolean onOptionsItemSelected(MenuItem item) {
+            int id = item.getItemId();
+            if (id == android.R.id.home) {
+                startActivity(new Intent(getActivity(), SettingsActivity.class));
+                return true;
+            }
+            return super.onOptionsItemSelected(item);
+        }
+
+        @Override
+        public void onActivityCreated(Bundle savedInstanceState) {
+            super.onActivityCreated(savedInstanceState);
+
+            // remove dividers
+            View rootView = getView();
+            ListView list = (ListView) rootView.findViewById(android.R.id.list);
+            list.setDivider(getActivity().getDrawable(R.drawable.divider_pref));
+        }
+    }
+
+
 
     /**
      page de reset settings
@@ -323,31 +366,57 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
             View window = getActivity().findViewById(android.R.id.content);
             window.setBackgroundResource(R.drawable.reset_background);
+        }
 
+        @Override
+        public void onResume(){
+            super.onResume();
+            new AlertDialog.Builder(getContext())
+                    .setIcon(R.drawable.ic_warning_black_24dp)
+                    .setTitle("Remise à zéro des paramètres")
+                    .setMessage("Es-tu sûre de vouloir réinitialiser ?")
+                    .setPositiveButton("Oui", new DialogInterface.OnClickListener()
+                    {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            clearSettings();
+                        }
 
-            int time=2000; // in milliseconds
+                    })
+                    .setNegativeButton("Non", new DialogInterface.OnClickListener()
+                    {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            startActivity(new Intent(getActivity(), MainActivity.class));
+                        }
+
+                    })
+                    .show();
+        }
+
+        private void clearSettings() {
+            int time=1500; // in milliseconds
 
             Handler h=new Handler();
 
             h.postDelayed(new Runnable() {
 
-                              @Override
-                              public void run() {
+                @Override
+                public void run() {
 
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-            SharedPreferences.Editor editor = prefs.edit();
-            editor.clear();
-            editor.commit();
+                    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.clear();
+                    editor.commit();
 
-            String descr="Remise à zero des paramètres de l'application";
-            Toast toast = Toast.makeText(getContext(), descr, Toast.LENGTH_LONG);
-            toast.setGravity(Gravity.CENTER| Gravity.CENTER_HORIZONTAL,0,0);
-            toast.show();
-            startActivity(new Intent(getActivity(), MainActivity.class));
-                              }
+                    String descr="Remise à zero des paramètres de l'application";
+                    Toast toast = Toast.makeText(getContext(), descr, Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER| Gravity.CENTER_HORIZONTAL,0,0);
+                    toast.show();
+                    startActivity(new Intent(getActivity(), MainActivity.class));
+                }
 
             },time);
-
         }
     }
 
@@ -361,16 +430,41 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-
             View window = getActivity().findViewById(android.R.id.content);
             window.setBackgroundResource(R.drawable.sleep_background);
+        }
 
+        @Override
+        public void onResume(){
+            super.onResume();
+            new AlertDialog.Builder(getContext())
+                    .setIcon(R.drawable.ic_warning_black_24dp)
+                    .setTitle("Repos")
+                    .setMessage("Es-tu sûre de vouloir te reposer maintenant ?")
+                    .setPositiveButton("Oui", new DialogInterface.OnClickListener()
+                    {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            sleep();
+                        }
+
+                    })
+                    .setNegativeButton("Non", new DialogInterface.OnClickListener()
+                    {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            startActivity(new Intent(getActivity(), MainActivity.class));
+                        }
+
+                    })
+                    .show();
+        }
+
+        private void sleep() {
             String descr="Fais de beaux rêves !";
             Toast toast = Toast.makeText(getContext(), descr, Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER| Gravity.CENTER_HORIZONTAL,0,0);
             toast.show();
-
-
 
             int time=2000; // in milliseconds
 
@@ -380,22 +474,18 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
                 @Override
                 public void run() {
+                    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.commit();
 
-
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-            SharedPreferences.Editor editor = prefs.edit();
-            //editor.putString("n_rank_4_conv",prefs.getString("n_rank_4_start_conv",getString(R.string.n_rank_4_def_conv)));
-            editor.commit();
-
-            String descr="Une nouvelle journée pleine de sortilèges t'attends.";
-            Toast toast = Toast.makeText(getContext(), descr, Toast.LENGTH_LONG);
-            toast.setGravity(Gravity.CENTER| Gravity.CENTER_HORIZONTAL,0,0);
-            toast.show();
-            startActivity(new Intent(getActivity(), MainActivity.class));
+                    String descr="Une nouvelle journée pleine de mandales et d'acrobaties t'attends.";
+                    Toast toast = Toast.makeText(getContext(), descr, Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER| Gravity.CENTER_HORIZONTAL,0,0);
+                    toast.show();
+                    startActivity(new Intent(getActivity(), MainActivity.class));
                 }
 
             },time);
-
         }
 
         public Integer to_int(String key){

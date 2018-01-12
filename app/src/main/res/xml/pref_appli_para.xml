@@ -1,0 +1,7 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <SwitchPreference
+        android:defaultValue="@bool/switch_fullscreen_modeDEF"
+        android:key="switch_fullscreen_mode"
+        android:title="Mode plein écran"
+        android:summary="Masque la barre de statut du téléphone"/>
+</PreferenceScreen>

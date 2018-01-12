@@ -13,8 +13,6 @@ public class Perso {
     private AllSkills allSkills;
     private Attacks atq;
     private Ki ki;
-
-
     private Context mC;
 
     public Perso(Context mC){
