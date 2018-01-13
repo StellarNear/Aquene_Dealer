@@ -10,12 +10,14 @@
         android:id="@+id/AppBarLayoutHelp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:theme="@style/AppTheme.AppBarOverlay"
+        android:background="@drawable/title_bar_gradient_help">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbarHelp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@drawable/help_back_title_bar"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>

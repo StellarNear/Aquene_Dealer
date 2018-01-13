@@ -10,6 +10,8 @@
     <color name="divider_pref">#e6e6e6</color>
     <color name="white">#FFFFFF</color>
 
+    <color name="start_gradient_title_bar_help">#1f3b70</color>
+    <color name="end_gradient_title_bar_help">#88b3f8</color>
     <color name="start_gradient_title_bar_stance">#ad330a</color>
     <color name="end_gradient_title_bar_stance">#ffcc71</color>
     <color name="start_gradient_title_bar_main">#822616</color>

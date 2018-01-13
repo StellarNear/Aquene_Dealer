@@ -14,6 +14,13 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="AppTheme.NoActionBarHelp">
+        <item name="colorPrimary">@color/end_gradient_title_bar_help</item>
+        <item name="colorPrimaryDark">@color/start_gradient_title_bar_help</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
     <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowBackground">@drawable/splash</item>
     </style>

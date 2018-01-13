@@ -37,14 +37,16 @@ public class HelpActivity extends AppCompatActivity {
             this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
         super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.help_activity);
+
         String title=getString(R.string.help_activity); //todo stacking des sub directeory genre Help center : Standard action : Round : Attack
         SpannableString titleSpan = new SpannableString(title);
         titleSpan.setSpan(new ForegroundColorSpan(getColor(R.color.textColorPrimary)),0,title.length(),0);
         titleSpan.setSpan(new RelativeSizeSpan(1.5f)  ,0,getString(R.string.help_activity).length(),0);
-        Toolbar mActionBarToolbar = (Toolbar) findViewById(R.id.toolbarHelp);
-        setSupportActionBar(mActionBarToolbar);
+        Toolbar mActionBarToolbarhelp = (Toolbar) findViewById(R.id.toolbarHelp);
+        setSupportActionBar(mActionBarToolbarhelp);
         getSupportActionBar().setTitle(titleSpan);
-        setContentView(R.layout.help_activity);
     }
 
     @Override
