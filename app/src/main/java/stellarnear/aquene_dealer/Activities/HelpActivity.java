@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
@@ -40,6 +41,8 @@ public class HelpActivity extends AppCompatActivity {
         SpannableString titleSpan = new SpannableString(title);
         titleSpan.setSpan(new ForegroundColorSpan(getColor(R.color.textColorPrimary)),0,title.length(),0);
         titleSpan.setSpan(new RelativeSizeSpan(1.5f)  ,0,getString(R.string.help_activity).length(),0);
+        Toolbar mActionBarToolbar = (Toolbar) findViewById(R.id.toolbarHelp);
+        setSupportActionBar(mActionBarToolbar);
         getSupportActionBar().setTitle(titleSpan);
         setContentView(R.layout.help_activity);
     }

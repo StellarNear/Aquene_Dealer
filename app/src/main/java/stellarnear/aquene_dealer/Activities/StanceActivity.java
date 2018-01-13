@@ -11,7 +11,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Html;
+import android.support.v7.widget.Toolbar;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
@@ -94,6 +94,8 @@ public class StanceActivity extends AppCompatActivity {
         SpannableString titleSpan = new SpannableString(title);
         titleSpan.setSpan(new ForegroundColorSpan(getColor(R.color.textColorPrimary)),0,title.length(),0);
         titleSpan.setSpan(new RelativeSizeSpan(1.5f)  ,0,getString(R.string.stance_activity).length()+1,0);
+        Toolbar mActionBarToolbar = (Toolbar) findViewById(R.id.toolbarStance);
+        setSupportActionBar(mActionBarToolbar);
         getSupportActionBar().setTitle(titleSpan);
     }
 
@@ -255,6 +257,8 @@ public class StanceActivity extends AppCompatActivity {
         SpannableString titleSpan = new SpannableString(title);
         titleSpan.setSpan(new ForegroundColorSpan(getColor(R.color.textColorPrimary)),0,title.length(),0);
         titleSpan.setSpan(new RelativeSizeSpan(1.5f)  ,0,getString(R.string.stance_activity).length()+1,0);
+        Toolbar mActionBarToolbar = (Toolbar) findViewById(R.id.toolbarStance);
+        setSupportActionBar(mActionBarToolbar);
         getSupportActionBar().setTitle(titleSpan);
     }
 

@@ -35,11 +35,13 @@
 
         <activity android:label="@string/stance_activity"
             android:name=".Activities.StanceActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"/>
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity android:label="@string/help_activity"
             android:name=".Activities.HelpActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize" />
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@style/AppTheme.NoActionBar"/>
 
 
 

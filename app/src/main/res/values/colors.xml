@@ -9,4 +9,8 @@
     <color name="start_back_color">#000000</color>
     <color name="divider_pref">#e6e6e6</color>
     <color name="white">#FFFFFF</color>
+
+    <color name="start_gradient_title_bar">#ad330a</color>
+    <color name="end_gradient_title_bar">#ffcc71</color>
+
 </resources>
