@@ -11,13 +11,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay"
-        android:background="@drawable/title_bar_gradient">
+        android:background="@drawable/title_bar_gradient_stance">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbarStance"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@drawable/stance_back"
+            android:background="@drawable/stance_back_title_bar"
             app:popupTheme="@style/AppTheme.PopupOverlay">
         </android.support.v7.widget.Toolbar>
 
