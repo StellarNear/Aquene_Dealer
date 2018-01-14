@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.Perso.Skill;
@@ -75,12 +76,15 @@ public class MainActivityFragmentSkill extends Fragment {
         line.setGravity(Gravity.CENTER);
         line.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,getResources().getDimensionPixelSize(R.dimen.icon_skills_list_height)));
         line.setBackground(getResources().getDrawable(R.drawable.skill_bar_gradient));
+        setNameListnerRollSkill(line,skill);
 
         TextView nameTxt = new TextView(getContext());
         TextView nameTitle = returnFragView.findViewById(R.id.skillNameTitle);
         nameTxt.setLayoutParams(nameTitle.getLayoutParams());
         nameTxt.setText(skill.getName());
-        nameTxt.setCompoundDrawablesWithIntrinsicBounds(resize(getContext().getDrawable(R.drawable.skill_back)),null,null,null);
+        int imgId = getResources().getIdentifier(skill.getId(), "drawable", getContext().getPackageName());
+        nameTxt.setCompoundDrawablesWithIntrinsicBounds(resize(getContext().getDrawable(imgId)),null,null,null);
+        nameTxt.setPadding(getResources().getDimensionPixelSize(R.dimen.general_margin),0,0,0);
         nameTxt.setGravity(Gravity.CENTER);
 
         TextView abiTxt = new TextView(getContext());
@@ -109,6 +113,18 @@ public class MainActivityFragmentSkill extends Fragment {
         linearSkillScroll.addView(line);
 
     }
+
+    private void setNameListnerRollSkill(LinearLayout line,final Skill skill) {
+        line.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast toast = Toast.makeText(getContext(), "Lancement de "+skill.getName(), Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER|Gravity.CENTER_HORIZONTAL,0,0);
+                toast.show();
+            }
+        });
+    }
+
     private Drawable resize(Drawable image) {
         Bitmap b = ((BitmapDrawable)image).getBitmap();
         int pixel_size_icon = (int) (getResources().getDimensionPixelSize(R.dimen.icon_skills_list_height)*0.8);
