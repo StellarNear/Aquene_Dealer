@@ -40,7 +40,7 @@
                      android:layout_height="wrap_content"
                      android:layout_weight="3"
                      android:gravity="center"
-                     android:textSize="16sp"
+                     android:textSize="15sp"
                      android:textStyle="bold"
                      android:text="Compétence" />
                  <TextView
@@ -50,15 +50,14 @@
                      android:gravity="center"
                      android:textStyle="bold"
                      android:layout_weight="1"
-                     android:textSize="16sp"
-                     android:background="@color/colorPrimaryDark"
-                     android:text="Aptitude" />
+                     android:textSize="15sp"
+                     android:text="Stat" />
                  <TextView
                      android:id="@+id/skillRankTitle"
                      android:layout_width="0dp"
                      android:layout_height="wrap_content"
                      android:gravity="center"
-                     android:textSize="16sp"
+                     android:textSize="15sp"
                      android:layout_weight="1"
                      android:textStyle="bold"
                      android:text="Rang" />
@@ -67,8 +66,7 @@
                      android:layout_width="0dp"
                      android:layout_height="wrap_content"
                      android:gravity="center"
-                     android:textSize="16sp"
-                     android:background="@color/colorPrimaryDark"
+                     android:textSize="15sp"
                      android:textStyle="bold"
                      android:layout_weight="1"
                      android:text="Autre" />

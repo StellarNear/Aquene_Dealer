@@ -87,7 +87,6 @@ public class MainActivityFragmentSkill extends Fragment {
         TextView abiTitle = returnFragView.findViewById(R.id.skillAbiTitle);
         abiTxt.setLayoutParams(abiTitle.getLayoutParams());
         abiTxt.setText(skill.getAbilityDependence() + " : " + aquene.getAbilities().getMOD(skill.getAbilityDependence()));
-        abiTxt.setBackgroundColor(getContext().getColor(R.color.colorPrimaryDark));
         abiTxt.setGravity(Gravity.CENTER);
 
         TextView rankTxt = new TextView(getContext());
@@ -101,7 +100,6 @@ public class MainActivityFragmentSkill extends Fragment {
         bonusTxt.setLayoutParams(bonusTitle.getLayoutParams());
         bonusTxt.setText(String.valueOf(skill.getBonus()));
         bonusTxt.setGravity(Gravity.CENTER);
-        bonusTxt.setBackgroundColor(getContext().getColor(R.color.colorPrimaryDark));
 
         line.addView(nameTxt);
         line.addView(abiTxt);

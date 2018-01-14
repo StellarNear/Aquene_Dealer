@@ -26,12 +26,16 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import stellarnear.aquene_dealer.R;
 import stellarnear.aquene_dealer.Perso.Perso;
 
 
 public class MainActivity extends AppCompatActivity {
     public static Perso aquene;
+    boolean loading=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -40,36 +44,63 @@ public class MainActivity extends AppCompatActivity {
             this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
         super.onCreate(savedInstanceState);
+        lockOrient();
 
+        final Window window = getWindow();
+        window.setStatusBarColor(getColor(R.color.start_back_color));
 
         if (aquene==null) {
-            Thread t = new Thread(new Runnable() {
+            Thread persoCreation = new Thread(new Runnable() {
                 public void run() {
                     aquene = new Perso(getApplicationContext());
+                    loading=true;
                 }
             });
-            t.start();
+            persoCreation.start();
 
-            ImageView image = new ImageView(this);
+
+            final ImageView image = new ImageView(getApplicationContext());
             image.setImageDrawable(getDrawable(R.drawable.monk_female_background));
             image.setBackgroundColor(getColor(R.color.start_back_color));
-
             setContentView(image);
 
-            final Window window = getWindow();
-            window.setStatusBarColor(getColor(R.color.start_back_color));
-
-            image.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View arg0, MotionEvent arg1) {
-                    window.setStatusBarColor(getColor(R.color.colorPrimaryDark));
-                    buildMainPage();
-                    return true;//always return true to consume event
+            Thread loadListner = new Thread(new Runnable() {
+                public void run() {
+                    setLoadCompleteListner(image,window);
                 }
             });
+            loadListner.start();
+
+
         } else {
             buildMainPage();
         }
+    }
+
+    private void setLoadCompleteListner(final ImageView image,final Window window) {
+        Timer timerRefreshLoading = new Timer();
+        timerRefreshLoading.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                if(loading){
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            image.setImageDrawable(getDrawable(R.drawable.monk_female_background_done));
+                            image.setOnTouchListener(new View.OnTouchListener() {
+                                @Override
+                                public boolean onTouch(View arg0, MotionEvent arg1) {
+                                    unlockOrient();
+                                    window.setStatusBarColor(getColor(R.color.colorPrimaryDark));
+                                    buildMainPage();
+                                    return true;//always return true to consume event
+                                }
+                            });
+                        }
+                    });
+                }
+            }
+        },0,333);
     }
 
     private void buildMainPage() {
