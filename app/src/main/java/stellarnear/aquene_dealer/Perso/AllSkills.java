@@ -51,7 +51,7 @@ public class AllSkills {
                     Element element2 = (Element) node;
                     Skill skill=new Skill(
                             readValue("name", element2),
-                            readValue("ability", element2),
+                            readValue("abilityDependence", element2),
                             readValue("descr", element2),
                             readValue("id", element2),
                             abilities,

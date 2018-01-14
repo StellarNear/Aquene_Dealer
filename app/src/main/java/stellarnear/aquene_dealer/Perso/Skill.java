@@ -54,7 +54,9 @@ public class Skill {
         return imagePath;
     }
 
-
+    public String getAbilityDependence() {
+        return this.abilityDependence;
+    }
 
     private Integer toInt(String key){
         Integer value=0;

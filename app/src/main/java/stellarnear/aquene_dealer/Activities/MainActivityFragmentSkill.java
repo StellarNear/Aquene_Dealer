@@ -4,9 +4,13 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.pm.ActivityInfo;
+import android.graphics.Bitmap;
 import android.graphics.Rect;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +27,8 @@ import stellarnear.aquene_dealer.R;
  */
 public class MainActivityFragmentSkill extends Fragment {
     Perso aquene = MainActivity.aquene;
+    LinearLayout linearSkillScroll;
+    View returnFragView;
     public MainActivityFragmentSkill() {
     }
 
@@ -34,22 +40,12 @@ public class MainActivityFragmentSkill extends Fragment {
             container.removeAllViews();
         }
 
-        View returnFragView= inflater.inflate(R.layout.fragment_main_skill, container, false);
+        returnFragView= inflater.inflate(R.layout.fragment_main_skill, container, false);
 
-        LinearLayout linearSkillFrag=returnFragView.findViewById(R.id.linearSkillFrag);
+        linearSkillScroll=returnFragView.findViewById(R.id.skillscrollLayout);
 
         for (Skill skill : aquene.getAllSkills().getSkillsList()) {
-            TextView test = new TextView(getActivity());
-            test.setText(skill.getName() + " : "+skill.getRank());
-            linearSkillFrag.addView(test);
-        }
-
-        String[] abilities = { "FOR", "DEX", "CON", "INT", "SAG", "CHA" };
-
-        for (String abi : abilities) {
-            TextView test = new TextView(getActivity());
-            test.setText(abi+ " : Score: "+aquene.getAbilities().getScore(abi)+" Mod: "+aquene.getAbilities().getMOD(abi));
-            linearSkillFrag.addView(test);
+            addAllColumns(skill);
         }
 
         ImageButton buttonMain = (ImageButton) returnFragView.findViewById(R.id.button_frag_skill_to_main);
@@ -71,6 +67,55 @@ public class MainActivityFragmentSkill extends Fragment {
 
 
         return returnFragView;
+    }
+
+    private void addAllColumns(Skill skill) {
+        LinearLayout line = new LinearLayout(getContext());
+        line.setOrientation(LinearLayout.HORIZONTAL);
+        line.setGravity(Gravity.CENTER);
+        line.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,getResources().getDimensionPixelSize(R.dimen.icon_skills_list_height)));
+        line.setBackground(getResources().getDrawable(R.drawable.skill_bar_gradient));
+
+        TextView nameTxt = new TextView(getContext());
+        TextView nameTitle = returnFragView.findViewById(R.id.skillNameTitle);
+        nameTxt.setLayoutParams(nameTitle.getLayoutParams());
+        nameTxt.setText(skill.getName());
+        nameTxt.setCompoundDrawablesWithIntrinsicBounds(resize(getContext().getDrawable(R.drawable.skill_back)),null,null,null);
+        nameTxt.setGravity(Gravity.CENTER);
+
+        TextView abiTxt = new TextView(getContext());
+        TextView abiTitle = returnFragView.findViewById(R.id.skillAbiTitle);
+        abiTxt.setLayoutParams(abiTitle.getLayoutParams());
+        abiTxt.setText(skill.getAbilityDependence() + " : " + aquene.getAbilities().getMOD(skill.getAbilityDependence()));
+        abiTxt.setBackgroundColor(getContext().getColor(R.color.colorPrimaryDark));
+        abiTxt.setGravity(Gravity.CENTER);
+
+        TextView rankTxt = new TextView(getContext());
+        TextView rankTitle = returnFragView.findViewById(R.id.skillRankTitle);
+        rankTxt.setLayoutParams(rankTitle.getLayoutParams());
+        rankTxt.setText(String.valueOf(skill.getRank()));
+        rankTxt.setGravity(Gravity.CENTER);
+
+        TextView bonusTxt = new TextView(getContext());
+        TextView bonusTitle = returnFragView.findViewById(R.id.skillBonusTitle);
+        bonusTxt.setLayoutParams(bonusTitle.getLayoutParams());
+        bonusTxt.setText(String.valueOf(skill.getBonus()));
+        bonusTxt.setGravity(Gravity.CENTER);
+        bonusTxt.setBackgroundColor(getContext().getColor(R.color.colorPrimaryDark));
+
+        line.addView(nameTxt);
+        line.addView(abiTxt);
+        line.addView(rankTxt);
+        line.addView(bonusTxt);
+
+        linearSkillScroll.addView(line);
+
+    }
+    private Drawable resize(Drawable image) {
+        Bitmap b = ((BitmapDrawable)image).getBitmap();
+        int pixel_size_icon = (int) (getResources().getDimensionPixelSize(R.dimen.icon_skills_list_height)*0.8);
+        Bitmap bitmapResized = Bitmap.createScaledBitmap(b, pixel_size_icon, pixel_size_icon, false);
+        return new BitmapDrawable(getResources(), bitmapResized);
     }
 
     private void unlockOrient() {

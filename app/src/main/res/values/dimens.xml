@@ -1,9 +1,9 @@
 <resources>
-    <dimen name="fab_margin">5dp</dimen>
+    <dimen name="general_margin">5dp</dimen>
     <dimen name="size_icon_main_rota">30dp</dimen>
     <dimen name="size_icon_main">50dp</dimen>
-    <dimen name="fab_margin_rota">5dp</dimen>
     <dimen name="size_icon_main_actions">80dp</dimen>
+    <dimen name="size_icon_main_actions075">60dp</dimen>
     <dimen name="size_text_main_actions">12sp</dimen>
     <dimen name="stance_icon">75dp</dimen>
     <dimen name="stance_icon_tooltip">150dp</dimen>
@@ -11,4 +11,6 @@
     <dimen name="text_size_stance_icons">4sp</dimen>
     <dimen name="text_size_stance_cat">16sp</dimen>
     <dimen name="divider_pref_height">1dp</dimen>
+    <dimen name="icon_skills_list_height">40dp</dimen>
+
 </resources>

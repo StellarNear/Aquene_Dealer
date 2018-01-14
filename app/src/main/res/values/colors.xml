@@ -17,4 +17,7 @@
     <color name="start_gradient_title_bar_main">#822616</color>
     <color name="end_gradient_title_bar_main">#bd3e1e</color>
 
+    <color name="start_gradient_skill">#00000000</color>
+    <color name="end_gradient_skill">#e6e6e6</color>
+
 </resources>

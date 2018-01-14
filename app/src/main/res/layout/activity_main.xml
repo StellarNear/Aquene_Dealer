@@ -52,7 +52,7 @@
                     android:scaleType="fitCenter"
                     android:layout_gravity="center_vertical|left"
                     app:srcCompat="@drawable/stance_icon"
-                    android:padding="@dimen/fab_margin_rota"
+                    android:padding="@dimen/general_margin"
                     android:backgroundTint="@android:color/transparent"
                     />
 
@@ -93,7 +93,7 @@
                 android:layout_width="@dimen/size_icon_main"
                 android:layout_height="@dimen/size_icon_main"
                 android:layout_gravity="center_vertical|right"
-                android:padding="@dimen/fab_margin_rota"
+                android:padding="@dimen/general_margin"
                 android:backgroundTint="@android:color/transparent"
                 android:scaleType="fitCenter"
                 app:srcCompat="@drawable/help" />
@@ -110,7 +110,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
+        android:layout_margin="@dimen/general_margin"
         app:srcCompat="@android:drawable/ic_dialog_email" />
 
 </android.support.design.widget.CoordinatorLayout>
