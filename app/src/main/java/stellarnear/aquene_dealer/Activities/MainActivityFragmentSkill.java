@@ -10,15 +10,23 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+
+import android.support.v7.app.AlertDialog;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
+import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
+import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
+
+import stellarnear.aquene_dealer.Divers.WheelDicePicker;
 import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.Perso.Skill;
 import stellarnear.aquene_dealer.R;
@@ -118,9 +126,50 @@ public class MainActivityFragmentSkill extends Fragment {
         line.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast toast = Toast.makeText(getContext(), "Lancement de "+skill.getName(), Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.CENTER|Gravity.CENTER_HORIZONTAL,0,0);
-                toast.show();
+
+                /*AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+                builder.setView(R.layout.custom_dialog);
+
+                builder.create();*/
+
+
+                /*
+
+                ImageView icon = new ImageView(getActivity()); // Create an icon
+                icon.setImageDrawable(getResources().getDrawable(R.drawable.bear_select));
+
+                FloatingActionButton actionButton = getActivity().findViewById(R.id.custom_dialog_fab);
+
+                SubActionButton.Builder itemBuilder = new SubActionButton.Builder(getActivity());
+
+                ImageView img1 = new ImageView(getContext());
+                img1.setImageDrawable(getResources().getDrawable(R.drawable.acrob));
+                SubActionButton button1 = itemBuilder.setContentView(img1).build();
+
+                ImageView img2 = new ImageView(getContext());
+                img2.setImageDrawable(getResources().getDrawable(R.drawable.climb));
+                SubActionButton button2 = itemBuilder.setContentView(img2).build();
+
+                FloatingActionMenu.Builder actionMenu = new FloatingActionMenu.Builder(this);
+                actionMenu.addSubActionView(button1);
+                actionMenu.addSubActionView(button2);
+
+                actionMenu.attachTo(actionButton);
+                actionMenu.build();
+
+                //LinearLayout lin = getActivity().findViewById(R.id.custom_dialog_linear);
+                //lin.addView(actionButton);
+
+                getActivity().setContentView(R.layout.custom_dialog);
+
+                */
+
+
+
+
+
+
             }
         });
     }

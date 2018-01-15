@@ -32,7 +32,7 @@
     <integer name="survival_rankDEF">21</integer>
 
     <!--  Bonus des compétences  -->
-    <integer name="acrob_bonusDEF">34</integer>
+    <integer name="acrob_bonusDEF">13</integer>
     <integer name="myst_bonusDEF">3</integer>
     <integer name="religion_bonusDEF">3</integer>
     <integer name="stealth_bonusDEF">11</integer>

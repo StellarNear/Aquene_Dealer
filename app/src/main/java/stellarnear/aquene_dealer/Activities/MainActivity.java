@@ -26,6 +26,8 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -44,12 +46,11 @@ public class MainActivity extends AppCompatActivity {
             this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
         super.onCreate(savedInstanceState);
-        lockOrient();
-
-        final Window window = getWindow();
-        window.setStatusBarColor(getColor(R.color.start_back_color));
 
         if (aquene==null) {
+            final Window window = getWindow();
+            window.setStatusBarColor(getColor(R.color.start_back_color));
+            lockOrient();
             Thread persoCreation = new Thread(new Runnable() {
                 public void run() {
                     aquene = new Perso(getApplicationContext());
@@ -70,7 +71,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
             loadListner.start();
-
 
         } else {
             buildMainPage();
@@ -214,7 +214,6 @@ public class MainActivity extends AppCompatActivity {
                     setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
                 }
             }, 2500);
-
         }
     }
 
