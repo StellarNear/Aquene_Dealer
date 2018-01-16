@@ -18,5 +18,6 @@
     <dimen name="distance_dice_wheel">150dp</dimen>
     <dimen name="icon_dices_wheel_size">40dp</dimen>
     <dimen name="icon_main_dices_wheel_size">60dp</dimen>
+    <dimen name="margin_wheel_text">15dp</dimen>
 
 </resources>

@@ -51,7 +51,7 @@ public class WheelDicePicker extends AppCompatActivity {
 
             relativeCenter.addView(imgButton);
 
-            double angle=angle_part*i;
+            double angle=-90d+angle_part*i;
             int distX = (int) (dist*Math.cos(Math.toRadians(angle)));
             int distY = (int) (dist*Math.sin(Math.toRadians(angle)));
 
