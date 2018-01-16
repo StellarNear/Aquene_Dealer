@@ -45,5 +45,6 @@
     <integer name="heal_bonusDEF">11</integer>
     <integer name="psycho_bonusDEF">8</integer>
     <integer name="survival_bonusDEF">11</integer>
-    
+    <integer name="percent_fullscreen_customdialog">90</integer>
+
 </resources>

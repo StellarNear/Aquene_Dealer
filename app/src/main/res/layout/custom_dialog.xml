@@ -1,54 +1,49 @@
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:clipChildren="false"
+    android:gravity="center"
+    android:id="@+id/custom_dialog_RelativeLayoutMain"
+    android:background="@drawable/background_border_wheel_dialog">
 
+
+    <RelativeLayout
+        android:id="@+id/relative_custom_dialog_center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+    </RelativeLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="507dp"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="4dp">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="@dimen/general_margin"
+        android:gravity="center_horizontal">
 
 
-        <LinearLayout
-            android:id="@+id/custom_dialog_linear"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:textAlignment="center">
+         <TextView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_marginBottom="3dp"
+             android:text="Lancement du dès"
+             android:textAppearance="?android:attr/textAppearanceLarge"
+             android:textColor="@android:color/black" />
 
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="top|center_horizontal"
-                android:layout_marginBottom="3dp"
-                android:text="PM is here"
-                android:textAlignment="center"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@android:color/black" />
-
-
-        </LinearLayout>
     </LinearLayout>
 
-    <com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton
-        android:id="@+id/custom_dialog_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:focusable="true"
-        android:clickable="true"
-        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="@+id/linearLayout"
-        app:layout_constraintStart_toStartOf="@+id/linearLayout"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/bear_select" />
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/general_margin"
+        android:text="Séletionnes ton résultat"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@android:color/black" />
+
+</RelativeLayout>

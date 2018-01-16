@@ -26,8 +26,6 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
-import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
-
 import java.util.Timer;
 import java.util.TimerTask;
 
