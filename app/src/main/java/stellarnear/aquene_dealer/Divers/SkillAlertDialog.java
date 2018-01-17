@@ -127,12 +127,13 @@ public class SkillAlertDialog {
         dialogBuilder.setView(dialogViewWheelPicker);
         dialogBuilder.setPositiveButton("Valider", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
+                alertDialog.show();
                 endSkillCalculation(wheelPicker.getValue_selected());
             }
         });
         dialogBuilder.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                // User clicked OK butto
+                alertDialog.show();
             }
         });
         alertDialogWheelPicker = dialogBuilder.create();
@@ -142,6 +143,7 @@ public class SkillAlertDialog {
 
 
     private void showAlertDialogWheelPicker(){
+        alertDialog.hide();
         alertDialogWheelPicker.show();
         Display display = mA.getWindowManager().getDefaultDisplay();
         Point size = new Point();
@@ -152,6 +154,7 @@ public class SkillAlertDialog {
         Button positiveButton = alertDialogWheelPicker.getButton(AlertDialog.BUTTON_POSITIVE);
         LinearLayout.LayoutParams positiveButtonLL = (LinearLayout.LayoutParams) positiveButton.getLayoutParams();
         positiveButtonLL.width=ViewGroup.LayoutParams.WRAP_CONTENT;
+        positiveButtonLL.setMargins(mC.getResources().getDimensionPixelSize(R.dimen.general_margin),0,0,0);
         positiveButton.setLayoutParams(positiveButtonLL);
         positiveButton.setTextColor(mC.getColor(R.color.colorBackground));
         positiveButton.setBackground(mC.getDrawable(R.drawable.button_ok_gradient));
