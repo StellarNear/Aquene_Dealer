@@ -20,5 +20,8 @@
     <color name="start_gradient_skill">#00000000</color>
     <color name="end_gradient_skill">#e6e6e6</color>
     <color name="validation">#0FBD40</color>
+    <color name="cancel">#FF0000</color>
+
+    <color name="secondaryTextSkill">#cccccc</color>
 
 </resources>

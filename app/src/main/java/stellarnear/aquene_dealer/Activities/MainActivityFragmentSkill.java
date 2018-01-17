@@ -12,8 +12,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
-
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AlertDialog;
 import android.view.Display;
 import android.view.Gravity;
@@ -21,14 +19,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import stellarnear.aquene_dealer.Divers.SkillAlertDialog;
 import stellarnear.aquene_dealer.Divers.WheelDicePicker;
 import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.Perso.Skill;
@@ -101,7 +98,13 @@ public class MainActivityFragmentSkill extends Fragment {
         TextView abiTxt = new TextView(getContext());
         TextView abiTitle = returnFragView.findViewById(R.id.skillAbiTitle);
         abiTxt.setLayoutParams(abiTitle.getLayoutParams());
-        abiTxt.setText(skill.getAbilityDependence() + " : " + aquene.getAbilities().getMOD(skill.getAbilityDependence()));
+        String abScore;
+        if(aquene.getAbilities().getMOD(skill.getAbilityDependence())>=0){
+            abScore = "+"+aquene.getAbilities().getMOD(skill.getAbilityDependence());
+        } else {
+            abScore = "-"+aquene.getAbilities().getMOD(skill.getAbilityDependence());
+        }
+        abiTxt.setText(skill.getAbilityDependence() + " : " +abScore );
         abiTxt.setGravity(Gravity.CENTER);
 
         TextView rankTxt = new TextView(getContext());
@@ -129,54 +132,10 @@ public class MainActivityFragmentSkill extends Fragment {
         line.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LayoutInflater inflater = getActivity().getLayoutInflater();
-                View dialogView = inflater.inflate(R.layout.custom_dialog, null);
-
-                RelativeLayout relativeCenter =  dialogView.findViewById(R.id.relative_custom_dialog_center);
-                final WheelDicePicker wheelPicker = new WheelDicePicker(relativeCenter,20,getContext());
-
-                AlertDialog.Builder dialogBuilder  = new AlertDialog.Builder(getActivity(), R.style.CustomDialog);
-                dialogBuilder.setView(dialogView);
-                dialogBuilder.setPositiveButton("Valider", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        int value = wheelPicker.getValue_selected();
-                        toastSkillResult(value);
-                    }
-                });
-                dialogBuilder.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        // User clicked OK butto
-                    }
-                });
-                AlertDialog alertDialog = dialogBuilder.create();
-                alertDialog.show();
-                Display display = getActivity().getWindowManager().getDefaultDisplay();
-                Point size = new Point();
-                display.getSize(size);
-                Float factor = getResources().getInteger(R.integer.percent_fullscreen_customdialog)/100f;
-                alertDialog.getWindow().setLayout((int) (factor*size.x), (int)(factor*size.y));
-
-                Button positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
-                LinearLayout.LayoutParams positiveButtonLL = (LinearLayout.LayoutParams) positiveButton.getLayoutParams();
-                positiveButtonLL.width=ViewGroup.LayoutParams.WRAP_CONTENT;
-                positiveButton.setLayoutParams(positiveButtonLL);
-                positiveButton.setTextColor(getContext().getColor(R.color.validation));
-                positiveButton.setBackground(getContext().getDrawable(R.drawable.background_border_wheel_dialog));
-
-                Button negativeButton = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
-                LinearLayout.LayoutParams negativeButtonLL = (LinearLayout.LayoutParams) positiveButton.getLayoutParams();
-                negativeButtonLL.width=ViewGroup.LayoutParams.WRAP_CONTENT;
-                negativeButton.setLayoutParams(positiveButtonLL);
-                negativeButton.setTextColor(getContext().getColor(R.color.colorPrimary));
-                negativeButton.setBackground(getContext().getDrawable(R.drawable.background_border_wheel_dialog));
+                SkillAlertDialog skillDialog = new SkillAlertDialog(getActivity(),getContext(),skill,aquene.getAbilities().getMOD(skill.getAbilityDependence()));
+                skillDialog.showAlertDialog();
             }
         });
-    }
-
-    private void toastSkillResult(int value) {
-        Toast toast = Toast.makeText(getContext(),"La valeur : "+value,Toast.LENGTH_LONG);
-        toast.setGravity(Gravity.CENTER|Gravity.CENTER_HORIZONTAL,0,0);
-        toast.show();
     }
 
     private Drawable resize(Drawable image) {

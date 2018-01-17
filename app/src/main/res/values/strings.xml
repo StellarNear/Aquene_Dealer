@@ -23,5 +23,8 @@
     <string name="help_activity">Centre d\'aide</string>
     <string name="skill_mastery">Rang de maîtrise</string>
     <string name="skill_bonus">Bonus divers</string>
+    <string name="skill_test_rolldice">Normal\n(dé 20)</string>
+    <string name="skill_test_passive">Passif\n(+10)</string>
+    <string name="skill_test_focus">Concentré\n(+20)</string>
 
 </resources>

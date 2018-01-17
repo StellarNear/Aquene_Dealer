@@ -15,7 +15,6 @@ public class Skill {
     private String id;
     private int rank;
     private int bonus;
-    private String imagePath;
     private Abilities abilities;
     private Context mC;
 
@@ -24,7 +23,6 @@ public class Skill {
         this.abilityDependence = abilityDependence;
         this.descr=descr;
         this.id=id;
-        this.imagePath =id+"_skill_img";
         this.abilities=abilities;
         this.mC=mC;
         refreshVals();
@@ -50,9 +48,7 @@ public class Skill {
         this.id = id;
     }
 
-    public String getImagePath() {
-        return imagePath;
-    }
+
 
     public String getAbilityDependence() {
         return this.abilityDependence;
