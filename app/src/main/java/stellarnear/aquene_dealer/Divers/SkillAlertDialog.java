@@ -114,8 +114,8 @@ public class SkillAlertDialog {
         LinearLayout.LayoutParams onlyButtonLL = (LinearLayout.LayoutParams) onlyButton.getLayoutParams();
         onlyButtonLL.width=ViewGroup.LayoutParams.WRAP_CONTENT;
         onlyButton.setLayoutParams(onlyButtonLL);
-        onlyButton.setTextColor(mC.getColor(R.color.cancel));
-        onlyButton.setBackground(mC.getDrawable(R.drawable.background_border_wheel_dialog));
+        onlyButton.setTextColor(mC.getColor(R.color.colorBackground));
+        onlyButton.setBackground(mC.getDrawable(R.drawable.button_cancel_gradient));
     }
 
     private void buildAlertDialogWheelPicker() {
@@ -153,15 +153,15 @@ public class SkillAlertDialog {
         LinearLayout.LayoutParams positiveButtonLL = (LinearLayout.LayoutParams) positiveButton.getLayoutParams();
         positiveButtonLL.width=ViewGroup.LayoutParams.WRAP_CONTENT;
         positiveButton.setLayoutParams(positiveButtonLL);
-        positiveButton.setTextColor(mC.getColor(R.color.validation));
-        positiveButton.setBackground(mC.getDrawable(R.drawable.background_border_wheel_dialog));
+        positiveButton.setTextColor(mC.getColor(R.color.colorBackground));
+        positiveButton.setBackground(mC.getDrawable(R.drawable.button_ok_gradient));
 
         Button negativeButton = alertDialogWheelPicker.getButton(AlertDialog.BUTTON_NEGATIVE);
         LinearLayout.LayoutParams negativeButtonLL = (LinearLayout.LayoutParams) negativeButton.getLayoutParams();
         negativeButtonLL.width=ViewGroup.LayoutParams.WRAP_CONTENT;
         negativeButton.setLayoutParams(negativeButtonLL);
-        negativeButton.setTextColor(mC.getColor(R.color.cancel));
-        negativeButton.setBackground(mC.getDrawable(R.drawable.background_border_wheel_dialog));
+        negativeButton.setTextColor(mC.getColor(R.color.colorBackground));
+        negativeButton.setBackground(mC.getDrawable(R.drawable.button_cancel_gradient));
 
     }
 
@@ -181,8 +181,7 @@ public class SkillAlertDialog {
 
         Button onlyButton = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
         onlyButton.setText("Ok");
-        onlyButton.setTextColor(mC.getColor(R.color.validation));
-        onlyButton.setBackground(mC.getDrawable(R.drawable.background_border_wheel_dialog));
+        onlyButton.setBackground(mC.getDrawable(R.drawable.button_ok_gradient));
 
     }
 }

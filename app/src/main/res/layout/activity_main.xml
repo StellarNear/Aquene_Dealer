@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="3"
-            android:background="@drawable/skill_bar_gradient"
+            android:background="@drawable/main_bar_gradient"
          >
 
             <LinearLayout
@@ -71,7 +71,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Actions principales"
+                android:text="Menu principal"
                 android:gravity="center"
                  />
 
