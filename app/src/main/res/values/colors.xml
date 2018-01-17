@@ -17,11 +17,20 @@
     <color name="start_gradient_title_bar_main">#822616</color>
     <color name="end_gradient_title_bar_main">#bd3e1e</color>
 
-    <color name="start_gradient_skill">#00000000</color>
+    <color name="start_gradient_title_bar_main_ki">#af5a1d</color>
+    <color name="end_gradient_title_bar_main_ki">#f3e22b</color>
+    <color name="start_gradient_title_bar_main_combat">#8c1d04</color>
+    <color name="end_gradient_title_bar_main_combat">#fa863d</color>
+    <color name="start_gradient_title_bar_main_skill">#000967</color>
+    <color name="end_gradient_title_bar_main_skill">#b164f5</color>
+
+    <color name="start_gradient_skill">#ffffff</color>
     <color name="end_gradient_skill">#e6e6e6</color>
+
     <color name="validation">#0FBD40</color>
     <color name="cancel">#FF0000</color>
 
     <color name="secondaryTextSkill">#cccccc</color>
+
 
 </resources>

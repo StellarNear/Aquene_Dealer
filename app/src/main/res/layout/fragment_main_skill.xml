@@ -8,6 +8,7 @@
 
 
     <LinearLayout
+        android:id="@+id/linearSkillFrag"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -16,21 +17,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_icon_main_actions075"
                 android:orientation="horizontal"
+                android:background="@drawable/bar_gradient_main_skill"
                 android:gravity="center">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorBackground"
                     android:textSize="19sp"
                     android:text="Lancement des compétences" />
             </LinearLayout>
 
             <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/skillTitleLine"
-            android:weightSum="6"
-            android:orientation="horizontal">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/skillTitleLine"
+                android:weightSum="6"
+                android:orientation="horizontal"
+                android:background="@color/colorPrimaryDark">
 
                  <TextView
                      android:id="@+id/skillNameTitle"
@@ -38,10 +43,12 @@
                      android:layout_height="wrap_content"
                      android:layout_weight="3"
                      android:gravity="center"
+                     android:textColor="@color/colorBackground"
                      android:textSize="15sp"
                      android:textStyle="bold"
                      android:text="Compétence" />
                  <TextView
+                     android:textColor="@color/colorBackground"
                      android:id="@+id/skillAbiTitle"
                      android:layout_width="0dp"
                      android:layout_height="wrap_content"
@@ -51,6 +58,7 @@
                      android:textSize="15sp"
                      android:text="Stat" />
                  <TextView
+                     android:textColor="@color/colorBackground"
                      android:id="@+id/skillRankTitle"
                      android:layout_width="0dp"
                      android:layout_height="wrap_content"
@@ -60,6 +68,7 @@
                      android:textStyle="bold"
                      android:text="Rang" />
                  <TextView
+                     android:textColor="@color/colorBackground"
                      android:id="@+id/skillBonusTitle"
                      android:layout_width="0dp"
                      android:layout_height="wrap_content"

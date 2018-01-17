@@ -4,10 +4,9 @@
         <shape>
             <gradient
                 android:type="linear"
-                android:angle="270"
-                android:startColor="@color/start_gradient_skill"
-                android:centerColor="@color/colorBackground"
-                android:endColor="@color/end_gradient_skill" />
+                android:angle="45"
+                android:startColor="@color/start_gradient_title_bar_main_combat"
+                android:endColor="@color/end_gradient_title_bar_main_combat" />
         </shape>
     </item>
 </selector>
