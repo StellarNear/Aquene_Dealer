@@ -5,6 +5,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Point;
 import android.support.v7.app.AlertDialog;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.RelativeSizeSpan;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,9 +49,12 @@ public class SkillAlertDialog {
         ImageView icon = dialogView.findViewById(R.id.dialogSkillTestSkillIcon);
         int imgId = mC.getResources().getIdentifier(skill.getId(), "drawable", mC.getPackageName());
         icon.setImageDrawable(mC.getDrawable(imgId));
-
+        String titleTxt = "Test de la compétence :\n"+skill.getName();
+        SpannableString titleSpan = new SpannableString(titleTxt);
+        titleSpan.setSpan(new RelativeSizeSpan(2.0f)  ,titleTxt.length()-skill.getName().length(),titleTxt.length(),0);
         TextView title = dialogView.findViewById(R.id.dialogSkillTestSkillTitle);
-        title.setText("Test de "+skill.getName());
+        title.setSingleLine(false);
+        title.setText(titleSpan);
 
         TextView summary = dialogView.findViewById(R.id.dialogSkillTestSkillSummary);
         String abScore;
