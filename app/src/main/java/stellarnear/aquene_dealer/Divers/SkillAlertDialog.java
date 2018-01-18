@@ -3,10 +3,11 @@ package stellarnear.aquene_dealer.Divers;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.Point;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
+import java.util.Random;
 
 import stellarnear.aquene_dealer.Perso.Skill;
 import stellarnear.aquene_dealer.R;
@@ -67,12 +69,19 @@ public class SkillAlertDialog {
         String summaryTxt="Abilité ("+skill.getAbilityDependence()+") : "+abScore+",  Maîtrise : "+skill.getRank()+",  Bonus : "+skill.getBonus();
         summary.setText(summaryTxt);
 
-        Button rolldice = dialogView.findViewById(R.id.button_skill_test_rolldice);
-        rolldice.setOnClickListener( new View.OnClickListener() {
+        Button diceroll = dialogView.findViewById(R.id.button_skill_test_diceroll);
+        diceroll.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                buildAlertDialogWheelPicker();
-                showAlertDialogWheelPicker();
+
+                SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mC);
+                if (settings.getBoolean("switch_manual_diceroll",mC.getResources().getBoolean(R.bool.switch_manual_dicerollDEF))) {
+                    buildAlertDialogWheelPicker();
+                    showAlertDialogWheelPicker();
+                } else {
+                    Random rand = new Random();
+                    endSkillCalculation(1+rand.nextInt(20));
+                }
             }
         });
 
@@ -170,6 +179,10 @@ public class SkillAlertDialog {
 
 
     private void endSkillCalculation(int value_selected) {
+        ImageView resultDice= dialogView.findViewById(R.id.dialogSkillTestResultDice);
+        int idResultDice = mC.getResources().getIdentifier("d20_"+value_selected, "drawable", mC.getPackageName());
+        resultDice.setImageDrawable(mC.getDrawable(idResultDice));
+
         TextView resultTitle = dialogView.findViewById(R.id.dialogSkillTitleResult);
         resultTitle.setText("Résultat du test de compétence :");
 

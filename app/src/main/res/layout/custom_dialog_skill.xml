@@ -8,8 +8,6 @@
     android:id="@+id/custom_dialog_RelativeLayoutMain"
     android:background="@drawable/background_border_dialog">
 
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -52,7 +50,7 @@
 
         android:gravity="center">
         <Button
-            android:id="@+id/button_skill_test_rolldice"
+            android:id="@+id/button_skill_test_diceroll"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/button_basic_gradient"
@@ -76,11 +74,6 @@
             android:text="@string/skill_test_focus"/>
     </LinearLayout>
 
-
-
-
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -88,12 +81,18 @@
         android:layout_alignParentBottom="true"
         android:gravity="center_horizontal">
 
+        <ImageView
+            android:layout_width="@dimen/icon_dices_wheel_size"
+            android:layout_height="@dimen/icon_dices_wheel_size"
+            android:id="@+id/dialogSkillTestResultDice"
+            android:layout_marginBottom="@dimen/margin_skilldialog_text" />
+
         <TextView
             android:id="@+id/dialogSkillTitleResult"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:layout_marginBottom="@dimen/margin_skilldialog_text"
+            android:layout_marginBottom="@dimen/general_margin"
             android:text=""
             android:textColor="@android:color/black" />
 
@@ -102,7 +101,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:layout_marginBottom="@dimen/margin_skilldialog_text"
+            android:layout_marginBottom="@dimen/general_margin"
             android:text=""
             android:textSize="@dimen/sizeTextDialogSkillResult"
             android:textAppearance="?android:attr/textAppearanceLarge"
@@ -113,7 +112,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:layout_marginBottom="@dimen/margin_skilldialog_text"
+            android:layout_marginBottom="@dimen/general_margin"
             android:text="Choisis ton action"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@android:color/black" />

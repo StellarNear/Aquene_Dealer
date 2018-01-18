@@ -31,4 +31,5 @@
     <bool name="switch_save_coat">true</bool>
     <bool name="switch_save_ref_boot">true</bool>
     <bool name="switch_fullscreen_modeDEF">true</bool>
+    <bool name="switch_manual_dicerollDEF">false</bool>
 </resources>

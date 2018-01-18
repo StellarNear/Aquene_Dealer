@@ -4,4 +4,11 @@
         android:key="switch_fullscreen_mode"
         android:title="Mode plein écran"
         android:summary="Masque la barre de statut du téléphone"/>
+
+    <SwitchPreference
+        android:defaultValue="@bool/switch_manual_dicerollDEF"
+        android:key="switch_manual_diceroll"
+        android:title="Lancement manuel des dés"/>
+
+
 </PreferenceScreen>
