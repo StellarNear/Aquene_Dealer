@@ -7,15 +7,6 @@
     android:layout_height="match_parent"
     tools:context="stellarnear.aquene_dealer.Activities.MainActivityFragment">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
 
     <LinearLayout
         android:orientation="vertical"
@@ -107,16 +98,74 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="368dp"
-        android:layout_height="135dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/general_margin"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="158dp">
+        android:weightSum="2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="toutes les stats force, dexte ... CA, vitesse ref,vig,vol, un HP clickable pour degat et heal (qui passe rouge quand faible en vie."/>
+            android:layout_marginBottom="@dimen/general_margin"
+            android:text="Caractéristiques générales"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:gravity="center"
+            android:textColor="@android:color/black"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:weightSum="2">
+
+            <LinearLayout
+                android:id="@+id/main_frag_stats_quadrant1"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/main_frag_stats_heigh_quadrant"
+                android:layout_margin="@dimen/general_margin"
+                android:orientation="vertical"
+                android:layout_weight="1">
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/main_frag_stats_quadrant2"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/main_frag_stats_heigh_quadrant"
+                android:layout_margin="@dimen/general_margin"
+                android:orientation="vertical"
+                android:layout_weight="1">
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:weightSum="2">
+            <LinearLayout
+                android:id="@+id/main_frag_stats_quadrant3"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/main_frag_stats_heigh_quadrant"
+                android:layout_margin="@dimen/general_margin"
+                android:orientation="vertical"
+                android:layout_weight="1">
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/main_frag_stats_quadrant4"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/main_frag_stats_heigh_quadrant"
+                android:layout_margin="@dimen/general_margin"
+                android:orientation="vertical"
+                android:layout_weight="1">
+            </LinearLayout>
+        </LinearLayout>
+
+
 
     </LinearLayout>
 

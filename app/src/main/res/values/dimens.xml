@@ -21,5 +21,6 @@
     <dimen name="margin_wheel_text">15dp</dimen>
     <dimen name="margin_skilldialog_text">15dp</dimen>
     <dimen name="sizeTextDialogSkillResult">50sp</dimen>
+    <dimen name="main_frag_stats_heigh_quadrant">150dp</dimen>
 
 </resources>

@@ -76,6 +76,30 @@
              android:singleLine="true"
              android:inputType="number"
              android:summary="Valeur : %s"/>
+        <stellarnear.aquene_dealer.Divers.EditTextPreference
+            android:defaultValue="@integer/carac_baseHEROIC_DEF"
+            android:key="carac_baseHEROIC"
+            android:title="Points héroiques"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:inputType="number"
+            android:summary="Valeur : %s"/>
+        <stellarnear.aquene_dealer.Divers.EditTextPreference
+            android:defaultValue="@integer/carac_baseREDUC_DEF"
+            android:key="carac_baseREDUC"
+            android:title="Réduction de dégats"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:summary="Valeur : %s"/>
+        <stellarnear.aquene_dealer.Divers.EditTextPreference
+            android:defaultValue="@integer/carac_baseREGEN_DEF"
+            android:key="carac_baseREGEN"
+            android:title="Régénération (/round)"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:inputType="number"
+            android:summary="Valeur : %s"/>
+
     </PreferenceCategory>
     <Preference android:layout="@layout/divider_pref" android:selectable="false"/>
     <PreferenceCategory

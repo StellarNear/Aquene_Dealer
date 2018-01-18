@@ -18,9 +18,9 @@ import java.util.Map;
 
 public class Abilities {
     private List<String> allAbilities
-            = Arrays.asList("FOR", "DEX", "CON","INT","SAG","CHA","LVL","MS","CA",                "HP","REF","VIG","VOL","BMO","DMD","INIT");
+            = Arrays.asList("FOR", "DEX", "CON","INT","SAG","CHA","LVL","MS","CA",                "HP","REF","VIG","VOL","BMO","DMD","INIT","HEROIC","RM","REDUC","REGEN");
     private List<String> allBaseAbilities
-            = Arrays.asList("FOR", "DEX", "CON","INT","SAG","CHA","LVL","MS","CA_STUFF","CA_MONK","HP","REF","VIG","VOL");
+            = Arrays.asList("FOR", "DEX", "CON","INT","SAG","CHA","LVL","MS","CA_STUFF","CA_MONK","HP","REF","VIG","VOL","HEROIC","REDUC","REGEN");
 
     private Map<String,Integer> mapAbidVal=new HashMap<>();
     private Map<String,Integer> mapBaseAbidVal=new HashMap<>();
@@ -50,17 +50,19 @@ public class Abilities {
 
     public void refreshAllAbilities() {
         for (String abiKey : allAbilities) {
+            //(abiKey.equals("FOR") && allStances.getCurrentStance()!=null && allStances.getCurrentStance().getId().equals("bear") pour test les stance en meme temps
             int val=0;
-            if(abiKey.equals("FOR") && allStances.getCurrentStance()!=null && allStances.getCurrentStance().getId().equals("bear")) {
-                val = mapBaseAbidVal.put(abiKey,val)+4;
-            } else if (abiKey.equals("CA")) {
-                val=mapBaseAbidVal.get("CA_STUFF")+mapBaseAbidVal.get("CA_MONK");
+            if (abiKey.equals("CA")) {
+                val=mapBaseAbidVal.get("CA_STUFF")+mapBaseAbidVal.get("CA_MONK")+getMOD("DEX")+10;
             } else if (abiKey.equals("BMO")) {
-                val=mapBaseAbidVal.get("DEX")+10;
+                val = mapBaseAbidVal.get("LVL")+getMOD("FOR");
             } else if (abiKey.equals("DMD")) {
-                val=mapBaseAbidVal.get("DEX")+20;
+                val = mapBaseAbidVal.get("LVL")+getMOD("FOR")+10+getMOD("DEX");
             } else if (abiKey.equals("INIT")) {
-                val=mapBaseAbidVal.get("DEX");
+                val=getMOD("DEX");
+                if (allFeats.isActive("init")){val+=4;}
+            } else if (abiKey.equals("RM")) {
+                val = mapBaseAbidVal.get("LVL") + 10;
             } else {
                 val = mapBaseAbidVal.get(abiKey);
             }

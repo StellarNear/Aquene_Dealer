@@ -15,6 +15,9 @@
     <integer name="carac_baseVIG_DEF">12</integer>
     <integer name="carac_baseREF_DEF">12</integer>
     <integer name="carac_baseVOL_DEF">12</integer>
+    <integer name="carac_baseREGEN_DEF">1</integer>
+    <integer name="carac_baseHEROIC_DEF">1</integer>
+    <integer name="carac_baseREDUC_DEF">10</integer>
 
     <!--  Rank de maitrise des compétences  -->
     <integer name="acrob_rankDEF">18</integer>
@@ -46,5 +49,6 @@
     <integer name="psycho_bonusDEF">8</integer>
     <integer name="survival_bonusDEF">11</integer>
     <integer name="percent_fullscreen_customdialog">90</integer>
+
 
 </resources>
