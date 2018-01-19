@@ -105,11 +105,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        Fragment fragment = new MainActivityFragment();
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_main_frame_layout, fragment);
-        fragmentTransaction.commit();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -136,6 +131,8 @@ public class MainActivity extends AppCompatActivity {
                 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE);
             }
         });
+
+        startFragment();
     }
 
     @Override
@@ -149,7 +146,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume(){
         super.onResume();
         checkOrientStart(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        if (aquene!=null) {aquene.refresh();}
+        if (aquene!=null) {
+            aquene.refresh();
+            startFragment();
+        }
+    }
+
+    private void startFragment() {
+        Fragment fragment = new MainActivityFragment();
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_main_frame_layout, fragment);
+        fragmentTransaction.commit();
     }
 
 

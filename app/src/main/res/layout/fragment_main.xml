@@ -99,7 +99,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/main_frag_stats_heigh_quadrant"
         android:layout_margin="@dimen/general_margin"
         android:orientation="vertical"
         android:weightSum="2"
@@ -107,7 +107,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <TextView
+        <!--<TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/general_margin"
@@ -115,53 +115,118 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:gravity="center"
             android:textColor="@android:color/black"
-            />
+            />  -->
 
         <LinearLayout
+            android:id="@+id/main_frag_stats_quadrantLine1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="horizontal"
+            android:gravity="center"
             android:layout_weight="1"
             android:weightSum="2">
 
             <LinearLayout
                 android:id="@+id/main_frag_stats_quadrant1"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/main_frag_stats_heigh_quadrant"
+                android:layout_height="match_parent"
                 android:layout_margin="@dimen/general_margin"
-                android:orientation="vertical"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:background="@drawable/quadrant_basic_gradient"
                 android:layout_weight="1">
+                <LinearLayout
+                    android:id="@+id/main_frag_stats_quadrant1_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/main_frag_stats_quadrant1_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                </LinearLayout>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/main_frag_stats_quadrant2"
+                android:animateLayoutChanges="true"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/main_frag_stats_heigh_quadrant"
+                android:layout_height="match_parent"
                 android:layout_margin="@dimen/general_margin"
-                android:orientation="vertical"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:background="@drawable/quadrant_basic_gradient"
                 android:layout_weight="1">
+                <LinearLayout
+                    android:id="@+id/main_frag_stats_quadrant2_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/main_frag_stats_quadrant2_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/main_frag_stats_quadrantLine2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="horizontal"
+            android:gravity="center"
             android:layout_weight="1"
             android:weightSum="2">
             <LinearLayout
                 android:id="@+id/main_frag_stats_quadrant3"
+                android:animateLayoutChanges="true"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/main_frag_stats_heigh_quadrant"
+                android:layout_height="match_parent"
                 android:layout_margin="@dimen/general_margin"
-                android:orientation="vertical"
+                android:gravity="center"
+                android:background="@drawable/quadrant_basic_gradient"
+                android:orientation="horizontal"
                 android:layout_weight="1">
+                <LinearLayout
+                    android:id="@+id/main_frag_stats_quadrant3_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/main_frag_stats_quadrant3_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                </LinearLayout>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/main_frag_stats_quadrant4"
+                android:animateLayoutChanges="true"
+                android:gravity="center"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/main_frag_stats_heigh_quadrant"
+                android:layout_height="match_parent"
                 android:layout_margin="@dimen/general_margin"
-                android:orientation="vertical"
+                android:orientation="horizontal"
+                android:background="@drawable/quadrant_basic_gradient"
                 android:layout_weight="1">
+                <LinearLayout
+                    android:id="@+id/main_frag_stats_quadrant4_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/main_frag_stats_quadrant4_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
 
