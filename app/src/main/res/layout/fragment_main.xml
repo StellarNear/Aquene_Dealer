@@ -99,23 +99,31 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/main_frag_stats_heigh_quadrant"
-        android:layout_margin="@dimen/general_margin"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:weightSum="2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
-
-        <!--<TextView
+        <TextView
+            android:id="@+id/quadrantGeneralTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/general_margin"
-            android:text="Caractéristiques générales"
+            android:text="@string/quadrantGeneralTitle"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:gravity="center"
             android:textColor="@android:color/black"
-            />  -->
+            />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/main_frag_stats_heigh_quadrant"
+        android:layout_margin="@dimen/general_margin"
+        android:orientation="vertical"
+        android:weightSum="2">
+
+
 
         <LinearLayout
             android:id="@+id/main_frag_stats_quadrantLine1"
@@ -231,7 +239,7 @@
         </LinearLayout>
 
 
-
+    </LinearLayout>
     </LinearLayout>
 
 

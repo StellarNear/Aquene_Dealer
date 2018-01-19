@@ -50,6 +50,8 @@ public class QuadrantFiller {
         mapLayoutFull.put(quadrant4,false);
         quadrantList= Arrays.asList(quadrant1, quadrant2, quadrant3, quadrant4);
 
+
+
         buildAllMini();
     }
 
@@ -164,17 +166,22 @@ public class QuadrantFiller {
 
     public void fullscreenQuadrant(LinearLayout layout){
         if(layout.equals(quadrant1)){
+            switchTextTitle(mC.getResources().getString(R.string.quadrantQ1Title));
             buildFullQ1();
         } else if(layout.equals(quadrant2)){
+            switchTextTitle(mC.getResources().getString(R.string.quadrantQ2Title));
             buildFullQ2();
         } else if(layout.equals(quadrant3)){
+            switchTextTitle(mC.getResources().getString(R.string.quadrantQ3Title));
             buildFullQ3();
         } else if(layout.equals(quadrant4)){
+            switchTextTitle(mC.getResources().getString(R.string.quadrantQ4Title));
             buildFullQ4();
         }
     }
 
     public void minimizeQuadrant(LinearLayout layout){
+        switchTextTitle(mC.getResources().getString(R.string.quadrantGeneralTitle));
         if(layout.equals(quadrant1)){
             buildMiniQ1();
         } else if(layout.equals(quadrant2)){
@@ -184,5 +191,34 @@ public class QuadrantFiller {
         } else if(layout.equals(quadrant4)){
             buildMiniQ4();
         }
+    }
+
+    private void switchTextTitle(final String s){
+        final TextView quadrantTitle=mainView.findViewById(R.id.quadrantGeneralTitle);
+        Animation anim = new AlphaAnimation(1.0f, 0.0f);
+        anim.setDuration(200);
+        anim.setRepeatCount(1);
+        anim.setRepeatMode(Animation.REVERSE);
+        anim.setAnimationListener( new  Animation.AnimationListener(){
+            @Override
+            public void onAnimationEnd(Animation arg0) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation arg0) {
+                // TODO Auto-generated method stub
+                quadrantTitle.setText(s);
+            }
+
+            @Override
+            public void onAnimationStart(Animation arg0) {
+                // TODO Auto-generated method stub
+
+            }
+
+        });
+
+        quadrantTitle.startAnimation(anim);
     }
 }
