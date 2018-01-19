@@ -102,7 +102,7 @@ public class QuadrantManager {
         quadrantLine1.setVisibility(View.VISIBLE);
         quadrantLine2.setVisibility(View.VISIBLE);
         Animation animation1  = new AlphaAnimation(0.0f, 1.0f);
-        animation1.setDuration(150);
+        animation1.setDuration(200);
         animation1.setFillAfter(true);
         quadrantLine1.startAnimation(animation1);
         quadrantLine2.startAnimation(animation1);

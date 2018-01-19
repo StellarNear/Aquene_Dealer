@@ -198,13 +198,33 @@ public class QuadrantFiller {
 
     private void switchTextTitle(final String s){
         final TextView quadrantTitle=mainView.findViewById(R.id.quadrantGeneralTitle);
+        quadrantTitle.clearAnimation();
+
+        final Animation fromLeft = new TranslateAnimation(-400,0, 0, 0);
+        fromLeft.setDuration(175);
+        final Animation fadeIn = new AlphaAnimation(0.0f, 1.0f);
+        fadeIn.setDuration(175);
+        final AnimationSet setIn = new AnimationSet(true);
+        setIn.setFillAfter(true);
+        setIn.addAnimation(fadeIn);
+        setIn.addAnimation(fromLeft);
+
+        final Animation toRight = new TranslateAnimation(0, 400, 0, 0);
+        toRight.setDuration(175);
         Animation fadeOut = new AlphaAnimation(1.0f, 0.0f);
-        fadeOut.setDuration(2000);
+        fadeOut.setDuration(175);
         fadeOut.setAnimationListener( new  Animation.AnimationListener(){
             @Override
             public void onAnimationEnd(Animation arg0) {
-                // TODO Auto-generated method stub
-                quadrantTitle.setText(s);
+
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        quadrantTitle.setText(s);
+                        quadrantTitle.startAnimation(setIn);
+                    }
+                }, 50);
+
             }
 
             @Override
@@ -216,38 +236,15 @@ public class QuadrantFiller {
             @Override
             public void onAnimationStart(Animation arg0) {
                 // TODO Auto-generated method stub
-
             }
-
         });
 
-
-
-        Animation toRight = new TranslateAnimation(0, 500, 0, 0);
-        toRight.setDuration(200);
-
-        Animation fromLeft = new TranslateAnimation(500,0, 0, 0);
-        fromLeft.setDuration(200);
-        Animation fadeIn = new AlphaAnimation(0.0f, 1.0f);
-        //fadeIn.setFillAfter(true);
-        fadeIn.setDuration(200);
-
-
         AnimationSet setOut = new AnimationSet(true);
+        setOut.setFillAfter(true);
         setOut.addAnimation(fadeOut);
         setOut.addAnimation(toRight);
 
-        AnimationSet setIn = new AnimationSet(true);
-
-        setIn.addAnimation(fadeIn);
-        setIn.addAnimation(fromLeft);
-        setIn.setStartOffset(250);
-
-        AnimationSet set = new AnimationSet(true);
-        set.addAnimation(setOut);
-        set.addAnimation(setIn);
-
-        quadrantTitle.startAnimation(set);
+        quadrantTitle.startAnimation(setOut);
 
     }
 }
