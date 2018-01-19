@@ -71,7 +71,8 @@ public class QuadrantFiller {
     }
     private void buildMiniQ2() {
         String[] baseStat    = {"HP","LVL","MS","HEROIC"};//Q2
-        String[] baseStatTxt = {"Points de vie","Niveau","Vitesse de déplacement","Points héroiques"};//Q2
+        //String[] baseStatTxt = {"Points de vie","Niveau","Vitesse de déplacement","Points héroiques"};//Q2
+        String[] baseStatTxt = {"Points de vie","Niveau","Déplacement","Points héroiques"};//Q2
         LinearLayout quadrantSub1 = mainView.findViewById(R.id.main_frag_stats_quadrant2_1);
         LinearLayout quadrantSub2 = mainView.findViewById(R.id.main_frag_stats_quadrant2_2);
         injectStats(baseStat,baseStatTxt,quadrantSub1,quadrantSub2);
@@ -79,14 +80,16 @@ public class QuadrantFiller {
     }
     private void buildMiniQ3() {
         String[] defStat=      {"CA","REF","VIG","VOL","RM","REDUC","REGEN"};//Q3
-        String[] defStatTxt=   {"Classe d'armure","Reflexe","Vigeur","Volonté","Résistance magie","Réduction (/chaotique)","Régénération"};//Q3
+        //String[] defStatTxt=   {"Classe d'armure","Reflexe","Vigeur","Volonté","Résistance magie","Réduction (/chaotique)","Régénération"};//Q3
+        String[] defStatTxt=   {"Classe d'armure","Reflexe","Vigeur","Volonté","Résistance magie","Réduction","Régénération"};//Q3
         LinearLayout quadrantSub1 = mainView.findViewById(R.id.main_frag_stats_quadrant3_1);
         LinearLayout quadrantSub2 = mainView.findViewById(R.id.main_frag_stats_quadrant3_2);
         injectStats(defStat,defStatTxt,quadrantSub1,quadrantSub2);
     }
     private void buildMiniQ4() {
         String[] advanceStat=  {"BMO","DMD","INIT","BBA", "KI"};// Q4
-        String[] advanceStatTxt= {"Bonus de\nmanoeuvre offensive","Degré de\nmanoeuvre défensive","Initiative","Bonus de base\nà l'attaque", "Réserve de Ki"};// Q4
+        //String[] advanceStatTxt= {"Bonus de\nmanoeuvre offensive","Degré de\nmanoeuvre défensive","Initiative","Bonus de base\nà l'attaque", "Réserve de Ki"};// Q4
+        String[] advanceStatTxt= {"BMO","DMD","Initiative","BBA", "Réserve de Ki"};// Q4
         LinearLayout quadrantSub1 = mainView.findViewById(R.id.main_frag_stats_quadrant4_1);
         LinearLayout quadrantSub2 = mainView.findViewById(R.id.main_frag_stats_quadrant4_2);
         injectStats(advanceStat,advanceStatTxt,quadrantSub1,quadrantSub2);
