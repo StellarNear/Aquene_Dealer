@@ -50,8 +50,6 @@ public class QuadrantFiller {
         mapLayoutFull.put(quadrant4,false);
         quadrantList= Arrays.asList(quadrant1, quadrant2, quadrant3, quadrant4);
 
-
-
         buildAllMini();
     }
 
