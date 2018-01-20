@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
+import android.view.animation.AnimationUtils;
 import android.view.animation.TranslateAnimation;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -184,7 +185,7 @@ public class QuadrantFiller {
     }
 
     public void minimizeQuadrant(LinearLayout layout){
-        switchTextTitle(mC.getResources().getString(R.string.quadrantGeneralTitle));
+        switchTextTitle(mC.getResources().getString(R.string.quadrantGeneralTitle),"back");
         if(layout.equals(quadrant1)){
             buildMiniQ1();
         } else if(layout.equals(quadrant2)){
@@ -196,24 +197,24 @@ public class QuadrantFiller {
         }
     }
 
-    private void switchTextTitle(final String s){
+    private void switchTextTitle(final String s,String... mode){
+        String modeSelected=mode.length > 0 ? mode[0] : "";  //parametre optionnel mode
         final TextView quadrantTitle=mainView.findViewById(R.id.quadrantGeneralTitle);
         quadrantTitle.clearAnimation();
 
-        final Animation fromLeft = new TranslateAnimation(-400,0, 0, 0);
-        fromLeft.setDuration(175);
-        final Animation fadeIn = new AlphaAnimation(0.0f, 1.0f);
-        fadeIn.setDuration(175);
-        final AnimationSet setIn = new AnimationSet(true);
-        setIn.setFillAfter(true);
-        setIn.addAnimation(fadeIn);
-        setIn.addAnimation(fromLeft);
+        final Animation in;
+        Animation out;
+        if (modeSelected.equals("back"))
+        {
+            in = AnimationUtils.loadAnimation(mC, R.anim.infromright);
+            out = AnimationUtils.loadAnimation(mC, R.anim.outtoleft);
+        } else {
+            in = AnimationUtils.loadAnimation(mC, R.anim.infromleft);
+            out = AnimationUtils.loadAnimation(mC, R.anim.outtoright);
+        }
 
-        final Animation toRight = new TranslateAnimation(0, 400, 0, 0);
-        toRight.setDuration(175);
-        Animation fadeOut = new AlphaAnimation(1.0f, 0.0f);
-        fadeOut.setDuration(175);
-        fadeOut.setAnimationListener( new  Animation.AnimationListener(){
+
+        out.setAnimationListener( new  Animation.AnimationListener(){
             @Override
             public void onAnimationEnd(Animation arg0) {
 
@@ -221,7 +222,7 @@ public class QuadrantFiller {
                 handler.postDelayed(new Runnable() {
                     public void run() {
                         quadrantTitle.setText(s);
-                        quadrantTitle.startAnimation(setIn);
+                        quadrantTitle.startAnimation(in);
                     }
                 }, 50);
 
@@ -238,13 +239,6 @@ public class QuadrantFiller {
                 // TODO Auto-generated method stub
             }
         });
-
-        AnimationSet setOut = new AnimationSet(true);
-        setOut.setFillAfter(true);
-        setOut.addAnimation(fadeOut);
-        setOut.addAnimation(toRight);
-
-        quadrantTitle.startAnimation(setOut);
-
+        quadrantTitle.startAnimation(out);
     }
 }
