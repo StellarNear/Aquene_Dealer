@@ -7,7 +7,7 @@ import android.content.Context;
  */
 
 public class Perso {
-    private Abilities abilities;
+    private AllAbilities allAbilities;
     private AllStances allStances;
     private AllFeats allFeats;
     private AllSkills allSkills;
@@ -19,8 +19,8 @@ public class Perso {
         this.mC=mC;
         allStances = new AllStances(mC);
         allFeats = new AllFeats(mC);
-        abilities = new Abilities(allStances,allFeats,mC);
-        allSkills = new AllSkills(abilities,mC);
+        allAbilities = new AllAbilities(allStances,allFeats,mC);
+        allSkills = new AllSkills(allAbilities,mC);
     }
 
     public AllStances getAllStances() {
@@ -31,12 +31,11 @@ public class Perso {
         Stance selectedStance=allStances.getStance(stanceId);
         if (selectedStance!=null){
             allStances.activateStance(selectedStance);
-            abilities.refreshAllAbilities("stance");
         }
     }
 
-    public Abilities getAbilities() {
-        return abilities;
+    public AllAbilities getAllAbilities() {
+        return allAbilities;
     }
 
     public AllFeats getAllFeats() {
@@ -60,6 +59,6 @@ public class Perso {
     public void refresh() {
         allFeats.refreshAllSwitch();
         allSkills.refreshAllVals();
-        abilities.setAllBaseAbilities();
+        allAbilities.refreshAllAbilities();
     }
 }

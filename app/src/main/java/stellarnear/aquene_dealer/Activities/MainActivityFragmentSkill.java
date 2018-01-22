@@ -3,30 +3,22 @@ package stellarnear.aquene_dealer.Activities;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
-import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.AlertDialog;
-import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import stellarnear.aquene_dealer.Divers.SkillAlertDialog;
-import stellarnear.aquene_dealer.Divers.WheelDicePicker;
 import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.Perso.Skill;
 import stellarnear.aquene_dealer.R;
@@ -99,10 +91,10 @@ public class MainActivityFragmentSkill extends Fragment {
         TextView abiTitle = returnFragView.findViewById(R.id.skillAbiTitle);
         abiTxt.setLayoutParams(abiTitle.getLayoutParams());
         String abScore;
-        if(aquene.getAbilities().getMOD(skill.getAbilityDependence())>=0){
-            abScore = "+"+aquene.getAbilities().getMOD(skill.getAbilityDependence());
+        if(aquene.getAllAbilities().getMod(skill.getAbilityDependence())>=0){
+            abScore = "+"+aquene.getAllAbilities().getMod(skill.getAbilityDependence());
         } else {
-            abScore = "-"+aquene.getAbilities().getMOD(skill.getAbilityDependence());
+            abScore = "-"+aquene.getAllAbilities().getMod(skill.getAbilityDependence());
         }
         abiTxt.setText(skill.getAbilityDependence() + " : " +abScore );
         abiTxt.setGravity(Gravity.CENTER);
@@ -132,7 +124,7 @@ public class MainActivityFragmentSkill extends Fragment {
         line.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SkillAlertDialog skillDialog = new SkillAlertDialog(getActivity(),getContext(),skill,aquene.getAbilities().getMOD(skill.getAbilityDependence()));
+                SkillAlertDialog skillDialog = new SkillAlertDialog(getActivity(),getContext(),skill,aquene.getAllAbilities().getMod(skill.getAbilityDependence()));
                 skillDialog.showAlertDialog();
             }
         });

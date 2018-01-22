@@ -38,7 +38,7 @@ public class MainActivityFragmentCombat extends Fragment {
         View returnFragView= inflater.inflate(R.layout.fragment_main_combat, container, false);
 
         TextView testTextFor=returnFragView.findViewById(R.id.textCombat);
-        testTextFor.setText("La valeur du mod force est :"+aquene.getAbilities().getMOD("FOR"));
+        testTextFor.setText("La valeur du mod force est :"+aquene.getAllAbilities().getMod("FOR"));
 
         LinearLayout linearComabatFrag=returnFragView.findViewById(R.id.linearCombatFrag);
 

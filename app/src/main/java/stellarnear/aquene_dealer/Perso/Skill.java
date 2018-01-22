@@ -15,15 +15,15 @@ public class Skill {
     private String id;
     private int rank;
     private int bonus;
-    private Abilities abilities;
+    private AllAbilities allAbilities;
     private Context mC;
 
-    public Skill(String name, String abilityDependence, String descr, String id,Abilities abilities, Context mC){
+    public Skill(String name, String abilityDependence, String descr, String id, AllAbilities allAbilities, Context mC){
         this.name=name;
         this.abilityDependence = abilityDependence;
         this.descr=descr;
         this.id=id;
-        this.abilities=abilities;
+        this.allAbilities = allAbilities;
         this.mC=mC;
         refreshVals();
     }
@@ -92,7 +92,7 @@ public class Skill {
             int bonusDefId = mC.getResources().getIdentifier(this.id+"_bonusDEF", "integer", mC.getPackageName());
             int bonusDef = mC.getResources().getInteger(bonusDefId);
             bonusTemp = settings.getInt(this.id+"_bonus", bonusDef);
-            if(this.id.equals("acrob")){bonusTemp+= abilities.getScore("LVL");}   //on ajoute le niveau de moine au jet d'acrob
+            if(this.id.equals("acrob")){bonusTemp+= allAbilities.getScore("LVL");}   //on ajoute le niveau de moine au jet d'acrob
         } catch ( Exception e) {}
         this.bonus= bonusTemp;
     }

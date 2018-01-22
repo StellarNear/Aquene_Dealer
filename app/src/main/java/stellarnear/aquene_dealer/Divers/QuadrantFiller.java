@@ -3,15 +3,15 @@ package stellarnear.aquene_dealer.Divers;
 import android.content.Context;
 import android.os.Handler;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
-import android.view.animation.TranslateAnimation;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.ViewSwitcher;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -36,21 +36,46 @@ public class QuadrantFiller {
     private LinearLayout quadrant3;
     private LinearLayout quadrant4;
     private Perso aquene = MainActivity.aquene;
-    private Map<LinearLayout,Boolean> mapLayoutFull =new HashMap<>();
+    private Map<LinearLayout,String> mapLayoutTextTitle =new HashMap<>();
     private List<LinearLayout> quadrantList;
+    private ViewSwitcher viewSwitcher;
+    private ImageButton imgExit;
+    LinearLayout quadrantFullSub1;
+    LinearLayout quadrantFullSub2;
+    private boolean fullscreen=false;
+    View fullView;
     public QuadrantFiller(View mainView, Context mC) {
         this.mC=mC;
         this.mainView=mainView;
+        viewSwitcher=mainView.findViewById(R.id.viewSwitcherQuadrant);
+
+        LayoutInflater inflater = (LayoutInflater) mC.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        fullView =(View) inflater.inflate(R.layout.quadrant_full, null);
+        viewSwitcher.addView(fullView);
+        quadrantFullSub1 = fullView.findViewById(R.id.quadrant_full_sub1);
+        quadrantFullSub2 = fullView.findViewById(R.id.quadrant_full_sub2);
+        imgExit = fullView.findViewById(R.id.button_quadrant_full_exit);
+        imgExit.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                switchViewPrevious();
+            }
+        });
+
         quadrantLine1 = mainView.findViewById(R.id.main_frag_stats_quadrantLine1);
         quadrantLine2 = mainView.findViewById(R.id.main_frag_stats_quadrantLine2);
         quadrant1 = mainView.findViewById(R.id.main_frag_stats_quadrant1);
-        mapLayoutFull.put(quadrant1,false);
         quadrant2 = mainView.findViewById(R.id.main_frag_stats_quadrant2);
-        mapLayoutFull.put(quadrant2,false);
         quadrant3 = mainView.findViewById(R.id.main_frag_stats_quadrant3);
-        mapLayoutFull.put(quadrant3,false);
         quadrant4 = mainView.findViewById(R.id.main_frag_stats_quadrant4);
-        mapLayoutFull.put(quadrant4,false);
+        mapLayoutTextTitle.put(quadrant1,mC.getResources().getString(R.string.quadrantQ1Title));
+        mapLayoutTextTitle.put(quadrant2,mC.getResources().getString(R.string.quadrantQ2Title));
+        mapLayoutTextTitle.put(quadrant3,mC.getResources().getString(R.string.quadrantQ3Title));
+        mapLayoutTextTitle.put(quadrant4,mC.getResources().getString(R.string.quadrantQ4Title));
+
         quadrantList= Arrays.asList(quadrant1, quadrant2, quadrant3, quadrant4);
 
         buildAllMini();
@@ -101,7 +126,7 @@ public class QuadrantFiller {
         quadrantSub2.removeAllViews();
         for (int i=0;i<stat.length ;i++){
             addText(statTxt[i]+" : ",quadrantSub1);
-            String valuesTxt=String.valueOf(aquene.getAbilities().getScore(stat[i]));
+            String valuesTxt=String.valueOf(aquene.getAllAbilities().getScore(stat[i]));
             addText(valuesTxt,quadrantSub2);
         }
     }
@@ -112,12 +137,12 @@ public class QuadrantFiller {
         for (int i=0;i<stat.length ;i++){
             addText( statTxt[i]+" : ",quadrantSub1);
             String abScore = "";
-            if(aquene.getAbilities().getMOD(stat[i])>=0){
-                abScore = "+"+aquene.getAbilities().getMOD(stat[i]);
+            if(aquene.getAllAbilities().getMod(stat[i])>=0){
+                abScore = "+"+aquene.getAllAbilities().getMod(stat[i]);
             } else {
-                abScore = "-"+aquene.getAbilities().getMOD(stat[i]);
+                abScore = "-"+aquene.getAllAbilities().getMod(stat[i]);
             }
-            String valuesTxt=String.valueOf(aquene.getAbilities().getScore(stat[i]))+ " ("+abScore+")";
+            String valuesTxt=String.valueOf(aquene.getAllAbilities().getScore(stat[i]))+ " ("+abScore+")";
             addText(valuesTxt,quadrantSub2);
         }
     }
@@ -130,78 +155,68 @@ public class QuadrantFiller {
         parentLayout.addView(text);
     }
 
-
     // partie build full screen
     private void buildFullQ1() {
-        LinearLayout quadrantSub1 = mainView.findViewById(R.id.main_frag_stats_quadrant1_1);
-        LinearLayout quadrantSub2 = mainView.findViewById(R.id.main_frag_stats_quadrant1_2);
-        quadrantSub1.removeAllViews();
-        quadrantSub2.removeAllViews();
-        addText("blabla 1",quadrantSub1);
-        addText("ok",quadrantSub2);
+        quadrantFullSub1.removeAllViews();
+        quadrantFullSub2.removeAllViews();
+        addText("blabla 1",quadrantFullSub1);
+        addText("ok",quadrantFullSub2);
     }
     private void buildFullQ2() {
-        LinearLayout quadrantSub1 = mainView.findViewById(R.id.main_frag_stats_quadrant2_1);
-        LinearLayout quadrantSub2 = mainView.findViewById(R.id.main_frag_stats_quadrant2_2);
-        quadrantSub1.removeAllViews();
-        quadrantSub2.removeAllViews();
-        addText("blabla 2",quadrantSub1);
-        addText("ok",quadrantSub2);
+        quadrantFullSub1.removeAllViews();
+        quadrantFullSub2.removeAllViews();
+        addText("blabla 2",quadrantFullSub1);
+        addText("ok",quadrantFullSub2);
     }
     private void buildFullQ3() {
-        LinearLayout quadrantSub1 = mainView.findViewById(R.id.main_frag_stats_quadrant3_1);
-        LinearLayout quadrantSub2 = mainView.findViewById(R.id.main_frag_stats_quadrant3_2);
-        quadrantSub1.removeAllViews();
-        quadrantSub2.removeAllViews();
-        addText("blabla 3",quadrantSub1);
-        addText("ok",quadrantSub2);
+        quadrantFullSub1.removeAllViews();
+        quadrantFullSub2.removeAllViews();
+        addText("blabla 3",quadrantFullSub1);
+        addText("ok",quadrantFullSub2);
     }
     private void buildFullQ4() {
-        LinearLayout quadrantSub1 = mainView.findViewById(R.id.main_frag_stats_quadrant4_1);
-        LinearLayout quadrantSub2 = mainView.findViewById(R.id.main_frag_stats_quadrant4_2);
-        quadrantSub1.removeAllViews();
-        quadrantSub2.removeAllViews();
-        addText("blabla 4",quadrantSub1);
-        addText("ok",quadrantSub2);
+        quadrantFullSub1.removeAllViews();
+        quadrantFullSub2.removeAllViews();
+        addText("blabla 4",quadrantFullSub1);
+        addText("ok",quadrantFullSub2);
 
     }
 
     // call externe de refresh
-
     public void fullscreenQuadrant(LinearLayout layout){
         if(layout.equals(quadrant1)){
-            switchTextTitle(mC.getResources().getString(R.string.quadrantQ1Title));
             buildFullQ1();
         } else if(layout.equals(quadrant2)){
-            switchTextTitle(mC.getResources().getString(R.string.quadrantQ2Title));
             buildFullQ2();
         } else if(layout.equals(quadrant3)){
-            switchTextTitle(mC.getResources().getString(R.string.quadrantQ3Title));
             buildFullQ3();
         } else if(layout.equals(quadrant4)){
-            switchTextTitle(mC.getResources().getString(R.string.quadrantQ4Title));
             buildFullQ4();
         }
+        switchTextTitle(mapLayoutTextTitle.get(layout));
+        switchViewNext();
     }
 
-    public void minimizeQuadrant(LinearLayout layout){
+    private void switchViewNext() {
+        imgExit.setVisibility(View.VISIBLE);
+        viewSwitcher.setInAnimation(mC,R.anim.infromleft);
+        viewSwitcher.setOutAnimation(mC,R.anim.outtoright);
+        viewSwitcher.showNext();
+        fullscreen=true;
+    }
+    private void switchViewPrevious() {
+        imgExit.setVisibility(View.GONE);
         switchTextTitle(mC.getResources().getString(R.string.quadrantGeneralTitle),"back");
-        if(layout.equals(quadrant1)){
-            buildMiniQ1();
-        } else if(layout.equals(quadrant2)){
-            buildMiniQ2();
-        } else if(layout.equals(quadrant3)){
-            buildMiniQ3();
-        } else if(layout.equals(quadrant4)){
-            buildMiniQ4();
-        }
+        viewSwitcher.setInAnimation(mC,R.anim.infromright);
+        viewSwitcher.setOutAnimation(mC,R.anim.outtoleft);
+        viewSwitcher.showPrevious();
+        fullscreen=false;
     }
 
     private void switchTextTitle(final String s,String... mode){
         String modeSelected=mode.length > 0 ? mode[0] : "";  //parametre optionnel mode
         final TextView quadrantTitle=mainView.findViewById(R.id.quadrantGeneralTitle);
         quadrantTitle.clearAnimation();
-
         final Animation in;
         Animation out;
         if (modeSelected.equals("back"))
@@ -212,8 +227,6 @@ public class QuadrantFiller {
             in = AnimationUtils.loadAnimation(mC, R.anim.infromleft);
             out = AnimationUtils.loadAnimation(mC, R.anim.outtoright);
         }
-
-
         out.setAnimationListener( new  Animation.AnimationListener(){
             @Override
             public void onAnimationEnd(Animation arg0) {
@@ -240,5 +253,9 @@ public class QuadrantFiller {
             }
         });
         quadrantTitle.startAnimation(out);
+    }
+
+    public boolean isFullscreen() {
+        return fullscreen;
     }
 }

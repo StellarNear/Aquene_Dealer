@@ -1,0 +1,137 @@
+<?xml version="1.0"?>
+<records>
+    <!-- base ability -->
+    <ability>
+        <name>Force</name>
+        <type>base</type>
+        <descr></descr>
+        <id>for</id>
+    </ability>
+    <ability>
+        <name>Dextérité</name>
+        <type>base</type>
+        <descr>base</descr>
+        <id>dex</id>
+    </ability>
+    <ability>
+        <name>Constitution</name>
+        <type>base</type>
+        <descr>base</descr>
+        <id>con</id>
+    </ability>
+    <ability>
+        <name>Intelligence</name>
+        <type>base</type>
+        <descr>base</descr>
+        <id>int</id>
+    </ability>
+    <ability>
+        <name>Sagesse</name>
+        <type>base</type>
+        <descr>base</descr>
+        <id>sag</id>
+    </ability>
+    <ability>
+        <name>Charisme</name>
+        <type>base</type>
+        <descr>base</descr>
+        <id>cha</id>
+    </ability>
+
+    <!-- general ability -->
+    <ability>
+        <name>Niveau</name>
+        <type>general</type>
+        <descr></descr>
+        <id>lvl</id>
+    </ability>
+    <ability>
+        <name>Vitesse de déplacement</name>
+        <shortname>Déplacement</shortname>
+        <type>general</type>
+        <descr>base</descr>
+        <id>ms</id>
+    </ability>
+    <ability>
+        <name>Points héroiques</name>
+        <type>general</type>
+        <descr>base</descr>
+        <id>heroic</id>
+    </ability>
+    <ability>
+        <name>Points de vie</name>
+        <type>general</type>
+        <descr>base</descr>
+        <id>hp</id>
+    </ability>
+
+    <!-- def ability -->
+
+    <ability>
+        <name>Classe d'armure</name>
+        <type>def</type>
+        <descr>base</descr>
+        <id>ca</id>
+    </ability>
+    <ability>
+        <name>Reflexe</name>
+        <type>def</type>
+        <descr>base</descr>
+        <id>ref</id>
+    </ability>
+    <ability>
+        <name>Vigueur</name>
+        <type>def</type>
+        <descr>base</descr>
+        <id>vig</id>
+    </ability>
+    <ability>
+        <name>Volonté</name>
+        <type>def</type>
+        <descr>base</descr>
+        <id>vol</id>
+    </ability>
+    <ability>
+        <name>Résistance magie</name>
+        <type>def</type>
+        <descr>base</descr>
+        <id>rm</id>
+    </ability>
+    <ability>
+        <name>Réduction de dégats</name>
+        <shortname>Réduction</shortname>
+        <type>def</type>
+        <descr>base</descr>
+        <id>reduc</id>
+    </ability>
+    <ability>
+        <name>Régénération</name>
+        <type>def</type>
+        <descr></descr>
+        <id>regen</id>
+    </ability>
+
+    <!-- advanced ability -->
+
+    <ability>
+        <name>Bonus de manoeuvre offensive</name>
+        <shortname>BMO</shortname>
+        <type>advanced</type>
+        <descr>base</descr>
+        <id>bmo</id>
+    </ability>
+    <ability>
+        <name>Degré de manoeuvre défensive</name>
+        <shortname>DMD</shortname>
+        <type>advanced</type>
+        <descr>base</descr>
+        <id>dmd</id>
+    </ability>
+    <ability>
+        <name>Initative</name>
+        <type>advanced</type>
+        <descr>base</descr>
+        <id>init</id>
+    </ability>
+
+</records>
