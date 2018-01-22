@@ -51,14 +51,10 @@ public class MainActivityFragment extends Fragment {
         setButtonActivity(fabSkill,new MainActivityFragmentSkill());
 
 
-        new QuadrantManager(returnFragView,getContext());
+        new QuadrantManager(returnFragView,getContext(),getActivity());
 
         return returnFragView;
     }
-
-
-
-
 
     private void setButtonActivity(ImageButton button, final Fragment ActivityFragment) {
         button.setOnClickListener(new View.OnClickListener() {

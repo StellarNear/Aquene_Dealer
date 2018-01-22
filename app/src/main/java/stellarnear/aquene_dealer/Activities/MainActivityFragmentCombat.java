@@ -70,7 +70,6 @@ public class MainActivityFragmentCombat extends Fragment {
     }
 
 
-
     private void unlockOrient() {
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
     }

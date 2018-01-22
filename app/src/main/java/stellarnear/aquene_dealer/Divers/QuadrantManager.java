@@ -3,6 +3,7 @@ package stellarnear.aquene_dealer.Divers;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.LayoutTransition;
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Handler;
@@ -44,7 +45,7 @@ public class QuadrantManager {
     private Map<LinearLayout,String> mapLayoutTextTitle =new HashMap<>();
     private List<LinearLayout> quadrantList;
     private QuadrantFiller quadrantFiller;
-    public QuadrantManager(View mainView,Context mC) {
+    public QuadrantManager(View mainView, Context mC, Activity mA) {
         this.mC=mC;
         this.mainView=mainView;
         quadrantLine1 = mainView.findViewById(R.id.main_frag_stats_quadrantLine1);
@@ -61,7 +62,7 @@ public class QuadrantManager {
         quadrantList= Arrays.asList(quadrant1, quadrant2, quadrant3, quadrant4);
 
         setLayoutsListners();
-        quadrantFiller =new QuadrantFiller(mainView,mC);
+        quadrantFiller =new QuadrantFiller(mainView,mC,mA);
     }
 
     private void setLayoutsListners() {

@@ -1,6 +1,8 @@
 package stellarnear.aquene_dealer.Divers;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.pm.ActivityInfo;
 import android.os.Handler;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -28,9 +30,8 @@ import stellarnear.aquene_dealer.R;
 
 public class QuadrantFiller {
     private Context mC;
+    private Activity mA;
     private View mainView;
-    private LinearLayout quadrantLine1;
-    private LinearLayout quadrantLine2;
     private LinearLayout quadrant1;
     private LinearLayout quadrant2;
     private LinearLayout quadrant3;
@@ -44,8 +45,9 @@ public class QuadrantFiller {
     LinearLayout quadrantFullSub2;
     private boolean fullscreen=false;
     View fullView;
-    public QuadrantFiller(View mainView, Context mC) {
+    public QuadrantFiller(View mainView, Context mC, Activity mA) {
         this.mC=mC;
+        this.mA=mA;
         this.mainView=mainView;
         viewSwitcher=mainView.findViewById(R.id.viewSwitcherQuadrant);
 
@@ -65,8 +67,6 @@ public class QuadrantFiller {
             }
         });
 
-        quadrantLine1 = mainView.findViewById(R.id.main_frag_stats_quadrantLine1);
-        quadrantLine2 = mainView.findViewById(R.id.main_frag_stats_quadrantLine2);
         quadrant1 = mainView.findViewById(R.id.main_frag_stats_quadrant1);
         quadrant2 = mainView.findViewById(R.id.main_frag_stats_quadrant2);
         quadrant3 = mainView.findViewById(R.id.main_frag_stats_quadrant3);
@@ -140,7 +140,7 @@ public class QuadrantFiller {
             if(aquene.getAllAbilities().getMod(stat[i])>=0){
                 abScore = "+"+aquene.getAllAbilities().getMod(stat[i]);
             } else {
-                abScore = "-"+aquene.getAllAbilities().getMod(stat[i]);
+                abScore = String.valueOf(aquene.getAllAbilities().getMod(stat[i]));
             }
             String valuesTxt=String.valueOf(aquene.getAllAbilities().getScore(stat[i]))+ " ("+abScore+")";
             addText(valuesTxt,quadrantSub2);
@@ -203,6 +203,7 @@ public class QuadrantFiller {
         viewSwitcher.setOutAnimation(mC,R.anim.outtoright);
         viewSwitcher.showNext();
         fullscreen=true;
+        lockOrient();
     }
     private void switchViewPrevious() {
         imgExit.setVisibility(View.GONE);
@@ -211,6 +212,7 @@ public class QuadrantFiller {
         viewSwitcher.setOutAnimation(mC,R.anim.outtoleft);
         viewSwitcher.showPrevious();
         fullscreen=false;
+        unlockOrient();
     }
 
     private void switchTextTitle(final String s,String... mode){
@@ -257,5 +259,13 @@ public class QuadrantFiller {
 
     public boolean isFullscreen() {
         return fullscreen;
+    }
+
+    private void lockOrient() {
+        mA.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+    }
+
+    private void unlockOrient() {
+        mA.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
     }
 }
