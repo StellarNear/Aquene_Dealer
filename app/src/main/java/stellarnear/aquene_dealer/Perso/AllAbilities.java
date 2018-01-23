@@ -64,6 +64,7 @@ public class AllAbilities {
                             readValue("shortname", element2),
                             readValue("type", element2),
                             readValue("descr", element2),
+                            toBool(readValue("testable", element2)),
                             readValue("id", element2),
                             mC);
                     listAbilities.add(abi);
@@ -177,6 +178,14 @@ public class AllAbilities {
         return mod;
     }
 
+    private Boolean toBool(String key) {
+        Boolean value = false;
+        try {
+            value = Boolean.valueOf(key);
+        } catch (Exception e) {
+        }
+        return value;
+    }
 
     private Integer toInt(String key) {
         Integer value = 0;

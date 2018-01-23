@@ -45,5 +45,7 @@
     <color name="start_gradient_button_basic">@android:color/darker_gray</color>
     <color name="end_gradient_button_basic">@color/white</color>
 
+    <color name="secondaryTextAbility">@color/gray50</color>
+
 
 </resources>

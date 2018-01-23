@@ -33,5 +33,8 @@
     <string name="quadrantQ2Title">Caractéristiques générales</string>
     <string name="quadrantQ3Title">Caractéristiques défensives</string>
     <string name="quadrantQ4Title">Caractéristiques avancées</string>
+    <string name="ability_test_rolldice">Normal\n(dé 20)</string>
+    <string name="ability_test_passive">Passif\n(+10)</string>
+    <string name="ability_test_focus">Concentré\n(+20)</string>
 
 </resources>

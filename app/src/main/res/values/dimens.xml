@@ -26,6 +26,10 @@
     <dimen name="textSizeQuadrantMini">14sp</dimen>
     <dimen name="textSizeQuadrantFull">22sp</dimen>
     <dimen name="iconSizeQuadrantMini">20dp</dimen>
-    <dimen name="iconSizeQuadrantFull">35dp</dimen>
+    <dimen name="iconSizeQuadrantFull">40dp</dimen>
+    <dimen name="full_quadrant_icons_margin">15dp</dimen>
+
+    <dimen name="margin_abilitydialog_text">15dp</dimen>
+    <dimen name="sizeTextDialogAbilityResult">50sp</dimen>
 
 </resources>

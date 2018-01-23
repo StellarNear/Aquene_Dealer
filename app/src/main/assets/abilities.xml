@@ -6,36 +6,42 @@
         <type>base</type>
         <descr></descr>
         <id>for</id>
+        <testable>true</testable>
     </ability>
     <ability>
         <name>Dextérité</name>
         <type>base</type>
         <descr>base</descr>
         <id>dex</id>
+        <testable>true</testable>
     </ability>
     <ability>
         <name>Constitution</name>
         <type>base</type>
         <descr>base</descr>
         <id>con</id>
+        <testable>true</testable>
     </ability>
     <ability>
         <name>Intelligence</name>
         <type>base</type>
         <descr>base</descr>
         <id>int</id>
+        <testable>true</testable>
     </ability>
     <ability>
         <name>Sagesse</name>
         <type>base</type>
         <descr>base</descr>
         <id>sag</id>
+        <testable>true</testable>
     </ability>
     <ability>
         <name>Charisme</name>
         <type>base</type>
         <descr>base</descr>
         <id>cha</id>
+        <testable>true</testable>
     </ability>
 
     <!-- general ability -->
@@ -63,6 +69,7 @@
         <type>general</type>
         <descr>base</descr>
         <id>hp</id>
+        <testable>true</testable>
     </ability>
     <ability>
         <name>Régénération</name>
@@ -84,18 +91,21 @@
         <type>def</type>
         <descr>base</descr>
         <id>ref</id>
+        <testable>true</testable>
     </ability>
     <ability>
         <name>Vigueur</name>
         <type>def</type>
         <descr>base</descr>
         <id>vig</id>
+        <testable>true</testable>
     </ability>
     <ability>
         <name>Volonté</name>
         <type>def</type>
         <descr>base</descr>
         <id>vol</id>
+        <testable>true</testable>
     </ability>
     <ability>
         <name>Résistance magie</name>
@@ -120,6 +130,7 @@
         <type>advanced</type>
         <descr>base</descr>
         <id>bmo</id>
+        <testable>true</testable>
     </ability>
     <ability>
         <name>Degré de manoeuvre défensive</name>
@@ -133,6 +144,7 @@
         <type>advanced</type>
         <descr>base</descr>
         <id>init</id>
+        <testable>true</testable>
     </ability>
 
 </records>

@@ -94,7 +94,7 @@ public class MainActivityFragmentSkill extends Fragment {
         if(aquene.getAllAbilities().getMod(skill.getAbilityDependence())>=0){
             abScore = "+"+aquene.getAllAbilities().getMod(skill.getAbilityDependence());
         } else {
-            abScore = "-"+aquene.getAllAbilities().getMod(skill.getAbilityDependence());
+            abScore = String.valueOf(aquene.getAllAbilities().getMod(skill.getAbilityDependence()));
         }
         abiTxt.setText(skill.getAbilityDependence() + " : " +abScore );
         abiTxt.setGravity(Gravity.CENTER);

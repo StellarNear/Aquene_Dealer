@@ -18,11 +18,13 @@ public class Ability {
     private String shortname;
     private int value=0;
     private String valueTxt;
+    private boolean testable;
 
-    public Ability(String name, String shortname, String type, String descr, String id, Context mC) {
+    public Ability(String name, String shortname, String type, String descr,Boolean testable, String id, Context mC) {
         this.name = name;
         this.type = type;
         this.descr = descr;
+        this.testable=testable;
         this.id = id;
         this.shortname = shortname;
         this.imagePath = id + "_abi_img";
@@ -65,6 +67,10 @@ public class Ability {
 
     public int getValue() {
         return this.value;
+    }
+
+    public boolean isTestable(){
+        return this.testable;
     }
 
 }

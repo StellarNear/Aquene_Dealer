@@ -2,11 +2,13 @@ package stellarnear.aquene_dealer.Divers;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.annotation.Dimension;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -24,6 +26,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import stellarnear.aquene_dealer.Activities.MainActivity;
 import stellarnear.aquene_dealer.Perso.Ability;
@@ -141,7 +144,7 @@ public class QuadrantFiller {
         text.setGravity(Gravity.CENTER_VERTICAL);
         int imgId=mC.getResources().getIdentifier("mire_test", "drawable", mC.getPackageName());
         text.setCompoundDrawablesWithIntrinsicBounds(resize(imgId,iconSize),null,null,null);
-        //text.setPadding(mC.getResources().getDimensionPixelSize(R.dimen.general_margin),0,0,0);
+        if (mode.equalsIgnoreCase("full")){text.setCompoundDrawablePadding(mC.getResources().getDimensionPixelSize(R.dimen.full_quadrant_icons_margin));}
         quadrantSub1.addView(text);
 
         TextView text2 = new TextView(mC);
@@ -163,6 +166,21 @@ public class QuadrantFiller {
         text2.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT,1));
         text2.setGravity(Gravity.CENTER_VERTICAL);
         quadrantSub2.addView(text2);
+
+        if(abi.isTestable()){
+            setListner(text,abi);
+            setListner(text2,abi);
+        }
+    }
+
+    private void setListner(TextView text,final Ability abi) {
+        text.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AbilityAlertDialog abilityAlertDialog = new AbilityAlertDialog(mA,mC,abi);
+                abilityAlertDialog.showAlertDialog();
+            }
+        });
     }
 
     private Drawable resize(int imageId, int pixel_size_icon) {

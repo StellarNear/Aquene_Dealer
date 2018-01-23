@@ -19,29 +19,27 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-
 import java.util.Random;
 
+import stellarnear.aquene_dealer.Perso.Ability;
 import stellarnear.aquene_dealer.Perso.Skill;
 import stellarnear.aquene_dealer.R;
 
 
-public class SkillAlertDialog {
+public class AbilityAlertDialog {
     private Activity mA;
     private Context mC;
     private AlertDialog alertDialog;
     private AlertDialog alertDialogWheelPicker;
     private WheelDicePicker wheelPicker;
-    private Skill skill;
+    private Ability abi;
     private View dialogView;
     private View dialogViewWheelPicker;
-    private int modBonus;
 
-    public SkillAlertDialog(Activity mA, Context mC, Skill skill,int modBonus) {
+    public AbilityAlertDialog(Activity mA, Context mC, Ability abi) {
         this.mA=mA;
         this.mC=mC;
-        this.skill=skill;
-        this.modBonus=modBonus;
+        this.abi=abi;
         buildAlertDialogSkill();
     }
 
@@ -49,25 +47,26 @@ public class SkillAlertDialog {
         LayoutInflater inflater = mA.getLayoutInflater();
         dialogView = inflater.inflate(R.layout.custom_dialog_skill, null);
         ImageView icon = dialogView.findViewById(R.id.dialogSkillTestSkillIcon);
-        int imgId = mC.getResources().getIdentifier(skill.getId(), "drawable", mC.getPackageName());
+        int imgId = mC.getResources().getIdentifier(abi.getId(), "drawable", mC.getPackageName());
         icon.setImageDrawable(mC.getDrawable(imgId));
-        String titleTxt = "Test de la compétence :\n"+skill.getName();
+        String titleTxt = "Test de la compétence :\n"+abi.getName();
         SpannableString titleSpan = new SpannableString(titleTxt);
-        titleSpan.setSpan(new RelativeSizeSpan(2.0f)  ,titleTxt.length()-skill.getName().length(),titleTxt.length(),0);
+        titleSpan.setSpan(new RelativeSizeSpan(2.0f)  ,titleTxt.length()-abi.getName().length(),titleTxt.length(),0);
         TextView title = dialogView.findViewById(R.id.dialogSkillTestSkillTitle);
         title.setSingleLine(false);
         title.setText(titleSpan);
 
         TextView summary = dialogView.findViewById(R.id.dialogSkillTestSkillSummary);
         String abScore;
+        /*
         if(modBonus>=0){
             abScore = "+"+modBonus;
         } else {
-            abScore = String.valueOf(modBonus);
+            abScore = "-"+modBonus;
         }
 
-        String summaryTxt="Abilité ("+skill.getAbilityDependence()+") : "+abScore+",  Maîtrise : "+skill.getRank()+",  Bonus : "+skill.getBonus();
-        summary.setText(summaryTxt);
+        String summaryTxt="Abilité ("+abi.getAbilityDependence()+") : "+abScore+",  Maîtrise : "+skill.getRank()+",  Bonus : "+skill.getBonus();
+        summary.setText(summaryTxt);*/
 
         Button diceroll = dialogView.findViewById(R.id.button_skill_test_diceroll);
         diceroll.setOnClickListener( new View.OnClickListener() {
@@ -186,10 +185,10 @@ public class SkillAlertDialog {
         TextView resultTitle = dialogView.findViewById(R.id.dialogSkillTitleResult);
         resultTitle.setText("Résultat du test de compétence :");
 
-        int sumResult=value_selected+skill.getRank()+skill.getBonus()+ modBonus;
+        //int sumResult=value_selected+skill.getRank()+skill.getBonus()+ modBonus;
 
         TextView result = dialogView.findViewById(R.id.dialogSkillTestResult);
-        result.setText(String.valueOf(sumResult));
+        //result.setText(String.valueOf(sumResult));
 
         TextView callToAction = dialogView.findViewById(R.id.dialogSkillTestCallToAction);
         callToAction.setText("Fin du test de compétence");
