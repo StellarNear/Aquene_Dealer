@@ -64,6 +64,12 @@
         <descr>base</descr>
         <id>hp</id>
     </ability>
+    <ability>
+        <name>Régénération</name>
+        <type>general</type>
+        <descr></descr>
+        <id>regen</id>
+    </ability>
 
     <!-- def ability -->
 
@@ -104,12 +110,7 @@
         <descr>base</descr>
         <id>reduc</id>
     </ability>
-    <ability>
-        <name>Régénération</name>
-        <type>def</type>
-        <descr></descr>
-        <id>regen</id>
-    </ability>
+
 
     <!-- advanced ability -->
 

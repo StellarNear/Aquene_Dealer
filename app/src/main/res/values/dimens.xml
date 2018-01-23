@@ -23,4 +23,9 @@
     <dimen name="sizeTextDialogSkillResult">50sp</dimen>
     <dimen name="main_frag_stats_heigh_quadrant">350dp</dimen>
 
+    <dimen name="textSizeQuadrantMini">14sp</dimen>
+    <dimen name="textSizeQuadrantFull">22sp</dimen>
+    <dimen name="iconSizeQuadrantMini">20dp</dimen>
+    <dimen name="iconSizeQuadrantFull">35dp</dimen>
+
 </resources>

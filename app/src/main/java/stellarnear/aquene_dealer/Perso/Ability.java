@@ -34,7 +34,13 @@ public class Ability {
     }
 
     public String getShortname() {
-        return shortname;
+        String returnVal="";
+        if (this.shortname.equalsIgnoreCase("")){
+            returnVal=this.name;
+        } else {
+            returnVal=this.shortname;
+        }
+        return returnVal;
     }
 
     public String getType() {
