@@ -146,8 +146,7 @@ public class QuadrantFiller {
         }
         text.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT,1));
         text.setGravity(Gravity.CENTER_VERTICAL);
-        int imgId=mC.getResources().getIdentifier(abi.getId(), "drawable", mC.getPackageName());
-        text.setCompoundDrawablesWithIntrinsicBounds(resize(imgId,iconSize),null,null,null);
+        text.setCompoundDrawablesWithIntrinsicBounds(resize(abi.getImg(),iconSize),null,null,null);
         if (mode.equalsIgnoreCase("full")){text.setCompoundDrawablePadding(mC.getResources().getDimensionPixelSize(R.dimen.full_quadrant_icons_margin));
         }else{text.setCompoundDrawablePadding(mC.getResources().getDimensionPixelSize(R.dimen.mini_quadrant_icons_margin));}
         quadrantSub1.addView(text);
@@ -189,8 +188,7 @@ public class QuadrantFiller {
         });
     }
 
-    private Drawable resize(int imageId, int pixel_size_icon) {
-        Drawable image = mC.getDrawable(imageId);
+    private Drawable resize(Drawable image, int pixel_size_icon) {
         Bitmap b = ((BitmapDrawable) image).getBitmap();
         Bitmap bitmapResized = Bitmap.createScaledBitmap(b, pixel_size_icon, pixel_size_icon, false);
         return new BitmapDrawable(mC.getResources(), bitmapResized);

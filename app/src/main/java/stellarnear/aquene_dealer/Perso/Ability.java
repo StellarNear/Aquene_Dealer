@@ -2,6 +2,7 @@ package stellarnear.aquene_dealer.Perso;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.preference.PreferenceManager;
 
 /**
@@ -14,6 +15,7 @@ public class Ability {
     private String descr;
     private String id;
     private Context mC;
+    private Drawable img;
     private String shortname;
     private int value=0;
     private boolean testable;
@@ -28,6 +30,8 @@ public class Ability {
         this.id = id;
         this.shortname = shortname;
         this.mC = mC;
+        int imgId=mC.getResources().getIdentifier(id, "drawable", mC.getPackageName());
+        this.img = mC.getDrawable(imgId);
     }
 
     public String getName() {
@@ -54,6 +58,10 @@ public class Ability {
 
     public String getId() {
         return id;
+    }
+
+    public Drawable getImg(){
+        return this.img;
     }
 
     public void setValue(int value) {
