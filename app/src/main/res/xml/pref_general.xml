@@ -5,48 +5,48 @@
         android:title="Charactéristiques du personnage">
         <Preference android:layout="@layout/divider_pref" android:selectable="false"/>
          <stellarnear.aquene_dealer.Divers.EditTextPreference
-             android:defaultValue="@integer/carac_baseFOR_DEF"
-             android:key="carac_baseFOR"
+             android:defaultValue="@integer/carac_baseFORCE_DEF"
+             android:key="carac_baseFORCE"
              android:title="Valeur Force"
              android:selectAllOnFocus="true"
              android:singleLine="true"
              android:inputType="number"
              android:summary="Valeur : %s"/>
          <stellarnear.aquene_dealer.Divers.EditTextPreference
-             android:defaultValue="@integer/carac_baseDEX_DEF"
-             android:key="carac_baseDEX"
+             android:defaultValue="@integer/carac_baseDEXTERITE_DEF"
+             android:key="carac_baseDEXTERITE"
              android:title="Valeur Dexterité"
              android:selectAllOnFocus="true"
              android:singleLine="true"
              android:inputType="number"
              android:summary="Valeur : %s"/>
          <stellarnear.aquene_dealer.Divers.EditTextPreference
-             android:defaultValue="@integer/carac_baseCON_DEF"
-             android:key="carac_baseCON"
+             android:defaultValue="@integer/carac_baseCONSTITUTION_DEF"
+             android:key="carac_baseCONSTITUTION"
              android:title="Valeur Constitution"
              android:selectAllOnFocus="true"
              android:singleLine="true"
              android:inputType="number"
              android:summary="Valeur : %s"/>
          <stellarnear.aquene_dealer.Divers.EditTextPreference
-             android:defaultValue="@integer/carac_baseINT_DEF"
-             android:key="carac_baseINT"
+             android:defaultValue="@integer/carac_baseINTELLIGENCE_DEF"
+             android:key="carac_baseINTELLIGENCE"
              android:title="Valeur Intelligence"
              android:selectAllOnFocus="true"
              android:singleLine="true"
              android:inputType="number"
              android:summary="Valeur : %s"/>
          <stellarnear.aquene_dealer.Divers.EditTextPreference
-             android:defaultValue="@integer/carac_baseSAG_DEF"
-             android:key="carac_baseSAG"
+             android:defaultValue="@integer/carac_baseSAGESSE_DEF"
+             android:key="carac_baseSAGESSE"
              android:title="Valeur Sagesse"
              android:selectAllOnFocus="true"
              android:singleLine="true"
              android:inputType="number"
              android:summary="Valeur : %s"/>
          <stellarnear.aquene_dealer.Divers.EditTextPreference
-             android:defaultValue="@integer/carac_baseCHA_DEF"
-             android:key="carac_baseCHA"
+             android:defaultValue="@integer/carac_baseCHARISME_DEF"
+             android:key="carac_baseCHARISME"
              android:title="Valeur Charisme"
              android:selectAllOnFocus="true"
              android:singleLine="true"

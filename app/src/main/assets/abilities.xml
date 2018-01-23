@@ -5,43 +5,49 @@
         <name>Force</name>
         <type>base</type>
         <descr></descr>
-        <id>for</id>
+        <id>force</id>
         <testable>true</testable>
+        <focusable>true</focusable>
     </ability>
     <ability>
         <name>Dextérité</name>
         <type>base</type>
         <descr>base</descr>
-        <id>dex</id>
+        <id>dexterite</id>
         <testable>true</testable>
+        <focusable>true</focusable>
     </ability>
     <ability>
         <name>Constitution</name>
         <type>base</type>
         <descr>base</descr>
-        <id>con</id>
+        <id>constitution</id>
         <testable>true</testable>
+        <focusable>true</focusable>
     </ability>
     <ability>
         <name>Intelligence</name>
         <type>base</type>
         <descr>base</descr>
-        <id>int</id>
+        <id>intelligence</id>
         <testable>true</testable>
+        <focusable>true</focusable>
     </ability>
     <ability>
         <name>Sagesse</name>
         <type>base</type>
         <descr>base</descr>
-        <id>sag</id>
+        <id>sagesse</id>
         <testable>true</testable>
+        <focusable>true</focusable>
     </ability>
     <ability>
         <name>Charisme</name>
         <type>base</type>
         <descr>base</descr>
-        <id>cha</id>
+        <id>charisme</id>
         <testable>true</testable>
+        <focusable>true</focusable>
     </ability>
 
     <!-- general ability -->
@@ -81,12 +87,6 @@
     <!-- def ability -->
 
     <ability>
-        <name>Classe d'armure</name>
-        <type>def</type>
-        <descr>base</descr>
-        <id>ca</id>
-    </ability>
-    <ability>
         <name>Reflexe</name>
         <type>def</type>
         <descr>base</descr>
@@ -107,6 +107,13 @@
         <id>vol</id>
         <testable>true</testable>
     </ability>
+
+    <ability>
+        <name>Classe d'armure</name>
+        <type>def</type>
+        <descr>base</descr>
+        <id>ca</id>
+    </ability>
     <ability>
         <name>Résistance magie</name>
         <type>def</type>
@@ -123,9 +130,15 @@
 
 
     <!-- advanced ability -->
-
     <ability>
-        <name>Bonus de manoeuvre offensive</name>
+        <name>Initative</name>
+        <type>advanced</type>
+        <descr>base</descr>
+        <id>init</id>
+        <testable>true</testable>
+    </ability>
+    <ability>
+        <name>Bonus manœuvre offensive</name>
         <shortname>BMO</shortname>
         <type>advanced</type>
         <descr>base</descr>
@@ -133,18 +146,11 @@
         <testable>true</testable>
     </ability>
     <ability>
-        <name>Degré de manoeuvre défensive</name>
+        <name>Degré manœuvre défensive</name>
         <shortname>DMD</shortname>
         <type>advanced</type>
         <descr>base</descr>
         <id>dmd</id>
-    </ability>
-    <ability>
-        <name>Initative</name>
-        <type>advanced</type>
-        <descr>base</descr>
-        <id>init</id>
-        <testable>true</testable>
     </ability>
 
 </records>

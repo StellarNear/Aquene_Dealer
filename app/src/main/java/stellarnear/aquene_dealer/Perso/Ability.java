@@ -13,21 +13,20 @@ public class Ability {
     private String type;
     private String descr;
     private String id;
-    private String imagePath;
     private Context mC;
     private String shortname;
     private int value=0;
-    private String valueTxt;
     private boolean testable;
+    private boolean focusable;
 
-    public Ability(String name, String shortname, String type, String descr,Boolean testable, String id, Context mC) {
+    public Ability(String name, String shortname, String type, String descr,Boolean testable,Boolean focusable, String id, Context mC) {
         this.name = name;
         this.type = type;
         this.descr = descr;
         this.testable=testable;
+        this.focusable=focusable;
         this.id = id;
         this.shortname = shortname;
-        this.imagePath = id + "_abi_img";
         this.mC = mC;
     }
 
@@ -57,10 +56,6 @@ public class Ability {
         return id;
     }
 
-    public String getImagePath() {
-        return imagePath;
-    }
-
     public void setValue(int value) {
         this.value = value;
     }
@@ -71,6 +66,10 @@ public class Ability {
 
     public boolean isTestable(){
         return this.testable;
+    }
+
+    public boolean isFocusable(){
+        return this.focusable;
     }
 
 }

@@ -19,17 +19,15 @@
     <dimen name="icon_dices_wheel_size">40dp</dimen>
     <dimen name="icon_main_dices_wheel_size">60dp</dimen>
     <dimen name="margin_wheel_text">15dp</dimen>
-    <dimen name="margin_skilldialog_text">15dp</dimen>
-    <dimen name="sizeTextDialogSkillResult">50sp</dimen>
+    <dimen name="margin_customDialog_text">15dp</dimen>
+    <dimen name="sizeTextCustomDialogResult">50sp</dimen>
     <dimen name="main_frag_stats_heigh_quadrant">350dp</dimen>
 
     <dimen name="textSizeQuadrantMini">14sp</dimen>
     <dimen name="textSizeQuadrantFull">22sp</dimen>
     <dimen name="iconSizeQuadrantMini">20dp</dimen>
-    <dimen name="iconSizeQuadrantFull">40dp</dimen>
+    <dimen name="iconSizeQuadrantFull">50dp</dimen>
     <dimen name="full_quadrant_icons_margin">15dp</dimen>
-
-    <dimen name="margin_abilitydialog_text">15dp</dimen>
-    <dimen name="sizeTextDialogAbilityResult">50sp</dimen>
+    <dimen name="mini_quadrant_icons_margin">3dp</dimen>
 
 </resources>

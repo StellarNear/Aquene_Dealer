@@ -19,56 +19,99 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+
 import java.util.Random;
 
+import stellarnear.aquene_dealer.Activities.MainActivity;
 import stellarnear.aquene_dealer.Perso.Ability;
+import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.Perso.Skill;
 import stellarnear.aquene_dealer.R;
 
 
-public class AbilityAlertDialog {
+public class CustomAlertDialog {
+    Perso aquene= MainActivity.aquene;
     private Activity mA;
     private Context mC;
     private AlertDialog alertDialog;
     private AlertDialog alertDialogWheelPicker;
     private WheelDicePicker wheelPicker;
+    private Skill skill;
     private Ability abi;
     private View dialogView;
     private View dialogViewWheelPicker;
+    private int modBonus;
+    String mode;
 
-    public AbilityAlertDialog(Activity mA, Context mC, Ability abi) {
+    public CustomAlertDialog(Activity mA, Context mC, Skill skill, int modBonus) {
+        this.mA=mA;
+        this.mC=mC;
+        this.skill=skill;
+        this.modBonus=modBonus;
+        this.mode="skill";
+        buildAlertDialog();
+    }
+
+    public CustomAlertDialog(Activity mA, Context mC, Ability abi) {
         this.mA=mA;
         this.mC=mC;
         this.abi=abi;
-        buildAlertDialogSkill();
+        this.mode="abi";
+        buildAlertDialog();
     }
 
-    private void buildAlertDialogSkill() {
+    private void buildAlertDialog() {
         LayoutInflater inflater = mA.getLayoutInflater();
-        dialogView = inflater.inflate(R.layout.custom_dialog_skill, null);
-        ImageView icon = dialogView.findViewById(R.id.dialogSkillTestSkillIcon);
-        int imgId = mC.getResources().getIdentifier(abi.getId(), "drawable", mC.getPackageName());
+        dialogView = inflater.inflate(R.layout.custom_alert_dialog, null);
+        ImageView icon = dialogView.findViewById(R.id.customDialogTestIcon);
+        int imgId;
+        String titleTxt;
+        int nameLength;
+        String summaryTxt;
+        if (mode.equalsIgnoreCase("skill")){
+            imgId = mC.getResources().getIdentifier(skill.getId(), "drawable", mC.getPackageName());
+            titleTxt = "Test de la compétence :\n"+skill.getName();
+            nameLength=skill.getName().length();
+
+            //summary
+            String abScore;
+            if(modBonus>=0){
+                abScore = "+"+modBonus;
+            } else {
+                abScore = String.valueOf(modBonus);
+            }
+            summaryTxt="Abilité ("+skill.getAbilityDependence()+") : "+abScore+",  Maîtrise : "+skill.getRank()+",  Bonus : "+skill.getBonus();
+        } else {
+            imgId = mC.getResources().getIdentifier(abi.getId(), "drawable", mC.getPackageName());
+            titleTxt = "Test de la caractéristique :\n"+abi.getName();
+            nameLength=abi.getName().length();
+
+            //summary
+            if (abi.getType().equalsIgnoreCase("base")){
+                String abScore;
+                if(aquene.getAllAbilities().getMod(abi.getId())>=0){
+                    abScore = "+"+aquene.getAllAbilities().getMod(abi.getId());
+                } else {
+                    abScore = String.valueOf(aquene.getAllAbilities().getMod(abi.getId()));
+                }
+                summaryTxt="Bonus : "+abScore;
+            } else {
+                summaryTxt="Bonus : "+aquene.getAllAbilities().getScore(abi.getId());
+            }
+
+        }
         icon.setImageDrawable(mC.getDrawable(imgId));
-        String titleTxt = "Test de la compétence :\n"+abi.getName();
+
         SpannableString titleSpan = new SpannableString(titleTxt);
-        titleSpan.setSpan(new RelativeSizeSpan(2.0f)  ,titleTxt.length()-abi.getName().length(),titleTxt.length(),0);
-        TextView title = dialogView.findViewById(R.id.dialogSkillTestSkillTitle);
+        titleSpan.setSpan(new RelativeSizeSpan(2.0f)  ,titleTxt.length()-nameLength,titleTxt.length(),0);
+        TextView title = dialogView.findViewById(R.id.customDialogTestTitle);
         title.setSingleLine(false);
         title.setText(titleSpan);
 
-        TextView summary = dialogView.findViewById(R.id.dialogSkillTestSkillSummary);
-        String abScore;
-        /*
-        if(modBonus>=0){
-            abScore = "+"+modBonus;
-        } else {
-            abScore = "-"+modBonus;
-        }
+        TextView summary = dialogView.findViewById(R.id.customDialogTestSummary);
+        summary.setText(summaryTxt);
 
-        String summaryTxt="Abilité ("+abi.getAbilityDependence()+") : "+abScore+",  Maîtrise : "+skill.getRank()+",  Bonus : "+skill.getBonus();
-        summary.setText(summaryTxt);*/
-
-        Button diceroll = dialogView.findViewById(R.id.button_skill_test_diceroll);
+        Button diceroll = dialogView.findViewById(R.id.button_customDialog_test_diceroll);
         diceroll.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,7 +127,7 @@ public class AbilityAlertDialog {
             }
         });
 
-        Button passive = dialogView.findViewById(R.id.button_skill_test_passive);
+        Button passive = dialogView.findViewById(R.id.button_customDialog_test_passive);
         passive.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,7 +135,7 @@ public class AbilityAlertDialog {
             }
         });
 
-        Button focus = dialogView.findViewById(R.id.button_skill_test_focus);
+        Button focus = dialogView.findViewById(R.id.button_customDialog_test_focus);
         focus.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,6 +143,10 @@ public class AbilityAlertDialog {
             }
         });
 
+        if (mode.equalsIgnoreCase("abi") && !abi.isFocusable()){
+            passive.setVisibility(View.GONE);
+            focus.setVisibility(View.GONE);
+        }
 
         AlertDialog.Builder dialogBuilder  = new AlertDialog.Builder(mA, R.style.CustomDialog);
         dialogBuilder.setView(dialogView);
@@ -148,8 +195,6 @@ public class AbilityAlertDialog {
 
     }
 
-
-
     private void showAlertDialogWheelPicker(){
         alertDialog.hide();
         alertDialogWheelPicker.show();
@@ -176,27 +221,39 @@ public class AbilityAlertDialog {
 
     }
 
-
     private void endSkillCalculation(int value_selected) {
-        ImageView resultDice= dialogView.findViewById(R.id.dialogSkillTestResultDice);
+        ImageView resultDice= dialogView.findViewById(R.id.customDialogTestResultDice);
         int idResultDice = mC.getResources().getIdentifier("d20_"+value_selected, "drawable", mC.getPackageName());
         resultDice.setImageDrawable(mC.getDrawable(idResultDice));
-
-        TextView resultTitle = dialogView.findViewById(R.id.dialogSkillTitleResult);
-        resultTitle.setText("Résultat du test de compétence :");
-
-        //int sumResult=value_selected+skill.getRank()+skill.getBonus()+ modBonus;
-
-        TextView result = dialogView.findViewById(R.id.dialogSkillTestResult);
-        //result.setText(String.valueOf(sumResult));
-
-        TextView callToAction = dialogView.findViewById(R.id.dialogSkillTestCallToAction);
-        callToAction.setText("Fin du test de compétence");
-        callToAction.setTextColor(mC.getColor(R.color.secondaryTextSkill));
+        TextView resultTitle = dialogView.findViewById(R.id.customDialogTitleResult);
+        TextView callToAction = dialogView.findViewById(R.id.customDialogTestCallToAction);
+        callToAction.setTextColor(mC.getColor(R.color.secondaryTextCustomDialog));
 
         Button onlyButton = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
         onlyButton.setText("Ok");
         onlyButton.setBackground(mC.getDrawable(R.drawable.button_ok_gradient));
+
+        if (mode.equalsIgnoreCase("skill")){
+            resultTitle.setText("Résultat du test de compétence :");
+            int sumResult=value_selected+skill.getRank()+skill.getBonus()+ modBonus;
+
+            TextView result = dialogView.findViewById(R.id.customDialogTestResult);
+            result.setText(String.valueOf(sumResult));
+            callToAction.setText("Fin du test de compétence");
+        } else {
+            resultTitle.setText("Résultat du test de caractéristique :");
+            int sumResult;
+            if (abi.getType().equalsIgnoreCase("base")){
+                sumResult=value_selected+aquene.getAllAbilities().getMod(abi.getId());
+            } else {
+                sumResult=value_selected+aquene.getAllAbilities().getScore(abi.getId());
+            }
+
+            TextView result = dialogView.findViewById(R.id.customDialogTestResult);
+            result.setText(String.valueOf(sumResult));
+            callToAction.setText("Fin du test de caractéristique");
+        }
+
 
     }
 }

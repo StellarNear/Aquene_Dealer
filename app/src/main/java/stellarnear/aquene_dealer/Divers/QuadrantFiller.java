@@ -139,12 +139,17 @@ public class QuadrantFiller {
 
         TextView text = new TextView(mC);
         text.setTextSize(TypedValue.COMPLEX_UNIT_PX,textSize);
-        text.setText(abi.getShortname()+" : ");
+        if (mode.equalsIgnoreCase("mini")){
+            text.setText(abi.getShortname()+" : ");
+        } else {
+            text.setText(abi.getName()+" : ");
+        }
         text.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT,1));
         text.setGravity(Gravity.CENTER_VERTICAL);
-        int imgId=mC.getResources().getIdentifier("mire_test", "drawable", mC.getPackageName());
+        int imgId=mC.getResources().getIdentifier(abi.getId(), "drawable", mC.getPackageName());
         text.setCompoundDrawablesWithIntrinsicBounds(resize(imgId,iconSize),null,null,null);
-        if (mode.equalsIgnoreCase("full")){text.setCompoundDrawablePadding(mC.getResources().getDimensionPixelSize(R.dimen.full_quadrant_icons_margin));}
+        if (mode.equalsIgnoreCase("full")){text.setCompoundDrawablePadding(mC.getResources().getDimensionPixelSize(R.dimen.full_quadrant_icons_margin));
+        }else{text.setCompoundDrawablePadding(mC.getResources().getDimensionPixelSize(R.dimen.mini_quadrant_icons_margin));}
         quadrantSub1.addView(text);
 
         TextView text2 = new TextView(mC);
@@ -167,7 +172,7 @@ public class QuadrantFiller {
         text2.setGravity(Gravity.CENTER_VERTICAL);
         quadrantSub2.addView(text2);
 
-        if(abi.isTestable()){
+        if(mode.equalsIgnoreCase("full") && abi.isTestable()){
             setListner(text,abi);
             setListner(text2,abi);
         }
@@ -177,8 +182,9 @@ public class QuadrantFiller {
         text.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AbilityAlertDialog abilityAlertDialog = new AbilityAlertDialog(mA,mC,abi);
-                abilityAlertDialog.showAlertDialog();
+                 CustomAlertDialog abilityAlertDialog = new CustomAlertDialog(mA, mC, abi);
+                 abilityAlertDialog.showAlertDialog();
+
             }
         });
     }
@@ -195,6 +201,8 @@ public class QuadrantFiller {
 
     private void switchViewNext() {
         imgExit.setVisibility(View.VISIBLE);
+        quadrantFullSub1.setVisibility(View.VISIBLE);
+        quadrantFullSub2.setVisibility(View.VISIBLE);
         viewSwitcher.setInAnimation(mC,R.anim.infromleft);
         viewSwitcher.setOutAnimation(mC,R.anim.outtoright);
         viewSwitcher.showNext();
@@ -203,6 +211,8 @@ public class QuadrantFiller {
     }
     private void switchViewPrevious() {
         imgExit.setVisibility(View.GONE);
+        quadrantFullSub1.setVisibility(View.GONE);
+        quadrantFullSub2.setVisibility(View.GONE);
         switchTextTitle(mC.getResources().getString(R.string.quadrantGeneralTitle),"back");
         viewSwitcher.setInAnimation(mC,R.anim.infromright);
         viewSwitcher.setOutAnimation(mC,R.anim.outtoleft);

@@ -65,6 +65,7 @@ public class AllAbilities {
                             readValue("type", element2),
                             readValue("descr", element2),
                             toBool(readValue("testable", element2)),
+                            toBool(readValue("focusable", element2)),
                             readValue("id", element2),
                             mC);
                     listAbilities.add(abi);
@@ -77,7 +78,7 @@ public class AllAbilities {
         }
     }
 
-    public String readValue(String tag, Element element) {
+    private String readValue(String tag, Element element) {
         try {
             NodeList nodeList = element.getElementsByTagName(tag).item(0).getChildNodes();
             Node node = nodeList.item(0);
@@ -98,13 +99,13 @@ public class AllAbilities {
             //(abiKey.equals("FOR") && allStances.getCurrentStance()!=null && allStances.getCurrentStance().getId().equals("bear") pour test les stance en meme temps
             int val = 0;
             if (abi.getId().equalsIgnoreCase("CA")) {
-                val = readAbility("CA_STUFF") + readAbility("CA_MONK") + getMod("DEX") + 10;
+                val = readAbility("CA_STUFF") + readAbility("CA_MONK") + getMod("DEXTERITE") + 10;
             } else if (abi.getId().equalsIgnoreCase("BMO")) {
-                val = readAbility("LVL") + getMod("FOR");
+                val = readAbility("LVL") + getMod("FORCE");
             } else if (abi.getId().equalsIgnoreCase("DMD")) {
-                val = readAbility("LVL") + getMod("FOR") + 10 + getMod("DEX");
+                val = readAbility("LVL") + getMod("FORCE") + 10 + getMod("DEXTERITE");
             } else if (abi.getId().equalsIgnoreCase("INIT")) {
-                val = getMod("DEX");
+                val = getMod("DEXTERITE");
                 if (allFeats.isActive("init")) {
                     val += 4;
                 }
@@ -151,7 +152,7 @@ public class AllAbilities {
             val = getAbi(key).getValue();
         }
 
-        if (key.equalsIgnoreCase("FOR") && allStances.getCurrentStance() != null && allStances.getCurrentStance().getId().equals("bear")) {
+        if (key.equalsIgnoreCase("FORCE") && allStances.getCurrentStance() != null && allStances.getCurrentStance().getId().equals("bear")) {
             val+=5;
         }
         return val;
