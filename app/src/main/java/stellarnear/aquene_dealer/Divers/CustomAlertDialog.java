@@ -80,7 +80,7 @@ public class CustomAlertDialog {
             } else {
                 abScore = String.valueOf(modBonus);
             }
-            summaryTxt="Abilité ("+skill.getAbilityDependence()+") : "+abScore+",  Maîtrise : "+skill.getRank()+",  Bonus : "+skill.getBonus();
+            summaryTxt="Abilité ("+skill.getAbilityDependence().substring(0,3)+") : "+abScore+",  Maîtrise : "+skill.getRank()+",  Bonus : "+skill.getBonus();
         } else {
             imgId = mC.getResources().getIdentifier(abi.getId(), "drawable", mC.getPackageName());
             titleTxt = "Test de la caractéristique :\n"+abi.getName();
