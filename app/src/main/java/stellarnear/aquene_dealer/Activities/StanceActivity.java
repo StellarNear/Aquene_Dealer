@@ -272,7 +272,7 @@ public class StanceActivity extends AppCompatActivity {
                 public void run() {
                     setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
                 }
-            }, 2500);
+            }, 2000);
 
         }
     }

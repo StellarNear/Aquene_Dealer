@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.app.Fragment;
 import android.view.Display;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.Surface;
 import android.view.View;
@@ -23,6 +24,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
@@ -59,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
 
             final ImageView image = new ImageView(getApplicationContext());
+
             image.setImageDrawable(getDrawable(R.drawable.monk_female_background));
             image.setBackgroundColor(getColor(R.color.start_back_color));
             setContentView(image);
@@ -90,6 +94,8 @@ public class MainActivity extends AppCompatActivity {
                                 public boolean onTouch(View arg0, MotionEvent arg1) {
                                     unlockOrient();
                                     window.setStatusBarColor(getColor(R.color.colorPrimaryDark));
+                                    //Animation anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.outfade);
+                                    //image.startAnimation(anim);
                                     buildMainPage();
                                     return true;//always return true to consume event
                                 }
@@ -98,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
                     });
                 }
             }
-        },0,333);
+        },333,333);
     }
 
     private void buildMainPage() {
@@ -211,7 +217,7 @@ public class MainActivity extends AppCompatActivity {
                 public void run() {
                     setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
                 }
-            }, 2500);
+            }, 2000);
         }
     }
 

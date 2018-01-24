@@ -1,32 +1,30 @@
 package stellarnear.aquene_dealer.Activities;
 
+import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.app.Fragment;
-import android.graphics.Point;
 import android.os.Bundle;
-import android.view.Display;
-import android.view.Gravity;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import java.util.Arrays;
 import java.util.List;
 
 import stellarnear.aquene_dealer.Divers.QuadrantManager;
-import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.R;
 
 /**
  * A placeholder fragment containing a simple view.
  */
 public class MainActivityFragment extends Fragment {
-    Perso aquene = MainActivity.aquene;
     View returnFragView;
     public MainActivityFragment() {
     }
@@ -43,17 +41,69 @@ public class MainActivityFragment extends Fragment {
 
         ImageButton fabCombat = (ImageButton) returnFragView.findViewById(R.id.button_frag_to_combat);
         setButtonActivity(fabCombat,new MainActivityFragmentCombat());
+        Animation top = AnimationUtils.loadAnimation(getContext(),R.anim.infromtopcombat);
+        fabCombat.startAnimation(top);
 
         ImageButton fabKi = (ImageButton) returnFragView.findViewById(R.id.button_frag_to_ki);
         setButtonActivity(fabKi, new MainActivityFragmentKi());
+        Animation left = AnimationUtils.loadAnimation(getContext(),R.anim.infromleftki);
+        fabKi.startAnimation(left);
 
         ImageButton fabSkill = (ImageButton) returnFragView.findViewById(R.id.button_frag_to_skill);
         setButtonActivity(fabSkill,new MainActivityFragmentSkill());
+        Animation right = AnimationUtils.loadAnimation(getContext(),R.anim.infromrightskill);
+        fabSkill.startAnimation(right);
 
+        fadeInTooltips(getContext());
 
-        new QuadrantManager(returnFragView,getContext(),getActivity());
+        final Context mC=getContext();
+        final Activity mA=getActivity();
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Animation fadeIn = AnimationUtils.loadAnimation(mC,R.anim.infade);
+                View mainAbiText = returnFragView.findViewById(R.id.quadrantGeneralTitle);
+                mainAbiText.setVisibility(View.VISIBLE);
+                mainAbiText.startAnimation(fadeIn);
+                popInQuadrant(mC,mA);
+            }
+        }, top.getDuration());
 
         return returnFragView;
+    }
+
+    private void fadeInTooltips(Context mC) {
+        Animation fadeIn = AnimationUtils.loadAnimation(mC,R.anim.infade);
+        View tooltip1 = returnFragView.findViewById(R.id.textCombatActionTooltip);
+        View tooltip2 = returnFragView.findViewById(R.id.textSkillActionTooltip);
+        View tooltip3 = returnFragView.findViewById(R.id.textKiActionTooltip);
+
+        tooltip1.setVisibility(View.VISIBLE);
+        tooltip2.setVisibility(View.VISIBLE);
+        tooltip3.setVisibility(View.VISIBLE);
+
+        tooltip1.startAnimation(fadeIn);
+        tooltip2.startAnimation(fadeIn);
+        tooltip3.startAnimation(fadeIn);
+    }
+
+    private void popInQuadrant(Context mC,Activity mA) {
+        QuadrantManager quadrantManager = new QuadrantManager(returnFragView,mC,mA);
+        Animation pop = AnimationUtils.loadAnimation(mC,R.anim.popinquadrant);
+        int delay=(int) (0.5*pop.getDuration());
+        Animation pop2 = AnimationUtils.loadAnimation(mC,R.anim.popinquadrant);
+        Animation pop3 = AnimationUtils.loadAnimation(mC,R.anim.popinquadrant);
+        Animation pop4 = AnimationUtils.loadAnimation(mC,R.anim.popinquadrant);
+        pop2.setStartOffset(delay);
+        pop3.setStartOffset(delay*2);
+        pop4.setStartOffset(delay*3);
+        List<LinearLayout> quadrantList = quadrantManager.quadrantAsList();
+        quadrantManager.showQuadrant();
+        quadrantList.get(0).startAnimation(pop);
+        quadrantList.get(1).startAnimation(pop2);
+        quadrantList.get(2).startAnimation(pop3);
+        quadrantList.get(3).startAnimation(pop4);
     }
 
     private void setButtonActivity(ImageButton button, final Fragment ActivityFragment) {

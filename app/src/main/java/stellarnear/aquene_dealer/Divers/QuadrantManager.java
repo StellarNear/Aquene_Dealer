@@ -60,7 +60,7 @@ public class QuadrantManager {
         quadrant4 = mainView.findViewById(R.id.main_frag_stats_quadrant4);
 
         quadrantList= Arrays.asList(quadrant1, quadrant2, quadrant3, quadrant4);
-
+        hideQuadrant();
         setLayoutsListners();
         quadrantFiller =new QuadrantFiller(mainView,mC,mA);
     }
@@ -84,4 +84,18 @@ public class QuadrantManager {
     }
 
 
+    public List<LinearLayout> quadrantAsList() {
+        return quadrantList;
+    }
+    public void hideQuadrant() {
+        for (final LinearLayout layout : quadrantList) {
+            layout.setVisibility(View.GONE);
+        }
+    }
+
+    public void showQuadrant() {
+        for (final LinearLayout layout : quadrantList) {
+            layout.setVisibility(View.VISIBLE);
+        }
+    }
 }
