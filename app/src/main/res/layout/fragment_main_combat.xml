@@ -41,10 +41,7 @@
 
         </LinearLayout>
 
-        <RadioGroup
-            android:id="@+id/radio_combat_modes"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+
         <LinearLayout
             android:layout_marginTop="@dimen/general_margin"
             android:layout_width="match_parent"
@@ -52,21 +49,19 @@
             android:orientation="horizontal"
             android:weightSum="3"
             >
-
             <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_gravity="center"
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
 
-                <RadioButton
+                <ImageButton
                     android:id="@+id/button_combat_mode_normal"
                     android:layout_width="@dimen/size_icon_combat_mode"
                     android:layout_height="@dimen/size_icon_combat_mode"
                     android:layout_gravity="center"
                     android:background="@drawable/bear_stance_selector"
-                    android:scaleType="fitCenter"
-                    android:button="@null"  />
+                    android:scaleType="fitCenter" />
             </FrameLayout>
 
             <FrameLayout
@@ -75,14 +70,13 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
 
-                <RadioButton
+                <ImageButton
                     android:id="@+id/button_combat_mode_def"
                     android:layout_width="@dimen/size_icon_combat_mode"
                     android:layout_height="@dimen/size_icon_combat_mode"
                     android:layout_gravity="center"
                     android:background="@drawable/rat_stance_selector"
-                    android:scaleType="fitCenter"
-                    android:button="@null" />
+                    android:scaleType="fitCenter"/>
             </FrameLayout>
             <FrameLayout
                 android:layout_width="wrap_content"
@@ -90,18 +84,16 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
 
-                <RadioButton
+                <ImageButton
                     android:id="@+id/button_combat_mode_totaldef"
                     android:layout_width="@dimen/size_icon_combat_mode"
                     android:layout_height="@dimen/size_icon_combat_mode"
                     android:layout_gravity="center"
                     android:background="@drawable/octopus_stance_selector"
                     android:scaleType="fitCenter"
-                    android:button="@null" />
+                     />
             </FrameLayout>
-
         </LinearLayout>
-        </RadioGroup>
 
     </LinearLayout>
 

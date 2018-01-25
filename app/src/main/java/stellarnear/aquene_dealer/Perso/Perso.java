@@ -11,18 +11,17 @@ public class Perso {
     private AllStances allStances;
     private AllFeats allFeats;
     private AllSkills allSkills;
-    private Attacks atq;
-    private String combatMode;
+    private Attacks attack;
     private Ki ki;
     private Context mC;
 
     public Perso(Context mC) {
         this.mC = mC;
-        combatMode = "";
         allStances = new AllStances(mC);
         allFeats = new AllFeats(mC);
         allAbilities = new AllAbilities(mC);
         allSkills = new AllSkills(mC);
+        attack = new Attacks(mC);
     }
 
     public AllStances getAllStances() {
@@ -103,6 +102,6 @@ public class Perso {
     }
 
     public void setCombatMode(String combatMode) {
-        this.combatMode = combatMode;
+        attack.setCombatMode(combatMode);
     }
 }

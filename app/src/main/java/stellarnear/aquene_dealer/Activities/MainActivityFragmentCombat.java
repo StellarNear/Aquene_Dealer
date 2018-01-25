@@ -66,7 +66,11 @@ public class MainActivityFragmentCombat extends Fragment {
         mapModeButtonModKey.put((RadioButton) returnFragView.findViewById(R.id.button_combat_mode_def),"def");
         mapModeButtonModKey.put((RadioButton) returnFragView.findViewById(R.id.button_combat_mode_totaldef),"totaldef");
 
-        RadioGroup combatModesRadio = (RadioGroup) returnFragView.findViewById(R.id.radio_combat_modes);
+        RadioGroup combatModesRadio = new RadioGroup (getContext());
+        combatModesRadio.addView((RadioButton) returnFragView.findViewById(R.id.button_combat_mode_normal));
+        combatModesRadio.addView((RadioButton) returnFragView.findViewById(R.id.button_combat_mode_def));
+        combatModesRadio.addView((RadioButton) returnFragView.findViewById(R.id.button_combat_mode_totaldef));
+
         setCombatModeListner(combatModesRadio);
 
 
