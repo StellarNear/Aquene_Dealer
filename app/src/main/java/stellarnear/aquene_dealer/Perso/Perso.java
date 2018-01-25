@@ -11,7 +11,7 @@ public class Perso {
     private AllStances allStances;
     private AllFeats allFeats;
     private AllSkills allSkills;
-    private Attacks attack;
+    private Attacks attacks;
     private Ki ki;
     private Context mC;
 
@@ -21,7 +21,7 @@ public class Perso {
         allFeats = new AllFeats(mC);
         allAbilities = new AllAbilities(mC);
         allSkills = new AllSkills(mC);
-        attack = new Attacks(mC);
+        attacks = new Attacks(mC);
     }
 
     public AllStances getAllStances() {
@@ -85,6 +85,8 @@ public class Perso {
         return allSkills;
     }
 
+    public Attacks getAttacks(){return this.attacks;}
+
 
     public boolean featIsActive(String featId) {
         Feat feat = allFeats.getFeat(featId);
@@ -101,7 +103,5 @@ public class Perso {
         allAbilities.refreshAllAbilities();
     }
 
-    public void setCombatMode(String combatMode) {
-        attack.setCombatMode(combatMode);
-    }
+
 }

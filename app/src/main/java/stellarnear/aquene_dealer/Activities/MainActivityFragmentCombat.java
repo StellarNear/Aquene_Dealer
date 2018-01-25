@@ -8,14 +8,17 @@ import android.os.Bundle;
 import android.app.Fragment;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -66,12 +69,12 @@ public class MainActivityFragmentCombat extends Fragment {
         mapModeButtonModKey.put((RadioButton) returnFragView.findViewById(R.id.button_combat_mode_def),"def");
         mapModeButtonModKey.put((RadioButton) returnFragView.findViewById(R.id.button_combat_mode_totaldef),"totaldef");
 
-        RadioGroup combatModesRadio = new RadioGroup (getContext());
-        combatModesRadio.addView((RadioButton) returnFragView.findViewById(R.id.button_combat_mode_normal));
-        combatModesRadio.addView((RadioButton) returnFragView.findViewById(R.id.button_combat_mode_def));
-        combatModesRadio.addView((RadioButton) returnFragView.findViewById(R.id.button_combat_mode_totaldef));
+        activateMode();
 
-        setCombatModeListner(combatModesRadio);
+        setCombatModeListner((RadioButton) returnFragView.findViewById(R.id.button_combat_mode_normal));
+        setCombatModeListner((RadioButton) returnFragView.findViewById(R.id.button_combat_mode_def));
+        setCombatModeListner((RadioButton) returnFragView.findViewById(R.id.button_combat_mode_totaldef));
+
 
 
 
@@ -79,29 +82,47 @@ public class MainActivityFragmentCombat extends Fragment {
         return returnFragView;
     }
 
-    private void setCombatModeListner(final RadioGroup radio) {
+    private void activateMode() {
+        for (RadioButton radio : mapModeButtonModKey.keySet()){
+            if (aquene.getAttacks().getCombatMode().equalsIgnoreCase(mapModeButtonModKey.get(radio))){radio.setChecked(true);}
+        }
+    }
 
-        radio.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
-        {
+    private void setCombatModeListner(final RadioButton button) {
+
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                Log.d("-State-","Changement de mode");
-                RadioButton checkedRadioButton = (RadioButton)group.findViewById(checkedId);
-                // This puts the value (true/false) into the variable
-                boolean isChecked = checkedRadioButton.isChecked();
-                // If the radiobutton that has changed in check state is now checked...
-                if (isChecked)
-                {
-                    //do stuff with active mode
-                    persoChange(mapModeButtonModKey.get(checkedRadioButton));
+            public void onClick(View view) {
+                for (RadioButton radio : mapModeButtonModKey.keySet()){
+                    if (radio!=button){radio.setChecked(false);}
                 }
+                persoChange(mapModeButtonModKey.get(button));
+
+                String modeTxt="";
+                if (mapModeButtonModKey.get(button).equalsIgnoreCase("normal")){
+                    modeTxt="normal";
+                }
+                if (mapModeButtonModKey.get(button).equalsIgnoreCase("def")){
+                    modeTxt="défensif";
+                }
+                if (mapModeButtonModKey.get(button).equalsIgnoreCase("totaldef")){
+                    modeTxt="défense totale";
+                }
+
+                toastIt("Mode "+modeTxt+" activé.");
             }
         });
 
     }
 
+    private void toastIt(String s) {
+        Toast toast = Toast.makeText(getContext(), s, Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.CENTER| Gravity.CENTER_HORIZONTAL,0,0);
+        toast.show();
+    }
+
     private void persoChange(String mode) {
-        aquene.setCombatMode(mode);
+        aquene.getAttacks().setCombatMode(mode);
     }
 
 

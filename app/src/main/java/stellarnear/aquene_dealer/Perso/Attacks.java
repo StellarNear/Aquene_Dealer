@@ -18,7 +18,7 @@ public class Attacks {
 
     public Attacks(Context mC) {
         this.mC = mC;
-
+        combatMode="normal";
     }
 
     public void setCombatMode(String combatMode) {

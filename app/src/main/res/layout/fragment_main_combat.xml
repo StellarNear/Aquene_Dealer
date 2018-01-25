@@ -55,13 +55,14 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
 
-                <ImageButton
+                <RadioButton
                     android:id="@+id/button_combat_mode_normal"
                     android:layout_width="@dimen/size_icon_combat_mode"
                     android:layout_height="@dimen/size_icon_combat_mode"
                     android:layout_gravity="center"
                     android:background="@drawable/bear_stance_selector"
-                    android:scaleType="fitCenter" />
+                    android:scaleType="fitCenter"
+                    android:button="@null"/>
             </FrameLayout>
 
             <FrameLayout
@@ -70,13 +71,14 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
 
-                <ImageButton
+                <RadioButton
                     android:id="@+id/button_combat_mode_def"
                     android:layout_width="@dimen/size_icon_combat_mode"
                     android:layout_height="@dimen/size_icon_combat_mode"
                     android:layout_gravity="center"
                     android:background="@drawable/rat_stance_selector"
-                    android:scaleType="fitCenter"/>
+                    android:scaleType="fitCenter"
+                    android:button="@null"/>
             </FrameLayout>
             <FrameLayout
                 android:layout_width="wrap_content"
@@ -84,13 +86,14 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
 
-                <ImageButton
+                <RadioButton
                     android:id="@+id/button_combat_mode_totaldef"
                     android:layout_width="@dimen/size_icon_combat_mode"
                     android:layout_height="@dimen/size_icon_combat_mode"
                     android:layout_gravity="center"
                     android:background="@drawable/octopus_stance_selector"
                     android:scaleType="fitCenter"
+                    android:button="@null"
                      />
             </FrameLayout>
         </LinearLayout>
