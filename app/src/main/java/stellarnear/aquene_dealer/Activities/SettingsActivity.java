@@ -158,14 +158,18 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 EditTextPreference pref = new EditTextPreference(getContext(), InputType.TYPE_CLASS_TEXT);
                 pref.setKey(skill.getId()+"_rank");
                 pref.setTitle(skill.getName());
-                pref.setDefaultValue(String.valueOf(skill.getRank()));
+                int rankDefId = getContext().getResources().getIdentifier(skill.getId()+"_rankDEF", "integer", getContext().getPackageName());
+                int rankDef = getContext().getResources().getInteger(rankDefId);
+                pref.setDefaultValue(String.valueOf(rankDef));
                 pref.setSummary("Valeur : %s");
                 rank.addPreference(pref);
 
                 EditTextPreference pref_bonus = new EditTextPreference(getContext(), InputType.TYPE_CLASS_TEXT);
                 pref_bonus.setKey(skill.getId()+"_bonus");
                 pref_bonus.setTitle(skill.getName());
-                pref_bonus.setDefaultValue(String.valueOf(skill.getBonus()));
+                int bonusDefId = getContext().getResources().getIdentifier(skill.getId()+"_bonusDEF", "integer", getContext().getPackageName());
+                int bonusDef = getContext().getResources().getInteger(bonusDefId);
+                pref_bonus.setDefaultValue(String.valueOf(bonusDef));
                 pref_bonus.setSummary("Valeur : %s");
                 bonus.addPreference(pref_bonus);
             }

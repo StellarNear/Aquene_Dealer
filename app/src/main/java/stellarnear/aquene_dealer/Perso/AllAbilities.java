@@ -30,13 +30,9 @@ public class AllAbilities {
 
     private Map<String, Ability> mapIDAbi = new HashMap<>();
     private List<Ability> listAbilities= new ArrayList<>();
-    private AllStances allStances;
-    private AllFeats allFeats;
     private Context mC;
 
-    public AllAbilities(AllStances allStances, AllFeats allFeats, Context mC) {
-        this.allStances = allStances;
-        this.allFeats = allFeats;
+    public AllAbilities(Context mC) {
         this.mC = mC;
         buildAbilitiesList();
         refreshAllAbilities();
@@ -99,16 +95,13 @@ public class AllAbilities {
             //(abiKey.equals("FOR") && allStances.getCurrentStance()!=null && allStances.getCurrentStance().getId().equals("bear") pour test les stance en meme temps
             int val = 0;
             if (abi.getId().equalsIgnoreCase("CA")) {
-                val = readAbility("CA_STUFF") + readAbility("CA_MONK") + getMod("DEXTERITE") + 10;
+                val = readAbility("CA_STUFF") + readAbility("CA_MONK") + getAbi("DEXTERITE").getMod() + 10;
             } else if (abi.getId().equalsIgnoreCase("BMO")) {
-                val = readAbility("LVL") + getMod("FORCE");
+                val = readAbility("LVL") + getAbi("FORCE").getMod();
             } else if (abi.getId().equalsIgnoreCase("DMD")) {
-                val = readAbility("LVL") + getMod("FORCE") + 10 + getMod("DEXTERITE");
+                val = readAbility("LVL") + getAbi("FORCE").getMod() + 10 + getAbi("DEXTERITE").getMod();
             } else if (abi.getId().equalsIgnoreCase("INIT")) {
-                val = getMod("DEXTERITE");
-                if (allFeats.isActive("init")) {
-                    val += 4;
-                }
+                val = getAbi("DEXTERITE").getMod();
             } else if (abi.getId().equalsIgnoreCase("RM")) {
                 val = readAbility("LVL") + 10;
             } else {
@@ -136,47 +129,12 @@ public class AllAbilities {
         return list;
     }
 
-    private Ability getAbi(String abiId){
-        Ability abiSelected=null;
-        for (Ability abi : listAbilities){
-            if (abi.getId().equalsIgnoreCase(abiId)){
-               abiSelected=abi;
-            }
-        }
-        return abiSelected;
-    }
-
-    public int getScore(String key) {
-        int val=0;
-        if (getAbi(key)!=null) {
-            val = getAbi(key).getValue();
-        }
-
-        if (key.equalsIgnoreCase("FORCE") && allStances.getCurrentStance() != null && allStances.getCurrentStance().getId().equals("bear")) {
-            val+=5;
-        }
-        return val;
-    }
-
-    public int getMod(String key) {
-        int score = 0;
-        if (getAbi(key) != null) {
-            score = getScore(key);
-        }
-
-        int mod;
-        if (getAbi(key).getType().equalsIgnoreCase("base")) {
-            float modFloat = (float) ((score - 10) / 2.0);
-            if (modFloat >= 0) {
-                mod = (int) modFloat;
-            } else {
-                mod = -1 * Math.round(Math.abs(modFloat));
-            }
-        } else {
-            mod = 0;
-        }
-
-        return mod;
+    public Ability getAbi(String abiId){
+        Ability selecteAbi;
+        try {
+            selecteAbi=mapIDAbi.get(abiId.toLowerCase());
+        } catch (Exception e){  selecteAbi=null;  }
+        return selecteAbi;
     }
 
     private Boolean toBool(String key) {

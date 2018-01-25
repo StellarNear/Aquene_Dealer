@@ -15,15 +15,13 @@ public class Skill {
     private String id;
     private int rank;
     private int bonus;
-    private AllAbilities allAbilities;
     private Context mC;
 
-    public Skill(String name, String abilityDependence, String descr, String id, AllAbilities allAbilities, Context mC){
+    public Skill(String name, String abilityDependence, String descr, String id, Context mC){
         this.name=name;
         this.abilityDependence = abilityDependence;
         this.descr=descr;
         this.id=id;
-        this.allAbilities = allAbilities;
         this.mC=mC;
         refreshVals();
     }
@@ -67,8 +65,6 @@ public class Skill {
         refreshBonus();
     }
 
-
-
     private void refreshRank() {
         int valTemp=0;
         try {
@@ -84,18 +80,17 @@ public class Skill {
         return this.rank;
     }
 
-
     private void refreshBonus() {
         int bonusTemp=0;
         try {
             SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mC);
             int bonusDefId = mC.getResources().getIdentifier(this.id+"_bonusDEF", "integer", mC.getPackageName());
             int bonusDef = mC.getResources().getInteger(bonusDefId);
-            bonusTemp = settings.getInt(this.id+"_bonus", bonusDef);
-            if(this.id.equals("acrob")){bonusTemp+= allAbilities.getScore("LVL");}   //on ajoute le niveau de moine au jet d'acrob
+            bonusTemp = toInt(settings.getString(this.id+"_bonus", String.valueOf(bonusDef)));
         } catch ( Exception e) {}
         this.bonus= bonusTemp;
     }
+
     public int getBonus(){
         return this.bonus;
     }

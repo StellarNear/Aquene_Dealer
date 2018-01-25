@@ -29,5 +29,6 @@
     <dimen name="iconSizeQuadrantFull">42dp</dimen>
     <dimen name="full_quadrant_icons_margin">15dp</dimen>
     <dimen name="mini_quadrant_icons_margin">3dp</dimen>
+    <dimen name="size_icon_combat_mode">30dp</dimen>
 
 </resources>

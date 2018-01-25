@@ -91,10 +91,10 @@ public class MainActivityFragmentSkill extends Fragment {
         TextView abiTitle = returnFragView.findViewById(R.id.skillAbiTitle);
         abiTxt.setLayoutParams(abiTitle.getLayoutParams());
         String abScore;
-        if(aquene.getAllAbilities().getMod(skill.getAbilityDependence())>=0){
-            abScore = "+"+aquene.getAllAbilities().getMod(skill.getAbilityDependence());
+        if(aquene.getAbilityMod(skill.getAbilityDependence())>=0){
+            abScore = "+"+aquene.getAbilityMod(skill.getAbilityDependence());
         } else {
-            abScore = String.valueOf(aquene.getAllAbilities().getMod(skill.getAbilityDependence()));
+            abScore = String.valueOf(aquene.getAbilityMod(skill.getAbilityDependence()));
         }
         abiTxt.setText(skill.getAbilityDependence().substring(0,3) + " : " +abScore );
         abiTxt.setGravity(Gravity.CENTER);
@@ -108,7 +108,7 @@ public class MainActivityFragmentSkill extends Fragment {
         TextView bonusTxt = new TextView(getContext());
         TextView bonusTitle = returnFragView.findViewById(R.id.skillBonusTitle);
         bonusTxt.setLayoutParams(bonusTitle.getLayoutParams());
-        bonusTxt.setText(String.valueOf(skill.getBonus()));
+        bonusTxt.setText(String.valueOf(aquene.getSkillBonus(skill.getId())));
         bonusTxt.setGravity(Gravity.CENTER);
 
         line.addView(nameTxt);
@@ -124,7 +124,7 @@ public class MainActivityFragmentSkill extends Fragment {
         line.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CustomAlertDialog skillDialog = new CustomAlertDialog(getActivity(),getContext(),skill,aquene.getAllAbilities().getMod(skill.getAbilityDependence()));
+                CustomAlertDialog skillDialog = new CustomAlertDialog(getActivity(),getContext(),skill,aquene.getAbilityMod(skill.getAbilityDependence()));
                 skillDialog.showAlertDialog();
             }
         });

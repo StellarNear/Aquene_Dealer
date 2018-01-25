@@ -23,46 +23,45 @@
     </android.support.design.widget.AppBarLayout>
 
     <LinearLayout
+        android:id="@+id/LinearMain"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:id="@+id/LinearMain"
         android:clipChildren="false"
+        android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:id="@+id/LinearMainHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="3"
             android:background="@drawable/main_bar_gradient"
-         >
+            android:orientation="horizontal"
+            android:weightSum="3">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_weight="1"
                 android:gravity="left"
-                android:layout_weight="1">
+                android:orientation="horizontal">
+
                 <ImageButton
                     android:id="@+id/button_to_stance"
-                    android:adjustViewBounds="true"
                     android:layout_width="@dimen/size_icon_main"
                     android:layout_height="@dimen/size_icon_main"
-                    android:scaleType="fitCenter"
                     android:layout_gravity="center_vertical|left"
-                    app:srcCompat="@drawable/stance_icon"
-                    android:padding="@dimen/general_margin"
+                    android:adjustViewBounds="true"
                     android:backgroundTint="@android:color/transparent"
-                    />
+                    android:padding="@dimen/general_margin"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/stance_icon" />
 
                 <ImageView
                     android:layout_width="@dimen/size_icon_main_rota"
                     android:layout_height="@dimen/size_icon_main_rota"
+                    android:layout_gravity="center_vertical|left"
                     android:adjustViewBounds="true"
                     android:scaleType="fitCenter"
-                    android:layout_gravity="center_vertical|left"
                     app:srcCompat="@drawable/rotate_left" />
             </LinearLayout>
 
@@ -71,39 +70,38 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Menu principal"
                 android:gravity="center"
-                 />
+                android:text="Menu principal" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_weight="1"
                 android:gravity="right"
-                android:layout_weight="1">
-            <ImageView
-                android:layout_width="@dimen/size_icon_main_rota"
-                android:layout_height="@dimen/size_icon_main_rota"
-                android:scaleType="fitCenter"
-                android:layout_gravity="center_vertical|right"
+                android:orientation="horizontal">
 
-                app:srcCompat="@drawable/rotate_right" />
+                <ImageView
+                    android:layout_width="@dimen/size_icon_main_rota"
+                    android:layout_height="@dimen/size_icon_main_rota"
+                    android:layout_gravity="center_vertical|right"
+                    android:scaleType="fitCenter"
 
-            <ImageButton
-                android:id="@+id/button_to_help"
-                android:layout_width="@dimen/size_icon_main"
-                android:layout_height="@dimen/size_icon_main"
-                android:layout_gravity="center_vertical|right"
-                android:padding="@dimen/general_margin"
-                android:backgroundTint="@android:color/transparent"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/help" />
+                    app:srcCompat="@drawable/rotate_right" />
+
+                <ImageButton
+                    android:id="@+id/button_to_help"
+                    android:layout_width="@dimen/size_icon_main"
+                    android:layout_height="@dimen/size_icon_main"
+                    android:layout_gravity="center_vertical|right"
+                    android:backgroundTint="@android:color/transparent"
+                    android:padding="@dimen/general_margin"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/help" />
+            </LinearLayout>
+
         </LinearLayout>
 
-        </LinearLayout>
-
-        <include
-            layout="@layout/content_main"/>
+        <include layout="@layout/content_main" />
     </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

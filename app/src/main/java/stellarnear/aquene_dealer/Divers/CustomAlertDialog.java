@@ -80,7 +80,7 @@ public class CustomAlertDialog {
             } else {
                 abScore = String.valueOf(modBonus);
             }
-            summaryTxt="Abilité ("+skill.getAbilityDependence().substring(0,3)+") : "+abScore+",  Maîtrise : "+skill.getRank()+",  Bonus : "+skill.getBonus();
+            summaryTxt="Abilité ("+skill.getAbilityDependence().substring(0,3)+") : "+abScore+",  Maîtrise : "+skill.getRank()+",  Bonus : "+aquene.getSkillBonus(skill.getId());
         } else {
             imgId = mC.getResources().getIdentifier(abi.getId(), "drawable", mC.getPackageName());
             titleTxt = "Test de la caractéristique :\n"+abi.getName();
@@ -89,14 +89,14 @@ public class CustomAlertDialog {
             //summary
             if (abi.getType().equalsIgnoreCase("base")){
                 String abScore;
-                if(aquene.getAllAbilities().getMod(abi.getId())>=0){
-                    abScore = "+"+aquene.getAllAbilities().getMod(abi.getId());
+                if(aquene.getAbilityMod(abi.getId())>=0){
+                    abScore = "+"+aquene.getAbilityMod(abi.getId());
                 } else {
-                    abScore = String.valueOf(aquene.getAllAbilities().getMod(abi.getId()));
+                    abScore = String.valueOf(aquene.getAbilityMod(abi.getId()));
                 }
                 summaryTxt="Bonus : "+abScore;
             } else {
-                summaryTxt="Bonus : "+aquene.getAllAbilities().getScore(abi.getId());
+                summaryTxt="Bonus : "+aquene.getAbilityScore(abi.getId());
             }
 
         }
@@ -235,7 +235,7 @@ public class CustomAlertDialog {
 
         if (mode.equalsIgnoreCase("skill")){
             resultTitle.setText("Résultat du test de compétence :");
-            int sumResult=value_selected+skill.getRank()+skill.getBonus()+ modBonus;
+            int sumResult=value_selected+skill.getRank()+aquene.getSkillBonus(skill.getId())+ modBonus;
 
             TextView result = dialogView.findViewById(R.id.customDialogTestResult);
             result.setText(String.valueOf(sumResult));
@@ -244,9 +244,9 @@ public class CustomAlertDialog {
             resultTitle.setText("Résultat du test de caractéristique :");
             int sumResult;
             if (abi.getType().equalsIgnoreCase("base")){
-                sumResult=value_selected+aquene.getAllAbilities().getMod(abi.getId());
+                sumResult=value_selected+aquene.getAbilityMod(abi.getId());
             } else {
-                sumResult=value_selected+aquene.getAllAbilities().getScore(abi.getId());
+                sumResult=value_selected+aquene.getAbilityScore(abi.getId());
             }
 
             TextView result = dialogView.findViewById(R.id.customDialogTestResult);

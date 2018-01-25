@@ -7,12 +7,18 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import stellarnear.aquene_dealer.Perso.Feat;
 import stellarnear.aquene_dealer.Perso.Perso;
@@ -23,6 +29,7 @@ import stellarnear.aquene_dealer.R;
  */
 public class MainActivityFragmentCombat extends Fragment {
     Perso aquene = MainActivity.aquene;
+    Map<RadioButton,String> mapModeButtonModKey=new HashMap<>();
     public MainActivityFragmentCombat() {
     }
 
@@ -36,17 +43,6 @@ public class MainActivityFragmentCombat extends Fragment {
 
 
         View returnFragView= inflater.inflate(R.layout.fragment_main_combat, container, false);
-
-        TextView testTextFor=returnFragView.findViewById(R.id.textCombat);
-        testTextFor.setText("La valeur du mod force est :"+aquene.getAllAbilities().getMod("FORCE"));
-
-        LinearLayout linearComabatFrag=returnFragView.findViewById(R.id.linearCombatFrag);
-
-        for (Feat feat : aquene.getAllFeats().getFeatsList()) {
-            TextView test = new TextView(getActivity());
-            test.setText(feat.getName() + " : "+aquene.featIsActive(feat.getId()));
-            linearComabatFrag.addView(test);
-        }
 
         ImageButton buttonMain = (ImageButton) returnFragView.findViewById(R.id.button_frag_combat_to_main);
 
@@ -66,7 +62,42 @@ public class MainActivityFragmentCombat extends Fragment {
         });
 
 
+        mapModeButtonModKey.put((RadioButton) returnFragView.findViewById(R.id.button_combat_mode_normal),"normal");
+        mapModeButtonModKey.put((RadioButton) returnFragView.findViewById(R.id.button_combat_mode_def),"def");
+        mapModeButtonModKey.put((RadioButton) returnFragView.findViewById(R.id.button_combat_mode_totaldef),"totaldef");
+
+        RadioGroup combatModesRadio = (RadioGroup) returnFragView.findViewById(R.id.radio_combat_modes);
+        setCombatModeListner(combatModesRadio);
+
+
+
+
         return returnFragView;
+    }
+
+    private void setCombatModeListner(final RadioGroup radio) {
+
+        radio.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+        {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                Log.d("-State-","Changement de mode");
+                RadioButton checkedRadioButton = (RadioButton)group.findViewById(checkedId);
+                // This puts the value (true/false) into the variable
+                boolean isChecked = checkedRadioButton.isChecked();
+                // If the radiobutton that has changed in check state is now checked...
+                if (isChecked)
+                {
+                    //do stuff with active mode
+                    persoChange(mapModeButtonModKey.get(checkedRadioButton));
+                }
+            }
+        });
+
+    }
+
+    private void persoChange(String mode) {
+        aquene.setCombatMode(mode);
     }
 
 

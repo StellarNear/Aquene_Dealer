@@ -156,14 +156,14 @@ public class QuadrantFiller {
         String txt2;
         if (abi.getType().equalsIgnoreCase("base")){
             String abScore = "";
-            if(aquene.getAllAbilities().getMod(abi.getId())>=0){
-                abScore = "+"+aquene.getAllAbilities().getMod(abi.getId());
+            if(aquene.getAbilityMod(abi.getId())>=0){
+                abScore = "+"+aquene.getAbilityMod(abi.getId());
             } else {
-                abScore = String.valueOf(aquene.getAllAbilities().getMod(abi.getId()));
+                abScore = String.valueOf(aquene.getAbilityMod(abi.getId()));
             }
-            txt2=String.valueOf(aquene.getAllAbilities().getScore(abi.getId()))+ " ("+abScore+")";
+            txt2=String.valueOf(aquene.getAbilityScore(abi.getId()))+ " ("+abScore+")";
         } else {
-            txt2=String.valueOf(aquene.getAllAbilities().getScore(abi.getId()));
+            txt2=String.valueOf(aquene.getAbilityScore(abi.getId()));
         }
 
         text2.setText(txt2);
@@ -201,8 +201,8 @@ public class QuadrantFiller {
         imgExit.setVisibility(View.VISIBLE);
         quadrantFullSub1.setVisibility(View.VISIBLE);
         quadrantFullSub2.setVisibility(View.VISIBLE);
-        viewSwitcher.setInAnimation(mC,R.anim.infromleft);
-        viewSwitcher.setOutAnimation(mC,R.anim.outtoright);
+        viewSwitcher.setInAnimation(mC,R.anim.infromright);
+        viewSwitcher.setOutAnimation(mC,R.anim.outtoleft);
         viewSwitcher.showNext();
         fullscreen=true;
         lockOrient();
@@ -212,8 +212,8 @@ public class QuadrantFiller {
         quadrantFullSub1.setVisibility(View.GONE);
         quadrantFullSub2.setVisibility(View.GONE);
         switchTextTitle(mC.getResources().getString(R.string.quadrantGeneralTitle),"back");
-        viewSwitcher.setInAnimation(mC,R.anim.infromright);
-        viewSwitcher.setOutAnimation(mC,R.anim.outtoleft);
+        viewSwitcher.setInAnimation(mC,R.anim.infromleft);
+        viewSwitcher.setOutAnimation(mC,R.anim.outtoright);
         viewSwitcher.showPrevious();
         fullscreen=false;
         unlockOrient();
@@ -227,11 +227,11 @@ public class QuadrantFiller {
         Animation out;
         if (modeSelected.equals("back"))
         {
-            in = AnimationUtils.loadAnimation(mC, R.anim.infromright);
-            out = AnimationUtils.loadAnimation(mC, R.anim.outtoleft);
-        } else {
             in = AnimationUtils.loadAnimation(mC, R.anim.infromleft);
             out = AnimationUtils.loadAnimation(mC, R.anim.outtoright);
+        } else {
+            in = AnimationUtils.loadAnimation(mC, R.anim.infromright);
+            out = AnimationUtils.loadAnimation(mC, R.anim.outtoleft);
         }
         out.setAnimationListener( new  Animation.AnimationListener(){
             @Override

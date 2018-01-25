@@ -75,15 +75,6 @@ public class AllFeats {
         return selectedFeat;
     }
 
-    public boolean isActive(String id){
-        Feat wantedFeat=getFeat(id);
-        boolean active=false;
-        if (wantedFeat!=null && wantedFeat.isActive()){
-            active=true;
-        }
-        return  active;
-    }
-
     public String readValue(String tag, Element element) {
         try {
             NodeList nodeList = element.getElementsByTagName(tag).item(0).getChildNodes();

@@ -72,6 +72,21 @@ public class Ability {
         return this.value;
     }
 
+    public int getMod() {
+        int mod;
+        if (this.type.equalsIgnoreCase("base")) {
+            float modFloat = (float) ((this.value - 10.) / 2.0);
+            if (modFloat >= 0) {
+                mod = (int) modFloat;
+            } else {
+                mod = -1 * Math.round(Math.abs(modFloat));
+            }
+        } else {
+            mod = 0;
+        }
+        return mod;
+    }
+
     public boolean isTestable(){
         return this.testable;
     }
