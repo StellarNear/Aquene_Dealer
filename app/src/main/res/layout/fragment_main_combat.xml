@@ -102,13 +102,12 @@
 
     <ImageButton
         android:id="@+id/button_frag_combat_to_main"
-        android:layout_width="@dimen/size_icon_main_actions"
-        android:layout_height="@dimen/size_icon_main_actions"
+        android:layout_width="@dimen/size_icon_main_actions075"
+        android:layout_height="@dimen/size_icon_main_actions075"
         android:adjustViewBounds="true"
         android:backgroundTint="@android:color/transparent"
         android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/combat_back" />
 

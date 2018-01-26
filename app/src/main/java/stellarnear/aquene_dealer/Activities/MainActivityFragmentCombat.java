@@ -12,6 +12,8 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.BounceInterpolator;
+import android.view.animation.CycleInterpolator;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -154,7 +156,7 @@ public class MainActivityFragmentCombat extends Fragment {
                 float sizeFactor = 0.75f;
                 int diffRescaleY = (int) ((rect.bottom-rect.top) - ((rect.bottom-rect.top)*sizeFactor) )/2;
                 int diffRescaleX = (int) ((rect.right-rect.left) - ((rect.right-rect.left)*sizeFactor) )/2;
-                buttonMain.animate().translationX( rectParent.right-rect.right+diffRescaleX).translationY(-diffRescaleY).setDuration(1000).scaleX(sizeFactor).scaleY(sizeFactor);
+                buttonMain.animate().scaleX(0.75f).scaleXBy(2f).scaleYBy(2f).setInterpolator(new CycleInterpolator(2)).setInterpolator(new BounceInterpolator()).setDuration(1000);
 
             }
         }, getResources().getInteger(R.integer.translationFragDuration));

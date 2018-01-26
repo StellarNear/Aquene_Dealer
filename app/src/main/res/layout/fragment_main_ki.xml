@@ -45,7 +45,6 @@
         android:id="@+id/button_frag_ki_to_main"
         android:layout_width="@dimen/size_icon_main_actions"
         android:layout_height="@dimen/size_icon_main_actions"
-        android:layout_marginStart="@dimen/general_margin"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ki_back"

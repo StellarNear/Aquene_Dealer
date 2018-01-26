@@ -157,7 +157,7 @@ public class MainActivityFragmentSkill extends Fragment {
                 int diffRescaleX = (int) ((rect.right-rect.left) - ((rect.right-rect.left)*sizeFactor) )/2;
 
                 int xMove= rectParent.right-rect.right+getResources().getDimensionPixelSize(R.dimen.translationFragTransi);
-                buttonMain.animate().translationX(xMove+diffRescaleX).translationY(-diffRescaleY).setDuration(1000).scaleX(sizeFactor).scaleY(sizeFactor);
+                //buttonMain.animate().translationX(xMove+diffRescaleX).translationY(-diffRescaleY).setDuration(1000).scaleX(sizeFactor).scaleY(sizeFactor);
 
             }
         }, 25);
