@@ -12,8 +12,10 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.view.animation.BounceInterpolator;
 import android.view.animation.CycleInterpolator;
+import android.view.animation.ScaleAnimation;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -143,21 +145,17 @@ public class MainActivityFragmentCombat extends Fragment {
         float sizeFactor = 0.75f;
         int diffRescaleY = (int) ((rect.bottom-rect.top) - ((rect.bottom-rect.top)*sizeFactor) )/2;
         int diffRescaleX = (int) ((rect.right-rect.left) - ((rect.right-rect.left)*sizeFactor) )/2;
-        buttonMain.animate().translationX( rectParent.right-rect.right+diffRescaleX).translationY(-diffRescaleY).setDuration(1000).scaleX(sizeFactor).scaleY(sizeFactor);
+        //buttonMain.animate().translationX( rectParent.right-rect.right+diffRescaleX).translationY(-diffRescaleY).setDuration(1000).scaleX(sizeFactor).scaleY(sizeFactor);
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
-                Rect rect=new Rect();
-                Rect rectParent=new Rect();
-                buttonMain.getGlobalVisibleRect(rect);
-                View parent = (View) buttonMain.getParent();
-                parent.getGlobalVisibleRect(rectParent);
-                float sizeFactor = 0.75f;
-                int diffRescaleY = (int) ((rect.bottom-rect.top) - ((rect.bottom-rect.top)*sizeFactor) )/2;
-                int diffRescaleX = (int) ((rect.right-rect.left) - ((rect.right-rect.left)*sizeFactor) )/2;
-                buttonMain.animate().scaleX(0.75f).scaleXBy(2f).scaleYBy(2f).setInterpolator(new CycleInterpolator(2)).setInterpolator(new BounceInterpolator()).setDuration(1000);
+                Animation anim = new ScaleAnimation(1f,1.25f,1f,1.25f,Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+                anim.setRepeatCount(1);
+                anim.setRepeatMode(Animation.REVERSE);
+                anim.setDuration(666);
 
+                buttonMain.startAnimation(anim);
             }
         }, getResources().getInteger(R.integer.translationFragDuration));
     }

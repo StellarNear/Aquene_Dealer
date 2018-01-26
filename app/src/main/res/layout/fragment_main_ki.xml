@@ -43,9 +43,9 @@
     <ImageButton
         tools:ignore="ContentDescription"
         android:id="@+id/button_frag_ki_to_main"
-        android:layout_width="@dimen/size_icon_main_actions"
-        android:layout_height="@dimen/size_icon_main_actions"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="@dimen/size_icon_main_actions075"
+        android:layout_height="@dimen/size_icon_main_actions075"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ki_back"
         android:adjustViewBounds="true"

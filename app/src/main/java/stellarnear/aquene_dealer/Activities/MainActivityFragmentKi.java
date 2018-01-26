@@ -10,6 +10,8 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.ScaleAnimation;
 import android.widget.ImageButton;
 
 import stellarnear.aquene_dealer.R;
@@ -64,18 +66,13 @@ public class MainActivityFragmentKi extends Fragment {
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
-                Rect rect=new Rect();
-                Rect rectParent=new Rect();
-                buttonMain.getGlobalVisibleRect(rect);
-                View parent = (View) buttonMain.getParent();
-                parent.getGlobalVisibleRect(rectParent);
-                float sizeFactor = 0.75f;
-                int diffRescaleY = (int) ((rect.bottom-rect.top) - ((rect.bottom-rect.top)*sizeFactor) )/2;
-                int diffRescaleX = (int) ((rect.right-rect.left) - ((rect.right-rect.left)*sizeFactor) )/2;
-                int xMove= rectParent.right-rect.right;
-                buttonMain.animate().translationX( xMove+diffRescaleX).translationY(-diffRescaleY).setDuration(1000).scaleX(sizeFactor).scaleY(sizeFactor);
+                Animation anim = new ScaleAnimation(1f,1.25f,1f,1.25f,Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+                anim.setRepeatCount(1);
+                anim.setRepeatMode(Animation.REVERSE);
+                anim.setDuration(666);
 
+                buttonMain.startAnimation(anim);
             }
-        }, 25);
+        }, getResources().getInteger(R.integer.translationFragDuration));
     }
 }
