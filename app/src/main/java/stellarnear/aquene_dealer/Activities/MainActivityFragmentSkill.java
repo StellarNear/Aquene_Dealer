@@ -60,6 +60,7 @@ public class MainActivityFragmentSkill extends Fragment {
                 Fragment fragment = new MainActivityFragment();
                 FragmentManager fragmentManager = getActivity().getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.setCustomAnimations(R.animator.infadefrag,R.animator.outtorightfrag);
                 fragmentTransaction.replace(R.id.fragment_main_frame_layout, fragment);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
@@ -154,7 +155,9 @@ public class MainActivityFragmentSkill extends Fragment {
                 float sizeFactor = 0.75f;
                 int diffRescaleY = (int) ((rect.bottom-rect.top) - ((rect.bottom-rect.top)*sizeFactor) )/2;
                 int diffRescaleX = (int) ((rect.right-rect.left) - ((rect.right-rect.left)*sizeFactor) )/2;
-                buttonMain.animate().translationX( rectParent.right-rect.right+diffRescaleX).translationY(-diffRescaleY).setDuration(1000).scaleX(sizeFactor).scaleY(sizeFactor);
+
+                int xMove= rectParent.right-rect.right+getResources().getDimensionPixelSize(R.dimen.translationFragTransi);
+                buttonMain.animate().translationX(xMove+diffRescaleX).translationY(-diffRescaleY).setDuration(1000).scaleX(sizeFactor).scaleY(sizeFactor);
 
             }
         }, 25);

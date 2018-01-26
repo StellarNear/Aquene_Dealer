@@ -58,6 +58,7 @@ public class MainActivityFragmentCombat extends Fragment {
                 Fragment fragment = new MainActivityFragment();
                 FragmentManager fragmentManager = getActivity().getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.setCustomAnimations(R.animator.infadefrag,R.animator.outtobotfrag);
                 fragmentTransaction.replace(R.id.fragment_main_frame_layout, fragment);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
@@ -132,6 +133,16 @@ public class MainActivityFragmentCombat extends Fragment {
 
 
     private void moveTopRight(final ImageButton buttonMain) {
+        Rect rect=new Rect();
+        Rect rectParent=new Rect();
+        buttonMain.getGlobalVisibleRect(rect);
+        View parent = (View) buttonMain.getParent();
+        parent.getGlobalVisibleRect(rectParent);
+        float sizeFactor = 0.75f;
+        int diffRescaleY = (int) ((rect.bottom-rect.top) - ((rect.bottom-rect.top)*sizeFactor) )/2;
+        int diffRescaleX = (int) ((rect.right-rect.left) - ((rect.right-rect.left)*sizeFactor) )/2;
+        buttonMain.animate().translationX( rectParent.right-rect.right+diffRescaleX).translationY(-diffRescaleY).setDuration(1000).scaleX(sizeFactor).scaleY(sizeFactor);
+
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
@@ -146,6 +157,6 @@ public class MainActivityFragmentCombat extends Fragment {
                 buttonMain.animate().translationX( rectParent.right-rect.right+diffRescaleX).translationY(-diffRescaleY).setDuration(1000).scaleX(sizeFactor).scaleY(sizeFactor);
 
             }
-        }, 25);
+        }, getResources().getInteger(R.integer.translationFragDuration));
     }
 }

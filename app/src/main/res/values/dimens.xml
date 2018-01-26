@@ -31,4 +31,7 @@
     <dimen name="mini_quadrant_icons_margin">3dp</dimen>
     <dimen name="size_icon_combat_mode">40dp</dimen>
 
+    <dimen name="translationFragTransi">500px</dimen>
+    <dimen name="translationFragTransiNegative">-500px</dimen>
+
 </resources>
