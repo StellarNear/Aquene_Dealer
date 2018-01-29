@@ -5,7 +5,6 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
-import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -53,7 +52,7 @@ public class MainActivityFragmentSkill extends Fragment {
 
         ImageButton buttonMain = (ImageButton) returnFragView.findViewById(R.id.button_frag_skill_to_main);
 
-        moveTopRight(buttonMain);
+        animate(buttonMain);
 
         buttonMain.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,7 +143,7 @@ public class MainActivityFragmentSkill extends Fragment {
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
     }
 
-    private void moveTopRight(final ImageButton buttonMain) {
+    private void animate(final ImageButton buttonMain) {
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {

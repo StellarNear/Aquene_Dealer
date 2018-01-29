@@ -3,31 +3,24 @@ package stellarnear.aquene_dealer.Activities;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.pm.ActivityInfo;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.os.Handler;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
-import android.view.animation.BounceInterpolator;
-import android.view.animation.CycleInterpolator;
 import android.view.animation.ScaleAnimation;
-import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import stellarnear.aquene_dealer.Perso.Feat;
+import stellarnear.aquene_dealer.Divers.CombatAsker;
 import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.R;
 
@@ -53,7 +46,7 @@ public class MainActivityFragmentCombat extends Fragment {
 
         ImageButton buttonMain = (ImageButton) returnFragView.findViewById(R.id.button_frag_combat_to_main);
 
-        moveTopRight(buttonMain);
+        animate(buttonMain);
 
         buttonMain.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,8 +73,8 @@ public class MainActivityFragmentCombat extends Fragment {
         setCombatModeListner((RadioButton) returnFragView.findViewById(R.id.button_combat_mode_def));
         setCombatModeListner((RadioButton) returnFragView.findViewById(R.id.button_combat_mode_totaldef));
 
-
-
+        CombatAsker combatAsker= new CombatAsker(getContext(),(LinearLayout) returnFragView.findViewById(R.id.scrollLinearCombat));
+        combatAsker.getLayout();
 
 
         return returnFragView;
@@ -136,17 +129,7 @@ public class MainActivityFragmentCombat extends Fragment {
     }
 
 
-    private void moveTopRight(final ImageButton buttonMain) {
-        Rect rect=new Rect();
-        Rect rectParent=new Rect();
-        buttonMain.getGlobalVisibleRect(rect);
-        View parent = (View) buttonMain.getParent();
-        parent.getGlobalVisibleRect(rectParent);
-        float sizeFactor = 0.75f;
-        int diffRescaleY = (int) ((rect.bottom-rect.top) - ((rect.bottom-rect.top)*sizeFactor) )/2;
-        int diffRescaleX = (int) ((rect.right-rect.left) - ((rect.right-rect.left)*sizeFactor) )/2;
-        //buttonMain.animate().translationX( rectParent.right-rect.right+diffRescaleX).translationY(-diffRescaleY).setDuration(1000).scaleX(sizeFactor).scaleY(sizeFactor);
-
+    private void animate(final ImageButton buttonMain) {
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
