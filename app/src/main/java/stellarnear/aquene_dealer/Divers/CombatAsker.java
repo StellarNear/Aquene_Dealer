@@ -50,53 +50,55 @@ public class CombatAsker {
         lineStep.addView(question);
 
         LinearLayout answers = new LinearLayout(mC);
-        answers.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-        answers.setOrientation(LinearLayout.HORIZONTAL);
-        answers.setGravity(Gravity.CENTER);
+        answers.setWeightSum(2);
 
-        FrameLayout frame1 =new FrameLayout(mC);
-        FrameLayout frame2 =new FrameLayout(mC);
-        LinearLayout.LayoutParams para =new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT,1);
-        para.width=100;
-        para.height=100;
-        para.gravity=Gravity.CENTER;
-        frame1.setLayoutParams(para);
-        frame1.setBackgroundColor(Color.DKGRAY);
-        frame2.setLayoutParams(para);
+        LinearLayout.LayoutParams params =new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT);
+        params.width=(int) mC.getResources().getDimension(R.dimen.combat_answer_icons);
+        params.height=(int) mC.getResources().getDimension(R.dimen.combat_answer_icons);
 
         CheckBox yes = new CheckBox(mC);
         yes.setButtonDrawable(null);
-        yes.setBackground(mC.getDrawable(R.drawable.bat_stance_selector));
-        yes.setLayoutParams(para);
-        yes.setGravity(Gravity.CENTER);
-
-        frame1.addView(yes);
+        yes.setBackground(mC.getDrawable(R.drawable.chimpanzee_stance_selector));
+        yes.setLayoutParams(params);
 
         CheckBox no = new CheckBox(mC);
-        no.setButtonDrawable(mC.getDrawable(R.drawable.bear_stance_selector));
-        no.setGravity(Gravity.CENTER);
+        no.setButtonDrawable(null);
+        no.setBackground(mC.getDrawable(R.drawable.bear_stance_selector));
+        no.setLayoutParams(params);
 
-        frame2.addView(no);
 
-        answers.addView(frame1);
-        answers.addView(frame2);
+        LinearLayout yesBox =new LinearLayout(mC);
+        LinearLayout noBox =new LinearLayout(mC);
+        yesBox.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT,1));
+        noBox.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT,1));
+        yesBox.setGravity(Gravity.CENTER);
+        noBox.setGravity(Gravity.CENTER);
+
+        yesBox.addView(yes);
+        noBox.addView(no);
+
+        answers.addView(yesBox);
+        answers.addView(noBox);
 
         LinearLayout buttonTxt = new LinearLayout(mC);
         buttonTxt.setOrientation(LinearLayout.HORIZONTAL);
 
         TextView yesTxt=new TextView(mC);
-        yesTxt.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT,1));
+        yesTxt.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT,1));
         yesTxt.setGravity(Gravity.CENTER);
         yesTxt.setText("Oui j'ai bougé");
         TextView noTxt=new TextView(mC);
         noTxt.setText("Non j'ai rien fais");
         noTxt.setGravity(Gravity.CENTER);
-        noTxt.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT,1));
+        noTxt.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT,1));
         buttonTxt.addView(yesTxt);
         buttonTxt.addView(noTxt);
 
         //setRadioListnerMoved(answers);
 
+        answers.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        answers.setOrientation(LinearLayout.HORIZONTAL);
+        answers.setWeightSum(2);
 
         lineStep.addView(answers);
         lineStep.addView(buttonTxt);

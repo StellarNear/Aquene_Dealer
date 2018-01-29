@@ -33,5 +33,6 @@
 
     <dimen name="translationFragTransi">500px</dimen>
     <dimen name="translationFragTransiNegative">-500px</dimen>
+    <dimen name="combat_answer_icons">30dp</dimen>
 
 </resources>
