@@ -73,7 +73,6 @@ public class StanceActivity extends AppCompatActivity {
         checkOrientStart(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
     }
 
-
     @Override
     protected void onDestroy() {
         System.runFinalization();
@@ -133,7 +132,7 @@ public class StanceActivity extends AppCompatActivity {
             RadioButton icon =new RadioButton(this);
             icon.setButtonDrawable(null);
 
-            Drawable selectorImg = stance.getDrawableSelector();
+            Drawable selectorImg = getDrawable( getResources().getIdentifier(stance.getId()+"_stance_selector", "drawable", getPackageName()));
 
             icon.setBackground(selectorImg);
             LinearLayout.LayoutParams params =new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -179,7 +178,7 @@ public class StanceActivity extends AppCompatActivity {
         name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toatIt(stance.getSelected_image_path(),stance.getName(),stance.getDescr());
+                toatIt(stance.getId()+"_select",stance.getName(),stance.getDescr());
             }
         });
     }

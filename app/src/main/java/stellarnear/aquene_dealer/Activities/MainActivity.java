@@ -26,6 +26,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
@@ -39,6 +40,8 @@ import stellarnear.aquene_dealer.Perso.Perso;
 public class MainActivity extends AppCompatActivity {
     public static Perso aquene;
     boolean loading=false;
+    boolean touched=false;
+    FrameLayout mainFrameFrag;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -62,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
 
             persoCreation.start();
 
-/*
             final ImageView image = new ImageView(getApplicationContext());
             image.setImageDrawable(getDrawable(R.drawable.monk_female_background));
             image.setBackgroundColor(getColor(R.color.start_back_color));
@@ -74,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
             loadListner.start();
-*/
+
         } else {
             buildMainPage();
         }
@@ -94,9 +96,8 @@ public class MainActivity extends AppCompatActivity {
                                 @Override
                                 public boolean onTouch(View arg0, MotionEvent arg1) {
                                     unlockOrient();
+                                    touched=true;
                                     window.setStatusBarColor(getColor(R.color.colorPrimaryDark));
-                                    //Animation anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.outfade);
-                                    //image.startAnimation(anim);
                                     buildMainPage();
                                     return true;//always return true to consume event
                                 }
@@ -112,7 +113,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
         ImageButton toStance=(ImageButton) findViewById(R.id.button_to_stance);
         toStance.setOnClickListener(new View.OnClickListener() {
@@ -130,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        mainFrameFrag = findViewById(R.id.fragment_main_frame_layout);
         startFragment();
     }
 
@@ -144,9 +145,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume(){
         super.onResume();
         checkOrientStart(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        if (aquene!=null) {
+        if (aquene!=null&&loading&&touched) {
             aquene.refresh();
-            startFragment();
+            buildMainPage();
         }
     }
 
@@ -154,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
         Fragment fragment = new MainActivityFragment();
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_main_frame_layout, fragment);
+        fragmentTransaction.replace(mainFrameFrag.getId(), fragment);
         fragmentTransaction.commit();
     }
 

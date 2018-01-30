@@ -19,10 +19,7 @@ public class Stance {
     private String descr;
     private String id;
     private String featId;
-    private String selector_path;
-    private String selected_image_path;
     private Boolean active;
-    private Drawable selector;
     private Context mC;
     public Stance(String name, String shortname, String type, String descr, String id,String featId,Context mC){
         this.active=false;
@@ -32,18 +29,9 @@ public class Stance {
         this.descr=descr;
         this.id=id;
         this.featId=featId;
-        this.selector_path=id+"_stance_selector";
-        this.selected_image_path=id+"_select";
         this.mC=mC;
-        this.selector = mC.getDrawable( mC.getResources().getIdentifier(this.selector_path, "drawable", mC.getPackageName()));
     }
 
-    public String getSelector_path(){
-        return selector_path;
-    }
-    public String getSelected_image_path(){
-        return selected_image_path;
-    }
     public String getDescr(){
         return descr;
     }
@@ -74,8 +62,4 @@ public class Stance {
     }
 
     public String getFeatId() {return featId;}
-
-    public Drawable getDrawableSelector() {
-        return this.selector;
-    }
 }
