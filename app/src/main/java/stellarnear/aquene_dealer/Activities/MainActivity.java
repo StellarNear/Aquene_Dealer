@@ -52,17 +52,18 @@ public class MainActivity extends AppCompatActivity {
             final Window window = getWindow();
             window.setStatusBarColor(getColor(R.color.start_back_color));
             lockOrient();
+
             Thread persoCreation = new Thread(new Runnable() {
                 public void run() {
                     aquene = new Perso(getApplicationContext());
                     loading=true;
                 }
             });
+
             persoCreation.start();
 
-
+/*
             final ImageView image = new ImageView(getApplicationContext());
-
             image.setImageDrawable(getDrawable(R.drawable.monk_female_background));
             image.setBackgroundColor(getColor(R.color.start_back_color));
             setContentView(image);
@@ -73,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
             loadListner.start();
-
+*/
         } else {
             buildMainPage();
         }
@@ -160,13 +161,12 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        finish();
-        super.onDestroy();
+        System.runFinalization();
         Runtime.getRuntime().gc();
         System.gc();
+        finish();
+        super.onDestroy();
     }
-
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

@@ -69,6 +69,15 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        System.runFinalization();
+        Runtime.getRuntime().gc();
+        System.gc();
+        finish();
+        super.onDestroy();
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:

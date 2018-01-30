@@ -57,10 +57,11 @@ public class HelpActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        finish();
-        super.onDestroy();
+        System.runFinalization();
         Runtime.getRuntime().gc();
         System.gc();
+        finish();
+        super.onDestroy();
     }
 
     @Override

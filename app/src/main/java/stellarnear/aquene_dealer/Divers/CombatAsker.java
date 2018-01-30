@@ -7,6 +7,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -15,6 +16,8 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import stellarnear.aquene_dealer.Activities.MainActivity;
 import stellarnear.aquene_dealer.Perso.Perso;
@@ -46,26 +49,16 @@ public class CombatAsker {
         question.setGravity(Gravity.CENTER);
         question.setText("As tu bougé ?");
         question.setTextSize(20);
-        question.setTextColor(mC.getColor(R.color.start_back_color));
+        question.setBackgroundColor(mC.getColor(R.color.title_question_combat_back));
+        question.setTextColor(mC.getColor(R.color.title_question_combat_text));
+
         lineStep.addView(question);
 
         LinearLayout answers = new LinearLayout(mC);
         answers.setWeightSum(2);
-
-        LinearLayout.LayoutParams params =new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT);
-        params.width=(int) mC.getResources().getDimension(R.dimen.combat_answer_icons);
-        params.height=(int) mC.getResources().getDimension(R.dimen.combat_answer_icons);
-
-        CheckBox yes = new CheckBox(mC);
-        yes.setButtonDrawable(null);
-        yes.setBackground(mC.getDrawable(R.drawable.chimpanzee_stance_selector));
-        yes.setLayoutParams(params);
-
-        CheckBox no = new CheckBox(mC);
-        no.setButtonDrawable(null);
-        no.setBackground(mC.getDrawable(R.drawable.bear_stance_selector));
-        no.setLayoutParams(params);
-
+        answers.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        answers.setOrientation(LinearLayout.HORIZONTAL);
+        answers.setPadding(0,(int) mC.getResources().getDimension(R.dimen.general_margin),0,0);
 
         LinearLayout yesBox =new LinearLayout(mC);
         LinearLayout noBox =new LinearLayout(mC);
@@ -74,6 +67,21 @@ public class CombatAsker {
         yesBox.setGravity(Gravity.CENTER);
         noBox.setGravity(Gravity.CENTER);
 
+        LinearLayout.LayoutParams params =new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT);
+        params.width=(int) mC.getResources().getDimension(R.dimen.combat_answer_icons);
+        params.height=(int) mC.getResources().getDimension(R.dimen.combat_answer_icons);
+
+        CheckBox yes = new CheckBox(mC);
+        yes.setButtonDrawable(null);
+        yes.setBackground(mC.getDrawable(R.drawable.moving_selector));
+        yes.setLayoutParams(params);
+
+        CheckBox no = new CheckBox(mC);
+        no.setButtonDrawable(null);
+        no.setBackground(mC.getDrawable(R.drawable.notmoving_selector));
+        no.setLayoutParams(params);
+
+        setCheckboxListnerMoved(yes,no);
         yesBox.addView(yes);
         noBox.addView(no);
 
@@ -82,6 +90,7 @@ public class CombatAsker {
 
         LinearLayout buttonTxt = new LinearLayout(mC);
         buttonTxt.setOrientation(LinearLayout.HORIZONTAL);
+        buttonTxt.setPadding(0,0,0,(int) mC.getResources().getDimension(R.dimen.general_margin));
 
         TextView yesTxt=new TextView(mC);
         yesTxt.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT,1));
@@ -94,16 +103,37 @@ public class CombatAsker {
         buttonTxt.addView(yesTxt);
         buttonTxt.addView(noTxt);
 
-        //setRadioListnerMoved(answers);
-
-        answers.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-        answers.setOrientation(LinearLayout.HORIZONTAL);
-        answers.setWeightSum(2);
-
         lineStep.addView(answers);
         lineStep.addView(buttonTxt);
 
         stepsView.add(lineStep);
+        getLayout();
+    }
+
+    private void setCheckboxListnerMoved(final CheckBox yes,final  CheckBox no) {
+        final List<CheckBox> listCheck = Arrays.asList(yes,no);
+        for(final CheckBox check : listCheck)
+        {
+            check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+            {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+                    if (isChecked){
+                        for(CheckBox checkToUnselect : listCheck){
+                            if(!checkToUnselect.equals(check)){
+                                checkToUnselect.setChecked(false);
+                            }
+                        }
+                        if(check.equals(yes)){
+                            moved=true;
+                        } else {
+                            moved=false;
+                        }
+                        buildRangeLine();
+                    }
+                }
+            });
+        }
     }
 
     private void clearStep(int rankStep) {
@@ -113,105 +143,125 @@ public class CombatAsker {
         }
     }
 
-    private void setRadioListnerMoved(RadioGroup answers) {
-        answers.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
-        {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                Log.d("-State-","Changement de bouton");
-                RadioButton checkedRadioButton = (RadioButton)group.findViewById(checkedId);
-                // This puts the value (true/false) into the variable
-                boolean isChecked = checkedRadioButton.isChecked();
-                // If the radiobutton that has changed in check state is now checked...
-                if (isChecked)
-                {
-                    //do stuff with active stance
-                    if(checkedRadioButton.getText().toString().contains("Oui")){
-                        moved=true;
-                    } else {
-                        moved=false;
-                    }
-                }
-                clearStep(1);
-                buildRangeLine();
-                getLayout();
-            }
-        });
-    }
-
     private void buildRangeLine() {
+        clearStep(1);
         LinearLayout lineStep = new LinearLayout(mC);
         lineStep.setOrientation(LinearLayout.VERTICAL);
 
         TextView question = new TextView(mC);
         question.setGravity(Gravity.CENTER);
-        question.setText("L'ennemi est à quelle distance ?");
+        question.setText("A quelle distance est l'ennemi ?");
         question.setTextSize(20);
-        question.setTextColor(mC.getColor(R.color.start_back_color));
+        question.setBackgroundColor(mC.getColor(R.color.title_question_combat_back));
+        question.setTextColor(mC.getColor(R.color.title_question_combat_text));
+        question.setPadding(0,(int) mC.getResources().getDimension(R.dimen.general_margin),0,(int) mC.getResources().getDimension(R.dimen.general_margin));
         lineStep.addView(question);
 
-        RadioGroup answers = new RadioGroup(mC);
-        answers.setGravity(Gravity.CENTER);
+        LinearLayout answers = new LinearLayout(mC);
+        answers.setWeightSum(3);
+        answers.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         answers.setOrientation(LinearLayout.HORIZONTAL);
+        answers.setPadding(0,(int) mC.getResources().getDimension(R.dimen.general_margin),0,0);
 
-        RadioButton contact = new RadioButton(mC);
-        contact.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT,1));
-        contact.setText("Il est au corps à corps (<3m)");
-        contact.setGravity(Gravity.CENTER);
-        RadioButton mid = new RadioButton(mC);
-        mid.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT,1));
-        mid.setText("Il est entre 3m et 90m");
-        mid.setGravity(Gravity.CENTER);
-        RadioButton out = new RadioButton(mC);
-        out.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT,1));
-        out.setText("Il est audela de 90m");
-        out.setGravity(Gravity.CENTER);
+        LinearLayout contactBox =new LinearLayout(mC);
+        LinearLayout midBox =new LinearLayout(mC);
+        LinearLayout outrangeBox =new LinearLayout(mC);
+        contactBox.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT,1));
+        midBox.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT,1));
+        outrangeBox.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT,1));
+        contactBox.setGravity(Gravity.CENTER);
+        midBox.setGravity(Gravity.CENTER);
+        outrangeBox.setGravity(Gravity.CENTER);
 
-        answers.addView(contact);
-        answers.addView(mid);
-        answers.addView(out);
+        LinearLayout.LayoutParams params =new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT);
+        params.width=(int) mC.getResources().getDimension(R.dimen.combat_answer_icons);
+        params.height=(int) mC.getResources().getDimension(R.dimen.combat_answer_icons);
 
-        setRadioListnerRange(answers);
+        CheckBox contact = new CheckBox(mC);
+        contact.setButtonDrawable(null);
+        contact.setBackground(mC.getDrawable(R.drawable.contact_selector));
+        contact.setLayoutParams(params);
 
+        CheckBox mid = new CheckBox(mC);
+        mid.setButtonDrawable(null);
+        mid.setBackground(mC.getDrawable(R.drawable.mid_range_selector));
+        mid.setLayoutParams(params);
+
+        CheckBox out = new CheckBox(mC);
+        out.setButtonDrawable(null);
+        out.setBackground(mC.getDrawable(R.drawable.out_range_selector));
+        out.setLayoutParams(params);
+
+        setCheckboxListnerRange(contact,mid,out);
+        contactBox.addView(contact);
+        midBox.addView(mid);
+        outrangeBox.addView(out);
+
+        answers.addView(contactBox);
+        answers.addView(midBox);
+        answers.addView(outrangeBox);
+
+        LinearLayout buttonTxt = new LinearLayout(mC);
+        buttonTxt.setOrientation(LinearLayout.HORIZONTAL);
+        buttonTxt.setPadding(0,0,0,(int) mC.getResources().getDimension(R.dimen.general_margin));
+
+        TextView contactTxt=new TextView(mC);
+        contactTxt.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT,1));
+        contactTxt.setGravity(Gravity.CENTER);
+        contactTxt.setText("Moins de 6m");
+        TextView midTxt=new TextView(mC);
+        midTxt.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT,1));
+        midTxt.setGravity(Gravity.CENTER);
+        midTxt.setText("Entre 6m et 90m");
+        TextView outTxt=new TextView(mC);
+        outTxt.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT,1));
+        outTxt.setGravity(Gravity.CENTER);
+        outTxt.setText("Plus de 90m");
+
+        buttonTxt.addView(contactTxt);
+        buttonTxt.addView(midTxt);
+        buttonTxt.addView(outTxt);
 
         lineStep.addView(answers);
+        lineStep.addView(buttonTxt);
 
         stepsView.add(lineStep);
+        getLayout();
     }
 
-    private void setRadioListnerRange(RadioGroup answers) {
-            answers.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+    private void setCheckboxListnerRange(final CheckBox contact,final CheckBox mid,final CheckBox out) {
+        final List<CheckBox> listCheck = Arrays.asList(contact,mid,out);
+        for(final CheckBox check : listCheck)
+        {
+            check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
             {
                 @Override
-                public void onCheckedChanged(RadioGroup group, int checkedId) {
-                    Log.d("-State-","Changement de bouton");
-                    RadioButton checkedRadioButton = (RadioButton)group.findViewById(checkedId);
-                    // This puts the value (true/false) into the variable
-                    boolean isChecked = checkedRadioButton.isChecked();
-                    // If the radiobutton that has changed in check state is now checked...
-                    if (isChecked)
-                    {
-                        //do stuff with active stance
-                        if(checkedRadioButton.getText().toString().contains("corps")){
+                public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+                    if (isChecked){
+                        for(CheckBox checkToUnselect : listCheck){
+                            if(!checkToUnselect.equals(check)){
+                                checkToUnselect.setChecked(false);
+                            }
+                        }
+                        if(check.equals(contact)){
                             range=true;
                             outrange=false;
-                        } else if(checkedRadioButton.getText().toString().contains("entre")) {
+                        } else if(check.equals(mid)) {
                             range=false;
                             outrange=false;
                         } else {
                             range=false;
                             outrange=true;
                         }
+                        buildResultLine();
                     }
-                    clearStep(2);
-                    buildResultLine();
-                    getLayout();
                 }
             });
+        }
     }
 
     private void buildResultLine() {
-
+        clearStep(2);
         TextView result =new TextView(mC);
         String resultTxt="-";
         if (outrange){

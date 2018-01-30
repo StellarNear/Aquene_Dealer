@@ -45,6 +45,14 @@
     <color name="start_gradient_button_basic">@android:color/darker_gray</color>
     <color name="end_gradient_button_basic">@color/white</color>
 
+    <color name="start_gradient_combat_mode">#ffffff</color>
+    <color name="end_gradient_combat_mode">#e6e6e6</color>
+
+    <color name="title_question_combat_text">@color/colorBackground</color>
+    <color name="title_question_combat_back">@color/colorPrimaryDark</color>
+
+    <color name="title_skill_color_text">@color/colorBackground</color>
+    <color name="title_skill_color_background">@color/colorPrimaryDark</color>
 
 
 </resources>
