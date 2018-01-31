@@ -154,7 +154,6 @@ public class CombatAsker {
         question.setTextSize(20);
         question.setBackgroundColor(mC.getColor(R.color.title_question_combat_back));
         question.setTextColor(mC.getColor(R.color.title_question_combat_text));
-        question.setPadding(0,(int) mC.getResources().getDimension(R.dimen.general_margin),0,(int) mC.getResources().getDimension(R.dimen.general_margin));
         lineStep.addView(question);
 
         LinearLayout answers = new LinearLayout(mC);
@@ -262,6 +261,18 @@ public class CombatAsker {
 
     private void buildResultLine() {
         clearStep(2);
+        LinearLayout lineStep = new LinearLayout(mC);
+        lineStep.setOrientation(LinearLayout.VERTICAL);
+
+        TextView question = new TextView(mC);
+        question.setGravity(Gravity.CENTER);
+        question.setText("Action(s) possible(s) :");
+        question.setTextSize(20);
+        question.setBackgroundColor(mC.getColor(R.color.title_question_combat_back));
+        question.setTextColor(mC.getColor(R.color.title_question_combat_text));
+        lineStep.addView(question);
+
+        //pas oublier le padding top du prochain element linestep
         TextView result =new TextView(mC);
         String resultTxt="-";
         if (outrange){
@@ -277,7 +288,20 @@ public class CombatAsker {
         }
         result.setText(resultTxt);
 
-        stepsView.add(result);
+        lineStep.addView(result);
+
+        LinearLayout lineStep2 = new LinearLayout(mC);
+        TextView confirm = new TextView(mC);
+        confirm.setText("Confirmation");
+        lineStep2.setBackgroundColor(mC.getColor(R.color.validation));
+        LinearLayout.LayoutParams para = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT,1); //le weight est là pour que ca remplisse le restant du layout
+
+        lineStep2.addView(confirm);
+        lineStep2.setLayoutParams(para);
+
+        stepsView.add(lineStep);
+        stepsView.add(lineStep2);
+
         getLayout();
     }
 

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<records>
+
+    <attack>
+        <name>Déluge de coup</name>
+        <type>complexe</type>
+        <descr>Le moine peut remplacer une des attaques à mains nues d’un déluge de coups par une manœuvre offensive de désarmement, de destruction ou de croc-en-jambe.</descr>
+        <id>flurry</id>
+    </attack>
+
+    <attack>
+        <name>Coup étourdissant</name>
+        <type>simple</type>
+        <descr>Le moine peut remplacer une des attaques à mains nues d’un déluge de coups par une manœuvre offensive de désarmement, de destruction ou de croc-en-jambe.</descr>
+        <id>stun_fist</id>
+    </attack>
+
+    <attack>
+        <name>Paume vibratoire</name>
+        <type>simple</type>
+        <descr>Le moine peut remplacer une des attaques à mains nues d’un déluge de coups par une manœuvre offensive de désarmement, de destruction ou de croc-en-jambe.</descr>
+        <id>palm</id>
+    </attack>
+
+</records>

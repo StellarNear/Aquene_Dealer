@@ -107,14 +107,6 @@
         android:title="Classe d'armure du personnage">
         <Preference android:layout="@layout/divider_pref" android:selectable="false"/>
         <stellarnear.aquene_dealer.Divers.EditTextPreference
-            android:defaultValue="@integer/carac_baseCA_MONK_DEF"
-            android:key="carac_baseCA_MONK"
-            android:title="Bonus moine (1/4 lvl)"
-            android:selectAllOnFocus="true"
-            android:singleLine="true"
-            android:inputType="number"
-            android:summary="Valeur : %s"/>
-        <stellarnear.aquene_dealer.Divers.EditTextPreference
             android:defaultValue="@integer/carac_baseCA_STUFF_DEF"
             android:key="carac_baseCA_STUFF"
             android:title="Equipement"

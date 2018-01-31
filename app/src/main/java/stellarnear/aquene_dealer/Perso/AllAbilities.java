@@ -95,11 +95,11 @@ public class AllAbilities {
             //(abiKey.equals("FOR") && allStances.getCurrentStance()!=null && allStances.getCurrentStance().getId().equals("bear") pour test les stance en meme temps
             int val = 0;
             if (abi.getId().equalsIgnoreCase("CA")) {
-                val = readAbility("CA_STUFF") + readAbility("CA_MONK") + getAbi("DEXTERITE").getMod() + 10;
+                val = 10+readAbility("CA_STUFF") + getAbi("DEXTERITE").getMod() + ((int) (readAbility("LVL")/4.0))+ getAbi("SAGESSE").getMod();
             } else if (abi.getId().equalsIgnoreCase("BMO")) {
                 val = readAbility("LVL") + getAbi("FORCE").getMod();
             } else if (abi.getId().equalsIgnoreCase("DMD")) {
-                val = readAbility("LVL") + getAbi("FORCE").getMod() + 10 + getAbi("DEXTERITE").getMod();
+                val = readAbility("LVL") + getAbi("FORCE").getMod() + 10 + getAbi("DEXTERITE").getMod() + ((int) (readAbility("LVL")/4.0))+ getAbi("SAGESSE").getMod() ;
             } else if (abi.getId().equalsIgnoreCase("INIT")) {
                 val = getAbi("DEXTERITE").getMod();
             } else if (abi.getId().equalsIgnoreCase("RM")) {

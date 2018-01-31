@@ -40,14 +40,39 @@ public class Perso {
     }
 
     public Integer getAbilityScore(String abiId) {
-        int abiScore = allAbilities.getAbi(abiId).getValue();
+        int abiScore =0;
+        if (allAbilities.getAbi(abiId)!=null){
+            abiScore=allAbilities.getAbi(abiId).getValue();
 
-        if (abiId.equalsIgnoreCase("init") && featIsActive("init")) {
-            abiScore += 4;
-        }
+            if (abiId.equalsIgnoreCase("init") && featIsActive("init")) {
+                abiScore += 4;
+            }
 
-        if (abiId.equalsIgnoreCase("force") && allStances.getCurrentStance() != null && allStances.getStance("bear").isActive()) {
-            abiScore += 7;
+            if (abiId.equalsIgnoreCase("force") && allStances.getCurrentStance() != null && allStances.getStance("bear").isActive()) {
+                abiScore += 7;
+            }
+
+            if (abiId.equalsIgnoreCase("ca")) {
+                if (attacks.getCombatMode().equals("def")){
+                    if(getAllSkills().getSkill("acrob").getRank()>=23){
+                        abiScore += 5;
+                    } else if(getAllSkills().getSkill("acrob").getRank()>=3){
+                        abiScore += 3;
+                    } else {
+                        abiScore += 2;
+                    }
+                }
+                if (attacks.getCombatMode().equals("totaldef")){
+                    if(getAllSkills().getSkill("acrob").getRank()>=23){
+                        abiScore += 8;
+                    } else if(getAllSkills().getSkill("acrob").getRank()>=3){
+                        abiScore += 6;
+                    } else {
+                        abiScore += 4;
+                    }
+                }
+
+            }
         }
         return abiScore;
     }
@@ -56,7 +81,7 @@ public class Perso {
         int abiMod = 0;
         Ability abi = allAbilities.getAbi(abiId);
 
-        if (abi.getType().equalsIgnoreCase("base")) {
+        if (abi!=null && abi.getType().equalsIgnoreCase("base")) {
             int abiScore=getAbilityScore(abiId);
 
             float modFloat = (float) ((abiScore - 10.) / 2.0);
