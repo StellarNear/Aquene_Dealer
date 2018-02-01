@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_checked="true"
-        android:drawable="@drawable/wolf_select" />
+        android:drawable="@drawable/stance_wolf_select" />
     <item android:state_checked="false"
-        android:drawable="@drawable/wolf" />
+        android:drawable="@drawable/stance_wolf" />
 </selector>

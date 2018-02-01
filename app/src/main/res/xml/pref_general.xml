@@ -5,96 +5,96 @@
         android:title="Charactéristiques du personnage">
         <Preference android:layout="@layout/divider_pref" android:selectable="false"/>
          <stellarnear.aquene_dealer.Divers.EditTextPreference
-             android:defaultValue="@integer/carac_baseFORCE_DEF"
-             android:key="carac_baseFORCE"
+             android:defaultValue="@integer/ability_force_def"
+             android:key="ability_force"
              android:title="Valeur Force"
              android:selectAllOnFocus="true"
              android:singleLine="true"
              android:inputType="number"
              android:summary="Valeur : %s"/>
          <stellarnear.aquene_dealer.Divers.EditTextPreference
-             android:defaultValue="@integer/carac_baseDEXTERITE_DEF"
-             android:key="carac_baseDEXTERITE"
+             android:defaultValue="@integer/ability_dexterite_def"
+             android:key="ability_dexterite"
              android:title="Valeur Dexterité"
              android:selectAllOnFocus="true"
              android:singleLine="true"
              android:inputType="number"
              android:summary="Valeur : %s"/>
          <stellarnear.aquene_dealer.Divers.EditTextPreference
-             android:defaultValue="@integer/carac_baseCONSTITUTION_DEF"
-             android:key="carac_baseCONSTITUTION"
+             android:defaultValue="@integer/ability_constitution_def"
+             android:key="ability_constitution"
              android:title="Valeur Constitution"
              android:selectAllOnFocus="true"
              android:singleLine="true"
              android:inputType="number"
              android:summary="Valeur : %s"/>
          <stellarnear.aquene_dealer.Divers.EditTextPreference
-             android:defaultValue="@integer/carac_baseINTELLIGENCE_DEF"
-             android:key="carac_baseINTELLIGENCE"
+             android:defaultValue="@integer/ability_intelligence_def"
+             android:key="ability_intelligence"
              android:title="Valeur Intelligence"
              android:selectAllOnFocus="true"
              android:singleLine="true"
              android:inputType="number"
              android:summary="Valeur : %s"/>
          <stellarnear.aquene_dealer.Divers.EditTextPreference
-             android:defaultValue="@integer/carac_baseSAGESSE_DEF"
-             android:key="carac_baseSAGESSE"
+             android:defaultValue="@integer/ability_sagesse_def"
+             android:key="ability_sagesse"
              android:title="Valeur Sagesse"
              android:selectAllOnFocus="true"
              android:singleLine="true"
              android:inputType="number"
              android:summary="Valeur : %s"/>
          <stellarnear.aquene_dealer.Divers.EditTextPreference
-             android:defaultValue="@integer/carac_baseCHARISME_DEF"
-             android:key="carac_baseCHARISME"
+             android:defaultValue="@integer/ability_charisme_def"
+             android:key="ability_charisme"
              android:title="Valeur Charisme"
              android:selectAllOnFocus="true"
              android:singleLine="true"
              android:inputType="number"
              android:summary="Valeur : %s"/>
         <stellarnear.aquene_dealer.Divers.EditTextPreference
-            android:defaultValue="@integer/carac_baseLVL_DEF"
-            android:key="carac_baseLVL"
+            android:defaultValue="@integer/ability_lvl_def"
+            android:key="ability_lvl"
             android:title="Niveau de moine"
             android:selectAllOnFocus="true"
             android:singleLine="true"
             android:inputType="number"
             android:summary="Valeur : %s"/>
          <stellarnear.aquene_dealer.Divers.EditTextPreference
-             android:defaultValue="@integer/carac_baseMS_DEF"
-             android:key="carac_baseMS"
+             android:defaultValue="@integer/ability_ms_def"
+             android:key="ability_ms"
              android:title="Vitesse de déplacement"
              android:selectAllOnFocus="true"
              android:singleLine="true"
              android:inputType="number"
              android:summary="Valeur : %s m"/>
          <stellarnear.aquene_dealer.Divers.EditTextPreference
-             android:defaultValue="@integer/carac_baseHP_DEF"
-             android:key="carac_baseHP"
+             android:defaultValue="@integer/ability_hp_def"
+             android:key="ability_hp"
              android:title="Point de vie"
              android:selectAllOnFocus="true"
              android:singleLine="true"
              android:inputType="number"
              android:summary="Valeur : %s"/>
         <stellarnear.aquene_dealer.Divers.EditTextPreference
-            android:defaultValue="@integer/carac_baseHEROIC_DEF"
-            android:key="carac_baseHEROIC"
+            android:defaultValue="@integer/ability_heroic_def"
+            android:key="ability_heroic"
             android:title="Points héroiques"
             android:selectAllOnFocus="true"
             android:singleLine="true"
             android:inputType="number"
             android:summary="Valeur : %s"/>
         <stellarnear.aquene_dealer.Divers.EditTextPreference
-            android:defaultValue="@integer/carac_baseREDUC_DEF"
-            android:key="carac_baseREDUC"
+            android:defaultValue="@integer/ability_reduc_def"
+            android:key="ability_reduc"
             android:title="Réduction de dégats"
             android:selectAllOnFocus="true"
             android:inputType="number"
             android:singleLine="true"
             android:summary="Valeur : %s"/>
         <stellarnear.aquene_dealer.Divers.EditTextPreference
-            android:defaultValue="@integer/carac_baseREGEN_DEF"
-            android:key="carac_baseREGEN"
+            android:defaultValue="@integer/ability_regen_def"
+            android:key="ability_regen"
             android:title="Régénération (/round)"
             android:selectAllOnFocus="true"
             android:singleLine="true"
@@ -108,8 +108,8 @@
         android:title="Classe d'armure du personnage">
         <Preference android:layout="@layout/divider_pref" android:selectable="false"/>
         <stellarnear.aquene_dealer.Divers.EditTextPreference
-            android:defaultValue="@integer/carac_baseCA_STUFF_DEF"
-            android:key="carac_baseCA_STUFF"
+            android:defaultValue="@integer/ability_ca_stuff_def"
+            android:key="ability_ca_stuff"
             android:title="Equipement"
             android:selectAllOnFocus="true"
             android:singleLine="true"
@@ -137,8 +137,8 @@
         android:title="Jets de réflexe">
         <Preference android:layout="@layout/divider_pref" android:selectable="false"/>
         <stellarnear.aquene_dealer.Divers.EditTextPreference
-            android:defaultValue="@integer/carac_baseREF_DEF"
-            android:key="carac_baseREF"
+            android:defaultValue="@integer/ability_ref_def"
+            android:key="ability_ref"
             android:title="Bonus de base"
             android:selectAllOnFocus="true"
             android:singleLine="true"
@@ -156,8 +156,8 @@
         android:title="Jets de vigueur">
         <Preference android:layout="@layout/divider_pref" android:selectable="false"/>
         <stellarnear.aquene_dealer.Divers.EditTextPreference
-            android:defaultValue="@integer/carac_baseVIG_DEF"
-            android:key="carac_baseVIG"
+            android:defaultValue="@integer/ability_vig_def"
+            android:key="ability_vig"
             android:title="Bonus de base"
             android:selectAllOnFocus="true"
             android:singleLine="true"
@@ -170,8 +170,8 @@
         android:title="Jets de volonté">
         <Preference android:layout="@layout/divider_pref" android:selectable="false"/>
         <stellarnear.aquene_dealer.Divers.EditTextPreference
-            android:defaultValue="@integer/carac_baseVOL_DEF"
-            android:key="carac_baseVOL"
+            android:defaultValue="@integer/ability_vol_def"
+            android:key="ability_vol"
             android:title="Bonus de base"
             android:selectAllOnFocus="true"
             android:singleLine="true"

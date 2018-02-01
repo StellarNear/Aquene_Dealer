@@ -4,14 +4,14 @@
         <name>Dragon</name>
         <type>Attaque</type>
         <descr>Grâce à ce sort, le personnage peut repérer les auras magiques. Les informations fournies par détection de la magie dépendent du temps que le personnage passe à étudier le sujet et ou la zone. Premier round : présence ou absence d’auras magiques. Deuxième round : nombre d’auras magiques et intensité de la plus puissante. Troisième round : intensité et emplacement précis de chaque aura</descr>
-        <id>dragon</id>
+        <id>stance_dragon</id>
     </stance>
 
     <stance>
         <name>Faucon</name>
         <type>Attaque</type>
         <descr>Grâce à ce sort, le personnage peut repérer les auras magiques. Les informations fournies par détection de la magie dépendent du temps que le personnage passe à étudier le sujet et ou la zone. Premier round : présence ou absence d’auras magiques. Deuxième round : nombre d’auras magiques et intensité de la plus puissante. Troisième round : intensité et emplacement précis de chaque aura</descr>
-        <id>falcon</id>
+        <id>stance_falcon</id>
         <featid>quick_atk</featid>
     </stance>
 
@@ -19,28 +19,28 @@
         <name>Lion</name>
         <type>Attaque</type>
         <descr>Rayon d’énergie positive. Le personnage doit réussir une attaque de contact à distance pour atteindre le mort-vivant.</descr>
-        <id>lion</id>
+        <id>stance_lion</id>
     </stance>
 
     <stance>
         <name>Loup</name>
         <type>Attaque</type>
         <descr>Grâce à ce sort, le personnage peut repérer les auras magiques. Les informations fournies par détection de la magie dépendent du temps que le personnage passe à étudier le sujet et ou la zone. Premier round : présence ou absence d’auras magiques. Deuxième round : nombre d’auras magiques et intensité de la plus puissante. Troisième round : intensité et emplacement précis de chaque aura</descr>
-        <id>wolf</id>
+        <id>stance_wolf</id>
     </stance>
 
     <stance>
         <name>Oxydeur</name>
         <type>Attaque</type>
         <descr>Rayon d’énergie positive. Le personnage doit réussir une attaque de contact à distance pour atteindre le mort-vivant.</descr>
-        <id>oxyder</id>
+        <id>stance_oxyder</id>
     </stance>
 
     <stance>
         <name>Rat</name>
         <type>Attaque</type>
         <descr>Rayon d’énergie positive. Le personnage doit réussir une attaque de contact à distance pour atteindre le mort-vivant.</descr>
-        <id>rat</id>
+        <id>stance_rat</id>
         <featid>dex_atk</featid>
     </stance>
 
@@ -49,7 +49,7 @@
         <name>Chimpanzé</name>
         <type>Défense</type>
         <descr>Rayon d’énergie positive. Le personnage doit réussir une attaque de contact à distance pour atteindre le mort-vivant.</descr>
-        <id>chimpanzee</id>
+        <id>stance_chimpanzee</id>
     </stance>
 
     <stance>
@@ -57,35 +57,35 @@
         <shortname>Esquiveur</shortname>
         <type>Défense</type>
         <descr>Rayon d’énergie positive. Le personnage doit réussir une attaque de contact à distance pour atteindre le mort-vivant.</descr>
-        <id>dog</id>
+        <id>stance_dog</id>
     </stance>
 
     <stance>
         <name>Lézard</name>
         <type>Défense</type>
         <descr>Rayon d’énergie positive. Le personnage doit réussir une attaque de contact à distance pour atteindre le mort-vivant.</descr>
-        <id>lizard</id>
+        <id>stance_lizard</id>
     </stance>
 
     <stance>
         <name>Ours</name>
         <type>Défense</type>
         <descr>Rayon d’énergie positive. Le personnage doit réussir une attaque de contact à distance pour atteindre le mort-vivant.</descr>
-        <id>bear</id>
+        <id>stance_bear</id>
     </stance>
 
     <stance>
         <name>Phénix</name>
         <type>Défense</type>
         <descr>Rayon d’énergie positive. Le personnage doit réussir une attaque de contact à distance pour atteindre le mort-vivant.</descr>
-        <id>phenix</id>
+        <id>stance_phenix</id>
     </stance>
 
     <stance>
         <name>Pieuvre</name>
         <type>Défense</type>
         <descr>Rayon d’énergie positive. Le personnage doit réussir une attaque de contact à distance pour atteindre le mort-vivant.</descr>
-        <id>octopus</id>
+        <id>stance_octopus</id>
     </stance>
 
 
@@ -94,42 +94,42 @@
         <shortname>Chapardeur</shortname>
         <type>Autre</type>
         <descr>Rayon d’énergie positive. Le personnage doit réussir une attaque de contact à distance pour atteindre le mort-vivant.</descr>
-        <id>chaparder</id>
+        <id>stance_chaparder</id>
     </stance>
 
     <stance>
         <name>Chauve-souris</name>
         <type>Autre</type>
         <descr>Rayon d’énergie positive. Le personnage doit réussir une attaque de contact à distance pour atteindre le mort-vivant.</descr>
-        <id>bat</id>
+        <id>stance_bat</id>
     </stance>
 
     <stance>
         <name>Crabe</name>
         <type>Autre</type>
         <descr>Rayon d’énergie positive. Le personnage doit réussir une attaque de contact à distance pour atteindre le mort-vivant.</descr>
-        <id>crab</id>
+        <id>stance_crab</id>
     </stance>
 
     <stance>
         <name>Léopard</name>
         <type>Autre</type>
         <descr>Rayon d’énergie positive. Le personnage doit réussir une attaque de contact à distance pour atteindre le mort-vivant.</descr>
-        <id>leopard</id>
+        <id>stance_leopard</id>
     </stance>
 
     <stance>
         <name>Licorne</name>
         <type>Autre</type>
         <descr>Rayon d’énergie positive. Le personnage doit réussir une attaque de contact à distance pour atteindre le mort-vivant.</descr>
-        <id>unicorn</id>
+        <id>stance_unicorn</id>
     </stance>
 
     <stance>
         <name>Scorpion</name>
         <type>Autre</type>
         <descr>Rayon d’énergie positive. Le personnage doit réussir une attaque de contact à distance pour atteindre le mort-vivant.</descr>
-        <id>scorpio</id>
+        <id>stance_scorpio</id>
     </stance>
 
 </records>

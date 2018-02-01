@@ -86,24 +86,24 @@ public class AllAbilities {
 
     private int readAbility(String key) {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mC);
-        int resId = mC.getResources().getIdentifier("carac_base" + key.toUpperCase() + "_DEF", "integer", mC.getPackageName());
-        return toInt(settings.getString("carac_base" + key.toUpperCase(), String.valueOf(mC.getResources().getInteger(resId))));
+        int resId = mC.getResources().getIdentifier( key.toLowerCase() + "_def", "integer", mC.getPackageName());
+        return toInt(settings.getString( key.toLowerCase(), String.valueOf(mC.getResources().getInteger(resId))));
     }
 
     public void refreshAllAbilities() {
         for (Ability abi : listAbilities) {
             //(abiKey.equals("FOR") && allStances.getCurrentStance()!=null && allStances.getCurrentStance().getId().equals("bear") pour test les stance en meme temps
             int val = 0;
-            if (abi.getId().equalsIgnoreCase("CA")) {
-                val = 10+readAbility("CA_STUFF") + getAbi("DEXTERITE").getMod() + ((int) (readAbility("LVL")/4.0))+ getAbi("SAGESSE").getMod();
-            } else if (abi.getId().equalsIgnoreCase("BMO")) {
-                val = readAbility("LVL") + getAbi("FORCE").getMod();
-            } else if (abi.getId().equalsIgnoreCase("DMD")) {
-                val = readAbility("LVL") + getAbi("FORCE").getMod() + 10 + getAbi("DEXTERITE").getMod() + ((int) (readAbility("LVL")/4.0))+ getAbi("SAGESSE").getMod() ;
-            } else if (abi.getId().equalsIgnoreCase("INIT")) {
-                val = getAbi("DEXTERITE").getMod();
-            } else if (abi.getId().equalsIgnoreCase("RM")) {
-                val = readAbility("LVL") + 10;
+            if (abi.getId().equalsIgnoreCase("ability_ca")) {
+                val = 10+readAbility("ability_ca_stuff") + getAbi("ability_dexterite").getMod() + ((int) (readAbility("ability_lvl")/4.0))+ getAbi("ability_sagesse").getMod();
+            } else if (abi.getId().equalsIgnoreCase("ability_bmo")) {
+                val = readAbility("ability_lvl") + getAbi("ability_force").getMod();
+            } else if (abi.getId().equalsIgnoreCase("ability_dmd")) {
+                val = readAbility("ability_lvl") + getAbi("ability_force").getMod() + 10 + getAbi("ability_dexterite").getMod() + ((int) (readAbility("ability_lvl")/4.0))+ getAbi("ability_sagesse").getMod() ;
+            } else if (abi.getId().equalsIgnoreCase("ability_init")) {
+                val = getAbi("ability_dexterite").getMod();
+            } else if (abi.getId().equalsIgnoreCase("ability_rm")) {
+                val = readAbility("ability_lvl") + 10;
             } else {
                 val = readAbility(abi.getId());
             }

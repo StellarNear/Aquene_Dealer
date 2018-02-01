@@ -5,7 +5,7 @@
         <name>Force</name>
         <type>base</type>
         <descr></descr>
-        <id>force</id>
+        <id>ability_force</id>
         <testable>true</testable>
         <focusable>true</focusable>
     </ability>
@@ -13,7 +13,7 @@
         <name>Dextérité</name>
         <type>base</type>
         <descr>base</descr>
-        <id>dexterite</id>
+        <id>ability_dexterite</id>
         <testable>true</testable>
         <focusable>true</focusable>
     </ability>
@@ -21,7 +21,7 @@
         <name>Constitution</name>
         <type>base</type>
         <descr>base</descr>
-        <id>constitution</id>
+        <id>ability_constitution</id>
         <testable>true</testable>
         <focusable>true</focusable>
     </ability>
@@ -29,7 +29,7 @@
         <name>Intelligence</name>
         <type>base</type>
         <descr>base</descr>
-        <id>intelligence</id>
+        <id>ability_intelligence</id>
         <testable>true</testable>
         <focusable>true</focusable>
     </ability>
@@ -37,7 +37,7 @@
         <name>Sagesse</name>
         <type>base</type>
         <descr>base</descr>
-        <id>sagesse</id>
+        <id>ability_sagesse</id>
         <testable>true</testable>
         <focusable>true</focusable>
     </ability>
@@ -45,7 +45,7 @@
         <name>Charisme</name>
         <type>base</type>
         <descr>base</descr>
-        <id>charisme</id>
+        <id>ability_charisme</id>
         <testable>true</testable>
         <focusable>true</focusable>
     </ability>
@@ -55,33 +55,33 @@
         <name>Niveau</name>
         <type>general</type>
         <descr></descr>
-        <id>lvl</id>
+        <id>ability_lvl</id>
     </ability>
     <ability>
         <name>Vitesse de déplacement</name>
         <shortname>Déplacement</shortname>
         <type>general</type>
         <descr>base</descr>
-        <id>ms</id>
+        <id>ability_ms</id>
     </ability>
     <ability>
         <name>Points héroiques</name>
         <type>general</type>
         <descr>base</descr>
-        <id>heroic</id>
+        <id>ability_heroic</id>
     </ability>
     <ability>
         <name>Points de vie</name>
         <type>general</type>
         <descr>base</descr>
-        <id>hp</id>
+        <id>ability_hp</id>
         <testable>true</testable>
     </ability>
     <ability>
         <name>Régénération</name>
         <type>general</type>
         <descr></descr>
-        <id>regen</id>
+        <id>ability_regen</id>
     </ability>
 
     <!-- def ability -->
@@ -90,21 +90,21 @@
         <name>Reflexe</name>
         <type>def</type>
         <descr>base</descr>
-        <id>ref</id>
+        <id>ability_ref</id>
         <testable>true</testable>
     </ability>
     <ability>
         <name>Vigueur</name>
         <type>def</type>
         <descr>base</descr>
-        <id>vig</id>
+        <id>ability_vig</id>
         <testable>true</testable>
     </ability>
     <ability>
         <name>Volonté</name>
         <type>def</type>
         <descr>base</descr>
-        <id>vol</id>
+        <id>ability_vol</id>
         <testable>true</testable>
     </ability>
 
@@ -112,20 +112,20 @@
         <name>Classe d'armure</name>
         <type>def</type>
         <descr>base</descr>
-        <id>ca</id>
+        <id>ability_ca</id>
     </ability>
     <ability>
         <name>Résistance magie</name>
         <type>def</type>
         <descr>base</descr>
-        <id>rm</id>
+        <id>ability_rm</id>
     </ability>
     <ability>
         <name>Réduction de dégats</name>
         <shortname>Réduction</shortname>
         <type>def</type>
         <descr>base</descr>
-        <id>reduc</id>
+        <id>ability_reduc</id>
     </ability>
 
 
@@ -134,7 +134,7 @@
         <name>Initative</name>
         <type>advanced</type>
         <descr>base</descr>
-        <id>init</id>
+        <id>ability_init</id>
         <testable>true</testable>
     </ability>
     <ability>
@@ -142,7 +142,7 @@
         <shortname>BMO</shortname>
         <type>advanced</type>
         <descr>base</descr>
-        <id>bmo</id>
+        <id>ability_bmo</id>
         <testable>true</testable>
     </ability>
     <ability>
@@ -150,7 +150,7 @@
         <shortname>DMD</shortname>
         <type>advanced</type>
         <descr>base</descr>
-        <id>dmd</id>
+        <id>ability_dmd</id>
     </ability>
 
 </records>

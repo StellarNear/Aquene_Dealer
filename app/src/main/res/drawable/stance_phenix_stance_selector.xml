@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_checked="true"
-        android:drawable="@drawable/unicorn_select" />
+        android:drawable="@drawable/stance_phenix_select" />
     <item android:state_checked="false"
-        android:drawable="@drawable/unicorn" />
+        android:drawable="@drawable/stance_phenix" />
 </selector>
