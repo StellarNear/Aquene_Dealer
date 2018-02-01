@@ -13,7 +13,6 @@ public class Feat {
     private String type;
     private String descr;
     private String id;
-    private String imagePath;
     private Context mC;
     private Boolean active;
 
@@ -22,7 +21,6 @@ public class Feat {
         this.type=type;
         this.descr=descr;
         this.id=id;
-        this.imagePath =id+"_feat_img";
         this.mC=mC;
         refreshSwitch();
     }
@@ -57,14 +55,6 @@ public class Feat {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getImagePath() {
-        return imagePath;
-    }
-
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
     }
 
     public boolean isActive(){

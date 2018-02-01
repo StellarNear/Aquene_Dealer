@@ -51,6 +51,7 @@
     <integer name="percent_fullscreen_customdialog">90</integer>
 
     <integer name="translationFragDuration">500</integer>
+    <integer name="attack_range_def">3</integer>
 
 
 </resources>

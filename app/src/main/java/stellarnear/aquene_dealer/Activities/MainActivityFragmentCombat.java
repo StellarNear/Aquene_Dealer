@@ -29,6 +29,7 @@ import stellarnear.aquene_dealer.R;
  */
 public class MainActivityFragmentCombat extends Fragment {
     Perso aquene = MainActivity.aquene;
+    View returnFragView;
     Map<RadioButton,String> mapModeButtonModKey=new HashMap<>();
     public MainActivityFragmentCombat() {
     }
@@ -42,7 +43,7 @@ public class MainActivityFragmentCombat extends Fragment {
         }
 
 
-        View returnFragView= inflater.inflate(R.layout.fragment_main_combat, container, false);
+        returnFragView= inflater.inflate(R.layout.fragment_main_combat, container, false);
 
         ImageButton buttonMain = (ImageButton) returnFragView.findViewById(R.id.button_frag_combat_to_main);
 
@@ -73,8 +74,8 @@ public class MainActivityFragmentCombat extends Fragment {
         setCombatModeListner((RadioButton) returnFragView.findViewById(R.id.button_combat_mode_def));
         setCombatModeListner((RadioButton) returnFragView.findViewById(R.id.button_combat_mode_totaldef));
 
-        CombatAsker combatAsker= new CombatAsker(getContext(),(LinearLayout) returnFragView.findViewById(R.id.scrollLinearCombat));
-        combatAsker.getLayout();
+        new CombatAsker(getContext(),(LinearLayout) returnFragView.findViewById(R.id.scrollLinearCombat));
+
 
 
         return returnFragView;
@@ -82,7 +83,7 @@ public class MainActivityFragmentCombat extends Fragment {
 
     private void activateMode() {
         for (RadioButton radio : mapModeButtonModKey.keySet()){
-            if (aquene.getAttacks().getCombatMode().equalsIgnoreCase(mapModeButtonModKey.get(radio))){radio.setChecked(true);}
+            if (aquene.getAllAttacks().getCombatMode().equalsIgnoreCase(mapModeButtonModKey.get(radio))){radio.setChecked(true);}
         }
     }
 
@@ -106,7 +107,7 @@ public class MainActivityFragmentCombat extends Fragment {
                 if (mapModeButtonModKey.get(button).equalsIgnoreCase("totaldef")){
                     modeTxt="défense totale";
                 }
-
+                new CombatAsker(getContext(),(LinearLayout) returnFragView.findViewById(R.id.scrollLinearCombat));
                 toastIt("Mode "+modeTxt+" activé.");
             }
         });
@@ -120,7 +121,7 @@ public class MainActivityFragmentCombat extends Fragment {
     }
 
     private void persoChange(String mode) {
-        aquene.getAttacks().setCombatMode(mode);
+        aquene.getAllAttacks().setCombatMode(mode);
     }
 
 

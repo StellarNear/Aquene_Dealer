@@ -3,7 +3,7 @@
 
     <attack>
         <name>Déluge de coup</name>
-        <type>complexe</type>
+        <type>complex</type>
         <descr>Le moine peut remplacer une des attaques à mains nues d’un déluge de coups par une manœuvre offensive de désarmement, de destruction ou de croc-en-jambe.</descr>
         <id>flurry</id>
     </attack>

@@ -6,7 +6,13 @@
         android:fragment="stellarnear.aquene_dealer.Activities.SettingsActivity$GeneralPreferenceFragment"
         android:icon="@drawable/ic_person_pin_black_24dp"
         android:title="Paramètres généraux"
-        android:summary="Statistiques de base du personnage et paramètres de l'application"/>
+        android:summary="Statistiques de base du personnage"/>
+
+    <header
+        android:fragment="stellarnear.aquene_dealer.Activities.SettingsActivity$CombatPreferenceFragment"
+        android:icon="@drawable/ic_filter_center_focus_black_24dp"
+        android:title="Caractéristiques de combat"
+        android:summary="Statistiques relatives au combat"/>
 
     <header
         android:fragment="stellarnear.aquene_dealer.Activities.SettingsActivity$SkillsPreferenceFragment"
@@ -16,7 +22,7 @@
 
 
     <header
-        android:fragment="stellarnear.aquene_dealer.Activities.SettingsActivity$CombatPreferenceFragment"
+        android:fragment="stellarnear.aquene_dealer.Activities.SettingsActivity$FeatPreferenceFragment"
         android:icon="@drawable/ic_playlist_add_check_black_24dp"
         android:summary="Ensemble des dons connus"
         android:title="Dons actifs" />

@@ -109,7 +109,7 @@ public class QuadrantFiller {
         }
     }
 
-    // call externe de refresh
+    // call externe de refreshAllAttacks
     public void fullscreenQuadrant(LinearLayout layout){
         List<Ability> abiList=aquene.getAllAbilities().getAbilitiesList(mapQuadrantType.get(layout));
         injectStats(abiList, quadrantFullSub1, quadrantFullSub2,"full");

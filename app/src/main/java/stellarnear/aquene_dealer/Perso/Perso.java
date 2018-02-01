@@ -11,7 +11,7 @@ public class Perso {
     private AllStances allStances;
     private AllFeats allFeats;
     private AllSkills allSkills;
-    private Attacks attacks;
+    private AllAttacks allAttacks;
     private Ki ki;
     private Context mC;
 
@@ -21,7 +21,7 @@ public class Perso {
         allFeats = new AllFeats(mC);
         allAbilities = new AllAbilities(mC);
         allSkills = new AllSkills(mC);
-        attacks = new Attacks(mC);
+        allAttacks = new AllAttacks(mC);
     }
 
     public AllStances getAllStances() {
@@ -53,7 +53,7 @@ public class Perso {
             }
 
             if (abiId.equalsIgnoreCase("ca")) {
-                if (attacks.getCombatMode().equals("def")){
+                if (allAttacks.getCombatMode().equals("def")){
                     if(getAllSkills().getSkill("acrob").getRank()>=23){
                         abiScore += 5;
                     } else if(getAllSkills().getSkill("acrob").getRank()>=3){
@@ -62,7 +62,7 @@ public class Perso {
                         abiScore += 2;
                     }
                 }
-                if (attacks.getCombatMode().equals("totaldef")){
+                if (allAttacks.getCombatMode().equals("totaldef")){
                     if(getAllSkills().getSkill("acrob").getRank()>=23){
                         abiScore += 8;
                     } else if(getAllSkills().getSkill("acrob").getRank()>=3){
@@ -110,7 +110,7 @@ public class Perso {
         return allSkills;
     }
 
-    public Attacks getAttacks(){return this.attacks;}
+    public AllAttacks getAllAttacks(){return this.allAttacks;}
 
 
     public boolean featIsActive(String featId) {
@@ -126,6 +126,7 @@ public class Perso {
         allFeats.refreshAllSwitch();
         allSkills.refreshAllVals();
         allAbilities.refreshAllAbilities();
+        allAttacks.refreshAllAttacks();
     }
 
 

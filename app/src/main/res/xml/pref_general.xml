@@ -89,6 +89,7 @@
             android:key="carac_baseREDUC"
             android:title="Réduction de dégats"
             android:selectAllOnFocus="true"
+            android:inputType="number"
             android:singleLine="true"
             android:summary="Valeur : %s"/>
         <stellarnear.aquene_dealer.Divers.EditTextPreference

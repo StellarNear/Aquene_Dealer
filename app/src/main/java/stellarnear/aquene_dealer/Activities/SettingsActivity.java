@@ -106,6 +106,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     protected boolean isValidFragment(String fragmentName) {
         return PreferenceFragment.class.getName().equals(fragmentName)
                 || GeneralPreferenceFragment.class.getName().equals(fragmentName)
+                || FeatPreferenceFragment.class.getName().equals(fragmentName)
                 || CombatPreferenceFragment.class.getName().equals(fragmentName)
                 || SkillsPreferenceFragment.class.getName().equals(fragmentName)
                 || InfosPreferenceFragment.class.getName().equals(fragmentName)
@@ -124,6 +125,42 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.pref_general);
+            setHasOptionsMenu(true);
+
+        }
+
+
+        @Override
+        public boolean onOptionsItemSelected(MenuItem item) {
+            int id = item.getItemId();
+            if (id == android.R.id.home) {
+                startActivity(new Intent(getActivity(), SettingsActivity.class));
+                return true;
+            }
+            return super.onOptionsItemSelected(item);
+        }
+
+        @Override
+        public void onActivityCreated(Bundle savedInstanceState) {
+            super.onActivityCreated(savedInstanceState);
+
+            // remove dividers
+            View rootView = getView();
+            ListView list = (ListView) rootView.findViewById(android.R.id.list);
+            list.setDivider(getActivity().getDrawable(R.drawable.divider_pref));
+        }
+    }
+
+    /**
+     page générale
+     */
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public static class CombatPreferenceFragment extends PreferenceFragment {
+
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            addPreferencesFromResource(R.xml.pref_combat);
             setHasOptionsMenu(true);
 
         }
@@ -202,12 +239,12 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
      page de combat
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    public static class CombatPreferenceFragment extends PreferenceFragment {
+    public static class FeatPreferenceFragment extends PreferenceFragment {
         Perso aquene=MainActivity.aquene;
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            addPreferencesFromResource(R.xml.pref_combat);
+            addPreferencesFromResource(R.xml.pref_feat);
             PreferenceScreen screen = this.getPreferenceScreen();
 
             PreferenceCategory active = (PreferenceCategory) findPreference(getString(R.string.feat_active));

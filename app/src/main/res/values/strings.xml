@@ -33,5 +33,6 @@
     <string name="quadrantQ2Title">Caractéristiques générales</string>
     <string name="quadrantQ3Title">Caractéristiques défensives</string>
     <string name="quadrantQ4Title">Caractéristiques avancées</string>
+    <string name="jet_att_def">15,12,5</string>
 
 </resources>
