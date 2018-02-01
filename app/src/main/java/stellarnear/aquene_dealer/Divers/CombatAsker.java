@@ -39,48 +39,29 @@ public class CombatAsker {
     public CombatAsker(Context mC, LinearLayout layout) {
         this.mC = mC;
         this.layout = layout;
+        
         buildMovedLine();
     }
+
+
 
     private void buildMovedLine() {
 
         LinearLayout lineStep = new LinearLayout(mC);
         lineStep.setOrientation(LinearLayout.VERTICAL);
 
-        TextView question = new TextView(mC);
-        question.setGravity(Gravity.CENTER);
-        question.setText("T'es tu déplacé au cours de ce round ?");
-        question.setTextSize(20);
-        question.setBackgroundColor(mC.getColor(R.color.title_question_combat_back));
-        question.setTextColor(mC.getColor(R.color.title_question_combat_text));
-
+        TextView question = questionLayout("T'es tu déplacé au cours de ce round ?");
         lineStep.addView(question);
 
         LinearLayout answers = new LinearLayout(mC);
-        answers.setWeightSum(2);
         answers.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         answers.setOrientation(LinearLayout.HORIZONTAL);
 
-        LinearLayout yesBox = new LinearLayout(mC);
-        LinearLayout noBox = new LinearLayout(mC);
-        yesBox.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
-        noBox.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
-        yesBox.setGravity(Gravity.CENTER);
-        noBox.setGravity(Gravity.CENTER);
+        LinearLayout yesBox = box();
+        LinearLayout noBox = box();
 
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        params.width = (int) mC.getResources().getDimension(R.dimen.combat_answer_icons);
-        params.height = (int) mC.getResources().getDimension(R.dimen.combat_answer_icons);
-
-        RadioButton yes = new RadioButton(mC);
-        yes.setButtonDrawable(null);
-        yes.setBackground(mC.getDrawable(R.drawable.moving_selector));
-        yes.setLayoutParams(params);
-
-        RadioButton no = new RadioButton(mC);
-        no.setButtonDrawable(null);
-        no.setBackground(mC.getDrawable(R.drawable.notmoving_selector));
-        no.setLayoutParams(params);
+        RadioButton yes=answerIcon(mC.getDrawable(R.drawable.moving_selector));
+        RadioButton no = answerIcon(mC.getDrawable(R.drawable.notmoving_selector));
 
         setRadioButtonListnerMoved(yes, no);
         yesBox.addView(yes);
@@ -93,14 +74,8 @@ public class CombatAsker {
         buttonTxt.setOrientation(LinearLayout.HORIZONTAL);
         buttonTxt.setPadding(0, 0, 0, (int) mC.getResources().getDimension(R.dimen.margin_combat_asker));
 
-        TextView yesTxt = new TextView(mC);
-        yesTxt.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
-        yesTxt.setGravity(Gravity.CENTER);
-        yesTxt.setText("Oui j'ai bougé");
-        TextView noTxt = new TextView(mC);
-        noTxt.setText("Non je n'ai rien fais");
-        noTxt.setGravity(Gravity.CENTER);
-        noTxt.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
+        TextView yesTxt = summaryText("Oui j'ai bougé");
+        TextView noTxt= summaryText("Non je n'ai rien fais");
         buttonTxt.addView(yesTxt);
         buttonTxt.addView(noTxt);
 
@@ -109,6 +84,43 @@ public class CombatAsker {
 
         stepsView.add(lineStep);
         getLayout();
+    }
+
+    private TextView summaryText(String s) {
+        TextView sumamrTxt=new TextView(mC);
+        sumamrTxt.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
+        sumamrTxt.setGravity(Gravity.CENTER);
+        sumamrTxt.setText(s);
+        return sumamrTxt;
+    }
+
+    private RadioButton answerIcon(Drawable drawable) {
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        params.width = (int) mC.getResources().getDimension(R.dimen.combat_answer_icons);
+        params.height = (int) mC.getResources().getDimension(R.dimen.combat_answer_icons);
+
+        RadioButton answerRadioButton = new RadioButton(mC);
+        answerRadioButton.setButtonDrawable(null);
+        answerRadioButton.setBackground(drawable);
+        answerRadioButton.setLayoutParams(params);
+        return answerRadioButton;
+    }
+
+    private LinearLayout box() {
+        LinearLayout box = new LinearLayout(mC);
+        box.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
+        box.setGravity(Gravity.CENTER);
+        return box;
+    }
+
+    private TextView questionLayout(String s) {
+        TextView question=new TextView(mC);
+        question.setGravity(Gravity.CENTER);
+        question.setText(s);
+        question.setTextSize(20);
+        question.setBackgroundColor(mC.getColor(R.color.title_question_combat_back));
+        question.setTextColor(mC.getColor(R.color.title_question_combat_text));
+        return question;
     }
 
     private void setRadioButtonListnerMoved(final RadioButton yes, final RadioButton no) {
@@ -136,7 +148,6 @@ public class CombatAsker {
     }
 
     private void clearStep(int rankStep) {
-
         while (stepsView.size() > rankStep) {
             stepsView.remove(stepsView.size() - 1);
         }
@@ -147,47 +158,24 @@ public class CombatAsker {
         LinearLayout lineStep = new LinearLayout(mC);
         lineStep.setOrientation(LinearLayout.VERTICAL);
 
-        TextView question = new TextView(mC);
-        question.setGravity(Gravity.CENTER);
-        question.setText("À quelle distance est l'ennemi ?");
-        question.setTextSize(20);
-        question.setBackgroundColor(mC.getColor(R.color.title_question_combat_back));
-        question.setTextColor(mC.getColor(R.color.title_question_combat_text));
+        TextView question = questionLayout("À quelle distance est l'ennemi ?");
         lineStep.addView(question);
 
         LinearLayout answers = new LinearLayout(mC);
-        answers.setWeightSum(3);
         answers.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         answers.setOrientation(LinearLayout.HORIZONTAL);
 
-        LinearLayout contactBox = new LinearLayout(mC);
-        LinearLayout midBox = new LinearLayout(mC);
-        LinearLayout outrangeBox = new LinearLayout(mC);
-        contactBox.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
-        midBox.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
-        outrangeBox.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
-        contactBox.setGravity(Gravity.CENTER);
-        midBox.setGravity(Gravity.CENTER);
-        outrangeBox.setGravity(Gravity.CENTER);
+        LinearLayout contactBox = box();
+        LinearLayout midBox = box();
+        LinearLayout outrangeBox = box();
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         params.width = (int) mC.getResources().getDimension(R.dimen.combat_answer_icons);
         params.height = (int) mC.getResources().getDimension(R.dimen.combat_answer_icons);
 
-        RadioButton contact = new RadioButton(mC);
-        contact.setButtonDrawable(null);
-        contact.setBackground(mC.getDrawable(R.drawable.contact_selector));
-        contact.setLayoutParams(params);
-
-        RadioButton mid = new RadioButton(mC);
-        mid.setButtonDrawable(null);
-        mid.setBackground(mC.getDrawable(R.drawable.mid_range_selector));
-        mid.setLayoutParams(params);
-
-        RadioButton out = new RadioButton(mC);
-        out.setButtonDrawable(null);
-        out.setBackground(mC.getDrawable(R.drawable.out_range_selector));
-        out.setLayoutParams(params);
+        RadioButton contact = answerIcon(mC.getDrawable(R.drawable.contact_selector));
+        RadioButton mid = answerIcon(mC.getDrawable(R.drawable.mid_range_selector));
+        RadioButton out = answerIcon(mC.getDrawable(R.drawable.out_range_selector));
 
         setRadioButtonListnerRange(contact, mid, out);
         contactBox.addView(contact);
@@ -202,21 +190,13 @@ public class CombatAsker {
         buttonTxt.setOrientation(LinearLayout.HORIZONTAL);
         buttonTxt.setPadding(0, 0, 0, (int) mC.getResources().getDimension(R.dimen.margin_combat_asker));
 
-        TextView contactTxt = new TextView(mC);
-        contactTxt.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
-        contactTxt.setGravity(Gravity.CENTER);
+
         int atkRange = aquene.getAllAttacks().getAtkRange();
-        contactTxt.setText("Moins de " + atkRange + "m");
-        TextView midTxt = new TextView(mC);
-        midTxt.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
-        midTxt.setGravity(Gravity.CENTER);
+        TextView contactTxt = summaryText("Moins de " + atkRange + "m");
         int ms = aquene.getAbilityScore("ms");
         int sum = ms + atkRange;
-        midTxt.setText("Entre " + atkRange + "m et " + sum + "m");
-        TextView outTxt = new TextView(mC);
-        outTxt.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
-        outTxt.setGravity(Gravity.CENTER);
-        outTxt.setText("Plus de " + sum + "m");
+        TextView midTxt = summaryText("Entre " + atkRange + "m et " + sum + "m");
+        TextView outTxt =summaryText("Plus de " + sum + "m");
 
         buttonTxt.addView(contactTxt);
         buttonTxt.addView(midTxt);
@@ -264,12 +244,7 @@ public class CombatAsker {
         lineStep.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         lineStep.setOrientation(LinearLayout.VERTICAL);
 
-        TextView question = new TextView(mC);
-        question.setGravity(Gravity.CENTER);
-        question.setText("Action(s) possible(s) :");
-        question.setTextSize(20);
-        question.setBackgroundColor(mC.getColor(R.color.title_question_combat_back));
-        question.setTextColor(mC.getColor(R.color.title_question_combat_text));
+        TextView question = questionLayout("Action(s) possible(s) :");
         lineStep.addView(question);
 
         TextView result = new TextView(mC);
@@ -312,9 +287,7 @@ public class CombatAsker {
 
             final List<RadioButton> listRadioAtk = new ArrayList<RadioButton>();
             for (Attack atk : possibleAttacks) {
-                LinearLayout box = new LinearLayout(mC);
-                box.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
-                box.setGravity(Gravity.CENTER);
+                LinearLayout box = box();
 
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                 params.width = (int) mC.getResources().getDimension(R.dimen.combat_attack_icons);
@@ -322,19 +295,15 @@ public class CombatAsker {
 
                 RadioButton atkButton = new RadioButton(mC);
                 atkButton.setButtonDrawable(null);
-                atkButton.setBackground(convertToGrayscale().mutate()); //le mutate c'est pour que le filtre ne s'applique pas sur tout les drawable identique (mire_test)
+                atkButton.setBackground(convertToGrayscale().mutate()); //le mutate c'est pour que le filtre ne s'applique pas au drawable source
 
                 atkButton.setLayoutParams(params);
                 listRadioAtk.add(atkButton);
 
                 box.addView(atkButton);
-
                 scrollAtkLin.addView(box);
 
-                TextView txt = new TextView(mC);
-                txt.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
-                txt.setGravity(Gravity.CENTER);
-                txt.setText(atk.getName());
+                TextView txt = summaryText(atk.getName());
                 scrollAtkLinTxt.addView(txt);
             }
 
@@ -357,12 +326,16 @@ public class CombatAsker {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (atkButton.isChecked()) {
+                        atkButton.getBackground().clearColorFilter();
                         for (RadioButton checkToUnselect : listRadioAtk) {
                             if (!checkToUnselect.equals(atkButton)) {
                                 checkToUnselect.setChecked(false);
+                                ColorMatrix matrix = new ColorMatrix();
+                                matrix.setSaturation(0);
+                                ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
+                                checkToUnselect.getBackground().setColorFilter(filter);
                             }
                         }
-                        selColors(listRadioAtk);
                         addConfirmationLine();
                         getLayout();
                     }
@@ -372,29 +345,12 @@ public class CombatAsker {
         }
     }
 
-    private void selColors(List<RadioButton> listRadioAtk) {
-        ColorMatrix matrix = new ColorMatrix();
-        matrix.setSaturation(0);
-        ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
-
-        for (RadioButton rad : listRadioAtk) {
-            if (rad.isChecked()) {
-                rad.getBackground().clearColorFilter();
-            } else {
-                rad.getBackground().setColorFilter(filter);
-            }
-        }
-    }
-
     protected Drawable convertToGrayscale() {
-        Drawable draw=mC.getDrawable(R.drawable.mire_test);
+        Drawable draw=mC.getDrawable(R.drawable.acrob);
         ColorMatrix matrix = new ColorMatrix();
         matrix.setSaturation(0);
-
         ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
-
         draw.setColorFilter(filter);
-
         return draw;
     }
 
