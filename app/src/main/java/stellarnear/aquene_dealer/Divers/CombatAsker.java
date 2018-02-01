@@ -292,7 +292,8 @@ public class CombatAsker {
 
                 RadioButton atkButton = new RadioButton(mC);
                 atkButton.setButtonDrawable(null);
-                atkButton.setBackground(convertToGrayscale().mutate()); //le mutate c'est pour que le filtre ne s'applique pas au drawable source
+                int imgId = mC.getResources().getIdentifier(atk.getId(), "drawable", mC.getPackageName());
+                atkButton.setBackground(convertToGrayscale(mC.getDrawable(imgId)).mutate()); //le mutate c'est pour que le filtre ne s'applique pas au drawable source
 
                 atkButton.setLayoutParams(params);
                 listRadioAtk.add(atkButton);
@@ -314,7 +315,6 @@ public class CombatAsker {
             getLayout();
             addConfirmationLine();
         }
-
     }
 
     private void setRadioButtonListnerResult(final List<RadioButton> listRadioAtk) {
@@ -342,13 +342,12 @@ public class CombatAsker {
         }
     }
 
-    protected Drawable convertToGrayscale() {
-        Drawable draw=mC.getDrawable(R.drawable.skill_acrob);
+    protected Drawable convertToGrayscale(Drawable inputDraw) {
         ColorMatrix matrix = new ColorMatrix();
         matrix.setSaturation(0);
         ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
-        draw.setColorFilter(filter);
-        return draw;
+        inputDraw.setColorFilter(filter);
+        return inputDraw;
     }
 
     private void addConfirmationLine() {
