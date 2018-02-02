@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<records>
+    <kicapacity>
+        <name>Désertion de l'âme</name>
+        <cost>3</cost>
+        <descr>Devient éthéré pendant une minute comme s’il utilisait le sort passage dans l’éther. Cette capacité s’active par une action de mouvement.</descr>
+        <id>kicapacity_ethereal</id>
+    </kicapacity>
+    <kicapacity>
+        <name>Pas chassé</name>
+        <cost>2</cost>
+        <descr>Déplacement instantané d’un endroit à un autre comme à l’aide du sort porte dimensionnelle. Nécessite une action de mouvement.</descr>
+        <id>kicapacity_step</id>
+    </kicapacity>
+    <kicapacity>
+        <name>Plénitude physique</name>
+        <cost>2</cost>
+        <descr>Le moine se soigne par une action simple d'un nombre de points de vie égal à son niveau de moine.</descr>
+        <id>kicapacity_heal</id>
+    </kicapacity>
+    <kicapacity>
+        <name>Augmentation d'armure</name>
+        <cost>1</cost>
+        <descr>Le moine gagne un bonus d’esquive de +4 à sa CA pendant 1 round.</descr>
+        <id>kicapacity_ca</id>
+    </kicapacity>
+    <kicapacity>
+        <name>Augmentation d'acrobatie</name>
+        <cost>1</cost>
+        <descr>Le moine gagne un bonus d’acrobatie de +20 à son prochain jet.</descr>
+        <id>kicapacity_acrob</id>
+    </kicapacity>
+    <kicapacity>
+        <name>Augmentation de déplacement</name>
+        <cost>1</cost>
+        <descr>Le moine gagne un bonus de +6m à sa vitesse de déplacement pendant 1 round.</descr>
+        <id>kicapacity_ms</id>
+    </kicapacity>
+</records>

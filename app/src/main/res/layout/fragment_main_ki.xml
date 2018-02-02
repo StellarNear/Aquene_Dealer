@@ -6,15 +6,6 @@
     android:layout_height="match_parent"
     tools:context="stellarnear.aquene_dealer.Activities.MainActivityFragmentKi">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="gestion du ki"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <LinearLayout
         android:id="@+id/linearKiFrag"
         android:layout_width="match_parent"
@@ -37,6 +28,54 @@
                  android:text="Contrôle du Ki" />
 
          </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/kiTitleLine"
+            android:weightSum="7"
+            android:orientation="horizontal"
+            android:background="@color/title_skill_color_background">
+
+            <TextView
+                android:id="@+id/kiNameTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:textColor="@color/title_skill_color_text"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:text="Capacité de Ki" />
+            <TextView
+                android:textColor="@color/title_skill_color_text"
+                android:id="@+id/kiEffectTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="15sp"
+                android:layout_weight="3"
+                android:textStyle="bold"
+                android:text="Effet" />
+            <TextView
+                android:textColor="@color/title_skill_color_text"
+                android:id="@+id/kiCostTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:textSize="15sp"
+                android:text="Coût" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/kiFragmentContentLinear"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            >
+        </LinearLayout>
     </LinearLayout>
 
 

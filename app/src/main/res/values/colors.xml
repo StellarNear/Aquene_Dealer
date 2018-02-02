@@ -54,5 +54,11 @@
     <color name="title_skill_color_text">@color/colorBackground</color>
     <color name="title_skill_color_background">@color/colorPrimaryDark</color>
 
+    <color name="start_gradient_ki" >#ffffff</color>
+    <color name="end_gradient_ki" >#e6e6e6</color>
+
+    <color name="start_gradient_ki_selected_capacity" >#ffffff</color>
+    <color name="end_gradient_ki_selected_capacity" >#00b33c</color>
+
 
 </resources>

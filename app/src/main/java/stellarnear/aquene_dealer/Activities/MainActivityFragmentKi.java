@@ -3,24 +3,43 @@ package stellarnear.aquene_dealer.Activities;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.pm.ActivityInfo;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.os.Handler;
+import android.support.design.widget.Snackbar;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import stellarnear.aquene_dealer.Divers.CustomAlertDialog;
+import stellarnear.aquene_dealer.Perso.KiCapacity;
+import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.R;
 
 /**
  * A placeholder fragment containing a simple view.
  */
 public class MainActivityFragmentKi extends Fragment {
-
+    Perso aquene=MainActivity.aquene;
+    View returnFragView;
+    List<LinearLayout> allKiCapa=new ArrayList<>();
+    KiCapacity kiCapaSelected;
+    Button valid;
     public MainActivityFragmentKi() {
+
     }
 
     @Override
@@ -31,7 +50,7 @@ public class MainActivityFragmentKi extends Fragment {
             container.removeAllViews();
         }
 
-        View returnFragView= inflater.inflate(R.layout.fragment_main_ki, container, false);
+        returnFragView= inflater.inflate(R.layout.fragment_main_ki, container, false);
 
         ImageButton buttonMain = (ImageButton) returnFragView.findViewById(R.id.button_frag_ki_to_main);
 
@@ -40,19 +59,122 @@ public class MainActivityFragmentKi extends Fragment {
         buttonMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                unlockOrient();
-                Fragment fragment = new MainActivityFragment();
-                FragmentManager fragmentManager = getActivity().getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.setCustomAnimations(R.animator.infadefrag,R.animator.outtoleftfrag);
-                fragmentTransaction.replace(R.id.fragment_main_frame_layout, fragment);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                backToMain();
             }
         });
 
+        LinearLayout contentLinear = returnFragView.findViewById(R.id.kiFragmentContentLinear);
+        addContent(contentLinear);
+
 
         return returnFragView;
+    }
+
+    private void backToMain() {
+        unlockOrient();
+        Fragment fragment = new MainActivityFragment();
+        FragmentManager fragmentManager = getActivity().getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.setCustomAnimations(R.animator.infadefrag,R.animator.outtoleftfrag);
+        fragmentTransaction.replace(R.id.fragment_main_frame_layout, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
+    private void addContent(LinearLayout contentLinear) {
+
+        for (KiCapacity kiCapa : aquene.getAllKiCapacities().getAllKiCapacitiesList()){
+            LinearLayout lineCapa = new LinearLayout(getContext());
+            lineCapa.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT,1));
+            lineCapa.setOrientation(LinearLayout.HORIZONTAL);
+            lineCapa.setGravity(Gravity.CENTER);
+            lineCapa.setBackground(getResources().getDrawable(R.drawable.ki_bar_gradient));
+            //setNameListnerRollSkill(line,skill);
+
+            TextView nameTxt = new TextView(getContext());
+            TextView nameTitle = returnFragView.findViewById(R.id.kiNameTitle);
+            nameTxt.setLayoutParams(nameTitle.getLayoutParams());
+            nameTxt.setText(kiCapa.getName());
+            //int imgId = getResources().getIdentifier(kiCapa.getId(), "drawable", getContext().getPackageName());
+            nameTxt.setCompoundDrawablesWithIntrinsicBounds(resize(getContext().getDrawable(R.drawable.mire_test)),null,null,null);
+            nameTxt.setPadding(getResources().getDimensionPixelSize(R.dimen.general_margin),0,0,0);
+            nameTxt.setGravity(Gravity.CENTER);
+
+            lineCapa.addView(nameTxt);
+
+            TextView summary = new TextView(getContext());
+            TextView summaryTitle = returnFragView.findViewById(R.id.kiEffectTitle);
+            summary.setLayoutParams(summaryTitle.getLayoutParams());
+            summary.setGravity(Gravity.CENTER);
+            summary.setTextSize(12);
+            summary.setPadding(getResources().getDimensionPixelSize(R.dimen.general_margin),0,0,0);
+            summary.setText(kiCapa.getDescr());
+            lineCapa.addView(summary);
+
+            TextView cost = new TextView(getContext());
+            TextView costTitle = returnFragView.findViewById(R.id.kiCostTitle);
+            cost.setLayoutParams(costTitle.getLayoutParams());
+            cost.setGravity(Gravity.CENTER);
+            cost.setText(String.valueOf(kiCapa.getCost()));
+            lineCapa.addView(cost);
+
+            setCapaLineListner(lineCapa,kiCapa);
+            allKiCapa.add(lineCapa);
+
+            contentLinear.addView(lineCapa);
+        }
+
+        LinearLayout lineStep = new LinearLayout(getContext());
+        LinearLayout.LayoutParams para = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1); //le weight est là pour que ca remplisse le restant du layout
+        lineStep.setLayoutParams(para);
+        lineStep.setGravity(Gravity.CENTER);
+        valid = new Button(getContext());
+        valid.setText("Confirmation");
+        valid.setTextColor(getContext().getColor(R.color.colorBackground));
+        valid.setBackground(getContext().getDrawable(R.drawable.button_basic_gradient));
+        lineStep.addView(valid);
+
+        contentLinear.addView(lineStep);
+
+    }
+
+    private void setCapaLineListner(final LinearLayout lineCapa, final KiCapacity kiCapa) {
+        lineCapa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                kiCapaSelected=kiCapa;
+                setLinearCapaColor(lineCapa);
+            }
+        });
+    }
+
+    private void setLinearCapaColor(LinearLayout lineCapa) {
+        for (LinearLayout lin : allKiCapa){
+            if (lin.equals(lineCapa)){
+                lin.setBackground(getResources().getDrawable(R.drawable.ki_capacity_selected_bar_gradient));
+            } else {
+                lin.setBackground(getResources().getDrawable(R.drawable.ki_bar_gradient));
+            }
+        }
+
+        valid.setBackground(getContext().getDrawable(R.drawable.button_ok_gradient));
+        valid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                aquene.getRessources().spendKi(kiCapaSelected.getCost());
+                Snackbar snackbar = Snackbar.make(view, "Lancement de : "+kiCapaSelected.getName(), Snackbar.LENGTH_LONG);
+                snackbar.show();
+                backToMain();
+            }
+        });
+
+    }
+
+    private Drawable resize(Drawable image) {
+        Bitmap b = ((BitmapDrawable)image).getBitmap();
+        int pixel_size_icon = (int) (getResources().getDimensionPixelSize(R.dimen.icon_kicapacities_list));
+        Bitmap bitmapResized = Bitmap.createScaledBitmap(b, pixel_size_icon, pixel_size_icon, false);
+        return new BitmapDrawable(getResources(), bitmapResized);
     }
 
 

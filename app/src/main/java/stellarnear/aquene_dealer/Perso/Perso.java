@@ -12,7 +12,8 @@ public class Perso {
     private AllFeats allFeats;
     private AllSkills allSkills;
     private AllAttacks allAttacks;
-    private Ki ki;
+    private AllKiCapacities allKiCapacities;
+    private Ressources ressources;
     private Context mC;
 
     public Perso(Context mC) {
@@ -22,6 +23,8 @@ public class Perso {
         allAbilities = new AllAbilities(mC);
         allSkills = new AllSkills(mC);
         allAttacks = new AllAttacks(mC);
+        allKiCapacities = new AllKiCapacities(mC);
+        ressources = new Ressources(mC);
     }
 
     public AllStances getAllStances() {
@@ -111,6 +114,10 @@ public class Perso {
     }
 
     public AllAttacks getAllAttacks(){return this.allAttacks;}
+
+    public AllKiCapacities getAllKiCapacities() {return this.allKiCapacities;}
+
+    public Ressources getRessources() {return this.ressources;}
 
 
     public boolean featIsActive(String featId) {

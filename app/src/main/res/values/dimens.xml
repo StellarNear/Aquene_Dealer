@@ -38,4 +38,6 @@
     <dimen name="margin_combat_asker">3dp</dimen>
     <dimen name="combat_attack_icons">55dp</dimen>
 
+    <dimen name="icon_kicapacities_list">50dp</dimen>
+
 </resources>

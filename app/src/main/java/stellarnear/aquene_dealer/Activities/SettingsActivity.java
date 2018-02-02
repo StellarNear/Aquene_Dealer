@@ -329,11 +329,15 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             window.addView(page_info);
 
 
-            TextView Yfa_version = new TextView(getContext());
-            Yfa_version.setText("Version actuelle : "+getResources().getString(R.string.version));
-            Yfa_version.setTextSize(22);
+            TextView version = new TextView(getContext());
+            version.setText("Version actuelle : "+getResources().getString(R.string.version));
+            version.setTextSize(22);
 
-            page_info.addView(Yfa_version);
+            page_info.addView(version);
+
+            TextView time = new TextView(getContext());
+            time.setText("Temps de travail nécessaire : "+getResources().getString(R.string.time_spend));
+            page_info.addView(time);
 
             ScrollView scroll_info = new ScrollView(getContext());
             page_info.addView(scroll_info);
@@ -524,9 +528,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
                 @Override
                 public void run() {
-                    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-                    SharedPreferences.Editor editor = prefs.edit();
-                    editor.commit();
+                    MainActivity.aquene.getRessources().sleepReset();
 
                     String descr="Une nouvelle journée pleine de mandales et d'acrobaties t'attends.";
                     Toast toast = Toast.makeText(getContext(), descr, Toast.LENGTH_LONG);

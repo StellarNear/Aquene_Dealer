@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.drawable.Drawable;
+import android.support.design.widget.Snackbar;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,9 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import stellarnear.aquene_dealer.Activities.MainActivity;
 import stellarnear.aquene_dealer.Perso.Attack;
@@ -28,8 +31,9 @@ public class CombatAsker {
     private Context mC;
     private int lastStep;
     private LinearLayout layout;
-    ArrayList<View> stepsView = new ArrayList<View>();
-
+    private ArrayList<View> stepsView = new ArrayList<View>();
+    private Map<RadioButton,Attack> mapRadioAtkAtk=new HashMap<>();
+    private Attack selectedAttack=null;
     private boolean moved;
     private boolean range;
     private boolean outrange;
@@ -301,6 +305,7 @@ public class CombatAsker {
 
                 atkButton.setLayoutParams(params);
                 listRadioAtk.add(atkButton);
+                mapRadioAtkAtk.put(atkButton,atk);
 
                 box.addView(atkButton);
                 scrollAtkLin.addView(box);
@@ -337,6 +342,7 @@ public class CombatAsker {
                                 checkToUnselect.getBackground().setColorFilter(filter);
                             }
                         }
+                        selectedAttack=mapRadioAtkAtk.get(atkButton);
                         addConfirmationLine();
                         getLayout();
                     }
@@ -369,9 +375,16 @@ public class CombatAsker {
         View.OnClickListener randomToast = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    Toast toast = Toast.makeText(mC, "Hey ca marche", Toast.LENGTH_LONG);
-                    toast.setGravity(Gravity.CENTER| Gravity.CENTER_HORIZONTAL,0,0);
-                    toast.show();
+                String txt;
+                if(selectedAttack==null){
+                    txt="Retour au menu principal";
+                } else {
+                    txt="Lancement de : "+selectedAttack.getName();
+                }
+
+                Snackbar snackbar = Snackbar.make(view, txt, Snackbar.LENGTH_LONG);
+                snackbar.show();
+                //TODO lancement d'n dialog avec l'attaque lancée
             }
         };
         compositeListner.addOnclickListener(randomToast);
