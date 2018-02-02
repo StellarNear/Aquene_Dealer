@@ -96,8 +96,8 @@ public class Perso {
 
     public Integer getSkillBonus(String skillId) {
         int bonusTemp = allSkills.getSkill(skillId).getBonus();
-        if (skillId.equalsIgnoreCase("acrob")) {
-            bonusTemp += allAbilities.getAbi("lvl").getValue();
+        if (skillId.equalsIgnoreCase("skill_acrob")) {
+            bonusTemp += allAbilities.getAbi("ability_lvl").getValue();
         }   //on ajoute le niveau de moine au jet d'acrob
         return bonusTemp;
     }

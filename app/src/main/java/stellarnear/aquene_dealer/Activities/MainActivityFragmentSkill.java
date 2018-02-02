@@ -98,7 +98,7 @@ public class MainActivityFragmentSkill extends Fragment {
         } else {
             abScore = String.valueOf(aquene.getAbilityMod(skill.getAbilityDependence()));
         }
-        abiTxt.setText(skill.getAbilityDependence().substring(0,3) + " : " +abScore );
+        abiTxt.setText(skill.getAbilityDependence().substring(8,11) + " : " +abScore );  //la clef de l'id etant ability_x
         abiTxt.setGravity(Gravity.CENTER);
 
         TextView rankTxt = new TextView(getContext());

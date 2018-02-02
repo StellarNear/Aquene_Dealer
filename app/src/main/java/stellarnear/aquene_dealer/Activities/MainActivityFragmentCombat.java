@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -31,6 +32,7 @@ public class MainActivityFragmentCombat extends Fragment {
     Perso aquene = MainActivity.aquene;
     View returnFragView;
     Map<RadioButton,String> mapModeButtonModKey=new HashMap<>();
+    CombatAsker combatAsker;
     public MainActivityFragmentCombat() {
     }
 
@@ -46,10 +48,8 @@ public class MainActivityFragmentCombat extends Fragment {
         returnFragView= inflater.inflate(R.layout.fragment_main_combat, container, false);
 
         ImageButton buttonMain = (ImageButton) returnFragView.findViewById(R.id.button_frag_combat_to_main);
-
         animate(buttonMain);
-
-        buttonMain.setOnClickListener(new View.OnClickListener() {
+        View.OnClickListener listnerBackToMain = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 unlockOrient();
@@ -61,8 +61,8 @@ public class MainActivityFragmentCombat extends Fragment {
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }
-        });
-
+        };
+        buttonMain.setOnClickListener(listnerBackToMain);
 
         mapModeButtonModKey.put((RadioButton) returnFragView.findViewById(R.id.button_combat_mode_normal),"normal");
         mapModeButtonModKey.put((RadioButton) returnFragView.findViewById(R.id.button_combat_mode_def),"def");
@@ -74,9 +74,7 @@ public class MainActivityFragmentCombat extends Fragment {
         setCombatModeListner((RadioButton) returnFragView.findViewById(R.id.button_combat_mode_def));
         setCombatModeListner((RadioButton) returnFragView.findViewById(R.id.button_combat_mode_totaldef));
 
-        new CombatAsker(getContext(),(LinearLayout) returnFragView.findViewById(R.id.scrollLinearCombat));
-
-
+        combatAsker= new CombatAsker(getContext(),(LinearLayout) returnFragView.findViewById(R.id.scrollLinearCombat),listnerBackToMain);
 
         return returnFragView;
     }
@@ -107,7 +105,7 @@ public class MainActivityFragmentCombat extends Fragment {
                 if (mapModeButtonModKey.get(button).equalsIgnoreCase("totaldef")){
                     modeTxt="défense totale";
                 }
-                new CombatAsker(getContext(),(LinearLayout) returnFragView.findViewById(R.id.scrollLinearCombat));
+                combatAsker.reset();
                 toastIt("Mode "+modeTxt+" activé.");
             }
         });

@@ -19,34 +19,34 @@
     <integer name="ability_reduc_def">10</integer>
 
     <!--  Rank de maitrise des compétences  -->
-    <integer name="acrob_rankDEF">18</integer>
-    <integer name="myst_rankDEF">6</integer>
-    <integer name="religion_rankDEF">6</integer>
-    <integer name="stealth_rankDEF">19</integer>
-    <integer name="ride_rankDEF">0</integer>
-    <integer name="climb_rankDEF">18</integer>
-    <integer name="escape_rankDEF">19</integer>
-    <integer name="intimidate_rankDEF">0</integer>
-    <integer name="swim_rankDEF">0</integer>
-    <integer name="percept_rankDEF">18</integer>
-    <integer name="heal_rankDEF">21</integer>
-    <integer name="psycho_rankDEF">0</integer>
-    <integer name="survival_rankDEF">21</integer>
+    <integer name="skill_acrob_rankDEF">18</integer>
+    <integer name="skill_myst_rankDEF">6</integer>
+    <integer name="skill_religion_rankDEF">6</integer>
+    <integer name="skill_stealth_rankDEF">19</integer>
+    <integer name="skill_ride_rankDEF">0</integer>
+    <integer name="skill_climb_rankDEF">18</integer>
+    <integer name="skill_escape_rankDEF">19</integer>
+    <integer name="skill_intimidate_rankDEF">0</integer>
+    <integer name="skill_swim_rankDEF">0</integer>
+    <integer name="skill_percept_rankDEF">18</integer>
+    <integer name="skill_heal_rankDEF">21</integer>
+    <integer name="skill_psycho_rankDEF">0</integer>
+    <integer name="skill_survival_rankDEF">21</integer>
 
     <!--  Bonus des compétences  -->
-    <integer name="acrob_bonusDEF">13</integer>
-    <integer name="myst_bonusDEF">3</integer>
-    <integer name="religion_bonusDEF">3</integer>
-    <integer name="stealth_bonusDEF">11</integer>
-    <integer name="ride_bonusDEF">8</integer>
-    <integer name="climb_bonusDEF">13</integer>
-    <integer name="escape_bonusDEF">11</integer>
-    <integer name="intimidate_bonusDEF">0</integer>
-    <integer name="swim_bonusDEF">8</integer>
-    <integer name="percept_bonusDEF">13</integer>
-    <integer name="heal_bonusDEF">11</integer>
-    <integer name="psycho_bonusDEF">8</integer>
-    <integer name="survival_bonusDEF">11</integer>
+    <integer name="skill_acrob_bonusDEF">13</integer>
+    <integer name="skill_myst_bonusDEF">3</integer>
+    <integer name="skill_religion_bonusDEF">3</integer>
+    <integer name="skill_stealth_bonusDEF">11</integer>
+    <integer name="skill_ride_bonusDEF">8</integer>
+    <integer name="skill_climb_bonusDEF">13</integer>
+    <integer name="skill_escape_bonusDEF">11</integer>
+    <integer name="skill_intimidate_bonusDEF">3</integer>
+    <integer name="skill_swim_bonusDEF">8</integer>
+    <integer name="skill_percept_bonusDEF">13</integer>
+    <integer name="skill_heal_bonusDEF">11</integer>
+    <integer name="skill_psycho_bonusDEF">8</integer>
+    <integer name="skill_survival_bonusDEF">11</integer>
 
     <integer name="percent_fullscreen_customdialog">90</integer>
 

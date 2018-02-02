@@ -12,6 +12,7 @@ import android.widget.RadioButton;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,18 +33,23 @@ public class CombatAsker {
     private boolean moved;
     private boolean range;
     private boolean outrange;
+    Button valid;
+    View.OnClickListener backToMainListner;
 
-    public CombatAsker(Context mC, LinearLayout layout) {
+    public CombatAsker(Context mC, LinearLayout layout, View.OnClickListener backToMainListner) {
         this.mC = mC;
         this.layout = layout;
-        
+        this.backToMainListner=backToMainListner;
+
         buildMovedLine();
     }
 
-
+    public void reset(){
+        buildMovedLine();
+    }
 
     private void buildMovedLine() {
-
+        clearStep(0);
         LinearLayout lineStep = new LinearLayout(mC);
         lineStep.setOrientation(LinearLayout.VERTICAL);
 
@@ -187,10 +193,9 @@ public class CombatAsker {
         buttonTxt.setOrientation(LinearLayout.HORIZONTAL);
         buttonTxt.setPadding(0, 0, 0, (int) mC.getResources().getDimension(R.dimen.margin_combat_asker));
 
-
         int atkRange = aquene.getAllAttacks().getAtkRange();
         TextView contactTxt = summaryText("Moins de " + atkRange + "m");
-        int ms = aquene.getAbilityScore("ms");
+        int ms = aquene.getAbilityScore("ability_ms");
         int sum = ms + atkRange;
         TextView midTxt = summaryText("Entre " + atkRange + "m et " + sum + "m");
         TextView outTxt =summaryText("Plus de " + sum + "m");
@@ -249,7 +254,7 @@ public class CombatAsker {
         String resultTxt = "";
 
         List<Attack> possibleAttacks = null;
-        int ms = aquene.getAbilityScore("ms");
+        int ms = aquene.getAbilityScore("ability_ms");
         if (outrange && moved) {
             resultTxt = "Il est trop loin, il va falloir attendre le prochain round.";
         } else if (outrange && !moved) {
@@ -285,7 +290,6 @@ public class CombatAsker {
             final List<RadioButton> listRadioAtk = new ArrayList<RadioButton>();
             for (Attack atk : possibleAttacks) {
                 LinearLayout box = box();
-
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                 params.width = (int) mC.getResources().getDimension(R.dimen.combat_attack_icons);
                 params.height = (int) mC.getResources().getDimension(R.dimen.combat_attack_icons);
@@ -356,14 +360,28 @@ public class CombatAsker {
         LinearLayout.LayoutParams para = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1); //le weight est là pour que ca remplisse le restant du layout
         lineStep.setLayoutParams(para);
         lineStep.setGravity(Gravity.CENTER);
-        Button valid = new Button(mC);
+        valid = new Button(mC);
         valid.setText("Confirmation");
         valid.setTextColor(mC.getColor(R.color.colorBackground));
         valid.setBackground(mC.getDrawable(R.drawable.button_ok_gradient));
+        CompositeListner compositeListner=new CompositeListner();
+        compositeListner.addOnclickListener(backToMainListner);
+        View.OnClickListener randomToast = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                    Toast toast = Toast.makeText(mC, "Hey ca marche", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER| Gravity.CENTER_HORIZONTAL,0,0);
+                    toast.show();
+            }
+        };
+        compositeListner.addOnclickListener(randomToast);
+        valid.setOnClickListener(compositeListner);
+
         lineStep.addView(valid);
         stepsView.add(lineStep);
         getLayout();
     }
+
 
     public void getLayout() {
         layout.removeAllViews();

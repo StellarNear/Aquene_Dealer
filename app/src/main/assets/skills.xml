@@ -3,79 +3,79 @@
     
     <skill>
         <name>Acrobaties</name>
-        <abilityDependence>DEXTERITE</abilityDependence>
+        <abilityDependence>ability_dexterite</abilityDependence>
         <descr>jump</descr>
         <id>skill_acrob</id>
     </skill>
     <skill>
         <name>Connaissance mystère</name>
-        <abilityDependence>INTELLIGENCE</abilityDependence>
+        <abilityDependence>ability_intelligence</abilityDependence>
         <descr>jump</descr>
         <id>skill_myst</id>
     </skill>
     <skill>
         <name>Connaissance religion</name>
-        <abilityDependence>INTELLIGENCE</abilityDependence>
+        <abilityDependence>ability_intelligence</abilityDependence>
         <descr>jump</descr>
         <id>skill_religion</id>
     </skill>
     <skill>
         <name>Discretion</name>
-        <abilityDependence>DEXTERITE</abilityDependence>
+        <abilityDependence>ability_dexterite</abilityDependence>
         <descr>jump</descr>
         <id>skill_stealth</id>
     </skill>
     <skill>
         <name>Equitation</name>
-        <abilityDependence>DEXTERITE</abilityDependence>
+        <abilityDependence>ability_dexterite</abilityDependence>
         <descr>jump</descr>
         <id>skill_ride</id>
     </skill>
     <skill>
         <name>Escalade</name>
-        <abilityDependence>DEXTERITE</abilityDependence>
+        <abilityDependence>ability_dexterite</abilityDependence>
         <descr>jump</descr>
         <id>skill_climb</id>
     </skill>
     <skill>
         <name>Evasion</name>
-        <abilityDependence>DEXTERITE</abilityDependence>
+        <abilityDependence>ability_dexterite</abilityDependence>
         <descr>jump</descr>
         <id>skill_escape</id>
     </skill>
     <skill>
         <name>Intimidation</name>
-        <abilityDependence>FORCE</abilityDependence>
+        <abilityDependence>ability_force</abilityDependence>
         <descr>jump</descr>
         <id>skill_intimidate</id>
     </skill>
     <skill>
         <name>Natation</name>
-        <abilityDependence>DEXTERITE</abilityDependence>
+        <abilityDependence>ability_dexterite</abilityDependence>
         <descr>jump</descr>
         <id>skill_swim</id>
     </skill>
     <skill>
         <name>Perception</name>
-        <abilityDependence>SAGESSE</abilityDependence>
+        <abilityDependence>ability_sagesse</abilityDependence>
         <descr>jump</descr>
         <id>skill_percept</id>
     </skill>
     <skill>
         <name>Premiers secours</name>
-        <abilityDependence>SAGESSE</abilityDependence>
+        <abilityDependence>ability_sagesse</abilityDependence>
         <descr>jump</descr>
         <id>skill_heal</id>
     </skill>
     <skill>
         <name>Psychologie</name>
-        <abilityDependence>SAGESSE</abilityDependence>
+        <abilityDependence>ability_sagesse</abilityDependence>
         <descr>jump</descr>
         <id>skill_psycho</id>
     </skill>
     <skill>
         <name>Survie</name>
-        <abilityDependence>SAGESSE</abilityDependence>
+        <abilityDependence>ability_sagesse</abilityDependence>
         <descr>jump</descr>
         <id>skill_survival</id>
     </skill>
