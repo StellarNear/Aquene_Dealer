@@ -1,6 +1,7 @@
 package stellarnear.aquene_dealer.Divers;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.drawable.Drawable;
@@ -110,6 +111,7 @@ public class CombatAsker {
         answerRadioButton.setButtonDrawable(null);
         answerRadioButton.setBackground(drawable);
         answerRadioButton.setLayoutParams(params);
+        answerRadioButton.setGravity(Gravity.CENTER);
         return answerRadioButton;
     }
 
@@ -257,23 +259,25 @@ public class CombatAsker {
         result.setGravity(Gravity.CENTER);
         String resultTxt = "";
 
-        List<Attack> possibleAttacks = null;
+        List<Attack> possibleAttacks = new ArrayList<>();
         int ms = aquene.getAbilityScore("ability_ms");
-        if (outrange && moved) {
+        if(aquene.getAllAttacks().getCombatMode().equalsIgnoreCase("totaldef")){
+            resultTxt = "Tu es en mode défénse total. Il ne te reste qu'une action de mouvement par round. Tu peux te deplacer en marchant (" + ms + "m).";
+        } else if (outrange && moved) {
             resultTxt = "Il est trop loin, il va falloir attendre le prochain round.";
         } else if (outrange && !moved) {
             resultTxt = "Il est trop loin, tu peux te deplacer en marchant (" + ms + "m) et faire autre chose qu'une attaque, ou courir (" + ms * 4 + "m) vers lui.";
         } else if (!moved && range && !outrange) {
             if (aquene.getAllAttacks().getCombatMode().equalsIgnoreCase("totaldef")) {
-                possibleAttacks = aquene.getAllAttacks().getAttacksForType("simple");
+                possibleAttacks = aquene.getAttacksForType("simple");
             } else {
-                possibleAttacks = aquene.getAllAttacks().getAttacksForType("complex");
+                possibleAttacks = aquene.getAttacksForType("complex");
             }
         } else if (!moved && !range && !outrange) {
             resultTxt = "Déplace toi puis :";
-            possibleAttacks = aquene.getAllAttacks().getAttacksForType("simple");
+            possibleAttacks = aquene.getAttacksForType("simple");
         } else if (moved && range && !outrange) {
-            possibleAttacks = aquene.getAllAttacks().getAttacksForType("simple");
+            possibleAttacks = aquene.getAttacksForType("simple");
         } else if (moved && !range && !outrange) {
             resultTxt = "Prochain round tu peux le toucher. En attendant fais autre chose qu'une attaque.";
         }
@@ -288,8 +292,10 @@ public class CombatAsker {
             LinearLayout scrollAtkLin = new LinearLayout(mC);
             scrollAtkLin.setPadding(0, (int) mC.getResources().getDimension(R.dimen.margin_combat_asker), 0, 0);
             scrollAtkLin.setOrientation(LinearLayout.HORIZONTAL);
+            scrollAtkLin.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             LinearLayout scrollAtkLinTxt = new LinearLayout(mC);
             scrollAtkLinTxt.setOrientation(LinearLayout.HORIZONTAL);
+            scrollAtkLinTxt.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
 
             final List<RadioButton> listRadioAtk = new ArrayList<RadioButton>();
             for (Attack atk : possibleAttacks) {
@@ -302,8 +308,8 @@ public class CombatAsker {
                 atkButton.setButtonDrawable(null);
                 int imgId = mC.getResources().getIdentifier(atk.getId(), "drawable", mC.getPackageName());
                 atkButton.setBackground(convertToGrayscale(mC.getDrawable(imgId)).mutate()); //le mutate c'est pour que le filtre ne s'applique pas au drawable source
-
                 atkButton.setLayoutParams(params);
+                atkButton.setGravity(Gravity.CENTER);
                 listRadioAtk.add(atkButton);
                 mapRadioAtkAtk.put(atkButton,atk);
 
@@ -380,6 +386,7 @@ public class CombatAsker {
                     txt="Retour au menu principal";
                 } else {
                     txt="Lancement de : "+selectedAttack.getName();
+                    aquene.getRessources().spendAttack(selectedAttack.getId());
                 }
 
                 Snackbar snackbar = Snackbar.make(view, txt, Snackbar.LENGTH_LONG);

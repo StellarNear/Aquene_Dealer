@@ -19,19 +19,19 @@
         <id>kicapacity_heal</id>
     </kicapacity>
     <kicapacity>
-        <name>Augmentation d'armure</name>
+        <name>Armure améliorée</name>
         <cost>1</cost>
         <descr>Le moine gagne un bonus d’esquive de +4 à sa CA pendant 1 round.</descr>
         <id>kicapacity_ca</id>
     </kicapacity>
     <kicapacity>
-        <name>Augmentation d'acrobatie</name>
+        <name>Acrobatie améliorée</name>
         <cost>1</cost>
         <descr>Le moine gagne un bonus d’acrobatie de +20 à son prochain jet.</descr>
         <id>kicapacity_acrob</id>
     </kicapacity>
     <kicapacity>
-        <name>Augmentation de déplacement</name>
+        <name>Déplacement amélioré</name>
         <cost>1</cost>
         <descr>Le moine gagne un bonus de +6m à sa vitesse de déplacement pendant 1 round.</descr>
         <id>kicapacity_ms</id>

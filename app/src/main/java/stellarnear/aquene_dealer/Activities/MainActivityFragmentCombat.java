@@ -95,31 +95,14 @@ public class MainActivityFragmentCombat extends Fragment {
                 }
                 persoChange(mapModeButtonModKey.get(button));
 
-                String modeTxt="";
-                if (mapModeButtonModKey.get(button).equalsIgnoreCase("normal")){
-                    modeTxt="normal";
-                }
-                if (mapModeButtonModKey.get(button).equalsIgnoreCase("def")){
-                    modeTxt="défensif";
-                }
-                if (mapModeButtonModKey.get(button).equalsIgnoreCase("totaldef")){
-                    modeTxt="défense totale";
-                }
                 combatAsker.reset();
-                toastIt("Mode "+modeTxt+" activé.");
             }
         });
 
     }
 
-    private void toastIt(String s) {
-        Toast toast = Toast.makeText(getContext(), s, Toast.LENGTH_LONG);
-        toast.setGravity(Gravity.CENTER| Gravity.CENTER_HORIZONTAL,0,0);
-        toast.show();
-    }
-
     private void persoChange(String mode) {
-        aquene.getAllAttacks().setCombatMode(mode);
+        aquene.setCombatMode(mode);
     }
 
 
