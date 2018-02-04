@@ -20,7 +20,7 @@ public class Ressources {
     public Ressources(Context mC)
     {
         this.mC = mC;
-        mapAttackidRemaning.put("attack_stun",2);
+        mapAttackidRemaning.put("attack_stun",0);
         mapAttackidRemaning.put("attack_palm",1);
     }
 

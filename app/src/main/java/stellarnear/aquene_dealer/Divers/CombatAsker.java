@@ -84,8 +84,15 @@ public class CombatAsker {
 
         TextView yesTxt = summaryText("Oui j'ai bougé");
         TextView noTxt= summaryText("Non je n'ai rien fais");
-        buttonTxt.addView(yesTxt);
-        buttonTxt.addView(noTxt);
+
+        LinearLayout yesBoxTxt = box();
+        LinearLayout noBoxTxt = box();
+
+        yesBoxTxt.addView(yesTxt);
+        noBoxTxt.addView(noTxt);
+
+        buttonTxt.addView(yesBoxTxt);
+        buttonTxt.addView(noBoxTxt);
 
         lineStep.addView(answers);
         lineStep.addView(buttonTxt);
@@ -96,7 +103,7 @@ public class CombatAsker {
 
     private TextView summaryText(String s) {
         TextView sumamrTxt=new TextView(mC);
-        sumamrTxt.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
+        sumamrTxt.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         sumamrTxt.setGravity(Gravity.CENTER);
         sumamrTxt.setText(s);
         return sumamrTxt;
@@ -117,7 +124,7 @@ public class CombatAsker {
 
     private LinearLayout box() {
         LinearLayout box = new LinearLayout(mC);
-        box.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
+        box.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
         box.setGravity(Gravity.CENTER);
         return box;
     }
@@ -178,10 +185,6 @@ public class CombatAsker {
         LinearLayout midBox = box();
         LinearLayout outrangeBox = box();
 
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        params.width = (int) mC.getResources().getDimension(R.dimen.combat_answer_icons);
-        params.height = (int) mC.getResources().getDimension(R.dimen.combat_answer_icons);
-
         RadioButton contact = answerIcon(mC.getDrawable(R.drawable.contact_selector));
         RadioButton mid = answerIcon(mC.getDrawable(R.drawable.mid_range_selector));
         RadioButton out = answerIcon(mC.getDrawable(R.drawable.out_range_selector));
@@ -206,9 +209,17 @@ public class CombatAsker {
         TextView midTxt = summaryText("Entre " + atkRange + "m et " + sum + "m");
         TextView outTxt =summaryText("Plus de " + sum + "m");
 
-        buttonTxt.addView(contactTxt);
-        buttonTxt.addView(midTxt);
-        buttonTxt.addView(outTxt);
+        LinearLayout contactBoxTxt = box();
+        LinearLayout midBoxTxt = box();
+        LinearLayout outrangeBoxTxt = box();
+
+        contactBoxTxt.addView(contactTxt);
+        midBoxTxt.addView(midTxt);
+        outrangeBoxTxt.addView(outTxt);
+
+        buttonTxt.addView(contactBoxTxt);
+        buttonTxt.addView(midBoxTxt);
+        buttonTxt.addView(outrangeBoxTxt);
 
         lineStep.addView(answers);
         lineStep.addView(buttonTxt);
@@ -316,8 +327,11 @@ public class CombatAsker {
                 box.addView(atkButton);
                 scrollAtkLin.addView(box);
 
+                LinearLayout boxTxt;
+                boxTxt= box();
                 TextView txt = summaryText(atk.getName());
-                scrollAtkLinTxt.addView(txt);
+                boxTxt.addView(txt);
+                scrollAtkLinTxt.addView(boxTxt);
             }
 
             setRadioButtonListnerResult(listRadioAtk);
