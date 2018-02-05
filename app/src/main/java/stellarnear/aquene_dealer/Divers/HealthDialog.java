@@ -109,16 +109,16 @@ public class HealthDialog {
             numberTxt.setText(String.valueOf(number));
             numberTxt.setTextColor(mC.getColor(R.color.cancel));
             in = AnimationUtils.loadAnimation(mA, R.anim.infromright_health);
-            in.setInterpolator(null);
+            //in.setInterpolator(null);
             out = AnimationUtils.loadAnimation(mA, R.anim.outtoleft_health);
-            out.setInterpolator(null);
+            //out.setInterpolator(null);
         } else {
             numberTxt.setText("+"+number);
             numberTxt.setTextColor(mC.getColor(R.color.validation));
             in = AnimationUtils.loadAnimation(mA, R.anim.infromleft_health);
-            in.setInterpolator(null);
+            //in.setInterpolator(null);
             out = AnimationUtils.loadAnimation(mA, R.anim.outtoright_health);
-            out.setInterpolator(null);
+            //out.setInterpolator(null);
         }
 
         in.setAnimationListener(new Animation.AnimationListener() {
@@ -166,6 +166,8 @@ public class HealthDialog {
         inputEdit.setInputType(InputType.TYPE_CLASS_NUMBER);
         inputEdit.setRawInputType(Configuration.KEYBOARD_12KEY);
         inputEdit.setFocusableInTouchMode(true);
+        final InputMethodManager lManager = (InputMethodManager) mA.getSystemService(Context.INPUT_METHOD_SERVICE);
+
         alert.setView(inputEdit);
         alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
@@ -179,6 +181,7 @@ public class HealthDialog {
                 }
                 setHealthHeight();
                 changeCancelButtonToOk();
+                lManager.hideSoftInputFromWindow(inputEdit.getWindowToken(), 0);
             }
         }).setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
@@ -188,7 +191,6 @@ public class HealthDialog {
         inputEdit.post(new Runnable() {
             public void run() {
                 inputEdit.requestFocusFromTouch();
-                InputMethodManager lManager = (InputMethodManager) mA.getSystemService(Context.INPUT_METHOD_SERVICE);
                 lManager.showSoftInput(inputEdit, 0);
             }
         });
