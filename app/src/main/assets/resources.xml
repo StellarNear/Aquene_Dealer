@@ -14,7 +14,8 @@
         <id>resource_regen</id>
     </resource>
     <resource>
-        <name>Points héroiques</name>
+        <name>Point(s) héroique(s)</name>
+        <shortname>Point héroique</shortname>
         <descr>base</descr>
         <id>resource_heroic</id>
     </resource>
@@ -25,11 +26,13 @@
     </resource>
     <resource>
         <name>Coup étourdissant</name>
+        <shortname>Coup étourd.</shortname>
         <descr></descr>
         <id>resource_stun</id>
     </resource>
     <resource>
         <name>Paume vibratoire</name>
+        <shortname>Paume vibr.</shortname>
         <descr></descr>
         <id>resource_palm</id>
     </resource>

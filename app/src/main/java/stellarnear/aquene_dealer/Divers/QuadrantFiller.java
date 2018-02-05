@@ -49,6 +49,8 @@ public class QuadrantFiller {
     LinearLayout quadrantFullSub1;
     LinearLayout quadrantFullSub2;
     private boolean fullscreen=false;
+
+    TextView miniHealth,fullHealth;
     View fullView;
     public QuadrantFiller(View mainView, Context mC, Activity mA) {
         this.mC=mC;
@@ -206,7 +208,11 @@ public class QuadrantFiller {
 
         TextView text = new TextView(mC);
         text.setTextSize(TypedValue.COMPLEX_UNIT_PX,textSize);
-        text.setText(res.getName()+" : ");
+        if (mode.equalsIgnoreCase("mini")){
+            text.setText(res.getShortname()+" : ");
+        } else {
+            text.setText(res.getName()+" : ");
+        }
 
         text.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT,1));
         text.setGravity(Gravity.CENTER_VERTICAL);
@@ -219,7 +225,8 @@ public class QuadrantFiller {
         text2.setTextSize(TypedValue.COMPLEX_UNIT_PX,textSize);
         String txt2;
         txt2=String.valueOf(aquene.getResourceValue(res.getId()));
-
+        if(mode.equalsIgnoreCase("mini") && res.getId().equalsIgnoreCase("resource_hp")){miniHealth=text2;}
+        if(mode.equalsIgnoreCase("full") && res.getId().equalsIgnoreCase("resource_hp")){fullHealth=text2;}
         text2.setText(txt2);
         text2.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT,1));
         text2.setGravity(Gravity.CENTER_VERTICAL);
@@ -245,7 +252,7 @@ public class QuadrantFiller {
         text.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HealthDialog healthDialog = new HealthDialog(mA,mC);
+                HealthDialog healthDialog = new HealthDialog(mA,mC,miniHealth,fullHealth);
                 healthDialog.showAlertDialog();
             }
         });
@@ -256,8 +263,6 @@ public class QuadrantFiller {
         Bitmap bitmapResized = Bitmap.createScaledBitmap(b, pixel_size_icon, pixel_size_icon, false);
         return new BitmapDrawable(mC.getResources(), bitmapResized);
     }
-
-
 
 
     private void switchViewNext() {

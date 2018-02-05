@@ -59,6 +59,7 @@ public class AllResources {
                     Element element2 = (Element) node;
                     Resource atk=new Resource(
                             readValue("name", element2),
+                            readValue("shortname", element2),
                             readValue("descr", element2),
                             toBool(readValue("testable", element2)),
                             readValue("id", element2),

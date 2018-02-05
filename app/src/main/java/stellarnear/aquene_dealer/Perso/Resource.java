@@ -11,6 +11,7 @@ import android.preference.PreferenceManager;
 
 public class Resource {
     private String name;
+    private String shortname;
     private String descr;
     private String id;
     private Context mC;
@@ -19,8 +20,9 @@ public class Resource {
     private boolean testable;
     private Drawable img;
 
-    public Resource(String name, String descr,Boolean testable, String id, Context mC){
+    public Resource(String name,String shortname, String descr,Boolean testable, String id, Context mC){
         this.name=name;
+        this.shortname=shortname;
         this.testable=testable;
         this.descr=descr;
         this.id=id;
@@ -73,6 +75,17 @@ public class Resource {
         } else {
             this.current+= amount;
         }
+    }
+
+    public String getShortname() {
+        String shortReturn;
+        if (this.shortname!="")
+        {
+            shortReturn=this.shortname;
+        } else {
+            shortReturn=this.name;
+        }
+        return shortReturn;
     }
 }
 
