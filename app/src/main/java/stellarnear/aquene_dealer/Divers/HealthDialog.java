@@ -1,6 +1,7 @@
 package stellarnear.aquene_dealer.Divers;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
@@ -15,6 +16,8 @@ import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -89,12 +92,13 @@ public class HealthDialog {
         alertDialog = dialogBuilder.create();
     }
 
-    private EditText giveEditText(String askText, final String mode) {
+    private void giveEditText(String askText, final String mode) {
         AlertDialog.Builder alert = new AlertDialog.Builder(mC);
         alert.setTitle(askText);
         final EditText inputEdit = new EditText(mC);
         inputEdit.setInputType(InputType.TYPE_CLASS_NUMBER);
         inputEdit.setRawInputType(Configuration.KEYBOARD_12KEY);
+        inputEdit.setFocusableInTouchMode(true);
         alert.setView(inputEdit);
         alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
@@ -111,10 +115,14 @@ public class HealthDialog {
             public void onClick(DialogInterface dialog, int whichButton) {
             }
         });
-
         alert.show();
-
-        return inputEdit;
+        inputEdit.post(new Runnable() {
+            public void run() {
+                inputEdit.requestFocusFromTouch();
+                InputMethodManager lManager = (InputMethodManager) mA.getSystemService(Context.INPUT_METHOD_SERVICE);
+                lManager.showSoftInput(inputEdit, 0);
+            }
+        });
     }
 
     private void setHealthHeight() {
