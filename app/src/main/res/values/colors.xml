@@ -59,6 +59,7 @@
 
     <color name="start_gradient_ki_selected_capacity" >#ffffff</color>
     <color name="end_gradient_ki_selected_capacity" >#00b33c</color>
+    <color name="colorTextButtonHealthDialog">@color/colorBackground</color>
 
 
 </resources>

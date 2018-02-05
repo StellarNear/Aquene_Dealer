@@ -24,7 +24,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import stellarnear.aquene_dealer.Divers.CustomAlertDialog;
 import stellarnear.aquene_dealer.Perso.KiCapacity;
 import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.R;
@@ -161,7 +160,7 @@ public class MainActivityFragmentKi extends Fragment {
         valid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                aquene.getRessources().spendKi(kiCapaSelected.getCost());
+                aquene.getAllResources().getResource("resource_ki").spend(kiCapaSelected.getCost());
                 Snackbar snackbar = Snackbar.make(view, "Lancement de : "+kiCapaSelected.getName(), Snackbar.LENGTH_LONG);
                 snackbar.show();
                 backToMain();

@@ -68,22 +68,6 @@
              android:singleLine="true"
              android:inputType="number"
              android:summary="Valeur : %s m"/>
-         <stellarnear.aquene_dealer.Divers.EditTextPreference
-             android:defaultValue="@integer/ability_hp_def"
-             android:key="ability_hp"
-             android:title="Point de vie"
-             android:selectAllOnFocus="true"
-             android:singleLine="true"
-             android:inputType="number"
-             android:summary="Valeur : %s"/>
-        <stellarnear.aquene_dealer.Divers.EditTextPreference
-            android:defaultValue="@integer/ability_heroic_def"
-            android:key="ability_heroic"
-            android:title="Points héroiques"
-            android:selectAllOnFocus="true"
-            android:singleLine="true"
-            android:inputType="number"
-            android:summary="Valeur : %s"/>
         <stellarnear.aquene_dealer.Divers.EditTextPreference
             android:defaultValue="@integer/ability_reduc_def"
             android:key="ability_reduc"
@@ -92,15 +76,38 @@
             android:inputType="number"
             android:singleLine="true"
             android:summary="Valeur : %s"/>
+
+
+    </PreferenceCategory>
+    <Preference android:layout="@layout/divider_pref" android:selectable="false"/>
+    <PreferenceCategory
+        android:key="RESOURCES"
+        android:title="Ressources">
+        <Preference android:layout="@layout/divider_pref" android:selectable="false"/>
         <stellarnear.aquene_dealer.Divers.EditTextPreference
-            android:defaultValue="@integer/ability_regen_def"
-            android:key="ability_regen"
+            android:defaultValue="@integer/resource_hp_def"
+            android:key="resource_hp"
+            android:title="Point de vie"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:inputType="number"
+            android:summary="Valeur : %s"/>
+        <stellarnear.aquene_dealer.Divers.EditTextPreference
+            android:defaultValue="@integer/resource_regen_def"
+            android:key="resourcey_regen"
             android:title="Régénération (/round)"
             android:selectAllOnFocus="true"
             android:singleLine="true"
             android:inputType="number"
             android:summary="Valeur : %s"/>
-
+        <stellarnear.aquene_dealer.Divers.EditTextPreference
+            android:defaultValue="@integer/resource_heroic_def"
+            android:key="resource_heroic"
+            android:title="Points héroiques"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:inputType="number"
+            android:summary="Valeur : %s"/>
     </PreferenceCategory>
     <Preference android:layout="@layout/divider_pref" android:selectable="false"/>
     <PreferenceCategory
@@ -126,9 +133,14 @@
             android:key="switch_save_race"
             android:title="Bonus racial +1 (halfelin)" />
         <SwitchPreference
-            android:defaultValue="@bool/switch_save_coat"
+            android:defaultValue="@bool/switch_save_coat_DEF"
             android:key="switch_save_coat"
             android:title="Cape de résistances draconique +5" />
+        <SwitchPreference
+            android:defaultValue="@bool/switch_perma_resi_DEF"
+            android:key="switch_perma_resi"
+            android:title="Permanence résistance +1" />
+
 
     </PreferenceCategory>
     <Preference android:layout="@layout/divider_pref" android:selectable="false"/>
@@ -146,7 +158,7 @@
             android:summary="Valeur : %s"/>
 
         <SwitchPreference
-            android:defaultValue="@bool/switch_save_ref_boot"
+            android:defaultValue="@bool/switch_save_ref_boot_DEF"
             android:key="switch_save_ref_boot"
             android:title="Bottes de rapidité +1" />
     </PreferenceCategory>

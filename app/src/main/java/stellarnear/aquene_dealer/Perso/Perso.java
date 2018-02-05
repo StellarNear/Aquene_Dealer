@@ -1,12 +1,16 @@
 package stellarnear.aquene_dealer.Perso;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.view.Gravity;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import stellarnear.aquene_dealer.R;
 
 /**
  * Created by jchatron on 26/12/2017.
@@ -19,7 +23,7 @@ public class Perso {
     private AllSkills allSkills;
     private AllAttacks allAttacks;
     private AllKiCapacities allKiCapacities;
-    private Ressources ressources;
+    private AllResources allResources;
     private Context mC;
 
     public Perso(Context mC) {
@@ -30,7 +34,15 @@ public class Perso {
         allSkills = new AllSkills(mC);
         allAttacks = new AllAttacks(mC);
         allKiCapacities = new AllKiCapacities(mC);
-        ressources = new Ressources(mC);
+        allResources = new AllResources(mC,allFeats,allAbilities);
+    }
+
+    public void refresh() {
+        allFeats.refreshAllSwitch();
+        allSkills.refreshAllVals();
+        allAbilities.refreshAllAbilities();
+        allAttacks.refreshAllAttacks();
+        allResources.refreshMaxs();
     }
 
     public AllStances getAllStances() {
@@ -53,21 +65,45 @@ public class Perso {
         if (allAbilities.getAbi(abiId) != null) {
             abiScore = allAbilities.getAbi(abiId).getValue();
 
-            if (abiId.equalsIgnoreCase("init") && featIsActive("init")) {
+            if (abiId.equalsIgnoreCase("ability_init") && featIsActive("feat_init")) {
                 abiScore += 4;
             }
 
-            if (abiId.equalsIgnoreCase("force") && allStances.getCurrentStance() != null && allStances.getStance("bear").isActive()) {
+            if (abiId.equalsIgnoreCase("ability_force") && allStances.getCurrentStance() != null && allStances.getStance("stance_bear").isActive()) {
                 abiScore += 7;
             }
 
-            if (abiId.equalsIgnoreCase("ca")) {
-                if (allAttacks.getCombatMode().equals("def")) {
-                    abiScore += getCaBonusCombatMode("def");
-                } else if (allAttacks.getCombatMode().equals("totaldef")) {
-                    abiScore += getCaBonusCombatMode("totaldef");
+            if (abiId.equalsIgnoreCase("ability_ca")) {
+                if (allAttacks.getCombatMode().equals("mode_def")) {
+                    abiScore += getCaBonusCombatMode("mode_def");
+                } else if (allAttacks.getCombatMode().equals("mode_totaldef")) {
+                    abiScore += getCaBonusCombatMode("mode_totaldef");
                 }
+            }
 
+            if (abiId.equalsIgnoreCase("ability_ref")||abiId.equalsIgnoreCase("ability_vig")||abiId.equalsIgnoreCase("ability_vol")) {
+                if (abiId.equalsIgnoreCase("ability_ref")){abiScore+=getAbilityMod("ability_dexterite");}
+                if (abiId.equalsIgnoreCase("ability_vig")){abiScore+=getAbilityMod("ability_constitution");}
+                if (abiId.equalsIgnoreCase("ability_vol")){abiScore+=getAbilityMod("ability_sagesse");}
+                SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mC);
+                if (settings.getBoolean("switch_save_race",mC.getResources().getBoolean(R.bool.switch_save_race_DEF))) {
+                    abiScore+=1;
+                }
+                if (settings.getBoolean("switch_perma_resi",mC.getResources().getBoolean(R.bool.switch_save_race_DEF))) {
+                    abiScore+=1;
+                }
+                if (settings.getBoolean("switch_save_coat",mC.getResources().getBoolean(R.bool.switch_save_coat_DEF))) {
+                    abiScore+=5;
+                }
+                if (abiId.equalsIgnoreCase("ability_ref") && settings.getBoolean("switch_save_ref_boot",mC.getResources().getBoolean(R.bool.switch_save_ref_boot_DEF))) {
+                    abiScore+=1;
+                }
+                if (abiId.equalsIgnoreCase("ability_vol") && featIsActive("feat_iron_will")) {
+                    abiScore+=2;
+                }
+                if (abiId.equalsIgnoreCase("ability_vig") && featIsActive("feat_inhuman_stamina") ) {
+                    abiScore+=2;
+                }
             }
         }
         return abiScore;
@@ -75,7 +111,7 @@ public class Perso {
 
     private int getCaBonusCombatMode(String mode) {
         int caBonus = 0;
-        if (mode.equalsIgnoreCase("def")) {
+        if (mode.equalsIgnoreCase("mode_def")) {
             if (getAllSkills().getSkill("skill_acrob").getRank() >= 23) {
                 caBonus += 5;
             } else if (getAllSkills().getSkill("skill_acrob").getRank() >= 3) {
@@ -83,7 +119,7 @@ public class Perso {
             } else {
                 caBonus += 2;
             }
-        } else if (mode.equalsIgnoreCase("totaldef")) {
+        } else if (mode.equalsIgnoreCase("mode_totaldef")) {
             if (getAllSkills().getSkill("skill_acrob").getRank() >= 23) {
                 caBonus += 8;
             } else if (getAllSkills().getSkill("skill_acrob").getRank() >= 3) {
@@ -146,21 +182,19 @@ public class Perso {
         List<Attack> selectedAttack=new ArrayList<>();
         for (Attack atk : allAttacks.getAttacksForType(type)){
             if (atk.getId().equalsIgnoreCase("attack_stun")){
-                if (ressources.getRemaningAttack(atk.getId())>0){
+                if (featIsActive("feat_stun") && allResources.getResource(atk.getId().replace("attack","resource")).getCurrent()>0){
                     selectedAttack.add(atk);
                 } else {
                     selectedAttack.add(allAttacks.getAttack("attack_normal"));
                 }
             } else if (atk.getId().equalsIgnoreCase("attack_palm")){
-                if (ressources.getRemaningAttack(atk.getId())>0){
+                if (allResources.getResource(atk.getId().replace("attack","resource")).getCurrent()>0){
                     selectedAttack.add(atk);
                 }
             } else {
                 if(!atk.getId().equalsIgnoreCase("attack_normal")){selectedAttack.add(atk);} //les attaque normal ne sont ajoutées que si plus de stun
             }
         }
-
-
         return selectedAttack;
     }
 
@@ -168,14 +202,14 @@ public class Perso {
         allAttacks.setCombatMode(mode);
         String modeTxt="";
         String summary="";
-        if (mode.equalsIgnoreCase("normal")){
+        if (mode.equalsIgnoreCase("mode_normal")){
             modeTxt="normal";
         }
-        if (mode.equalsIgnoreCase("def")){
+        if (mode.equalsIgnoreCase("mode_def")){
             modeTxt="défensif";
             summary="\n(+"+getCaBonusCombatMode(mode)+"CA/-4 jets d'attaque)";
         }
-        if (mode.equalsIgnoreCase("totaldef")){
+        if (mode.equalsIgnoreCase("mode_totaldef")){
             modeTxt="défense totale";
             summary="\n(+"+getCaBonusCombatMode(mode)+"CA/-une action simple par round)";
         }
@@ -194,18 +228,23 @@ public class Perso {
         return this.allKiCapacities;
     }
 
-    public Ressources getRessources() {
-        return this.ressources;
+    public AllResources getAllResources() {
+        return this.allResources;
     }
 
-
-    public void refresh() {
-        allFeats.refreshAllSwitch();
-        allSkills.refreshAllVals();
-        allAbilities.refreshAllAbilities();
-        allAttacks.refreshAllAttacks();
+    public Integer getResourceValue(String resId){
+        Resource res = allResources.getResource(resId);
+        Integer value=0;
+        if(res!=null){
+            value=res.getCurrent();
+        }
+        if(resId.equalsIgnoreCase("resource_regen") && allStances.isActive("stance_phenix")){
+            Skill surv=allSkills.getSkill("skill_survival");
+            int survScore= surv.getRank()+surv.getBonus()+getAbilityMod(surv.getAbilityDependence());
+            Skill heal=allSkills.getSkill("skill_heal");
+            int healScore= heal.getRank()+heal.getBonus()+getAbilityMod(heal.getAbilityDependence());
+            value+=getAbilityMod("ability_sagesse")+ (int) ((survScore+healScore)/10.);
+        }
+        return value;
     }
-
-
-
 }

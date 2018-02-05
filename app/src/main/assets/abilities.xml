@@ -50,40 +50,6 @@
         <focusable>true</focusable>
     </ability>
 
-    <!-- general ability -->
-    <ability>
-        <name>Niveau</name>
-        <type>general</type>
-        <descr></descr>
-        <id>ability_lvl</id>
-    </ability>
-    <ability>
-        <name>Vitesse de déplacement</name>
-        <shortname>Déplacement</shortname>
-        <type>general</type>
-        <descr>base</descr>
-        <id>ability_ms</id>
-    </ability>
-    <ability>
-        <name>Points héroiques</name>
-        <type>general</type>
-        <descr>base</descr>
-        <id>ability_heroic</id>
-    </ability>
-    <ability>
-        <name>Points de vie</name>
-        <type>general</type>
-        <descr>base</descr>
-        <id>ability_hp</id>
-        <testable>true</testable>
-    </ability>
-    <ability>
-        <name>Régénération</name>
-        <type>general</type>
-        <descr></descr>
-        <id>ability_regen</id>
-    </ability>
-
     <!-- def ability -->
 
     <ability>
@@ -130,6 +96,20 @@
 
 
     <!-- advanced ability -->
+    <ability>
+        <name>Niveau</name>
+        <type>advanced</type>
+        <descr></descr>
+        <id>ability_lvl</id>
+    </ability>
+    <ability>
+        <name>Vitesse de déplacement (m)</name>
+        <shortname>Déplacement</shortname>
+        <type>advanced</type>
+        <descr>base</descr>
+        <id>ability_ms</id>
+    </ability>
+
     <ability>
         <name>Initative</name>
         <type>advanced</type>

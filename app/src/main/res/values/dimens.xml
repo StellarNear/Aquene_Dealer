@@ -39,5 +39,6 @@
     <dimen name="combat_attack_icons">55dp</dimen>
 
     <dimen name="icon_kicapacities_list">50dp</dimen>
+    <dimen name="margin_healthDialog_text">30dp</dimen>
 
 </resources>

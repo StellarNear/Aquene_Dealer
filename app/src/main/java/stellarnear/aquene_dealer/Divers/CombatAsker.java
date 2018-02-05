@@ -1,7 +1,6 @@
 package stellarnear.aquene_dealer.Divers;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.drawable.Drawable;
@@ -14,7 +13,6 @@ import android.widget.RadioButton;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -272,14 +270,14 @@ public class CombatAsker {
 
         List<Attack> possibleAttacks = new ArrayList<>();
         int ms = aquene.getAbilityScore("ability_ms");
-        if(aquene.getAllAttacks().getCombatMode().equalsIgnoreCase("totaldef")){
+        if(aquene.getAllAttacks().getCombatMode().equalsIgnoreCase("mode_totaldef")){
             resultTxt = "Tu es en mode défénse total. Il ne te reste qu'une action de mouvement par round. Tu peux te deplacer en marchant (" + ms + "m).";
         } else if (outrange && moved) {
             resultTxt = "Il est trop loin, il va falloir attendre le prochain round.";
         } else if (outrange && !moved) {
             resultTxt = "Il est trop loin, tu peux te deplacer en marchant (" + ms + "m) et faire autre chose qu'une attaque, ou courir (" + ms * 4 + "m) vers lui.";
         } else if (!moved && range && !outrange) {
-            if (aquene.getAllAttacks().getCombatMode().equalsIgnoreCase("totaldef")) {
+            if (aquene.getAllAttacks().getCombatMode().equalsIgnoreCase("mode_totaldef")) {
                 possibleAttacks = aquene.getAttacksForType("simple");
             } else {
                 possibleAttacks = aquene.getAttacksForType("complex");
@@ -400,7 +398,8 @@ public class CombatAsker {
                     txt="Retour au menu principal";
                 } else {
                     txt="Lancement de : "+selectedAttack.getName();
-                    aquene.getRessources().spendAttack(selectedAttack.getId());
+                    if(aquene.getAllResources().getResource(selectedAttack.getId().replace("attack","resource"))!=null)
+                    {aquene.getAllResources().getResource(selectedAttack.getId().replace("attack","resource")).spend(1);}
                 }
 
                 Snackbar snackbar = Snackbar.make(view, txt, Snackbar.LENGTH_LONG);

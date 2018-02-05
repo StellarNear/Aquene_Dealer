@@ -2,14 +2,11 @@ package stellarnear.aquene_dealer.Divers;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
-import android.preference.PreferenceManager;
-import android.support.annotation.Dimension;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -22,15 +19,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import stellarnear.aquene_dealer.Activities.MainActivity;
 import stellarnear.aquene_dealer.Perso.Ability;
 import stellarnear.aquene_dealer.Perso.Perso;
+import stellarnear.aquene_dealer.Perso.Resource;
 import stellarnear.aquene_dealer.R;
 
 /**
@@ -83,7 +79,7 @@ public class QuadrantFiller {
         mapLayoutTextTitle.put(quadrant1,mC.getResources().getString(R.string.quadrantQ1Title));
         mapQuadrantType.put(quadrant1,"base");
         mapLayoutTextTitle.put(quadrant2,mC.getResources().getString(R.string.quadrantQ2Title));
-        mapQuadrantType.put(quadrant2,"general");
+        mapQuadrantType.put(quadrant2,"res");
         mapLayoutTextTitle.put(quadrant3,mC.getResources().getString(R.string.quadrantQ3Title));
         mapQuadrantType.put(quadrant3,"def");
         mapLayoutTextTitle.put(quadrant4,mC.getResources().getString(R.string.quadrantQ4Title));
@@ -94,10 +90,9 @@ public class QuadrantFiller {
 
     private void buildAllMini() {
 
-        String[] types = {"base","general","def","advanced"};
+        String[] types = {"base","res","def","advanced"};
 
         for (int i=0;i<types.length ;i++){
-            List<Ability> abiList=aquene.getAllAbilities().getAbilitiesList(types[i]);
             String nameSub1="main_frag_stats_quadrant"+String.valueOf(i+1)+"_1";
             int layIdSub1 = mC.getResources().getIdentifier(nameSub1, "id", mC.getPackageName());
             LinearLayout sub1 =  mainView.findViewById(layIdSub1);
@@ -105,28 +100,49 @@ public class QuadrantFiller {
             int layIdSub2 = mC.getResources().getIdentifier(nameSub2, "id", mC.getPackageName());
             LinearLayout sub2 =  mainView.findViewById(layIdSub2);
 
-            injectStats(abiList, sub1, sub2,"mini");
+            if (i==1){
+                List<Resource> resList=aquene.getAllResources().getResourcesList();
+                injectStatsRes(resList, sub1, sub2,"mini");
+            } else {
+                List<Ability> abiList=aquene.getAllAbilities().getAbilitiesList(types[i]);
+                injectStatsAbi(abiList, sub1, sub2,"mini");
+            }
         }
     }
 
-    // call externe de refreshAllAttacks
     public void fullscreenQuadrant(LinearLayout layout){
-        List<Ability> abiList=aquene.getAllAbilities().getAbilitiesList(mapQuadrantType.get(layout));
-        injectStats(abiList, quadrantFullSub1, quadrantFullSub2,"full");
+        if (mapQuadrantType.get(layout).equalsIgnoreCase("res")){
+            List<Resource> abiRes=aquene.getAllResources().getResourcesList();
+            injectStatsRes(abiRes, quadrantFullSub1, quadrantFullSub2,"full");
+        } else {
+            List<Ability> abiList=aquene.getAllAbilities().getAbilitiesList(mapQuadrantType.get(layout));
+            injectStatsAbi(abiList, quadrantFullSub1, quadrantFullSub2,"full");
+        }
+
         switchTextTitle(mapLayoutTextTitle.get(layout));
         switchViewNext();
     }
 
-    private void injectStats(List<Ability> abiList, LinearLayout quadrantSub1, LinearLayout quadrantSub2,String mode) {
+    private void injectStatsAbi(List<Ability> abiList, LinearLayout quadrantSub1, LinearLayout quadrantSub2,String mode) {
         quadrantSub1.removeAllViews();
         quadrantSub2.removeAllViews();
 
         for (Ability abi : abiList){
-            addText(abi,quadrantSub1,quadrantSub2,mode);
+            addTextAbi(abi,quadrantSub1,quadrantSub2,mode);
         }
     }
 
-    private void addText(Ability abi, LinearLayout quadrantSub1, LinearLayout quadrantSub2,String mode) {
+    private void injectStatsRes(List<Resource> resList, LinearLayout quadrantSub1, LinearLayout quadrantSub2,String mode) {
+        quadrantSub1.removeAllViews();
+        quadrantSub2.removeAllViews();
+
+        for (Resource res : resList){
+            addTextRes(res,quadrantSub1,quadrantSub2,mode);
+        }
+    }
+
+
+    private void addTextAbi(Ability abi, LinearLayout quadrantSub1, LinearLayout quadrantSub2, String mode) {
         float textSize;
         int iconSize;
         if (mode.equalsIgnoreCase("mini")){
@@ -177,13 +193,60 @@ public class QuadrantFiller {
         }
     }
 
+    private void addTextRes(Resource res, LinearLayout quadrantSub1, LinearLayout quadrantSub2, String mode) {
+        float textSize;
+        int iconSize;
+        if (mode.equalsIgnoreCase("mini")){
+            textSize=mC.getResources().getDimension(R.dimen.textSizeQuadrantMini);
+            iconSize=mC.getResources().getDimensionPixelSize(R.dimen.iconSizeQuadrantMini);
+        } else {
+            textSize=mC.getResources().getDimension(R.dimen.textSizeQuadrantFull);
+            iconSize=mC.getResources().getDimensionPixelSize(R.dimen.iconSizeQuadrantFull);
+        }
+
+        TextView text = new TextView(mC);
+        text.setTextSize(TypedValue.COMPLEX_UNIT_PX,textSize);
+        text.setText(res.getName()+" : ");
+
+        text.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT,1));
+        text.setGravity(Gravity.CENTER_VERTICAL);
+        text.setCompoundDrawablesWithIntrinsicBounds(resize(res.getImg(),iconSize),null,null,null);
+        if (mode.equalsIgnoreCase("full")){text.setCompoundDrawablePadding(mC.getResources().getDimensionPixelSize(R.dimen.full_quadrant_icons_margin));
+        }else{text.setCompoundDrawablePadding(mC.getResources().getDimensionPixelSize(R.dimen.mini_quadrant_icons_margin));}
+        quadrantSub1.addView(text);
+
+        TextView text2 = new TextView(mC);
+        text2.setTextSize(TypedValue.COMPLEX_UNIT_PX,textSize);
+        String txt2;
+        txt2=String.valueOf(aquene.getResourceValue(res.getId()));
+
+        text2.setText(txt2);
+        text2.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT,1));
+        text2.setGravity(Gravity.CENTER_VERTICAL);
+        quadrantSub2.addView(text2);
+
+        if(mode.equalsIgnoreCase("full") && res.isTestable()){ //correspond à hp
+            setListner(text,res);
+            setListner(text2,res);
+        }
+    }
+
     private void setListner(TextView text,final Ability abi) {
         text.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                  CustomAlertDialog abilityAlertDialog = new CustomAlertDialog(mA, mC, abi);
                  abilityAlertDialog.showAlertDialog();
+            }
+        });
+    }
 
+    private void setListner(TextView text,final Resource res) {
+        text.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HealthDialog healthDialog = new HealthDialog(mA,mC);
+                healthDialog.showAlertDialog();
             }
         });
     }

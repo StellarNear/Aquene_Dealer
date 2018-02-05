@@ -33,7 +33,7 @@ public class AllAttacks {
 
     public AllAttacks(Context mC) {
         this.mC = mC;
-        combatMode="normal";
+        combatMode="mode_normal";
         buildAttacksList();
 
         refreshAllAttacks();

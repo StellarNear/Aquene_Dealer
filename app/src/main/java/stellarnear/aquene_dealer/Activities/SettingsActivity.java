@@ -528,7 +528,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
                 @Override
                 public void run() {
-                    MainActivity.aquene.getRessources().sleepReset();
+                    MainActivity.aquene.getAllResources().sleepReset();
 
                     String descr="Une nouvelle journée pleine de mandales et d'acrobaties t'attends.";
                     Toast toast = Toast.makeText(getContext(), descr, Toast.LENGTH_LONG);

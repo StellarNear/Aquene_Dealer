@@ -30,9 +30,13 @@
     <string name="quadrantGeneralTitle">Caractéristiques</string>
 
     <string name="quadrantQ1Title">Abilités de base</string>
-    <string name="quadrantQ2Title">Caractéristiques générales</string>
+    <string name="quadrantQ2Title">Ressources</string>
     <string name="quadrantQ3Title">Caractéristiques défensives</string>
     <string name="quadrantQ4Title">Caractéristiques avancées</string>
+
     <string name="jet_att_def">15,12,5</string>
+    <string name="health_dialog_heal">soin</string>
+    <string name="health_dialog_dmg">dégât</string>
+    <string name="health_dialog_regen">régén</string>
 
 </resources>
