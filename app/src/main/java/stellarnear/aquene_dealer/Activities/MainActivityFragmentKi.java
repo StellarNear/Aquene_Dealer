@@ -89,14 +89,13 @@ public class MainActivityFragmentKi extends Fragment {
             lineCapa.setOrientation(LinearLayout.HORIZONTAL);
             lineCapa.setGravity(Gravity.CENTER);
             lineCapa.setBackground(getResources().getDrawable(R.drawable.ki_bar_gradient));
-            //setNameListnerRollSkill(line,skill);
 
             TextView nameTxt = new TextView(getContext());
             TextView nameTitle = returnFragView.findViewById(R.id.kiNameTitle);
             nameTxt.setLayoutParams(nameTitle.getLayoutParams());
             nameTxt.setText(kiCapa.getName());
-            //int imgId = getResources().getIdentifier(kiCapa.getId(), "drawable", getContext().getPackageName());
-            nameTxt.setCompoundDrawablesWithIntrinsicBounds(resize(getContext().getDrawable(R.drawable.mire_test)),null,null,null);
+            int imgId = getResources().getIdentifier(kiCapa.getId(), "drawable", getContext().getPackageName());
+            nameTxt.setCompoundDrawablesWithIntrinsicBounds(resize(getContext().getDrawable(imgId)),null,null,null);
             nameTxt.setPadding(getResources().getDimensionPixelSize(R.dimen.general_margin),0,0,0);
             nameTxt.setGravity(Gravity.CENTER);
 
