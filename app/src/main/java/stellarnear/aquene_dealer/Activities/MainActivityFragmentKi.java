@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -156,16 +157,33 @@ public class MainActivityFragmentKi extends Fragment {
             }
         }
 
-        valid.setBackground(getContext().getDrawable(R.drawable.button_ok_gradient));
-        valid.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                aquene.getAllResources().getResource("resource_ki").spend(kiCapaSelected.getCost());
-                Snackbar snackbar = Snackbar.make(view, "Lancement de : "+kiCapaSelected.getName(), Snackbar.LENGTH_LONG);
-                snackbar.show();
-                backToMain();
-            }
-        });
+        if (aquene.getAllResources().getResource("resource_ki").getCurrent()-kiCapaSelected.getCost()>=0){
+            valid.setBackground(getContext().getDrawable(R.drawable.button_ok_gradient));
+            valid.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    aquene.getAllResources().getResource("resource_ki").spend(kiCapaSelected.getCost());
+                    Snackbar snackbar = Snackbar.make(view, "Lancement de : "+kiCapaSelected.getName(), Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                    backToMain();
+                }
+            });
+        } else {
+            valid.setBackground(getContext().getDrawable(R.drawable.button_cancel_gradient));
+            valid.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                        Toast toast = Toast.makeText(getContext(), "Tu n'as pas assez de points de Ki pour faire cela", Toast.LENGTH_LONG);
+                        TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
+                        if( v != null) v.setGravity(Gravity.CENTER);
+                        toast.setGravity(Gravity.CENTER,0,0);
+                        toast.show();
+
+                }
+            });
+        }
+
 
     }
 

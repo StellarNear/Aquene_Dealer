@@ -41,4 +41,8 @@
     <dimen name="icon_kicapacities_list">50dp</dimen>
     <dimen name="margin_healthDialog_text">30dp</dimen>
 
+    <dimen name="floatin_button_combat_lancher_size">60dp</dimen>
+    <dimen name="comabt_launcher_fab_mouvement">125dp</dimen>
+    <dimen name="floatin_button_combat_launcher_margin">10dp</dimen>
+
 </resources>

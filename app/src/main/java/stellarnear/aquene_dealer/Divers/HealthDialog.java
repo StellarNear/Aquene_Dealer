@@ -44,9 +44,7 @@ public class HealthDialog {
     private Context mC;
     private AlertDialog alertDialog;
     private View dialogView;
-    private int modBonus;
     private TextView miniHealth,fullHealth;
-    String mode;
 
     public HealthDialog(Activity mA, Context mC,TextView miniHealth,TextView fullHealth) {
         this.mA=mA;

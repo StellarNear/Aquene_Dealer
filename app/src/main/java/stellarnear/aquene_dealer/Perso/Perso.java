@@ -65,6 +65,10 @@ public class Perso {
         if (allAbilities.getAbi(abiId) != null) {
             abiScore = allAbilities.getAbi(abiId).getValue();
 
+            if (abiId.equalsIgnoreCase("ability_ms") && allStances.getCurrentStance() != null && allStances.getStance("stance_unicorn").isActive()) {
+                abiScore += 6;
+            }
+
             if (abiId.equalsIgnoreCase("ability_init") && featIsActive("feat_init")) {
                 abiScore += 4;
             }

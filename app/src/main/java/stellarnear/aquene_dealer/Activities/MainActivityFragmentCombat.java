@@ -44,7 +44,6 @@ public class MainActivityFragmentCombat extends Fragment {
             container.removeAllViews();
         }
 
-
         returnFragView= inflater.inflate(R.layout.fragment_main_combat, container, false);
 
         ImageButton buttonMain = (ImageButton) returnFragView.findViewById(R.id.button_frag_combat_to_main);
@@ -74,7 +73,7 @@ public class MainActivityFragmentCombat extends Fragment {
         setCombatModeListner((RadioButton) returnFragView.findViewById(R.id.button_combat_mode_def));
         setCombatModeListner((RadioButton) returnFragView.findViewById(R.id.button_combat_mode_totaldef));
 
-        combatAsker= new CombatAsker(getContext(),(LinearLayout) returnFragView.findViewById(R.id.scrollLinearCombat),listnerBackToMain);
+        combatAsker= new CombatAsker(getActivity(),getContext(),(LinearLayout) returnFragView.findViewById(R.id.scrollLinearCombat),listnerBackToMain);
 
         return returnFragView;
     }

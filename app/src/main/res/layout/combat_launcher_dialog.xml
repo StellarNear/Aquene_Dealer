@@ -1,0 +1,74 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:paddingBottom="@dimen/floatin_button_combat_launcher_margin"
+    android:id="@+id/combat_dialog_RelativeLayoutMain"
+    android:background="@drawable/background_border_dialog">
+
+    <LinearLayout
+        android:id="@+id/combat_dialog_LinearLayoutMain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="@dimen/general_margin"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_margin="@dimen/general_margin"
+            android:text="Lancement de l'attaque"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@android:color/black" />
+
+        <ImageView
+            android:id="@+id/combat_dialog_attack_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/general_margin"
+            android:src="@drawable/mire_test"/>
+        <TextView
+            android:id="@+id/combat_dialog_attack_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/general_margin"
+            android:gravity="center_horizontal"
+            android:text="Blabla" />
+
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_damage"
+        android:layout_width="@dimen/floatin_button_combat_lancher_size"
+        android:layout_height="@dimen/floatin_button_combat_lancher_size"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        app:backgroundTint="@android:color/holo_red_light"
+        app:srcCompat="@drawable/mire_test"
+        android:visibility="gone"/>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="@dimen/floatin_button_combat_lancher_size"
+        android:layout_height="@dimen/floatin_button_combat_lancher_size"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        app:backgroundTint="@android:color/white"
+        app:srcCompat="@drawable/ic_filter_center_focus_black_24dp"  />
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_detail"
+        android:layout_width="@dimen/floatin_button_combat_lancher_size"
+        android:layout_height="@dimen/floatin_button_combat_lancher_size"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        app:backgroundTint="@android:color/darker_gray"
+        app:srcCompat="@drawable/mire_test"
+        android:visibility="gone"/>
+
+
+</RelativeLayout>

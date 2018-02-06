@@ -1,5 +1,6 @@
 package stellarnear.aquene_dealer.Divers;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
@@ -8,11 +9,14 @@ import android.support.design.widget.Snackbar;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.ViewFlipper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,27 +31,30 @@ import stellarnear.aquene_dealer.R;
 
 public class CombatAsker {
     private Perso aquene = MainActivity.aquene;
+    private Activity mA;
     private Context mC;
     private int lastStep;
     private LinearLayout layout;
     private ArrayList<View> stepsView = new ArrayList<View>();
-    private Map<RadioButton,Attack> mapRadioAtkAtk=new HashMap<>();
-    private Attack selectedAttack=null;
+    private Map<RadioButton, Attack> mapRadioAtkAtk = new HashMap<>();
+    private Attack selectedAttack = null;
     private boolean moved;
     private boolean range;
+    private boolean kistep;
     private boolean outrange;
     Button valid;
     View.OnClickListener backToMainListner;
 
-    public CombatAsker(Context mC, LinearLayout layout, View.OnClickListener backToMainListner) {
+    public CombatAsker(Activity mA,Context mC, LinearLayout layout, View.OnClickListener backToMainListner) {
+        this.mA=mA;
         this.mC = mC;
         this.layout = layout;
-        this.backToMainListner=backToMainListner;
+        this.backToMainListner = backToMainListner;
 
         buildMovedLine();
     }
 
-    public void reset(){
+    public void reset() {
         buildMovedLine();
     }
 
@@ -66,7 +73,7 @@ public class CombatAsker {
         LinearLayout yesBox = box();
         LinearLayout noBox = box();
 
-        RadioButton yes=answerIcon(mC.getDrawable(R.drawable.moving_selector));
+        RadioButton yes = answerIcon(mC.getDrawable(R.drawable.moving_selector));
         RadioButton no = answerIcon(mC.getDrawable(R.drawable.notmoving_selector));
 
         setRadioButtonListnerMoved(yes, no);
@@ -81,7 +88,7 @@ public class CombatAsker {
         buttonTxt.setPadding(0, 0, 0, (int) mC.getResources().getDimension(R.dimen.margin_combat_asker));
 
         TextView yesTxt = summaryText("Oui j'ai bougé");
-        TextView noTxt= summaryText("Non je n'ai rien fais");
+        TextView noTxt = summaryText("Non je n'ai rien fais");
 
         LinearLayout yesBoxTxt = box();
         LinearLayout noBoxTxt = box();
@@ -100,7 +107,7 @@ public class CombatAsker {
     }
 
     private TextView summaryText(String s) {
-        TextView sumamrTxt=new TextView(mC);
+        TextView sumamrTxt = new TextView(mC);
         sumamrTxt.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         sumamrTxt.setGravity(Gravity.CENTER);
         sumamrTxt.setText(s);
@@ -128,7 +135,7 @@ public class CombatAsker {
     }
 
     private TextView questionLayout(String s) {
-        TextView question=new TextView(mC);
+        TextView question = new TextView(mC);
         question.setGravity(Gravity.CENTER);
         question.setText(s);
         question.setTextSize(20);
@@ -165,6 +172,7 @@ public class CombatAsker {
         while (stepsView.size() > rankStep) {
             stepsView.remove(stepsView.size() - 1);
         }
+        getLayout();
     }
 
     private void buildRangeLine() {
@@ -205,7 +213,7 @@ public class CombatAsker {
         int ms = aquene.getAbilityScore("ability_ms");
         int sum = ms + atkRange;
         TextView midTxt = summaryText("Entre " + atkRange + "m et " + sum + "m");
-        TextView outTxt =summaryText("Plus de " + sum + "m");
+        TextView outTxt = summaryText("Plus de " + sum + "m");
 
         LinearLayout contactBoxTxt = box();
         LinearLayout midBoxTxt = box();
@@ -240,13 +248,125 @@ public class CombatAsker {
                         }
                         if (check.equals(contact)) {
                             range = true;
+                            kistep=false;
                             outrange = false;
+                            buildResultLine();
                         } else if (check.equals(mid)) {
                             range = false;
+                            kistep=false;
                             outrange = false;
+                            buildResultLine();
                         } else {
-                            range = false;
-                            outrange = true;
+                            if (!moved && aquene.getAllResources().getResource("resource_ki").getCurrent()>=aquene.getAllKiCapacities().getKicapacity("kicapacity_step").getCost()) {
+                                range = false;
+                                askForKiMovement();
+                            } else {
+                                range = false;
+                                kistep=false;
+                                outrange = true;
+                                buildResultLine();
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    }
+
+    private void askForKiMovement() {
+        clearStep(2);
+        final LinearLayout lineStep = new LinearLayout(mC);
+        lineStep.setOrientation(LinearLayout.VERTICAL);
+
+        TextView question = questionLayout("Précision de distance :");
+        lineStep.addView(question);
+
+        LinearLayout answers = new LinearLayout(mC);
+        answers.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        answers.setOrientation(LinearLayout.HORIZONTAL);
+
+        LinearLayout contactBox = box();
+        LinearLayout outrangeBox = box();
+
+        RadioButton contact = answerIcon(mC.getDrawable(R.drawable.kirange_selector));
+        RadioButton out = answerIcon(mC.getDrawable(R.drawable.kioutrange_selector));
+
+        setRadioButtonListnerKiRange(contact, out);
+        contactBox.addView(contact);
+        outrangeBox.addView(out);
+
+        answers.addView(contactBox);
+        answers.addView(outrangeBox);
+
+        LinearLayout buttonTxt = new LinearLayout(mC);
+        buttonTxt.setOrientation(LinearLayout.HORIZONTAL);
+        buttonTxt.setPadding(0, 0, 0, (int) mC.getResources().getDimension(R.dimen.margin_combat_asker));
+
+        int atkRange = aquene.getAllAttacks().getAtkRange();
+        int tpKi = 120 + 12*aquene.getAbilityScore("ability_lvl");
+        int sum =  atkRange + tpKi;
+        TextView contactTxt = summaryText("Moins de " + sum + "m");
+        TextView outTxt = summaryText("Plus de " + sum + "m");
+
+        LinearLayout contactBoxTxt = box();
+        LinearLayout outrangeBoxTxt = box();
+
+        contactBoxTxt.addView(contactTxt);
+        outrangeBoxTxt.addView(outTxt);
+
+        buttonTxt.addView(contactBoxTxt);
+
+        buttonTxt.addView(outrangeBoxTxt);
+
+        lineStep.addView(answers);
+        lineStep.addView(buttonTxt);
+
+        Animation outLeft = AnimationUtils.loadAnimation(mC,R.anim.outtoleft);
+        final Animation inRight = AnimationUtils.loadAnimation(mC,R.anim.infromright);
+        inRight.setFillAfter(true);
+        outLeft.setAnimationListener(new Animation.AnimationListener() {
+
+            @Override
+            public void onAnimationStart(Animation animation) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                clearStep(1);
+                stepsView.add(1, lineStep);
+                stepsView.get(1).startAnimation(inRight);
+                getLayout();
+            }
+        });
+        stepsView.get(1).startAnimation(outLeft);
+    }
+
+    private void setRadioButtonListnerKiRange(final RadioButton contact, final RadioButton out) {
+        final List<RadioButton> listRadio = Arrays.asList(contact, out);
+        for (final RadioButton check : listRadio) {
+            check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (isChecked) {
+                        for (RadioButton checkToUnselect : listRadio) {
+                            if (!checkToUnselect.equals(check)) {
+                                checkToUnselect.setChecked(false);
+                            }
+                        }
+                        if (check.equals(contact)) {
+                            kistep=true;
+                            outrange=false;
+                        } else {
+                            kistep=false;
+                            outrange=true;
                         }
                         buildResultLine();
                     }
@@ -257,6 +377,7 @@ public class CombatAsker {
 
     private void buildResultLine() {
         clearStep(2);
+        selectedAttack = null;
         LinearLayout lineStep = new LinearLayout(mC);
         lineStep.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         lineStep.setOrientation(LinearLayout.VERTICAL);
@@ -270,25 +391,24 @@ public class CombatAsker {
 
         List<Attack> possibleAttacks = new ArrayList<>();
         int ms = aquene.getAbilityScore("ability_ms");
-        if(aquene.getAllAttacks().getCombatMode().equalsIgnoreCase("mode_totaldef")){
-            resultTxt = "Tu es en mode défénse total. Il ne te reste qu'une action de mouvement par round. Tu peux te deplacer en marchant (" + ms + "m).";
+        if (aquene.getAllAttacks().getCombatMode().equalsIgnoreCase("mode_totaldef")) {
+            resultTxt = "Tu es en mode défénse total.\nIl ne te reste qu'une action de mouvement par round.\nTu peux te deplacer en marchant (" + ms + "m).";
         } else if (outrange && moved) {
             resultTxt = "Il est trop loin, il va falloir attendre le prochain round.";
         } else if (outrange && !moved) {
-            resultTxt = "Il est trop loin, tu peux te deplacer en marchant (" + ms + "m) et faire autre chose qu'une attaque, ou courir (" + ms * 4 + "m) vers lui.";
+            resultTxt = "Il est trop loin, tu peux te deplacer en marchant (" + ms + "m).\n Puis faire autre chose qu'une attaque.\nOu bien courir (" + ms * 4 + "m) vers lui.";
         } else if (!moved && range && !outrange) {
-            if (aquene.getAllAttacks().getCombatMode().equalsIgnoreCase("mode_totaldef")) {
-                possibleAttacks = aquene.getAttacksForType("simple");
-            } else {
-                possibleAttacks = aquene.getAttacksForType("complex");
-            }
+            possibleAttacks = aquene.getAttacksForType("complex");
+        } else if (!moved && kistep && !range && !outrange) {
+            resultTxt = "Déplace toi avec pas chassé (2 points de Ki), puis :";
+            possibleAttacks = aquene.getAttacksForType("simple");
         } else if (!moved && !range && !outrange) {
             resultTxt = "Déplace toi puis :";
             possibleAttacks = aquene.getAttacksForType("simple");
         } else if (moved && range && !outrange) {
             possibleAttacks = aquene.getAttacksForType("simple");
         } else if (moved && !range && !outrange) {
-            resultTxt = "Prochain round tu peux le toucher. En attendant fais autre chose qu'une attaque.";
+            resultTxt = "Prochain round tu peux le toucher.\nEn attendant fais autre chose qu'une attaque.";
         }
 
         result.setText(resultTxt);
@@ -297,7 +417,7 @@ public class CombatAsker {
             lineStep.addView(result);
         }
 
-        if (possibleAttacks != null) {
+        if (possibleAttacks != null && possibleAttacks.size() > 0) {
             LinearLayout scrollAtkLin = new LinearLayout(mC);
             scrollAtkLin.setPadding(0, (int) mC.getResources().getDimension(R.dimen.margin_combat_asker), 0, 0);
             scrollAtkLin.setOrientation(LinearLayout.HORIZONTAL);
@@ -316,17 +436,17 @@ public class CombatAsker {
                 RadioButton atkButton = new RadioButton(mC);
                 atkButton.setButtonDrawable(null);
                 int imgId = mC.getResources().getIdentifier(atk.getId(), "drawable", mC.getPackageName());
-                atkButton.setBackground(convertToGrayscale(mC.getDrawable(imgId)).mutate()); //le mutate c'est pour que le filtre ne s'applique pas au drawable source
+                atkButton.setBackground(convertToGrayscale(mC.getDrawable(imgId))); //le mutate c'est pour que le filtre ne s'applique pas au drawable source
                 atkButton.setLayoutParams(params);
                 atkButton.setGravity(Gravity.CENTER);
                 listRadioAtk.add(atkButton);
-                mapRadioAtkAtk.put(atkButton,atk);
+                mapRadioAtkAtk.put(atkButton, atk);
 
                 box.addView(atkButton);
                 scrollAtkLin.addView(box);
 
                 LinearLayout boxTxt;
-                boxTxt= box();
+                boxTxt = box();
                 TextView txt = summaryText(atk.getName());
                 boxTxt.addView(txt);
                 scrollAtkLinTxt.addView(boxTxt);
@@ -339,7 +459,6 @@ public class CombatAsker {
             getLayout();
         } else {
             stepsView.add(lineStep);
-            getLayout();
             addConfirmationLine();
         }
     }
@@ -360,9 +479,8 @@ public class CombatAsker {
                                 checkToUnselect.getBackground().setColorFilter(filter);
                             }
                         }
-                        selectedAttack=mapRadioAtkAtk.get(atkButton);
+                        selectedAttack = mapRadioAtkAtk.get(atkButton);
                         addConfirmationLine();
-                        getLayout();
                     }
 
                 }
@@ -374,8 +492,9 @@ public class CombatAsker {
         ColorMatrix matrix = new ColorMatrix();
         matrix.setSaturation(0);
         ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
-        inputDraw.setColorFilter(filter);
-        return inputDraw;
+        Drawable newDraw = inputDraw.mutate();
+        newDraw.setColorFilter(filter);
+        return newDraw;
     }
 
     private void addConfirmationLine() {
@@ -385,31 +504,40 @@ public class CombatAsker {
         lineStep.setLayoutParams(para);
         lineStep.setGravity(Gravity.CENTER);
         valid = new Button(mC);
-        valid.setText("Confirmation");
-        valid.setTextColor(mC.getColor(R.color.colorBackground));
-        valid.setBackground(mC.getDrawable(R.drawable.button_ok_gradient));
-        CompositeListner compositeListner=new CompositeListner();
+        if (selectedAttack == null) {
+            valid.setText("Quitter");
+            valid.setTextColor(mC.getColor(R.color.colorBackground));
+            valid.setBackground(mC.getDrawable(R.drawable.button_cancel_gradient));
+        } else {
+            valid.setText("Confirmation");
+            valid.setTextColor(mC.getColor(R.color.colorBackground));
+            valid.setBackground(mC.getDrawable(R.drawable.button_ok_gradient));
+
+        }
+        CompositeListner compositeListner = new CompositeListner();
         compositeListner.addOnclickListener(backToMainListner);
         View.OnClickListener randomToast = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String txt;
-                if(selectedAttack==null){
-                    txt="Retour au menu principal";
+                if (selectedAttack == null) {
+                    txt = "Retour au menu principal";
                 } else {
-                    txt="Lancement de : "+selectedAttack.getName();
-                    if(aquene.getAllResources().getResource(selectedAttack.getId().replace("attack","resource"))!=null)
-                    {aquene.getAllResources().getResource(selectedAttack.getId().replace("attack","resource")).spend(1);}
+                    txt = "Lancement de : " + selectedAttack.getName();
+                    if (aquene.getAllResources().getResource(selectedAttack.getId().replace("attack", "resource")) != null) {
+                        aquene.getAllResources().getResource(selectedAttack.getId().replace("attack", "resource")).spend(1);
+                    }
+                    if (kistep){aquene.getAllResources().getResource("resource_ki").spend(aquene.getAllKiCapacities().getKicapacity("kicapacity_step").getCost());}
+                    CombatLauncher combatLauncher = new CombatLauncher(mA,mC,selectedAttack);
+                    combatLauncher.showAlertDialog();
                 }
-
                 Snackbar snackbar = Snackbar.make(view, txt, Snackbar.LENGTH_LONG);
                 snackbar.show();
-                //TODO lancement d'n dialog avec l'attaque lancée
+
             }
         };
         compositeListner.addOnclickListener(randomToast);
         valid.setOnClickListener(compositeListner);
-
         lineStep.addView(valid);
         stepsView.add(lineStep);
         getLayout();
@@ -417,10 +545,15 @@ public class CombatAsker {
 
 
     public void getLayout() {
-        layout.removeAllViews();
+        for (int i=0;i <layout.getChildCount();i++){
+            View viewToRemove=layout.getChildAt(i);
+            if (!stepsView.contains(viewToRemove)){
+                layout.removeView(viewToRemove);
+            }
+        }
+
         for (View view : stepsView) {
-            layout.addView(view);
+            if (view.getParent()==null){layout.addView(view);}
         }
     }
-
 }
