@@ -1,7 +1,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <stellarnear.aquene_dealer.Divers.EditTextPreference
-        android:defaultValue="@integer/attack_range_def"
+        android:defaultValue="@integer/attack_range_DEF"
         android:key="attack_range"
         android:selectAllOnFocus="true"
         android:singleLine="true"
@@ -11,7 +11,7 @@
         />
 
     <stellarnear.aquene_dealer.Divers.EditTextPreference
-        android:defaultValue="@string/jet_att_def"
+        android:defaultValue="@string/jet_att_DEF"
         android:key="jet_att"
         android:selectAllOnFocus="true"
         android:singleLine="true"
@@ -19,12 +19,44 @@
         android:title="Jets d'attaque de base (x,x,x)"
         />
     <stellarnear.aquene_dealer.Divers.EditTextPreference
-        android:defaultValue="@string/jet_att_flurry_def"
+        android:defaultValue="@string/jet_att_flurry_DEF"
         android:key="jet_att_flurry"
         android:selectAllOnFocus="true"
         android:singleLine="true"
         android:summary="Valeurs : %s"
         android:title="Jets d'attaque déluge de coup (x,x,x)"
         />
+
+    <SwitchPreference
+        android:defaultValue="@bool/switch_amulette_DEF"
+        android:key="switch_amulette"
+        android:title="Amulette des poings invincibles" />
+
+    <SwitchPreference
+        android:defaultValue="@bool/switch_aldrassil_DEF"
+        android:key="switch_aldrassil"
+        android:title="Bandages d'Aldrassil" />
+
+
+    <stellarnear.aquene_dealer.Divers.EditTextPreference
+        android:defaultValue="@integer/bonus_jet_att_DEF"
+        android:key="bonus_jet_att"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:summary="Valeurs : %sm"
+        android:inputType="number"
+        android:title="Bonus jet d'attaque"
+        />
+
+    <stellarnear.aquene_dealer.Divers.EditTextPreference
+        android:defaultValue="@integer/bonus_jet_dmg_DEF"
+        android:key="bonus_jet_dmg"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:summary="Valeurs : %sm"
+        android:inputType="number"
+        android:title="Bonus jet de dégâts"
+        />
+
 
 </PreferenceScreen>

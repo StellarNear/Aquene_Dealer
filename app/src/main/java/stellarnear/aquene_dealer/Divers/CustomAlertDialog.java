@@ -117,7 +117,7 @@ public class CustomAlertDialog {
             public void onClick(View v) {
 
                 SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mC);
-                if (settings.getBoolean("switch_manual_diceroll",mC.getResources().getBoolean(R.bool.switch_manual_dicerollDEF))) {
+                if (settings.getBoolean("switch_manual_diceroll",mC.getResources().getBoolean(R.bool.switch_manual_diceroll_DEF))) {
                     buildAlertDialogWheelPicker();
                     showAlertDialogWheelPicker();
                 } else {

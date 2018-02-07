@@ -1,12 +1,12 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <SwitchPreference
-        android:defaultValue="@bool/switch_fullscreen_modeDEF"
+        android:defaultValue="@bool/switch_fullscreen_mode_DEF"
         android:key="switch_fullscreen_mode"
         android:title="Mode plein écran"
         android:summary="Masque la barre de statut du téléphone"/>
 
     <SwitchPreference
-        android:defaultValue="@bool/switch_manual_dicerollDEF"
+        android:defaultValue="@bool/switch_manual_diceroll_DEF"
         android:key="switch_manual_diceroll"
         android:title="Lancement manuel des dés"/>
 

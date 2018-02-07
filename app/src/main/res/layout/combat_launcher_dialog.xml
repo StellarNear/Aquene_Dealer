@@ -10,9 +10,9 @@
     android:background="@drawable/background_border_dialog">
 
     <LinearLayout
-        android:id="@+id/combat_dialog_LinearLayoutMain"
+
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_alignParentTop="true"
         android:layout_marginTop="@dimen/general_margin"
@@ -40,6 +40,36 @@
             android:layout_margin="@dimen/general_margin"
             android:gravity="center_horizontal"
             android:text="Blabla" />
+
+        <LinearLayout
+            android:id="@+id/combat_dialog_LinearLayoutMain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/general_margin">
+
+            <LinearLayout
+                android:id="@+id/combat_dialog_prerand_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_margin="@dimen/general_margin"/>
+            <LinearLayout
+                android:id="@+id/combat_dialog_atk_dices"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_margin="@dimen/general_margin"/>
+            <LinearLayout
+                android:id="@+id/combat_dialog_atk_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_margin="@dimen/general_margin"/>
+
+
+
+        </LinearLayout>
 
     </LinearLayout>
 

@@ -59,7 +59,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        if (settings.getBoolean("switch_fullscreen_mode",getApplicationContext().getResources().getBoolean(R.bool.switch_fullscreen_modeDEF))) {
+        if (settings.getBoolean("switch_fullscreen_mode",getApplicationContext().getResources().getBoolean(R.bool.switch_fullscreen_mode_DEF))) {
             requestWindowFeature(Window.FEATURE_NO_TITLE);
             this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
@@ -152,7 +152,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     }
 
     /**
-     page générale
+     page combat
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static class CombatPreferenceFragment extends PreferenceFragment {
@@ -236,7 +236,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     }
 
     /**
-     page de combat
+     page de dons
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static class FeatPreferenceFragment extends PreferenceFragment {

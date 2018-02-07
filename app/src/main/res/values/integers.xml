@@ -56,9 +56,11 @@
     <integer name="percent_fullscreen_customdialog">90</integer>
 
     <integer name="translationFragDuration">500</integer>
-    <integer name="attack_range_def">3</integer>
+    <integer name="attack_range_DEF">3</integer>
 
     <integer name="percent_fullscreen_combat_launcher_dialog">95</integer>
+    <integer name="bonus_jet_att_DEF">0</integer>
+    <integer name="bonus_jet_dmg_DEF">0</integer>
 
 
 </resources>

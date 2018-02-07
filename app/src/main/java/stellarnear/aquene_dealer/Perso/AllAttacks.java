@@ -41,7 +41,7 @@ public class AllAttacks {
 
     public void refreshAllAttacks() {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mC);
-        atkRange= toInt(settings.getString("attack_range", String.valueOf(mC.getResources().getInteger(R.integer.attack_range_def))));
+        atkRange= toInt(settings.getString("attack_range", String.valueOf(mC.getResources().getInteger(R.integer.attack_range_DEF))));
     }
 
     private void buildAttacksList() {

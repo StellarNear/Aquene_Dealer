@@ -32,7 +32,9 @@
     <bool name="switch_save_coat_DEF">true</bool>
     <bool name="switch_save_ref_boot_DEF">true</bool>
 
-    <bool name="switch_fullscreen_modeDEF">true</bool>
-    <bool name="switch_manual_dicerollDEF">false</bool>
+    <bool name="switch_fullscreen_mode_DEF">true</bool>
+    <bool name="switch_manual_diceroll_DEF">false</bool>
+    <bool name="switch_amulette_DEF">true</bool>
+    <bool name="switch_aldrassil_DEF">true</bool>
 
 </resources>
