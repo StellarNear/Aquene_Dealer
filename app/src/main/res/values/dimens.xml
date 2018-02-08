@@ -45,5 +45,6 @@
     <dimen name="comabt_launcher_fab_mouvement">125dp</dimen>
     <dimen name="floatin_button_combat_launcher_margin">10dp</dimen>
     <dimen name="icon_main_dices_combat_launcher_size">50dp</dimen>
+    <dimen name="margin_combat_launcher">2dp</dimen>
 
 </resources>

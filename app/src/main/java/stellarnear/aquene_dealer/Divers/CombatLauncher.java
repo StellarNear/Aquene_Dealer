@@ -42,7 +42,6 @@ public class CombatLauncher {
     private Attack attack;
     private boolean fabMoved = false;
     private boolean dmgMoved = false;
-    private int nAtks;
     private boolean manualDice;
     private SharedPreferences settings;
     private List<Roll> atksRolls;
@@ -111,13 +110,10 @@ public class CombatLauncher {
             }
         });
         alertDialog = dialogBuilder.create();
-
-        buildAtksList();
     }
 
     private void buildAtksList() {
         atksRolls = new ArrayList<>();
-
         if (attack.getId().equalsIgnoreCase("attack_flurry")) {
             String att_base = settings.getString("jet_att_flurry", mC.getString(R.string.jet_att_flurry_DEF));
             String delim = ",";
@@ -125,13 +121,11 @@ public class CombatLauncher {
             for (String each : list_att_base_string) {
                 atksRolls.add(new Roll(mC, toInt(each)));
             }
-            nAtks = list_att_base_string.length;
         } else {
             String att_base = settings.getString("jet_att", mC.getString(R.string.jet_att_DEF));
             String delim = ",";
             String[] list_att_base_string = att_base.split(delim);
             atksRolls.add(new Roll(mC, toInt(list_att_base_string[0])));
-            nAtks = 1;
         }
         combatLauncherLines=new CombatLauncherLines(mA,mC,dialogView,atksRolls);
         buildPreRandValues();
@@ -142,15 +136,15 @@ public class CombatLauncher {
     }
 
     private void startAttack() {
+        buildAtksList();
         combatLauncherLines.getRandValues();
     }
 
-    private void displayDetail() {
+    private void startDamage() {
+        changeCancelButtonToOk();
     }
 
-    private void startDamage() {
-
-        changeCancelButtonToOk();
+    private void displayDetail() {
     }
 
     public void showAlertDialog() {

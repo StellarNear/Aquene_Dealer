@@ -31,13 +31,13 @@
             android:id="@+id/combat_dialog_attack_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/general_margin"
+            android:layout_margin="@dimen/margin_combat_launcher"
             android:src="@drawable/mire_test"/>
         <TextView
             android:id="@+id/combat_dialog_attack_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/general_margin"
+            android:layout_margin="@dimen/margin_combat_launcher"
             android:gravity="center_horizontal"
             android:text="Blabla" />
 
@@ -46,26 +46,72 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="@dimen/general_margin">
+            android:clipChildren="false"
+            android:layout_marginTop="@dimen/margin_combat_launcher">
 
             <LinearLayout
                 android:id="@+id/combat_dialog_prerand_value"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_margin="@dimen/general_margin"/>
+                android:layout_margin="@dimen/margin_combat_launcher"/>
             <LinearLayout
                 android:id="@+id/combat_dialog_atk_dices"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_margin="@dimen/general_margin"/>
+                android:layout_margin="@dimen/margin_combat_launcher"/>
             <LinearLayout
                 android:id="@+id/combat_dialog_atk_value"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_margin="@dimen/general_margin"/>
+                android:layout_margin="@dimen/margin_combat_launcher"/>
+            <TextView
+                android:id="@+id/combat_dialog_hit_box_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_gravity="center"
+                android:text="Coup(s) qui touche(nt) :"/>
+            <LinearLayout
+                android:id="@+id/combat_dialog_hit_box"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:orientation="horizontal"
+                android:clipChildren="false"
+                android:layout_marginBottom="@dimen/margin_combat_launcher"/>
+            <TextView
+                android:id="@+id/combat_dialog_crit_box_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                android:text="Coup(s) qui crit :"/>
+            <LinearLayout
+                android:id="@+id/combat_dialog_crit_box"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:clipChildren="false"
+                android:orientation="horizontal"
+                android:layout_marginBottom="@dimen/margin_combat_launcher"/>
+            <TextView
+                android:id="@+id/combat_dialog_crit_confirm_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                android:text="Pour confirmer le crit :"/>
+            <LinearLayout
+                android:id="@+id/combat_dialog_crit_confirm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:orientation="horizontal"
+                android:layout_marginBottom="@dimen/margin_combat_launcher"/>
+
 
 
 
