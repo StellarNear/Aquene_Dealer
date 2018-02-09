@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:clipChildren="false"
     android:gravity="center"
-    android:id="@+id/custom_dialog_RelativeLayoutMain"
+    android:id="@+id/custom_dialog_wheel_RelativeLayoutMain"
     android:background="@drawable/background_border_dialog">
 
 

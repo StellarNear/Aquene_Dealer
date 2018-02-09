@@ -36,5 +36,6 @@
     <bool name="switch_manual_diceroll_DEF">false</bool>
     <bool name="switch_amulette_DEF">true</bool>
     <bool name="switch_aldrassil_DEF">true</bool>
+    <bool name="switch_manual_diceroll_damage_DEF">false</bool>
 
 </resources>

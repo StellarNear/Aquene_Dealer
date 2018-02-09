@@ -4,6 +4,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.text.BoringLayout;
+import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 
 import stellarnear.aquene_dealer.Activities.MainActivity;
 import stellarnear.aquene_dealer.Perso.Perso;
@@ -18,6 +21,9 @@ public class Roll {
     private Integer rand = 0;
     private Integer preRandValue = 0;
     private Integer atk = 0;
+    private int[] dmg10=null;
+    private int[] dmg8=null;
+    private int[] dmg6=null;
     private Boolean hitConfirmed = false;
     private Boolean crit = false;
     private Boolean critConfirmed = false;
@@ -27,15 +33,50 @@ public class Roll {
     private Boolean unset = true;
     private SharedPreferences settings;
     private Perso aquene = MainActivity.aquene;
+    private CheckBox hitCheckbox;
+    private CheckBox critCheckbox;
 
     public Roll(Context mC, Integer base) {
         this.mC = mC;
         this.base = base;
         settings = PreferenceManager.getDefaultSharedPreferences(mC);
         this.preRandValue = base + getBonusAtk();
+
+        constructCheckboxes();
     }
 
-    public void setRand(Integer rand) {
+    private void constructCheckboxes() {
+        hitCheckbox = new CheckBox(mC);
+        hitCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+            {
+                hitConfirmed=false;
+                if ( isChecked )
+                {
+                    hitConfirmed=true;
+                }
+            }
+        });
+
+        critCheckbox = new CheckBox(mC);
+        critCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+            {
+                critConfirmed=false;
+                if ( isChecked )
+                {
+                    hitCheckbox.setChecked(true);
+                    critConfirmed=true;
+                }
+            }
+        });
+    }
+
+    public void setAtkRand(Integer rand) {
         this.rand = rand;
         this.unset = false;
         calcul();
@@ -63,7 +104,7 @@ public class Roll {
         }
 
         if (rand >= critMin) {
-            crit = true;
+            this.crit = true;
         }
     }
 
@@ -115,18 +156,51 @@ public class Roll {
         return this.crit;
     }
 
-    public void setCritConfirmed(Boolean bool){
-        this.critConfirmed=bool;
-    }
-
-    public void setHitConfirmed(boolean b) {
-        this.hitConfirmed=b;
-    }
-    public boolean isCritConfirmed() {
-        return this.critConfirmed;
-    }
-    public boolean isHitConfirmed() {
+    public boolean isHitConfirmed(){
         return this.hitConfirmed;
     }
+    public boolean isCritConfirmed(){
+        return this.critConfirmed;
+    }
 
+    public CheckBox getHitCheckbox() {
+        return this.hitCheckbox;
+    }
+
+    public CheckBox getCritCheckbox() {
+        return this.critCheckbox;
+    }
+
+    public int[] getDmgDiceRand(int dice) {
+        int[] listDmgRand=null;
+        if(dice==10){
+            listDmgRand=dmg10;
+        }
+        if(dice==8){
+            listDmgRand=dmg8;
+        }
+        if(dice==6){
+            listDmgRand=dmg6;
+        }
+        return listDmgRand;
+    }
+
+    public void setDmgRand(int dice, int[] ints) {
+        if(dice==10){
+            dmg10=ints;
+        }
+        if(dice==8){
+            dmg8=ints;
+        }
+        if(dice==6){
+            dmg6=ints;
+        }
+    }
+
+
+    public void isDelt() {
+        invalid=true;
+        hitCheckbox.setEnabled(false);
+        critCheckbox.setEnabled(false);
+    }
 }

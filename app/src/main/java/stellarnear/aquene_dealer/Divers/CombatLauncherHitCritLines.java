@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -20,8 +19,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -38,7 +35,7 @@ import stellarnear.aquene_dealer.R;
  * Created by jchatron on 07/02/2018.
  */
 
-public class CombatLauncherLines {
+public class CombatLauncherHitCritLines {
     private List<Roll>atksRolls;
     private Context mC;
     private Activity mA;
@@ -46,7 +43,7 @@ public class CombatLauncherLines {
     private Boolean manualDice;
     private Boolean megaFail=false;
     private Perso aquene= MainActivity.aquene;
-    public CombatLauncherLines(Activity mA,Context mC, View mainView, List<Roll> atksRolls) {
+    public CombatLauncherHitCritLines(Activity mA, Context mC, View mainView, List<Roll> atksRolls) {
         this.mA=mA;
         this.mC=mC;
         this.mainView =mainView;
@@ -77,7 +74,7 @@ public class CombatLauncherLines {
             dice_img.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
             if (fail) {
                 roll.invalidated();
-                dice_img.setImageDrawable(resize(R.drawable.mire_test, mC.getResources().getDimensionPixelSize(R.dimen.icon_main_dices_combat_launcher_size)));
+                dice_img.setImageDrawable(resize(R.drawable.d20_fail, mC.getResources().getDimensionPixelSize(R.dimen.icon_main_dices_combat_launcher_size)));
             } else {
                 if (manualDice) {
                     if(roll.isUnset()){
@@ -91,7 +88,7 @@ public class CombatLauncherLines {
                 } else {
                     Random rand = new Random();
                     int val_dice = 1 + rand.nextInt(20);
-                    roll.setRand(val_dice);
+                    roll.setAtkRand(val_dice);
                     if (roll.isFailed()) {  fail = true;  }
                     int drawableId = mC.getResources().getIdentifier("d20_" + String.valueOf(val_dice), "drawable", mC.getPackageName());
                     dice_img.setImageDrawable(resize(drawableId, mC.getResources().getDimensionPixelSize(R.dimen.icon_main_dices_combat_launcher_size)));
@@ -126,10 +123,9 @@ public class CombatLauncherLines {
             public void onClick(DialogInterface dialog, int id) {
                 int drawableId = mC.getResources().getIdentifier("d20_" + String.valueOf(wheelPicker.getValue_selected()), "drawable", mC.getPackageName());
                 dice_img.setImageDrawable(resize(drawableId, mC.getResources().getDimensionPixelSize(R.dimen.icon_main_dices_combat_launcher_size)));
-                roll.setRand(wheelPicker.getValue_selected());
+                roll.setAtkRand(wheelPicker.getValue_selected());
                 dice_img.setOnClickListener(null);
                 getRandValues();
-                buildPostRandValues();
             }
         });
         dialogBuilder.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
@@ -168,21 +164,24 @@ public class CombatLauncherLines {
     public void getPostRandValues(){
         LinearLayout line = mainView.findViewById(R.id.combat_dialog_atk_value);
         line.removeAllViews();
+        int allRollSet=0;
         for (Roll roll : atksRolls) {
             TextView atkTxt = new TextView(mC);
             atkTxt.setText("?");
             if (roll.isInvalid()) {
                 atkTxt.setText("-");
+                allRollSet+=1;
             } else {
                 if ((roll.getValue() != 0)) {
                     atkTxt.setText("+"+String.valueOf(roll.getValue()));
+                    allRollSet+=1;
                 }
             }
             atkTxt.setGravity(Gravity.CENTER);
             atkTxt.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
             line.addView(atkTxt);
         }
-        if (atksRolls.get(atksRolls.size()-1).getValue()!=0 || atksRolls.get(atksRolls.size()-1).isInvalid()){
+        if (allRollSet==atksRolls.size()){
             getHitAndCritLines();
         }
     }
@@ -196,32 +195,19 @@ public class CombatLauncherLines {
         }
         TextView title = mainView.findViewById(R.id.combat_dialog_hit_box_title);
         LinearLayout line = mainView.findViewById(R.id.combat_dialog_hit_box);
+        line.removeAllViews();
         title.setVisibility(View.GONE);
         line.setVisibility(View.GONE);
         if(anyHit) {
             title.setVisibility(View.VISIBLE);
             line.setVisibility(View.VISIBLE);
-            line.removeAllViews();
-            for (final Roll roll : atksRolls) {
+            for (Roll roll : atksRolls) {
                 LinearLayout frame = new LinearLayout(mC);
                 frame.setGravity(Gravity.CENTER);
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1);
                 frame.setLayoutParams(params);
                 if (!roll.isInvalid() && !roll.isFailed()) {
-                    CheckBox check = new CheckBox(mC);
-                    check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
-                    {
-                        @Override
-                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
-                        {
-                            if ( isChecked )
-                            {
-                                roll.setHitConfirmed(true);
-                            }
-                            roll.setHitConfirmed(false);
-                        }
-                    });
-                    frame.addView(check);
+                    frame.addView(roll.getHitCheckbox());
                 }
                 line.addView(frame);
             }
@@ -234,6 +220,11 @@ public class CombatLauncherLines {
         if(anyCrit) {
             Animation anim = AnimationUtils.loadAnimation(mC,R.anim.zoomin);
             titleCrit.setVisibility(View.VISIBLE);
+            if(aquene.featIsActive("feat_crit")){
+                titleCrit.setText("Coup(s) qui crit (+4 au jet d'attaque pour confirmer) :");
+            } else {
+                titleCrit.setText("Coup(s) qui crit (jet d'attaque de confirmation) :");
+            }
             titleCrit.startAnimation(anim);
             lineCrit.setVisibility(View.VISIBLE);
             lineCrit.removeAllViews();
@@ -242,52 +233,16 @@ public class CombatLauncherLines {
                 frame.setGravity(Gravity.CENTER);
                 frame.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
                 if (!roll.isInvalid() && !roll.isFailed() && roll.isCrit()) {
-                    CheckBox check = new CheckBox(mC);
+                    CheckBox check = roll.getCritCheckbox();
                     frame.addView(check);
-                    check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
-                    {
-                        @Override
-                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
-                        {
-                            if ( isChecked )
-                            {
-                                roll.setCritConfirmed(true);
-                            }
-                            roll.setCritConfirmed(false);
-                        }
-                    });
                     Animation animCheck = AnimationUtils.loadAnimation(mC,R.anim.zoomin);
                     check.startAnimation(animCheck);
                 }
                 lineCrit.addView(frame);
             }
-            TextView titleCritConfirm=mainView.findViewById(R.id.combat_dialog_crit_confirm_title);
-            LinearLayout critConfirm=mainView.findViewById(R.id.combat_dialog_crit_confirm);
-            titleCritConfirm.setVisibility(View.GONE);
-            critConfirm.setVisibility(View.GONE);
-            if(aquene.featIsActive("feat_crit")){
-                titleCritConfirm.setVisibility(View.VISIBLE);
-                critConfirm.setVisibility(View.VISIBLE);
-                getCritConfirmLine();}
         }
     }
 
-    private void getCritConfirmLine() {
-        LinearLayout line = mainView.findViewById(R.id.combat_dialog_crit_confirm);
-        line.removeAllViews();
-        for (Roll roll : atksRolls) {
-            TextView atkTxt = new TextView(mC);
-            atkTxt.setText("");
-            if (roll.isCrit()){
-                if ((roll.getValue() != 0)) {
-                    atkTxt.setText("+"+String.valueOf(roll.getValue()+4));
-                }
-            }
-            atkTxt.setGravity(Gravity.CENTER);
-            atkTxt.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
-            line.addView(atkTxt);
-        }
-    }
 
     public boolean isMegaFail(){
         return this.megaFail;
@@ -299,7 +254,4 @@ public class CombatLauncherLines {
         Bitmap bitmapResized = Bitmap.createScaledBitmap(b, pixel_size_icon, pixel_size_icon, false);
         return new BitmapDrawable(mC.getResources(), bitmapResized);
     }
-
-
-
 }

@@ -1,31 +1,25 @@
 package stellarnear.aquene_dealer.Divers;
 
-import android.animation.LayoutTransition;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
+import android.content.pm.ActivityInfo;
 import android.graphics.Point;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.view.Display;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import stellarnear.aquene_dealer.Activities.MainActivity;
 import stellarnear.aquene_dealer.Perso.Attack;
@@ -45,7 +39,7 @@ public class CombatLauncher {
     private boolean manualDice;
     private SharedPreferences settings;
     private List<Roll> atksRolls;
-    private CombatLauncherLines combatLauncherLines;
+    private CombatLauncherHitCritLines combatLauncherHitCritLines;
 
     public CombatLauncher(Activity mA, Context mC, Attack attack) {
         this.mA = mA;
@@ -106,7 +100,7 @@ public class CombatLauncher {
         dialogBuilder.setView(dialogView);
         dialogBuilder.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                // User clicked cancel button
+                unlockOrient();
             }
         });
         alertDialog = dialogBuilder.create();
@@ -127,20 +121,26 @@ public class CombatLauncher {
             String[] list_att_base_string = att_base.split(delim);
             atksRolls.add(new Roll(mC, toInt(list_att_base_string[0])));
         }
-        combatLauncherLines=new CombatLauncherLines(mA,mC,dialogView,atksRolls);
+        combatLauncherHitCritLines =new CombatLauncherHitCritLines(mA,mC,dialogView,atksRolls);
         buildPreRandValues();
     }
 
     private void buildPreRandValues() {
-        combatLauncherLines.getPreRandValues();
+        combatLauncherHitCritLines.getPreRandValues();
     }
 
     private void startAttack() {
         buildAtksList();
-        combatLauncherLines.getRandValues();
+        combatLauncherHitCritLines.getRandValues();
     }
 
     private void startDamage() {
+        if(combatLauncherHitCritLines.isMegaFail()){
+
+        } else {
+            CombatLauncherDamageLines combatLauncherDamageLines = new CombatLauncherDamageLines(mA, mC, dialogView, atksRolls);
+            combatLauncherDamageLines.getDamageLine();
+        }
         changeCancelButtonToOk();
     }
 
@@ -149,6 +149,7 @@ public class CombatLauncher {
 
     public void showAlertDialog() {
         alertDialog.show();
+        lockOrient();
         Display display = mA.getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
@@ -167,8 +168,13 @@ public class CombatLauncher {
         onlyButton.setText("Ok");
         onlyButton.setBackground(mC.getDrawable(R.drawable.button_ok_gradient));
     }
+    private void lockOrient() {
+        mA.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+    }
 
-
+    private void unlockOrient() {
+        mA.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
+    }
 
     private Integer toInt(String key) {
         Integer value = 0;

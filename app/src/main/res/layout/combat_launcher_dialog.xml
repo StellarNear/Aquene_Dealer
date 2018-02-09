@@ -6,7 +6,7 @@
     android:clipChildren="false"
     android:clipToPadding="false"
     android:paddingBottom="@dimen/floatin_button_combat_launcher_margin"
-    android:id="@+id/combat_dialog_RelativeLayoutMain"
+    android:id="@+id/combat_launcher_dialog_RelativeLayoutMain"
     android:background="@drawable/background_border_dialog">
 
     <LinearLayout
@@ -19,6 +19,7 @@
         android:gravity="center_horizontal">
 
         <TextView
+            android:id="@+id/combat_dialog_attack_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
@@ -34,7 +35,7 @@
             android:layout_margin="@dimen/margin_combat_launcher"
             android:src="@drawable/mire_test"/>
         <TextView
-            android:id="@+id/combat_dialog_attack_name"
+            android:id="@+id/combat_dialog_attack_summary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_combat_launcher"
@@ -98,20 +99,22 @@
                 android:orientation="horizontal"
                 android:layout_marginBottom="@dimen/margin_combat_launcher"/>
             <TextView
-                android:id="@+id/combat_dialog_crit_confirm_title"
+                android:id="@+id/combat_dialog_dmg_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:visibility="gone"
-                android:text="Pour confirmer le crit :"/>
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/colorPrimaryDark"
+                android:text="Dégât(s) :"/>
             <LinearLayout
-                android:id="@+id/combat_dialog_crit_confirm"
+                android:id="@+id/combat_dialog_dmg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:visibility="gone"
                 android:orientation="horizontal"
                 android:layout_marginBottom="@dimen/margin_combat_launcher"/>
-
 
 
 
