@@ -56,6 +56,7 @@ public class CombatLauncherHitCritLines {
     public void getPreRandValues() {
         LinearLayout line = mainView.findViewById(R.id.combat_dialog_prerand_value);
         line.removeAllViews();
+        line.setVisibility(View.VISIBLE);
         for (Roll roll : atksRolls) {
             TextView atkTxt = new TextView(mC);
             atkTxt.setText("+" + roll.getPreRandValue());
@@ -68,6 +69,7 @@ public class CombatLauncherHitCritLines {
     public void getRandValues() {
         LinearLayout line = mainView.findViewById(R.id.combat_dialog_atk_dices);
         line.removeAllViews();
+        line.setVisibility(View.VISIBLE);
         Boolean fail=false;
         for (Roll roll : atksRolls) {
             ImageView dice_img = new ImageView(mC);
@@ -164,6 +166,7 @@ public class CombatLauncherHitCritLines {
     public void getPostRandValues(){
         LinearLayout line = mainView.findViewById(R.id.combat_dialog_atk_value);
         line.removeAllViews();
+        line.setVisibility(View.VISIBLE);
         int allRollSet=0;
         for (Roll roll : atksRolls) {
             TextView atkTxt = new TextView(mC);

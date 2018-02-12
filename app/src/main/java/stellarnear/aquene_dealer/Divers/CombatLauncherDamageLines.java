@@ -145,8 +145,13 @@ public class CombatLauncherDamageLines {
             }
             damageLine.addView(summary);
         } else {
-            damageLineTitle.setVisibility(View.GONE);
-            damageLine.setVisibility(View.GONE);
+            damageLine.setVisibility(View.VISIBLE);
+            damageLineTitle.setVisibility(View.VISIBLE);
+            TextView noDice=new TextView(mC);
+            noDice.setTextSize(20);
+            noDice.setText("Aucune attaque sélectionnée");
+            damageLine.addView(noDice);
+
         }
     }
 

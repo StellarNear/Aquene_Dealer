@@ -9,6 +9,10 @@
     android:id="@+id/combat_launcher_dialog_RelativeLayoutMain"
     android:background="@drawable/background_border_dialog">
 
+
+
+
+
     <LinearLayout
 
         android:layout_width="match_parent"
@@ -121,6 +125,57 @@
         </LinearLayout>
 
     </LinearLayout>
+
+
+
+    <LinearLayout
+        android:id="@+id/add_atk_linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentTop="true"
+        android:layout_margin="@dimen/general_margin"
+        android:gravity="center"
+        android:background="@drawable/background_border_dice_list_summary"
+        android:visibility="gone">
+
+        <CheckBox
+            android:id="@+id/add_atk_medusa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="12sp"
+            android:singleLine="false"
+            android:text="+2 attaques si la cible est affaiblie"/>
+
+        <CheckBox
+            android:id="@+id/add_atk_ki"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="12sp"
+            android:text="+1 attaque (1 point de Ki)"/>
+
+        <CheckBox
+            android:id="@+id/add_atk_boots"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="12sp"
+            android:text="+1 attaque (Bottes de rapidité [1/j])"/>
+
+    </LinearLayout>
+    <ImageButton
+        android:id="@+id/fab_add_atk"
+        android:layout_width="@dimen/floatin_button_combat_lancher_add_atk_size"
+        android:layout_height="@dimen/floatin_button_combat_lancher_add_atk_size"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="@dimen/general_margin"
+        android:background="@color/transparent"
+        app:srcCompat="@drawable/ic_add_circle_outline_black_24dp"
+        android:visibility="gone"
+        />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_damage"

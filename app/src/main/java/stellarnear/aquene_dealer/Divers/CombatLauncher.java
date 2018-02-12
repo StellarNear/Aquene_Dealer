@@ -3,6 +3,7 @@ package stellarnear.aquene_dealer.Divers;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Point;
@@ -13,12 +14,18 @@ import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import stellarnear.aquene_dealer.Activities.MainActivity;
@@ -34,8 +41,12 @@ public class CombatLauncher {
     private AlertDialog alertDialog;
     private View dialogView;
     private Attack attack;
+    private CheckBox medusa;
+    private CheckBox ki;
+    private CheckBox boots;
     private boolean fabMoved = false;
     private boolean dmgMoved = false;
+    private boolean addAtkPanelIsVisible;
     private boolean manualDice;
     private SharedPreferences settings;
     private List<Roll> atksRolls;
@@ -47,6 +58,10 @@ public class CombatLauncher {
         this.attack = attack;
         LayoutInflater inflater = mA.getLayoutInflater();
         dialogView = inflater.inflate(R.layout.combat_launcher_dialog, null);
+        medusa = dialogView.findViewById(R.id.add_atk_medusa);
+        ki = dialogView.findViewById(R.id.add_atk_ki);
+        boots = dialogView.findViewById(R.id.add_atk_boots);
+
         settings = PreferenceManager.getDefaultSharedPreferences(mC);
         manualDice = settings.getBoolean("switch_manual_diceroll", mC.getResources().getBoolean(R.bool.switch_manual_diceroll_DEF));
         buildCombatDialog();
@@ -58,6 +73,8 @@ public class CombatLauncher {
         img.setImageDrawable(mC.getDrawable(imgId));
         TextView title = dialogView.findViewById(R.id.combat_dialog_attack_name);
         title.setText(attack.getName());
+        TextView summary = dialogView.findViewById(R.id.combat_dialog_attack_summary);
+        summary.setText(attack.getDescr());
 
         final FloatingActionButton fab = dialogView.findViewById(R.id.fab);
         final FloatingActionButton fabDamage = dialogView.findViewById(R.id.fab_damage);
@@ -67,10 +84,32 @@ public class CombatLauncher {
             public void onClick(View v) {
                 if (!fabMoved) {
                     fab.animate().translationX(-mC.getResources().getDimension(R.dimen.comabt_launcher_fab_mouvement)).start();
+                    startAttack();
+                } else {
+                    new android.app.AlertDialog.Builder(mC)
+                            .setIcon(R.drawable.ic_warning_black_24dp)
+                            .setTitle("Attaque déjà en cours...")
+                            .setMessage("Es-tu sûre de vouloir relancer ?")
+                            .setPositiveButton("Oui", new DialogInterface.OnClickListener()
+                            {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    buildPreRandValues();
+                                    startAttack();
+                                }
+
+                            })
+                            .setNegativeButton("Non", new DialogInterface.OnClickListener()
+                            {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+
+                            })
+                            .show();
                 }
                 fabMoved = true;
                 fabDamage.setVisibility(View.VISIBLE);
-                startAttack();
             }
         });
 
@@ -96,6 +135,10 @@ public class CombatLauncher {
             }
         });
 
+        if (attack.getId().equalsIgnoreCase("attack_flurry")) {
+            setAddAtkPanel();
+        }
+
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(mA, R.style.CustomDialog);
         dialogBuilder.setView(dialogView);
         dialogBuilder.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
@@ -106,12 +149,44 @@ public class CombatLauncher {
         alertDialog = dialogBuilder.create();
     }
 
+    private void setAddAtkPanel() {
+        addAtkPanelIsVisible=false;
+        final ImageButton addAtkButton = dialogView.findViewById(R.id.fab_add_atk);
+        final Animation inFromTop = AnimationUtils.loadAnimation(mC,R.anim.infromtopaddatkpanel);
+        final Animation outToTop = AnimationUtils.loadAnimation(mC,R.anim.outtotopaddatkpanel);
+        final LinearLayout linearAddAtk=dialogView.findViewById(R.id.add_atk_linear);
+        addAtkButton.setVisibility(View.VISIBLE);
+        addAtkButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!addAtkPanelIsVisible){
+                    linearAddAtk.setVisibility(View.VISIBLE);
+                    linearAddAtk.startAnimation(inFromTop);
+                    addAtkPanelIsVisible=true;
+                } else {
+                    linearAddAtk.startAnimation(outToTop);
+                    linearAddAtk.setVisibility(View.GONE);
+                    addAtkPanelIsVisible=false;
+                }
+            }
+        });
+    }
+
     private void buildAtksList() {
         atksRolls = new ArrayList<>();
         if (attack.getId().equalsIgnoreCase("attack_flurry")) {
             String att_base = settings.getString("jet_att_flurry", mC.getString(R.string.jet_att_flurry_DEF));
             String delim = ",";
             String[] list_att_base_string = att_base.split(delim);
+            if (medusa.isChecked()){
+                atksRolls.add(new Roll(mC, toInt(list_att_base_string[0]))); atksRolls.add(new Roll(mC, toInt(list_att_base_string[0])));
+            }
+            if (ki.isChecked()){
+                atksRolls.add(new Roll(mC, toInt(list_att_base_string[0])));
+            }
+            if (boots.isChecked()){
+                atksRolls.add(new Roll(mC, toInt(list_att_base_string[0])));
+            }
             for (String each : list_att_base_string) {
                 atksRolls.add(new Roll(mC, toInt(each)));
             }
@@ -125,13 +200,22 @@ public class CombatLauncher {
         buildPreRandValues();
     }
 
-    private void buildPreRandValues() {
+    private void buildPreRandValues()
+    {
+        clearLinear();
         combatLauncherHitCritLines.getPreRandValues();
     }
 
     private void startAttack() {
         buildAtksList();
         combatLauncherHitCritLines.getRandValues();
+    }
+
+    private void clearLinear() {
+        LinearLayout linear = dialogView.findViewById(R.id.combat_dialog_LinearLayoutMain);
+        for(int i=0;i<linear.getChildCount();i++){
+            linear.getChildAt(i).setVisibility(View.GONE);
+        }
     }
 
     private void startDamage() {
