@@ -126,8 +126,6 @@
 
     </LinearLayout>
 
-
-
     <LinearLayout
         android:id="@+id/add_atk_linear"
         android:layout_width="match_parent"
@@ -139,14 +137,6 @@
         android:background="@drawable/background_border_dice_list_summary"
         android:visibility="gone">
 
-        <CheckBox
-            android:id="@+id/add_atk_medusa"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textSize="12sp"
-            android:singleLine="false"
-            android:text="+2 attaques si la cible est affaiblie"/>
 
         <CheckBox
             android:id="@+id/add_atk_ki"
@@ -163,6 +153,15 @@
             android:gravity="center"
             android:textSize="12sp"
             android:text="+1 attaque (Bottes de rapidité [1/j])"/>
+
+        <CheckBox
+            android:id="@+id/add_atk_medusa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="12sp"
+            android:singleLine="false"
+            android:text="+2 attaques sur cible affaiblie (Fureur de la méduse)"/>
 
     </LinearLayout>
     <ImageButton

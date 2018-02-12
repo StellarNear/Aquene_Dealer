@@ -172,43 +172,10 @@ public class CombatLauncher {
         });
     }
 
-    private void buildAtksList() {
-        atksRolls = new ArrayList<>();
-        if (attack.getId().equalsIgnoreCase("attack_flurry")) {
-            String att_base = settings.getString("jet_att_flurry", mC.getString(R.string.jet_att_flurry_DEF));
-            String delim = ",";
-            String[] list_att_base_string = att_base.split(delim);
-            if (medusa.isChecked()){
-                atksRolls.add(new Roll(mC, toInt(list_att_base_string[0]))); atksRolls.add(new Roll(mC, toInt(list_att_base_string[0])));
-            }
-            if (ki.isChecked()){
-                atksRolls.add(new Roll(mC, toInt(list_att_base_string[0])));
-            }
-            if (boots.isChecked()){
-                atksRolls.add(new Roll(mC, toInt(list_att_base_string[0])));
-            }
-            for (String each : list_att_base_string) {
-                atksRolls.add(new Roll(mC, toInt(each)));
-            }
-        } else {
-            String att_base = settings.getString("jet_att", mC.getString(R.string.jet_att_DEF));
-            String delim = ",";
-            String[] list_att_base_string = att_base.split(delim);
-            atksRolls.add(new Roll(mC, toInt(list_att_base_string[0])));
-        }
-        combatLauncherHitCritLines =new CombatLauncherHitCritLines(mA,mC,dialogView,atksRolls);
-        buildPreRandValues();
-    }
-
     private void buildPreRandValues()
     {
         clearLinear();
         combatLauncherHitCritLines.getPreRandValues();
-    }
-
-    private void startAttack() {
-        buildAtksList();
-        combatLauncherHitCritLines.getRandValues();
     }
 
     private void clearLinear() {
@@ -216,6 +183,39 @@ public class CombatLauncher {
         for(int i=0;i<linear.getChildCount();i++){
             linear.getChildAt(i).setVisibility(View.GONE);
         }
+    }
+
+    private void startAttack() {
+        buildAtksList();
+        combatLauncherHitCritLines.getRandValues();
+    }
+
+    private void buildAtksList() {
+        atksRolls = new ArrayList<>();
+        if (attack.getId().equalsIgnoreCase("attack_flurry")) {
+            String att_base = settings.getString("jet_att_flurry", mC.getString(R.string.jet_att_flurry_DEF));
+            String delim = ",";
+            String[] list_att_base_string = att_base.split(delim);
+            if (medusa.isChecked()){
+                atksRolls.add(new Roll(mA,mC, toInt(list_att_base_string[0]))); atksRolls.add(new Roll(mA,mC, toInt(list_att_base_string[0])));
+            }
+            if (ki.isChecked()){
+                atksRolls.add(new Roll(mA,mC, toInt(list_att_base_string[0])));
+            }
+            if (boots.isChecked()){
+                atksRolls.add(new Roll(mA,mC, toInt(list_att_base_string[0])));
+            }
+            for (String each : list_att_base_string) {
+                atksRolls.add(new Roll(mA,mC, toInt(each)));
+            }
+        } else {
+            String att_base = settings.getString("jet_att", mC.getString(R.string.jet_att_DEF));
+            String delim = ",";
+            String[] list_att_base_string = att_base.split(delim);
+            atksRolls.add(new Roll(mA,mC, toInt(list_att_base_string[0])));
+        }
+        combatLauncherHitCritLines =new CombatLauncherHitCritLines(mA,mC,dialogView,atksRolls);
+        buildPreRandValues();
     }
 
     private void startDamage() {

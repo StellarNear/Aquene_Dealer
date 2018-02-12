@@ -33,29 +33,23 @@ import stellarnear.aquene_dealer.Activities.MainActivity;
 import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.R;
 
-/**
- * Created by jchatron on 07/02/2018.
- */
-
 public class CombatLauncherDamageLines {
     private List<Roll>atksRolls;
     private Context mC;
     private Activity mA;
     private View mainView;
-    private Boolean manualDice;
+    private Boolean manualDiceDmg;
     private AlertDialog diceList;
     private SharedPreferences settings;
-    private Perso aquene= MainActivity.aquene;
     public CombatLauncherDamageLines(Activity mA, Context mC, View mainView, List<Roll> atksRolls) {
         this.mA=mA;
         this.mC=mC;
         this.mainView =mainView;
         this.atksRolls=atksRolls;
         settings = PreferenceManager.getDefaultSharedPreferences(mC);
-        this.manualDice = settings.getBoolean("switch_manual_diceroll_damage", mC.getResources().getBoolean(R.bool.switch_manual_diceroll_damage_DEF));
+        this.manualDiceDmg = settings.getBoolean("switch_manual_diceroll_damage", mC.getResources().getBoolean(R.bool.switch_manual_diceroll_damage_DEF));
 
     }
-    
 
     private Drawable resize(int imageId, int pixel_size_icon) {
         Drawable image = mC.getDrawable(imageId);
@@ -65,40 +59,56 @@ public class CombatLauncherDamageLines {
     }
 
     public void getDamageLine() {
-        int nD10=0;
-        int nD8=0;
-        int nD6=0;
-        if (manualDice){
-
-        } else {
-            for (Roll roll: atksRolls){
-                if(!roll.isHitConfirmed() || roll.isInvalid()){
-                    continue;
-                }
-                roll.isDelt();
-                Random rand1D10 = new Random();
-                int val1D10 = 1 + rand1D10.nextInt(10);
-                Random rand2D10 = new Random();
-                int val2D10 = 1 + rand2D10.nextInt(10);
-                roll.setDmgRand(10,new int[]{val1D10,val2D10});
-                nD10+=2;
-
-                if(settings.getBoolean("switch_aldrassil", mC.getResources().getBoolean(R.bool.switch_aldrassil_DEF))) {
-                    Random randD8 = new Random();
-                    int valD8 = 1 + randD8.nextInt(8);
-                    roll.setDmgRand(8, new int[]{valD8});
-                    nD8+=1;
-                }
-
-                if(settings.getBoolean("switch_amulette", mC.getResources().getBoolean(R.bool.switch_amulette_DEF))){
-                    Random randD6 = new Random();
-                    int valD6 = 1 + randD6.nextInt(6);
-                    roll.setDmgRand(6, new int[]{valD6});
-                    nD6+=1;
-                }
+        int nD10 = 0;
+        int nD8 = 0;
+        int nD6 = 0;
+        int sumPhy=0;
+        int sumFire=0;
+        for (Roll roll : atksRolls) {
+            if (!roll.isHitConfirmed() || roll.isInvalid()) {
+                continue;
             }
+            roll.setDmgRang();
+            roll.isDelt();
+            List<ImageView> l10=roll.getDmgDiceImgList(10);
+            nD10+=l10.size();
+            List<ImageView> l8=roll.getDmgDiceImgList(8);
+            nD8+=l8.size();
+            List<ImageView> l6=roll.getDmgDiceImgList(6);
+            nD6+=l6.size();
+
+            sumPhy+=roll.getSumPhy();
+            sumFire+=roll.getSumFire();
         }
-        putDicesSummary(nD10,nD8,nD6);
+        if (manualDiceDmg){
+            putDicesSummary(nD10, nD8, nD6);
+        } else {
+            printResult(sumPhy,sumFire);
+        }
+    }
+
+    private void printResult(int sumPhy, int sumFire) {
+        TextView damageLineTitle = mainView.findViewById(R.id.combat_dialog_dmg_title);
+        damageLineTitle.setVisibility(View.VISIBLE);
+        LinearLayout damageLine = mainView.findViewById(R.id.combat_dialog_dmg);
+        damageLine.removeAllViews();
+        damageLine.setVisibility(View.VISIBLE);
+        if(sumPhy+sumFire>0){
+            LinearLayout frame = getFrameSummary();
+            TextView sumPhyTxt = new TextView(mC);
+            sumPhyTxt.setText(sumPhy+"PHY");
+            frame.addView(sumPhyTxt);
+            TextView sumFireTxt = new TextView(mC);
+            sumFireTxt.setText(sumFire+"FIRE");
+            frame.addView(sumFireTxt);
+            damageLine.addView(frame);
+        } else {
+            damageLineTitle.setVisibility(View.VISIBLE);
+            TextView noDmg=new TextView(mC);
+            noDmg.setTextSize(20);
+            noDmg.setText("Aucun dégats infligé");
+            damageLine.addView(noDmg);
+        }
     }
 
     private void putDicesSummary(int nD10,int nD8,int nD6) {
@@ -108,13 +118,7 @@ public class CombatLauncherDamageLines {
         if(nD10+nD8+nD6>0){
             damageLine.setVisibility(View.VISIBLE);
             damageLineTitle.setVisibility(View.VISIBLE);
-            LinearLayout summary = new LinearLayout(mC);
-            summary.setOrientation(LinearLayout.HORIZONTAL);
-            summary.setGravity(Gravity.CENTER);
-            int margin= (int) mC.getResources().getDimension(R.dimen.general_margin);
-            summary.setPadding(margin,margin,margin,margin);
-            summary.setBackground(mC.getDrawable(R.drawable.background_border_dice_list_summary));
-            summary.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            LinearLayout summary = getFrameSummary();
 
             if(nD10>0){
                 TextView nd10Text = new TextView(mC);
@@ -155,6 +159,17 @@ public class CombatLauncherDamageLines {
         }
     }
 
+    private LinearLayout getFrameSummary() {
+        LinearLayout frame =new LinearLayout(mC);
+        frame.setOrientation(LinearLayout.HORIZONTAL);
+        frame.setGravity(Gravity.CENTER);
+        int margin= (int) mC.getResources().getDimension(R.dimen.general_margin);
+        frame.setPadding(margin,margin,margin,margin);
+        frame.setBackground(mC.getDrawable(R.drawable.background_border_dice_list_summary));
+        frame.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        return frame;
+    }
+
     private void putDicesImgs() {
 
 
@@ -162,26 +177,7 @@ public class CombatLauncherDamageLines {
             LinearLayout atkLine = new LinearLayout(mC);
             atkLine.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
-            for(int dmg10 : roll.getDmgDiceRand(10)){
-                ImageView diceImg=new ImageView(mC);
-                int drawableId = mC.getResources().getIdentifier("d10_" + String.valueOf(dmg10), "drawable", mC.getPackageName());
-                diceImg.setImageDrawable(resize(drawableId, mC.getResources().getDimensionPixelSize(R.dimen.icon_main_dices_combat_launcher_size)));
-                atkLine.addView(diceImg);
-            }
 
-            for(int dmg8 : roll.getDmgDiceRand(8)){
-                ImageView diceImg=new ImageView(mC);
-                int drawableId = mC.getResources().getIdentifier("d8_" + String.valueOf(dmg8), "drawable", mC.getPackageName());
-                diceImg.setImageDrawable(resize(drawableId, mC.getResources().getDimensionPixelSize(R.dimen.icon_main_dices_combat_launcher_size)));
-                atkLine.addView(diceImg);
-            }
-
-            for(int dmg6 : roll.getDmgDiceRand(6)){
-                ImageView diceImg=new ImageView(mC);
-                int drawableId = mC.getResources().getIdentifier("d6_" + String.valueOf(dmg6), "drawable", mC.getPackageName());
-                diceImg.setImageDrawable(resize(drawableId, mC.getResources().getDimensionPixelSize(R.dimen.icon_main_dices_combat_launcher_size)));
-                atkLine.addView(diceImg);
-            }
             //damageLine.addView(atkLine);
         }
         showDialog();
