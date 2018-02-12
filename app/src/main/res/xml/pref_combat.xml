@@ -43,7 +43,7 @@
         android:key="bonus_jet_att"
         android:selectAllOnFocus="true"
         android:singleLine="true"
-        android:summary="Valeurs : %sm"
+        android:summary="Valeurs : %s"
         android:inputType="number"
         android:title="Bonus jet d'attaque"
         />
@@ -53,7 +53,7 @@
         android:key="bonus_jet_dmg"
         android:selectAllOnFocus="true"
         android:singleLine="true"
-        android:summary="Valeurs : %sm"
+        android:summary="Valeurs : %s"
         android:inputType="number"
         android:title="Bonus jet de dégâts"
         />

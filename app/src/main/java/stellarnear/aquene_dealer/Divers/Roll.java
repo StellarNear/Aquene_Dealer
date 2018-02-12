@@ -111,7 +111,7 @@ public class Roll {
     private int getBonusAtk() {
         int bonusAtk = 0;
 
-        bonusAtk += settings.getInt("bonus_jet_att", mC.getResources().getInteger(R.integer.bonus_jet_att_DEF));
+        bonusAtk += toInt(settings.getString("bonus_jet_att", String.valueOf(mC.getResources().getInteger(R.integer.bonus_jet_att_DEF))));
 
         if (aquene.getAllStances().isActive("stance_lion")) {
             bonusAtk += (int) (1.5 * aquene.getAbilityMod("ability_force"));
@@ -126,6 +126,15 @@ public class Roll {
         }
 
         return bonusAtk;
+    }
+
+    private Integer toInt(String key) {
+        Integer value = 0;
+        try {
+            value = Integer.parseInt(key);
+        } catch (Exception e) {
+        }
+        return value;
     }
 
     public Integer getPreRandValue() {

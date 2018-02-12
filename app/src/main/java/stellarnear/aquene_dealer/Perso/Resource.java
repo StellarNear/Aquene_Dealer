@@ -18,17 +18,23 @@ public class Resource {
     private int max;
     private int current;
     private boolean testable;
+    private boolean hide;
     private Drawable img;
 
-    public Resource(String name,String shortname, String descr,Boolean testable, String id, Context mC){
+    public Resource(String name,String shortname, String descr,Boolean testable,Boolean hide, String id, Context mC){
         this.name=name;
         this.shortname=shortname;
         this.testable=testable;
+        this.hide=hide;
         this.descr=descr;
         this.id=id;
         this.mC=mC;
         int imgId=mC.getResources().getIdentifier(id, "drawable", mC.getPackageName());
-        this.img = mC.getDrawable(imgId);
+        if(imgId!=0){
+            this.img = mC.getDrawable(imgId);
+        } else {
+            this.img=null;
+        }
     }
 
     public String getName() {
@@ -58,7 +64,7 @@ public class Resource {
     }
 
     public void spend(Integer cost){
-        if (this.current-cost <=0){
+        if ( (this.current-cost <=0) && (!this.id.equalsIgnoreCase("resource_hp")) ){
             this.current=0;
         } else {
             this.current-=cost;
@@ -86,6 +92,10 @@ public class Resource {
             shortReturn=this.name;
         }
         return shortReturn;
+    }
+
+    public boolean isHidden() {
+        return this.hide;
     }
 }
 

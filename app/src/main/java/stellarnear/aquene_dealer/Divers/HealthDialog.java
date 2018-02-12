@@ -1,40 +1,27 @@
 package stellarnear.aquene_dealer.Divers;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Point;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.text.InputType;
-import android.text.SpannableString;
-import android.text.style.RelativeSizeSpan;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.animation.ScaleAnimation;
-import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.Random;
-
 import stellarnear.aquene_dealer.Activities.MainActivity;
-import stellarnear.aquene_dealer.Perso.Ability;
 import stellarnear.aquene_dealer.Perso.Perso;
-import stellarnear.aquene_dealer.Perso.Skill;
 import stellarnear.aquene_dealer.R;
 
 
@@ -58,7 +45,7 @@ public class HealthDialog {
         LayoutInflater inflater = mA.getLayoutInflater();
         dialogView = inflater.inflate(R.layout.health_dialog, null);
 
-        setHealthHeight();
+        setHealthWidth();
 
         Button heal = dialogView.findViewById(R.id.button_healthDialog_heal);
         heal.setOnClickListener( new View.OnClickListener() {
@@ -75,7 +62,7 @@ public class HealthDialog {
                 int regen=aquene.getResourceValue("resource_regen");
                 aquene.getAllResources().getResource("resource_hp").earn(regen);
                 animateText(regen);
-                setHealthHeight();
+                setHealthWidth();
                 changeCancelButtonToOk();
             }
         });
@@ -177,7 +164,7 @@ public class HealthDialog {
                     aquene.getAllResources().getResource("resource_hp").earn(val);
                     animateText(val);
                 }
-                setHealthHeight();
+                setHealthWidth();
                 changeCancelButtonToOk();
                 lManager.hideSoftInputFromWindow(inputEdit.getWindowToken(), 0);
             }
@@ -194,7 +181,7 @@ public class HealthDialog {
         });
     }
 
-    private void setHealthHeight() {
+    private void setHealthWidth() {
         TextView textLife = dialogView.findViewById(R.id.healthDialogTestTitle);
         Double percent = 100.0*aquene.getResourceValue("resource_hp")/aquene.getAllResources().getResource("resource_hp").getMax();
         String txt = aquene.getResourceValue("resource_hp")+"/"+aquene.getAllResources().getResource("resource_hp").getMax() +" ("+percent.intValue()+"%)";
@@ -214,6 +201,7 @@ public class HealthDialog {
                 int height=(int) (oriHeight*0.355); //c'est le rapport entre le haut gargouille et la barre
 
                 Double coef = (double) aquene.getResourceValue("resource_hp")/aquene.getAllResources().getResource("resource_hp").getMax();
+                if(coef<0){coef=0d;} //pour les hp negatif
                 para.width=(int) (coef*oriWidth);
                 para.height=height;
                 imgHealth.setLayoutParams(para);

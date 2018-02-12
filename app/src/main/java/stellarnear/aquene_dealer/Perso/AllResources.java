@@ -18,6 +18,8 @@ import java.util.Map;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import stellarnear.aquene_dealer.R;
+
 /**
  * Created by jchatron on 02/02/2018.
  */
@@ -28,13 +30,14 @@ public class AllResources {
     private AllFeats allFeats;
     private Map<String, Resource> mapIDRes = new HashMap<>();
     private List<Resource> listResources= new ArrayList<>();
+    private SharedPreferences settings;
 
     public AllResources(Context mC, AllFeats allFeats, AllAbilities allAbilities)
     {
         this.mC = mC;
         this.allAbilities=allAbilities;
         this.allFeats=allFeats;
-
+        settings = PreferenceManager.getDefaultSharedPreferences(mC);
         buildResourcesList();
         refreshMaxs();
         sleepReset();
@@ -57,21 +60,31 @@ public class AllResources {
                 Node node = nList.item(i);
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
                     Element element2 = (Element) node;
-                    Resource atk=new Resource(
+                    Resource res=new Resource(
                             readValue("name", element2),
                             readValue("shortname", element2),
                             readValue("descr", element2),
                             toBool(readValue("testable", element2)),
+                            toBool(readValue("hide", element2)),
                             readValue("id", element2),
                             mC);
-                    listResources.add(atk);
-                    mapIDRes.put(atk.getId(),atk);
+                    listResources.add(res);
+                    mapIDRes.put(res.getId(),res);
                 }
             }
             is.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public List<Resource> getResourcesListDisplay(){
+        List<Resource> list=new ArrayList<>();
+
+        for (Resource res : listResources){
+            if(!res.isHidden()){list.add(res);}
+        }
+        return list;
     }
 
     public List<Resource> getResourcesList(){
@@ -97,7 +110,6 @@ public class AllResources {
     }
 
     private int readResource(String key) {
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mC);
         int resId = mC.getResources().getIdentifier( key.toLowerCase() + "_def", "integer", mC.getPackageName());
         return toInt(settings.getString( key.toLowerCase(), String.valueOf(mC.getResources().getInteger(resId))));
     }
@@ -115,6 +127,15 @@ public class AllResources {
         getResource("resource_ki").setMax(kiPool);
         getResource("resource_stun").setMax(lvl);
         getResource("resource_palm").setMax(1);
+        if(allFeats.getFeat("feat_inhuman_stamina_sup").isActive()){
+            getResource("resource_feat_inhuman_stamina_sup").setMax(1);
+        }
+        if(allFeats.getFeat("feat_iron_will_sup").isActive()){
+            getResource("resource_feat_iron_will_sup").setMax(1);
+        }
+        if(settings.getBoolean("switch_save_ref_boot",mC.getResources().getBoolean(R.bool.switch_save_ref_boot_DEF))){
+            getResource("resource_boot_add_atk").setMax(1);
+        }
     }
 
     public void sleepReset(){

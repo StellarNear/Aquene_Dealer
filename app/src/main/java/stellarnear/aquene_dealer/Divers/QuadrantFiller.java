@@ -103,7 +103,7 @@ public class QuadrantFiller {
             LinearLayout sub2 =  mainView.findViewById(layIdSub2);
 
             if (i==1){
-                List<Resource> resList=aquene.getAllResources().getResourcesList();
+                List<Resource> resList=aquene.getAllResources().getResourcesListDisplay();
                 injectStatsRes(resList, sub1, sub2,"mini");
             } else {
                 List<Ability> abiList=aquene.getAllAbilities().getAbilitiesList(types[i]);
@@ -114,7 +114,7 @@ public class QuadrantFiller {
 
     public void fullscreenQuadrant(LinearLayout layout){
         if (mapQuadrantType.get(layout).equalsIgnoreCase("res")){
-            List<Resource> abiRes=aquene.getAllResources().getResourcesList();
+            List<Resource> abiRes=aquene.getAllResources().getResourcesListDisplay();
             injectStatsRes(abiRes, quadrantFullSub1, quadrantFullSub2,"full");
         } else {
             List<Ability> abiList=aquene.getAllAbilities().getAbilitiesList(mapQuadrantType.get(layout));

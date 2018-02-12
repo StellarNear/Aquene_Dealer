@@ -1,7 +1,5 @@
 <?xml version="1.0"?>
 <records>
-
-
     <resource>
         <name>Points de vie</name>
         <descr>base</descr>
@@ -36,5 +34,19 @@
         <descr></descr>
         <id>resource_palm</id>
     </resource>
-
+    <resource>
+        <name>Attaque supplémentaire (Bottes)</name>
+        <hide>true</hide>
+        <id>resource_boot_add_atk</id>
+    </resource>
+    <resource>
+        <name>Science de la vigeur surhumaine</name>
+        <hide>true</hide>
+        <id>resource_feat_inhuman_stamina_sup</id>
+    </resource>
+    <resource>
+        <name>Science de la volonté de fer</name>
+        <hide>true</hide>
+        <id>resource_feat_iron_will_sup</id>
+    </resource>
 </records>
