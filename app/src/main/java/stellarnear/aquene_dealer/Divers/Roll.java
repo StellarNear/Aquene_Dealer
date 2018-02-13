@@ -109,7 +109,6 @@ public class Roll {
             this.randAtk = randFromWheel;
             setAtkDiceImg();
             calculAtk();
-            mListener.onEvent();
         }
         if (dice == 10) {
             this.nD10.add(dice);
@@ -123,13 +122,14 @@ public class Roll {
             addDmgDiceImg(img, dice, randFromWheel);
         }
         if (dice == 8) {
-            this.sumPhy += randFromWheel + getBonusDmg();
+            this.sumPhy += randFromWheel;
             addDmgDiceImg(img, dice, randFromWheel);
         }
         if (dice == 6) {
-            this.sumFire += randFromWheel + getBonusDmg();
+            this.sumFire += randFromWheel;
             addDmgDiceImg(img, dice, randFromWheel);
         }
+        mListener.onEvent(); //on a refresh une valeur de dès
     }
 
     private void setDiceImgListner(final ImageView imgDice, final int dice) {
@@ -286,7 +286,7 @@ public class Roll {
         critCheckbox.setEnabled(false);
     }
 
-    public void setDmgRang() {
+    public void setDmgRand() {
         if (manualDiceDmg) {
             ImageView img1D10 = new ImageView(mC);
             img1D10.setImageDrawable(resize(R.drawable.d10_main, mC.getResources().getDimensionPixelSize(R.dimen.icon_main_dices_combat_launcher_size)));

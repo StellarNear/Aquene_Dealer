@@ -50,7 +50,7 @@ public class CombatLauncherHitCritLines {
         this.atksRolls=atksRolls;
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mC);
         this.manualDice = settings.getBoolean("switch_manual_diceroll", mC.getResources().getBoolean(R.bool.switch_manual_diceroll_DEF));
-        onChangeDiceListner();
+        if(manualDice){onChangeDiceListner();}
     }
 
     public void getPreRandValues() {
@@ -82,7 +82,7 @@ public class CombatLauncherHitCritLines {
         line.setVisibility(View.VISIBLE);
         Boolean fail=false;
         for (Roll roll : atksRolls) {
-            ImageView dice_img = roll.getImgAtk();
+            ImageView diceImg = roll.getImgAtk();
             if (fail) {
                 roll.invalidated();
             } else {
@@ -91,10 +91,10 @@ public class CombatLauncherHitCritLines {
             LinearLayout diceBox=new LinearLayout(mC);
             diceBox.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT,1));
             diceBox.setGravity(Gravity.CENTER);
-            if (dice_img.getParent()!=null){
-                ((ViewGroup)dice_img.getParent()).removeView(dice_img);
+            if (diceImg.getParent()!=null){
+                ((ViewGroup)diceImg.getParent()).removeView(diceImg);
             }
-            diceBox.addView(dice_img);
+            diceBox.addView(diceImg);
             line.addView(diceBox);
         }
         getPostRandValues();

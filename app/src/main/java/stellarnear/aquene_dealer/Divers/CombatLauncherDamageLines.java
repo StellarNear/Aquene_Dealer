@@ -2,35 +2,23 @@ package stellarnear.aquene_dealer.Divers;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.Point;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
-import android.view.Display;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
-import stellarnear.aquene_dealer.Activities.MainActivity;
-import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.R;
 
 public class CombatLauncherDamageLines {
@@ -41,15 +29,23 @@ public class CombatLauncherDamageLines {
     private Boolean manualDiceDmg;
     private AlertDialog diceList;
     private SharedPreferences settings;
+    private int nD10;
+    private int nD8;
+    private int nD6;
+    private int sumPhy;
+    private int sumFire;
+    private List<Roll> selectedRolls;
+    private CombatLauncherManualDamage combatLauncherManualDamage;
     public CombatLauncherDamageLines(Activity mA, Context mC, View mainView, List<Roll> atksRolls) {
         this.mA=mA;
         this.mC=mC;
         this.mainView =mainView;
         this.atksRolls=atksRolls;
-        settings = PreferenceManager.getDefaultSharedPreferences(mC);
-        this.manualDiceDmg = settings.getBoolean("switch_manual_diceroll_damage", mC.getResources().getBoolean(R.bool.switch_manual_diceroll_damage_DEF));
-
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mC);
+        manualDiceDmg = settings.getBoolean("switch_manual_diceroll_damage", mC.getResources().getBoolean(R.bool.switch_manual_diceroll_damage_DEF));
     }
+
+
 
     private Drawable resize(int imageId, int pixel_size_icon) {
         Drawable image = mC.getDrawable(imageId);
@@ -59,16 +55,18 @@ public class CombatLauncherDamageLines {
     }
 
     public void getDamageLine() {
-        int nD10 = 0;
-        int nD8 = 0;
-        int nD6 = 0;
-        int sumPhy=0;
-        int sumFire=0;
+        nD10 = 0;
+        nD8 = 0;
+        nD6 = 0;
+        sumPhy=0;
+        sumFire=0;
+        selectedRolls=new ArrayList<>();
         for (Roll roll : atksRolls) {
             if (!roll.isHitConfirmed() || roll.isInvalid()) {
                 continue;
             }
-            roll.setDmgRang();
+            selectedRolls.add(roll);
+            roll.setDmgRand();
             roll.isDelt();
             List<ImageView> l10=roll.getDmgDiceImgList(10);
             nD10+=l10.size();
@@ -81,13 +79,13 @@ public class CombatLauncherDamageLines {
             sumFire+=roll.getSumFire();
         }
         if (manualDiceDmg){
-            putDicesSummary(nD10, nD8, nD6);
+            putDicesSummary();
         } else {
-            printResult(sumPhy,sumFire);
+            printResult();
         }
     }
 
-    private void printResult(int sumPhy, int sumFire) {
+    private void printResult() {
         TextView damageLineTitle = mainView.findViewById(R.id.combat_dialog_dmg_title);
         damageLineTitle.setVisibility(View.VISIBLE);
         LinearLayout damageLine = mainView.findViewById(R.id.combat_dialog_dmg);
@@ -97,9 +95,11 @@ public class CombatLauncherDamageLines {
             LinearLayout frame = getFrameSummary();
             TextView sumPhyTxt = new TextView(mC);
             sumPhyTxt.setText(sumPhy+"PHY");
+            sumPhyTxt.setTextSize(20);
             frame.addView(sumPhyTxt);
             TextView sumFireTxt = new TextView(mC);
             sumFireTxt.setText(sumFire+"FIRE");
+            sumFireTxt.setTextSize(20);
             frame.addView(sumFireTxt);
             damageLine.addView(frame);
         } else {
@@ -111,7 +111,7 @@ public class CombatLauncherDamageLines {
         }
     }
 
-    private void putDicesSummary(int nD10,int nD8,int nD6) {
+    private void putDicesSummary() {
         TextView damageLineTitle = mainView.findViewById(R.id.combat_dialog_dmg_title);
         LinearLayout damageLine = mainView.findViewById(R.id.combat_dialog_dmg);
         damageLine.removeAllViews();
@@ -147,6 +147,8 @@ public class CombatLauncherDamageLines {
                 nd6Text.setCompoundDrawablesWithIntrinsicBounds(resize(R.drawable.d6_main, mC.getResources().getDimensionPixelSize(R.dimen.icon_main_dices_combat_launcher_size)),null,null,null);
                 summary.addView(nd6Text);
             }
+            combatLauncherManualDamage=new CombatLauncherManualDamage(mA,mC,selectedRolls);
+            setSummaryListnerToInputManualDmg(summary);
             damageLine.addView(summary);
         } else {
             damageLine.setVisibility(View.VISIBLE);
@@ -155,8 +157,16 @@ public class CombatLauncherDamageLines {
             noDice.setTextSize(20);
             noDice.setText("Aucune attaque sélectionnée");
             damageLine.addView(noDice);
-
         }
+    }
+
+    private void setSummaryListnerToInputManualDmg(LinearLayout summary) {
+        summary.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                combatLauncherManualDamage.showDialog();
+            }
+        });
     }
 
     private LinearLayout getFrameSummary() {
@@ -170,19 +180,5 @@ public class CombatLauncherDamageLines {
         return frame;
     }
 
-    private void putDicesImgs() {
 
-
-        for (Roll roll: atksRolls){
-            LinearLayout atkLine = new LinearLayout(mC);
-            atkLine.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-
-
-            //damageLine.addView(atkLine);
-        }
-        showDialog();
-    }
-
-    private void showDialog() {
-    }
 }

@@ -183,7 +183,7 @@ public class CustomAlertDialog {
         dialogBuilder.setPositiveButton("Valider", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 alertDialog.show();
-                endSkillCalculation(wheelPicker.getValue_selected());
+                endSkillCalculation(wheelPicker.getValueSelected());
             }
         });
         dialogBuilder.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {

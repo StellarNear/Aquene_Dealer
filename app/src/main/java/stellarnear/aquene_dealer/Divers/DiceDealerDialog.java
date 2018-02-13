@@ -30,7 +30,7 @@ public class DiceDealerDialog {
         dialogBuilder.setView(dialogViewWheelPicker);
         dialogBuilder.setPositiveButton("Valider", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                roll.setRand(img,dice,wheelPicker.getValue_selected());
+                roll.setRand(img,dice,wheelPicker.getValueSelected());
             }
         });
         dialogBuilder.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
