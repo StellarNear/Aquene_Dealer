@@ -130,8 +130,8 @@ public class CombatLauncherHitCritLines {
         Boolean anyCrit = false;
         Boolean anyHit = false;
         for (Roll roll : atksRolls){
-            if(roll.getValue()!=0){anyHit=true;}
-            if (roll.isCrit()){anyCrit=true;}
+            if(roll.getValue()!=0&&!roll.isInvalid()){anyHit=true;}
+            if (roll.isCrit()&&!roll.isInvalid()){anyCrit=true;}
         }
         TextView title = mainView.findViewById(R.id.combat_dialog_hit_box_title);
         LinearLayout line = mainView.findViewById(R.id.combat_dialog_hit_box);

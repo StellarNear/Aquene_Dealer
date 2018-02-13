@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:clipChildren="false"
     android:gravity="center"
-    android:id="@+id/custom_dialog_manual_damage_RelativeLayoutMain"
+    android:id="@+id/custom_dialog_damage_detail_RelativeLayoutMain"
     android:background="@drawable/background_border_dialog">
 
     <LinearLayout
@@ -15,10 +15,11 @@
         android:gravity="center">
 
          <TextView
+             android:id="@+id/custom_dialog_damage_detail_title"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:layout_marginTop="@dimen/margin_wheel_text"
-             android:text="Lancement manuel du dès"
+             android:text="Détail des jets de dès"
              android:textAppearance="?android:attr/textAppearanceLarge"
              android:textColor="@android:color/black" />
 
@@ -30,7 +31,7 @@
             android:layout_weight="1"
             android:gravity="center">
                 <LinearLayout
-                    android:id="@+id/custom_dialog_manual_damage_ScrollLinear"
+                    android:id="@+id/custom_dialog_damage_detail_ScrollLinear"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"/>

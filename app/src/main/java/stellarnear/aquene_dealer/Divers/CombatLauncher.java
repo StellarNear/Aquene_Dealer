@@ -11,6 +11,7 @@ import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.view.Display;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -47,10 +49,12 @@ public class CombatLauncher {
     private boolean fabMoved = false;
     private boolean dmgMoved = false;
     private boolean addAtkPanelIsVisible;
-    private boolean manualDice;
     private SharedPreferences settings;
     private List<Roll> atksRolls;
     private CombatLauncherHitCritLines combatLauncherHitCritLines;
+    private CombatLauncherDamageLines combatLauncherDamageLines;
+    private List <Roll> selectedRolls;
+    private CombatLauncherDamageDetailDialog combatLauncherDamageDetailDialog;
 
     public CombatLauncher(Activity mA, Context mC, Attack attack) {
         this.mA = mA;
@@ -61,9 +65,7 @@ public class CombatLauncher {
         medusa = dialogView.findViewById(R.id.add_atk_medusa);
         ki = dialogView.findViewById(R.id.add_atk_ki);
         boots = dialogView.findViewById(R.id.add_atk_boots);
-
         settings = PreferenceManager.getDefaultSharedPreferences(mC);
-        manualDice = settings.getBoolean("switch_manual_diceroll", mC.getResources().getBoolean(R.bool.switch_manual_diceroll_DEF));
         buildCombatDialog();
     }
 
@@ -118,19 +120,37 @@ public class CombatLauncher {
             public void onClick(View v) {
                 if (!dmgMoved) {
                     fabDamage.animate().translationX(mC.getResources().getDimension(R.dimen.comabt_launcher_fab_mouvement)).start();
-                }
+                    startDamage();
+                }else {
+                        new android.app.AlertDialog.Builder(mC)
+                                .setIcon(R.drawable.ic_warning_black_24dp)
+                                .setTitle("Nouveau jet de dégats")
+                                .setMessage("Veux-tu lancer d'autres dégats ?")
+                                .setPositiveButton("Oui", new DialogInterface.OnClickListener()
+                                {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        startDamage();
+                                    }
+
+                                })
+                                .setNegativeButton("Non", new DialogInterface.OnClickListener()
+                                {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                    }
+
+                                })
+                                .show();
+                    }
                 dmgMoved = true;
                 fabDetail.setVisibility(View.VISIBLE);
-                startDamage();
             }
         });
 
         fabDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!dmgMoved) {
-                    fabDamage.animate().translationX(mC.getResources().getDimension(R.dimen.comabt_launcher_fab_mouvement)).start();
-                }
                 displayDetail();
             }
         });
@@ -219,16 +239,24 @@ public class CombatLauncher {
     }
 
     private void startDamage() {
-        if(combatLauncherHitCritLines.isMegaFail()){
-
-        } else {
-            CombatLauncherDamageLines combatLauncherDamageLines = new CombatLauncherDamageLines(mA, mC, dialogView, atksRolls);
+        if(!combatLauncherHitCritLines.isMegaFail()){
+            combatLauncherDamageLines = new CombatLauncherDamageLines(mA, mC, dialogView, atksRolls);
             combatLauncherDamageLines.getDamageLine();
+            selectedRolls = combatLauncherDamageLines.getSelectedRolls();
         }
         changeCancelButtonToOk();
     }
 
     private void displayDetail() {
+        if (selectedRolls!=null && selectedRolls.size()>0){
+            combatLauncherDamageLines.getDamageDetailDialog().showDialogDetail();
+        } else {
+            Toast toast = Toast.makeText(mC, "Aucun dégat à afficher", Toast.LENGTH_LONG);
+            TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
+            if( v != null) v.setGravity(Gravity.CENTER);
+            toast.setGravity(Gravity.CENTER,0,0);
+            toast.show();
+        }
     }
 
     public void showAlertDialog() {

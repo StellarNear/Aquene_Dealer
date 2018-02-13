@@ -35,7 +35,7 @@ public class CombatLauncherDamageLines {
     private int sumPhy;
     private int sumFire;
     private List<Roll> selectedRolls;
-    private CombatLauncherManualDamage combatLauncherManualDamage;
+    private CombatLauncherDamageDetailDialog combatLauncherDamageDetailDialog;
     public CombatLauncherDamageLines(Activity mA, Context mC, View mainView, List<Roll> atksRolls) {
         this.mA=mA;
         this.mC=mC;
@@ -93,14 +93,24 @@ public class CombatLauncherDamageLines {
         damageLine.setVisibility(View.VISIBLE);
         if(sumPhy+sumFire>0){
             LinearLayout frame = getFrameSummary();
-            TextView sumPhyTxt = new TextView(mC);
-            sumPhyTxt.setText(sumPhy+"PHY");
-            sumPhyTxt.setTextSize(20);
-            frame.addView(sumPhyTxt);
-            TextView sumFireTxt = new TextView(mC);
-            sumFireTxt.setText(sumFire+"FIRE");
-            sumFireTxt.setTextSize(20);
-            frame.addView(sumFireTxt);
+            if(sumPhy>0) {
+                TextView sumPhyTxt = new TextView(mC);
+                sumPhyTxt.setGravity(Gravity.CENTER);
+                sumPhyTxt.setText(String.valueOf(sumPhy));
+                sumPhyTxt.setCompoundDrawablesWithIntrinsicBounds(null, null, resize(R.drawable.phy_dmg_type, (int) mC.getResources().getDimension(R.dimen.combat_launcher_dmg_type_icon_size)), null);
+                sumPhyTxt.setTextSize(18);
+                sumPhyTxt.setTypeface(null, Typeface.BOLD);
+                frame.addView(sumPhyTxt);
+            }
+            if(sumFire>0) {
+                TextView sumFireTxt = new TextView(mC);
+                sumFireTxt.setGravity(Gravity.CENTER);
+                sumFireTxt.setText(String.valueOf(sumFire));
+                sumFireTxt.setCompoundDrawablesWithIntrinsicBounds(null, null, resize(R.drawable.fire_dmg_type, (int) mC.getResources().getDimension(R.dimen.combat_launcher_dmg_type_icon_size)), null);
+                sumFireTxt.setTextSize(18);
+                sumFireTxt.setTypeface(null, Typeface.BOLD);
+                frame.addView(sumFireTxt);
+            }
             damageLine.addView(frame);
         } else {
             damageLineTitle.setVisibility(View.VISIBLE);
@@ -147,14 +157,15 @@ public class CombatLauncherDamageLines {
                 nd6Text.setCompoundDrawablesWithIntrinsicBounds(resize(R.drawable.d6_main, mC.getResources().getDimensionPixelSize(R.dimen.icon_main_dices_combat_launcher_size)),null,null,null);
                 summary.addView(nd6Text);
             }
-            combatLauncherManualDamage=new CombatLauncherManualDamage(mA,mC,selectedRolls);
+            combatLauncherDamageDetailDialog =new CombatLauncherDamageDetailDialog(mA,mC,selectedRolls);
             setSummaryListnerToInputManualDmg(summary);
             damageLine.addView(summary);
         } else {
             damageLine.setVisibility(View.VISIBLE);
             damageLineTitle.setVisibility(View.VISIBLE);
             TextView noDice=new TextView(mC);
-            noDice.setTextSize(20);
+            noDice.setTextSize(18);
+            noDice.setTypeface(null, Typeface.BOLD);
             noDice.setText("Aucune attaque sélectionnée");
             damageLine.addView(noDice);
         }
@@ -164,7 +175,7 @@ public class CombatLauncherDamageLines {
         summary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                combatLauncherManualDamage.showDialog();
+                combatLauncherDamageDetailDialog.showDialogManual();
             }
         });
     }
@@ -180,5 +191,11 @@ public class CombatLauncherDamageLines {
         return frame;
     }
 
+    public List<Roll> getSelectedRolls() {
+         return  selectedRolls;
+    }
 
+    public CombatLauncherDamageDetailDialog getDamageDetailDialog() {
+        return combatLauncherDamageDetailDialog;
+    }
 }

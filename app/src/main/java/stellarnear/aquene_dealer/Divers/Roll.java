@@ -104,7 +104,7 @@ public class Roll {
         }
     }
 
-    public void setRand(ImageView img, int dice, int randFromWheel) {
+    public void setRand(ImageView img, int dice, int randFromWheel) {//retour du wheelpicker
         if (dice == 20) {
             this.randAtk = randFromWheel;
             setAtkDiceImg();

@@ -47,5 +47,6 @@
     <dimen name="floatin_button_combat_launcher_margin">10dp</dimen>
     <dimen name="icon_main_dices_combat_launcher_size">50dp</dimen>
     <dimen name="margin_combat_launcher">2dp</dimen>
+    <dimen name="combat_launcher_dmg_type_icon_size">40dp</dimen>
 
 </resources>

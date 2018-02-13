@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.drawable.Drawable;
+import android.os.Handler;
 import android.support.design.widget.Snackbar;
 import android.view.Gravity;
 import android.view.View;
@@ -165,10 +166,15 @@ public class CombatAsker {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                clearStep(1);
-                stepsView.add(1, lineKiMovement.getKiMovementLine());
-                stepsView.get(1).startAnimation(inRight);
-                getLayout();
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        clearStep(1);
+                        stepsView.add(lineKiMovement.getKiMovementLine());
+                        lineKiMovement.getKiMovementLine().startAnimation(inRight);
+                        getLayout();
+                    }
+                }, 50);
             }
         });
         stepsView.get(1).startAnimation(outLeft);
