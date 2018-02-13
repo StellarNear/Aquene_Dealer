@@ -15,6 +15,7 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -28,12 +29,12 @@ public class Roll {
     private Integer preRandValue = 0;
     private Integer atk = 0;
     private ImageView imgAtk = null;
-    private Integer sumPhy = 0;
-    private List<Integer> nD10 = new ArrayList<>();
+    private List<Integer> dmg10 = new ArrayList<>();
     private List<ImageView> listImgDmg10 = new ArrayList<>();
     private List<ImageView> listImgDmg8 = new ArrayList<>();
+    private int dmg8=0;
     private List<ImageView> listImgDmg6 = new ArrayList<>();
-    private Integer sumFire = 0;
+    private int dmg6=0;
     private Boolean hitConfirmed = false;
     private Boolean crit = false;
     private Boolean critConfirmed = false;
@@ -111,22 +112,15 @@ public class Roll {
             calculAtk();
         }
         if (dice == 10) {
-            this.nD10.add(dice);
-            if (this.nD10.size() ==2) {
-                if (critConfirmed) {
-                    sumPhy += (nD10.get(0) + nD10.get(1) + getBonusDmg()) * 2;
-                } else {
-                    sumPhy += nD10.get(0) + nD10.get(1) + getBonusDmg();
-                }
-            }
+            dmg10.add(randFromWheel);
             addDmgDiceImg(img, dice, randFromWheel);
         }
         if (dice == 8) {
-            this.sumPhy += randFromWheel;
+           dmg8=randFromWheel;
             addDmgDiceImg(img, dice, randFromWheel);
         }
         if (dice == 6) {
-            this.sumFire += randFromWheel;
+           dmg6=randFromWheel;
             addDmgDiceImg(img, dice, randFromWheel);
         }
         mListener.onEvent(); //on a refresh une valeur de dès
@@ -151,14 +145,16 @@ public class Roll {
         int drawableId = mC.getResources().getIdentifier("d" + dice + "_" + String.valueOf(diceValue), "drawable", mC.getPackageName());
         diceImg.setImageDrawable(resize(drawableId, mC.getResources().getDimensionPixelSize(R.dimen.icon_main_dices_combat_launcher_size)));
         diceImg.setOnClickListener(null);
-        if (dice == 10) {
-            listImgDmg10.add(diceImg);
-        }
-        if (dice == 8) {
-            listImgDmg8.add(diceImg);
-        }
-        if (dice == 6) {
-            listImgDmg6.add(diceImg);
+        if(!manualDiceDmg){  //pour eviter le rajout à la sortir du wheel
+            if (dice == 10) {
+                listImgDmg10.add(diceImg);
+            }
+            if (dice == 8) {
+                listImgDmg8.add(diceImg);
+            }
+            if (dice == 6) {
+                listImgDmg6.add(diceImg);
+            }
         }
     }
 
@@ -268,12 +264,33 @@ public class Roll {
         return this.critCheckbox;
     }
 
+    public List<Integer> getDiceValue(int dice) {
+        List<Integer> list=new ArrayList<>();
+        if (dice == 10) {
+            list=dmg10;
+        }
+        if (dice == 8) {
+            list= Arrays.asList(dmg8);
+        }
+        if (dice == 6) {
+            list= Arrays.asList(dmg6);
+        }
+        return list;
+    }
+
     public Integer getSumPhy() {
-        return this.sumPhy;
+        int sumPhy=0;
+        for (int i : dmg10){sumPhy+=i;}
+        sumPhy+=getBonusDmg();
+        if(critConfirmed){sumPhy+=sumPhy;}  //crit x2
+        sumPhy+=dmg8;
+        return sumPhy;
     }
 
     public Integer getSumFire() {
-        return this.sumFire;
+        int sumFire=0;
+        sumFire+=dmg6;
+        return sumFire;
     }
 
     public ImageView getImgAtk() {
@@ -313,23 +330,20 @@ public class Roll {
             int val2D10 = 1 + rand2D10.nextInt(10);
             addDmgDiceImg(new ImageView(mC), 10, val1D10);
             addDmgDiceImg(new ImageView(mC), 10, val2D10);
-            if (critConfirmed) {
-                sumPhy += (val1D10 + val2D10 + getBonusDmg()) * 2;
-            } else {
-                sumPhy += val1D10 + val2D10 + getBonusDmg();
-            }
+            dmg10.add(val1D10);
+            dmg10.add(val2D10);
 
             if (aldrassil) {
                 Random randD8 = new Random();
                 int valD8 = 1 + randD8.nextInt(8);
                 addDmgDiceImg(new ImageView(mC), 8, valD8);
-                sumPhy += (valD8);
+                dmg8=valD8;
             }
             if (amulette) {
                 Random randD6 = new Random();
                 int valD6 = 1 + randD6.nextInt(6);
                 addDmgDiceImg(new ImageView(mC), 6, valD6);
-                sumFire += (valD6);
+                dmg6=valD6;
             }
         }
     }
@@ -361,6 +375,14 @@ public class Roll {
         Bitmap b = ((BitmapDrawable) image).getBitmap();
         Bitmap bitmapResized = Bitmap.createScaledBitmap(b, pixel_size_icon, pixel_size_icon, false);
         return new BitmapDrawable(mC.getResources(), bitmapResized);
+    }
+
+    public int getDmgBonus() {
+        return getBonusDmg();
+    }
+
+    public boolean isCritConfirmed() {
+        return critConfirmed;
     }
 
     public interface OnRefreshEventListener {

@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +35,7 @@ public class CombatLauncherDamageLines {
     private int nD6;
     private int sumPhy;
     private int sumFire;
+    private boolean inputDone=false;
     private List<Roll> selectedRolls;
     private CombatLauncherDamageDetailDialog combatLauncherDamageDetailDialog;
     public CombatLauncherDamageLines(Activity mA, Context mC, View mainView, List<Roll> atksRolls) {
@@ -44,8 +46,6 @@ public class CombatLauncherDamageLines {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mC);
         manualDiceDmg = settings.getBoolean("switch_manual_diceroll_damage", mC.getResources().getBoolean(R.bool.switch_manual_diceroll_damage_DEF));
     }
-
-
 
     private Drawable resize(int imageId, int pixel_size_icon) {
         Drawable image = mC.getDrawable(imageId);
@@ -78,14 +78,15 @@ public class CombatLauncherDamageLines {
             sumPhy+=roll.getSumPhy();
             sumFire+=roll.getSumFire();
         }
-        if (manualDiceDmg){
+        if (manualDiceDmg && !inputDone){
             putDicesSummary();
         } else {
             printResult();
         }
+        combatLauncherDamageDetailDialog =new CombatLauncherDamageDetailDialog(mA,mC,selectedRolls);
     }
 
-    private void printResult() {
+    public void printResult() {
         TextView damageLineTitle = mainView.findViewById(R.id.combat_dialog_dmg_title);
         damageLineTitle.setVisibility(View.VISIBLE);
         LinearLayout damageLine = mainView.findViewById(R.id.combat_dialog_dmg);
@@ -112,6 +113,7 @@ public class CombatLauncherDamageLines {
                 frame.addView(sumFireTxt);
             }
             damageLine.addView(frame);
+            setSummaryListnerToShowStats(frame);
         } else {
             damageLineTitle.setVisibility(View.VISIBLE);
             TextView noDmg=new TextView(mC);
@@ -157,7 +159,6 @@ public class CombatLauncherDamageLines {
                 nd6Text.setCompoundDrawablesWithIntrinsicBounds(resize(R.drawable.d6_main, mC.getResources().getDimensionPixelSize(R.dimen.icon_main_dices_combat_launcher_size)),null,null,null);
                 summary.addView(nd6Text);
             }
-            combatLauncherDamageDetailDialog =new CombatLauncherDamageDetailDialog(mA,mC,selectedRolls);
             setSummaryListnerToInputManualDmg(summary);
             damageLine.addView(summary);
         } else {
@@ -179,6 +180,24 @@ public class CombatLauncherDamageLines {
             }
         });
     }
+    private void setSummaryListnerToShowStats(LinearLayout summary) {
+        summary.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ProbaFromDiceRand proba = new ProbaFromDiceRand(selectedRolls);
+                toastIt(proba.getPhysicalRange(mC));
+                toastIt(proba.getPhysicalProba());
+            }
+        });
+    }
+
+    private void toastIt(String txt) {
+        Toast toast = Toast.makeText(mC, txt, Toast.LENGTH_LONG);
+        TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
+        if( v != null) v.setGravity(Gravity.CENTER);
+        toast.setGravity(Gravity.CENTER,0,0);
+        toast.show();
+    }
 
     private LinearLayout getFrameSummary() {
         LinearLayout frame =new LinearLayout(mC);
@@ -195,7 +214,31 @@ public class CombatLauncherDamageLines {
          return  selectedRolls;
     }
 
+    public int getSelectedRollsNdices() {
+        return  nD6+nD8+nD10;
+    }
+
     public CombatLauncherDamageDetailDialog getDamageDetailDialog() {
         return combatLauncherDamageDetailDialog;
+    }
+
+    public void inputDone(){
+        this.inputDone=true;
+        nD10 = 0;
+        nD8 = 0;
+        nD6 = 0;
+        sumPhy=0;
+        sumFire=0;
+        for (Roll roll : selectedRolls) {
+            List<ImageView> l10=roll.getDmgDiceImgList(10);
+            nD10+=l10.size();
+            List<ImageView> l8=roll.getDmgDiceImgList(8);
+            nD8+=l8.size();
+            List<ImageView> l6=roll.getDmgDiceImgList(6);
+            nD6+=l6.size();
+            sumPhy+=roll.getSumPhy();
+            sumFire+=roll.getSumFire();
+        }
+        printResult();
     }
 }

@@ -49,12 +49,13 @@ public class CombatLauncher {
     private boolean fabMoved = false;
     private boolean dmgMoved = false;
     private boolean addAtkPanelIsVisible;
+    private boolean detailAvailable=false;
+    private int nDicesSet;
     private SharedPreferences settings;
     private List<Roll> atksRolls;
     private CombatLauncherHitCritLines combatLauncherHitCritLines;
     private CombatLauncherDamageLines combatLauncherDamageLines;
     private List <Roll> selectedRolls;
-    private CombatLauncherDamageDetailDialog combatLauncherDamageDetailDialog;
 
     public CombatLauncher(Activity mA, Context mC, Attack attack) {
         this.mA = mA;
@@ -139,7 +140,6 @@ public class CombatLauncher {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                     }
-
                                 })
                                 .show();
                     }
@@ -243,20 +243,54 @@ public class CombatLauncher {
             combatLauncherDamageLines = new CombatLauncherDamageLines(mA, mC, dialogView, atksRolls);
             combatLauncherDamageLines.getDamageLine();
             selectedRolls = combatLauncherDamageLines.getSelectedRolls();
+            nDicesSet=0;
+            detailAvailable=false;
+            onChangeDiceListner();
         }
         changeCancelButtonToOk();
     }
+    private void onChangeDiceListner() {
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mC);
+        Boolean manualDiceDmg = settings.getBoolean("switch_manual_diceroll_damage", mC.getResources().getBoolean(R.bool.switch_manual_diceroll_damage_DEF));
+        for (Roll roll : selectedRolls) {
+            if (manualDiceDmg) {
+                roll.setRefreshEventListener(new Roll.OnRefreshEventListener() {
+                    public void onEvent() {
+                        checkAllRollSet();
+                    }
+                });
+            } else {
+                detailAvailable=true;
+                roll.setRefreshEventListener(null);
+            }
+        }
+    }
+
+    private void checkAllRollSet() {
+        int nDices = combatLauncherDamageLines.getSelectedRollsNdices();
+        nDicesSet+=1;
+        if(nDices==nDicesSet){
+            toastIt("Tu as fini la saisie !");
+            combatLauncherDamageLines.inputDone();
+            combatLauncherDamageLines.getDamageDetailDialog().changeCancelButtonToOk();
+            detailAvailable=true;
+        }
+    }
 
     private void displayDetail() {
-        if (selectedRolls!=null && selectedRolls.size()>0){
+        if (selectedRolls!=null && selectedRolls.size()>0 && detailAvailable){
             combatLauncherDamageLines.getDamageDetailDialog().showDialogDetail();
         } else {
-            Toast toast = Toast.makeText(mC, "Aucun dégat à afficher", Toast.LENGTH_LONG);
-            TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
-            if( v != null) v.setGravity(Gravity.CENTER);
-            toast.setGravity(Gravity.CENTER,0,0);
-            toast.show();
+            toastIt("Aucun dégat à afficher");
         }
+    }
+
+    private void toastIt(String s) {
+        Toast toast = Toast.makeText(mC, s, Toast.LENGTH_LONG);
+        TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
+        if( v != null) v.setGravity(Gravity.CENTER);
+        toast.setGravity(Gravity.CENTER,0,0);
+        toast.show();
     }
 
     public void showAlertDialog() {

@@ -39,31 +39,6 @@ public class CombatLauncherDamageDetailDialog {
         this.mA = mA;
         this.mC = mC;
         buildDialog();
-        onChangeDiceListner();
-    }
-
-    private void onChangeDiceListner() {
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mC);
-        Boolean manualDiceDmg = settings.getBoolean("switch_manual_diceroll_damage", mC.getResources().getBoolean(R.bool.switch_manual_diceroll_damage_DEF));
-        for (Roll roll : rollsToDisplay) {
-            if (manualDiceDmg) {
-                roll.setRefreshEventListener(new Roll.OnRefreshEventListener() {
-                    public void onEvent() {
-                        checkAllRollSet();
-                    }
-                });
-            } else {
-                roll.setRefreshEventListener(null);
-            }
-        }
-    }
-
-    private void checkAllRollSet() {
-        Boolean allSet = false;
-        for (Roll roll:rollsToDisplay){
-            //todo return un event pour change summary en sum
-        }
-
     }
 
     private void buildDialog() {
@@ -85,17 +60,47 @@ public class CombatLauncherDamageDetailDialog {
         linear.removeAllViews();
         for (Roll roll : rollsToDisplay) {
             LinearLayout atkLine = new LinearLayout(mC);
+            atkLine.setGravity(Gravity.CENTER);
             atkLine.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT,1));
+            if(roll.isCritConfirmed()){
+                TextView open = new TextView(mC);
+                open.setTextSize(20);
+                open.setGravity(Gravity.CENTER);
+                open.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                open.setText("(");
+                LinearLayout openBox = box();
+                openBox.addView(open);
+                atkLine.addView(openBox);
+            }
             for (ImageView img : roll.getDmgDiceImgList(10)) {
                 LinearLayout box = box();
                 box.addView(img);
                 atkLine.addView(box);
+            }
+            TextView bonus = new TextView(mC);
+            bonus.setTextSize(20);
+            bonus.setGravity(Gravity.CENTER);
+            bonus.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            bonus.setText("+"+roll.getDmgBonus());
+            LinearLayout boxBonus = box();
+            boxBonus.addView(bonus);
+            atkLine.addView(boxBonus);
+            if(roll.isCritConfirmed()){
+                TextView close = new TextView(mC);
+                close.setTextSize(20);
+                close.setGravity(Gravity.CENTER);
+                close.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                close.setText(")x2");
+                LinearLayout closeBox = box();
+                closeBox.addView(close);
+                atkLine.addView(closeBox);
             }
             for (ImageView img : roll.getDmgDiceImgList(8)) {
                 LinearLayout box = box();
                 box.addView(img);
                 atkLine.addView(box);
             }
+
             for (ImageView img : roll.getDmgDiceImgList(6)) {
                 LinearLayout box = box();
                 box.addView(img);
@@ -104,7 +109,7 @@ public class CombatLauncherDamageDetailDialog {
             linear.addView(atkLine);
         }
     }
-    private void changeCancelButtonToOk() {
+    public void changeCancelButtonToOk() {
         Button onlyButton = dialog.getButton(AlertDialog.BUTTON_NEGATIVE);
         onlyButton.setText("Ok");
         onlyButton.setBackground(mC.getDrawable(R.drawable.button_ok_gradient));
