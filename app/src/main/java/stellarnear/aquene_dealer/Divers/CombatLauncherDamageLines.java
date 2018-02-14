@@ -23,7 +23,7 @@ import java.util.List;
 import stellarnear.aquene_dealer.R;
 
 public class CombatLauncherDamageLines {
-    private List<Roll>atksRolls;
+    private List<Roll> allRolls;
     private Context mC;
     private Activity mA;
     private View mainView;
@@ -37,21 +37,16 @@ public class CombatLauncherDamageLines {
     private int sumFire;
     private boolean inputDone=false;
     private List<Roll> selectedRolls;
+    private boolean detailAvailable=false;
+    private int nDicesSet=0;
     private CombatLauncherDamageDetailDialog combatLauncherDamageDetailDialog;
-    public CombatLauncherDamageLines(Activity mA, Context mC, View mainView, List<Roll> atksRolls) {
+    public CombatLauncherDamageLines(Activity mA, Context mC, View mainView, List<Roll> allRolls) {
         this.mA=mA;
         this.mC=mC;
         this.mainView =mainView;
-        this.atksRolls=atksRolls;
+        this.allRolls = allRolls;
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mC);
         manualDiceDmg = settings.getBoolean("switch_manual_diceroll_damage", mC.getResources().getBoolean(R.bool.switch_manual_diceroll_damage_DEF));
-    }
-
-    private Drawable resize(int imageId, int pixel_size_icon) {
-        Drawable image = mC.getDrawable(imageId);
-        Bitmap b = ((BitmapDrawable) image).getBitmap();
-        Bitmap bitmapResized = Bitmap.createScaledBitmap(b, pixel_size_icon, pixel_size_icon, false);
-        return new BitmapDrawable(mC.getResources(), bitmapResized);
     }
 
     public void getDamageLine() {
@@ -61,22 +56,19 @@ public class CombatLauncherDamageLines {
         sumPhy=0;
         sumFire=0;
         selectedRolls=new ArrayList<>();
-        for (Roll roll : atksRolls) {
+        for (Roll roll : allRolls) {
             if (!roll.isHitConfirmed() || roll.isInvalid()) {
                 continue;
             }
             selectedRolls.add(roll);
             roll.setDmgRand();
             roll.isDelt();
-            List<ImageView> l10=roll.getDmgDiceImgList(10);
-            nD10+=l10.size();
-            List<ImageView> l8=roll.getDmgDiceImgList(8);
-            nD8+=l8.size();
-            List<ImageView> l6=roll.getDmgDiceImgList(6);
-            nD6+=l6.size();
 
-            sumPhy+=roll.getSumPhy();
-            sumFire+=roll.getSumFire();
+            nD10+=roll.getNDmgDice(10);
+            nD8+=roll.getNDmgDice(8);
+            nD6+=roll.getNDmgDice(6);
+            sumPhy+=roll.getDmgSumPhy();
+            sumFire+=roll.getDmgSumFire();
         }
         if (manualDiceDmg && !inputDone){
             putDicesSummary();
@@ -84,6 +76,33 @@ public class CombatLauncherDamageLines {
             printResult();
         }
         combatLauncherDamageDetailDialog =new CombatLauncherDamageDetailDialog(mA,mC,selectedRolls);
+        onChangeDiceListner();
+    }
+
+    private void onChangeDiceListner() {
+        for (Roll roll : selectedRolls) {
+            if (manualDiceDmg) {
+                roll.getDmgRoll().setRefreshEventListener(new DmgRoll.OnRefreshEventListener() {
+                    public void onEvent() {
+                        checkAllRollSet();
+                    }
+                });
+            } else {
+                detailAvailable=true;
+                roll.getDmgRoll().setRefreshEventListener(null);
+            }
+        }
+    }
+
+    private void checkAllRollSet() {
+        int nDices = nD6+nD8+nD10;
+        nDicesSet+=1;
+        if(nDices==nDicesSet){
+            toastIt("Tu as fini la saisie !");
+            inputDone();
+            combatLauncherDamageDetailDialog.changeCancelButtonToOk();
+            detailAvailable=true;
+        }
     }
 
     public void printResult() {
@@ -191,38 +210,7 @@ public class CombatLauncherDamageLines {
         });
     }
 
-    private void toastIt(String txt) {
-        Toast toast = Toast.makeText(mC, txt, Toast.LENGTH_LONG);
-        TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
-        if( v != null) v.setGravity(Gravity.CENTER);
-        toast.setGravity(Gravity.CENTER,0,0);
-        toast.show();
-    }
-
-    private LinearLayout getFrameSummary() {
-        LinearLayout frame =new LinearLayout(mC);
-        frame.setOrientation(LinearLayout.HORIZONTAL);
-        frame.setGravity(Gravity.CENTER);
-        int margin= (int) mC.getResources().getDimension(R.dimen.general_margin);
-        frame.setPadding(margin,margin,margin,margin);
-        frame.setBackground(mC.getDrawable(R.drawable.background_border_dice_list_summary));
-        frame.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        return frame;
-    }
-
-    public List<Roll> getSelectedRolls() {
-         return  selectedRolls;
-    }
-
-    public int getSelectedRollsNdices() {
-        return  nD6+nD8+nD10;
-    }
-
-    public CombatLauncherDamageDetailDialog getDamageDetailDialog() {
-        return combatLauncherDamageDetailDialog;
-    }
-
-    public void inputDone(){
+    private void inputDone(){
         this.inputDone=true;
         nD10 = 0;
         nD8 = 0;
@@ -236,9 +224,45 @@ public class CombatLauncherDamageLines {
             nD8+=l8.size();
             List<ImageView> l6=roll.getDmgDiceImgList(6);
             nD6+=l6.size();
-            sumPhy+=roll.getSumPhy();
-            sumFire+=roll.getSumFire();
+            sumPhy+=roll.getDmgSumPhy();
+            sumFire+=roll.getDmgSumFire();
         }
         printResult();
     }
+
+    public void showDialogDetail() {
+        if (selectedRolls!=null && !selectedRolls.isEmpty() && detailAvailable){
+            combatLauncherDamageDetailDialog.showDialogDetail();
+        } else {
+            toastIt("Aucun dégat à afficher");
+        }
+    }
+
+    //TOOLS
+    private void toastIt(String txt) {
+        Toast toast = Toast.makeText(mC, txt, Toast.LENGTH_LONG);
+        TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
+        if( v != null) v.setGravity(Gravity.CENTER);
+        toast.setGravity(Gravity.CENTER,0,0);
+        toast.show();
+    }
+
+    private Drawable resize(int imageId, int pixel_size_icon) {
+        Drawable image = mC.getDrawable(imageId);
+        Bitmap b = ((BitmapDrawable) image).getBitmap();
+        Bitmap bitmapResized = Bitmap.createScaledBitmap(b, pixel_size_icon, pixel_size_icon, false);
+        return new BitmapDrawable(mC.getResources(), bitmapResized);
+    }
+
+    private LinearLayout getFrameSummary() {
+        LinearLayout frame =new LinearLayout(mC);
+        frame.setOrientation(LinearLayout.HORIZONTAL);
+        frame.setGravity(Gravity.CENTER);
+        int margin= (int) mC.getResources().getDimension(R.dimen.general_margin);
+        frame.setPadding(margin,margin,margin,margin);
+        frame.setBackground(mC.getDrawable(R.drawable.background_border_dice_list_summary));
+        frame.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        return frame;
+    }
+
 }

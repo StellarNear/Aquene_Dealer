@@ -27,15 +27,27 @@
         android:title="Jets d'attaque déluge de coup (x,x,x)"
         />
 
+    <stellarnear.aquene_dealer.Divers.EditTextPreference
+        android:defaultValue="@integer/number_main_dice_dmg_DEF"
+        android:key="number_main_dice_dmg"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:inputType="number"
+        android:summary="Valeurs : %sD10"
+        android:title="Nombre de dès de 10 pour les dégats à main nues"
+        />
+
     <SwitchPreference
         android:defaultValue="@bool/switch_amulette_DEF"
         android:key="switch_amulette"
-        android:title="Amulette des poings invincibles" />
+        android:title="Amulette des poings invincibles"
+        android:summary="+5 d'altération, portée 3m, 1d6 de feu"/>
 
     <SwitchPreference
         android:defaultValue="@bool/switch_aldrassil_DEF"
         android:key="switch_aldrassil"
-        android:title="Bandages d'Aldrassil" />
+        android:title="Bandages d'Aldrassil"
+        android:summary="+2 d'altération, 1d8 de physique"/>
 
 
     <stellarnear.aquene_dealer.Divers.EditTextPreference

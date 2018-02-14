@@ -18,8 +18,8 @@ import stellarnear.aquene_dealer.R;
  */
 
 public class CombatAskerConfirmationLine {
-    LinearLayout lineStep;
-    Perso aquene = MainActivity.aquene;
+    private LinearLayout lineStep;
+    private Perso aquene = MainActivity.aquene;
 
     public CombatAskerConfirmationLine(final Activity mA, final Context mC, final Attack selectedAttack, final View.OnClickListener backToMainListner, final Boolean kistep) {
         lineStep = new LinearLayout(mC);
@@ -37,11 +37,9 @@ public class CombatAskerConfirmationLine {
             valid.setBackground(mC.getDrawable(R.drawable.button_ok_gradient));
 
         }
-        CompositeListner compositeListner = new CompositeListner();
-        compositeListner.addOnclickListener(backToMainListner);
-        View.OnClickListener randomToast = new View.OnClickListener() {
+        valid.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(final View view) {
                 String txt;
                 if (selectedAttack == null) {
                     txt = "Retour au menu principal";
@@ -55,19 +53,26 @@ public class CombatAskerConfirmationLine {
                     }
                     CombatLauncher combatLauncher = new CombatLauncher(mA, mC, selectedAttack);
                     combatLauncher.showAlertDialog();
+                    combatLauncher.setFinishEventListener(new CombatLauncher.OnFinishEventListener() {
+                        public void onEvent() {
+                            View toMain = new View(mC);
+                            toMain.setOnClickListener(backToMainListner);
+                            toMain.performClick();
+                            Snackbar snackbar = Snackbar.make(view, "Retour au menu principal", Snackbar.LENGTH_LONG);
+                            snackbar.show();
+                        }
+                    });
+
                 }
                 Snackbar snackbar = Snackbar.make(view, txt, Snackbar.LENGTH_LONG);
                 snackbar.show();
-
             }
-        };
-        compositeListner.addOnclickListener(randomToast);
-        valid.setOnClickListener(compositeListner);
+        });
         lineStep.addView(valid);
 
     }
 
-    public LinearLayout getConfirmationLine(){
+    public LinearLayout getConfirmationLine() {
         return lineStep;
     }
 

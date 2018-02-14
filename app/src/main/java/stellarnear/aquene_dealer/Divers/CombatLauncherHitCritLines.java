@@ -2,30 +2,19 @@ package stellarnear.aquene_dealer.Divers;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.Point;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AlertDialog;
-import android.view.Display;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.List;
-import java.util.Random;
 
 import stellarnear.aquene_dealer.Activities.MainActivity;
 import stellarnear.aquene_dealer.Perso.Perso;
@@ -36,18 +25,18 @@ import stellarnear.aquene_dealer.R;
  */
 
 public class CombatLauncherHitCritLines {
-    private List<Roll>atksRolls;
+    private List<Roll> allRolls;
     private Context mC;
     private Activity mA;
     private View mainView;
     private Boolean manualDice;
     private Boolean megaFail=false;
     private Perso aquene= MainActivity.aquene;
-    public CombatLauncherHitCritLines(Activity mA, Context mC, View mainView, List<Roll> atksRolls) {
+    public CombatLauncherHitCritLines(Activity mA, Context mC, View mainView, List<Roll> allRolls) {
         this.mA=mA;
         this.mC=mC;
         this.mainView =mainView;
-        this.atksRolls=atksRolls;
+        this.allRolls = allRolls;
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mC);
         this.manualDice = settings.getBoolean("switch_manual_diceroll", mC.getResources().getBoolean(R.bool.switch_manual_diceroll_DEF));
         if(manualDice){onChangeDiceListner();}
@@ -57,7 +46,7 @@ public class CombatLauncherHitCritLines {
         LinearLayout line = mainView.findViewById(R.id.combat_dialog_prerand_value);
         line.removeAllViews();
         line.setVisibility(View.VISIBLE);
-        for (Roll roll : atksRolls) {
+        for (Roll roll : allRolls) {
             TextView atkTxt = new TextView(mC);
             atkTxt.setText("+" + roll.getPreRandValue());
             atkTxt.setGravity(Gravity.CENTER);
@@ -67,8 +56,8 @@ public class CombatLauncherHitCritLines {
     }
 
     private void onChangeDiceListner(){
-        for (Roll roll :atksRolls){
-            roll.setRefreshEventListener(new Roll.OnRefreshEventListener() {
+        for (Roll roll : allRolls){
+            roll.getAtkRoll().setRefreshEventListener(new AtkRoll.OnRefreshEventListener() {
                 public void onEvent() {
                     getRandValues();
                 }
@@ -81,7 +70,7 @@ public class CombatLauncherHitCritLines {
         line.removeAllViews();
         line.setVisibility(View.VISIBLE);
         Boolean fail=false;
-        for (Roll roll : atksRolls) {
+        for (Roll roll : allRolls) {
             ImageView diceImg = roll.getImgAtk();
             if (fail) {
                 roll.invalidated();
@@ -105,15 +94,15 @@ public class CombatLauncherHitCritLines {
         line.removeAllViews();
         line.setVisibility(View.VISIBLE);
         int allRollSet=0;
-        for (Roll roll : atksRolls) {
+        for (Roll roll : allRolls) {
             TextView atkTxt = new TextView(mC);
             atkTxt.setText("?");
             if (roll.isInvalid()) {
                 atkTxt.setText("-");
                 allRollSet+=1;
             } else {
-                if ((roll.getValue() != 0)) {
-                    atkTxt.setText("+"+String.valueOf(roll.getValue()));
+                if ((roll.getAtkValue() != 0)) {
+                    atkTxt.setText("+"+String.valueOf(roll.getAtkValue()));
                     allRollSet+=1;
                 }
             }
@@ -121,7 +110,7 @@ public class CombatLauncherHitCritLines {
             atkTxt.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
             line.addView(atkTxt);
         }
-        if (allRollSet==atksRolls.size()){
+        if (allRollSet== allRolls.size()){
             getHitAndCritLines();
         }
     }
@@ -129,8 +118,8 @@ public class CombatLauncherHitCritLines {
     private void getHitAndCritLines() {
         Boolean anyCrit = false;
         Boolean anyHit = false;
-        for (Roll roll : atksRolls){
-            if(roll.getValue()!=0&&!roll.isInvalid()){anyHit=true;}
+        for (Roll roll : allRolls){
+            if(roll.getAtkValue()!=0&&!roll.isInvalid()){anyHit=true;}
             if (roll.isCrit()&&!roll.isInvalid()){anyCrit=true;}
         }
         TextView title = mainView.findViewById(R.id.combat_dialog_hit_box_title);
@@ -141,7 +130,7 @@ public class CombatLauncherHitCritLines {
         if(anyHit) {
             title.setVisibility(View.VISIBLE);
             line.setVisibility(View.VISIBLE);
-            for (Roll roll : atksRolls) {
+            for (Roll roll : allRolls) {
                 LinearLayout frame = new LinearLayout(mC);
                 frame.setGravity(Gravity.CENTER);
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1);
@@ -168,7 +157,7 @@ public class CombatLauncherHitCritLines {
             titleCrit.startAnimation(anim);
             lineCrit.setVisibility(View.VISIBLE);
             lineCrit.removeAllViews();
-            for (final Roll roll : atksRolls) {
+            for (final Roll roll : allRolls) {
                 LinearLayout frame = new LinearLayout(mC);
                 frame.setGravity(Gravity.CENTER);
                 frame.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));

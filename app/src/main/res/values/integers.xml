@@ -61,6 +61,7 @@
     <integer name="percent_fullscreen_combat_launcher_dialog">95</integer>
     <integer name="bonus_jet_att_DEF">0</integer>
     <integer name="bonus_jet_dmg_DEF">0</integer>
+    <integer name="number_main_dice_dmg_DEF">2</integer>
 
 
 </resources>

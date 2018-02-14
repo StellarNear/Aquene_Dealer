@@ -21,7 +21,13 @@ import stellarnear.aquene_dealer.R;
  */
 
 public class DiceDealerDialog {
-    public DiceDealerDialog(Activity mA, Context mC,final Roll roll,final ImageView img,final int dice){
+    private AlertDialog alertDialogWheelPicker;
+    private Activity mA;
+    private Context mC;
+
+    public DiceDealerDialog(Activity mA, Context mC,final AtkRoll atkRoll,final int dice){
+        this.mA=mA;
+        this.mC=mC;
         LayoutInflater inflater = mA.getLayoutInflater();
         View dialogViewWheelPicker = inflater.inflate(R.layout.custom_dialog_wheel_picker, null);
         RelativeLayout relativeCenter = dialogViewWheelPicker.findViewById(R.id.relative_custom_dialog_center);
@@ -30,15 +36,42 @@ public class DiceDealerDialog {
         dialogBuilder.setView(dialogViewWheelPicker);
         dialogBuilder.setPositiveButton("Valider", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                roll.setRand(img,dice,wheelPicker.getValueSelected());
+                atkRoll.setAtkRand(wheelPicker.getValueSelected());
             }
         });
         dialogBuilder.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
             }
         });
-        AlertDialog alertDialogWheelPicker = dialogBuilder.create();
+        alertDialogWheelPicker = dialogBuilder.create();
 
+        showDialog();
+    }
+
+    public DiceDealerDialog(Activity mA, Context mC,final DmgRoll dmgRoll,final ImageView img,final int dice){
+        this.mA=mA;
+        this.mC=mC;
+        LayoutInflater inflater = mA.getLayoutInflater();
+        View dialogViewWheelPicker = inflater.inflate(R.layout.custom_dialog_wheel_picker, null);
+        RelativeLayout relativeCenter = dialogViewWheelPicker.findViewById(R.id.relative_custom_dialog_center);
+        final WheelDicePicker wheelPicker = new WheelDicePicker(relativeCenter, dice, mC);
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(mA, R.style.CustomDialog);
+        dialogBuilder.setView(dialogViewWheelPicker);
+        dialogBuilder.setPositiveButton("Valider", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dmgRoll.setDmgRand(img,dice,wheelPicker.getValueSelected());
+            }
+        });
+        dialogBuilder.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+            }
+        });
+        alertDialogWheelPicker = dialogBuilder.create();
+
+        showDialog();
+    }
+
+    private void showDialog() {
         alertDialogWheelPicker.show();
         Display display = mA.getWindowManager().getDefaultDisplay();
         Point size = new Point();

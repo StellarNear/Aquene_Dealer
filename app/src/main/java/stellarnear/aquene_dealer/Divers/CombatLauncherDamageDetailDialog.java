@@ -61,17 +61,8 @@ public class CombatLauncherDamageDetailDialog {
         for (Roll roll : rollsToDisplay) {
             LinearLayout atkLine = new LinearLayout(mC);
             atkLine.setGravity(Gravity.CENTER);
+            if(roll.isCritConfirmed()){atkLine.setBackground(mC.getDrawable(R.drawable.dice_detail_crit_gradient));}
             atkLine.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT,1));
-            if(roll.isCritConfirmed()){
-                TextView open = new TextView(mC);
-                open.setTextSize(20);
-                open.setGravity(Gravity.CENTER);
-                open.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
-                open.setText("(");
-                LinearLayout openBox = box();
-                openBox.addView(open);
-                atkLine.addView(openBox);
-            }
             for (ImageView img : roll.getDmgDiceImgList(10)) {
                 LinearLayout box = box();
                 box.addView(img);
@@ -85,16 +76,7 @@ public class CombatLauncherDamageDetailDialog {
             LinearLayout boxBonus = box();
             boxBonus.addView(bonus);
             atkLine.addView(boxBonus);
-            if(roll.isCritConfirmed()){
-                TextView close = new TextView(mC);
-                close.setTextSize(20);
-                close.setGravity(Gravity.CENTER);
-                close.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
-                close.setText(")x2");
-                LinearLayout closeBox = box();
-                closeBox.addView(close);
-                atkLine.addView(closeBox);
-            }
+
             for (ImageView img : roll.getDmgDiceImgList(8)) {
                 LinearLayout box = box();
                 box.addView(img);

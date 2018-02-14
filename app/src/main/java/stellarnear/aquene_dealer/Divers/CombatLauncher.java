@@ -56,6 +56,8 @@ public class CombatLauncher {
     private CombatLauncherHitCritLines combatLauncherHitCritLines;
     private CombatLauncherDamageLines combatLauncherDamageLines;
     private List <Roll> selectedRolls;
+    private ImageButton addAtkButton;
+    private OnFinishEventListener mListener;
 
     public CombatLauncher(Activity mA, Context mC, Attack attack) {
         this.mA = mA;
@@ -63,6 +65,7 @@ public class CombatLauncher {
         this.attack = attack;
         LayoutInflater inflater = mA.getLayoutInflater();
         dialogView = inflater.inflate(R.layout.combat_launcher_dialog, null);
+        addAtkButton = dialogView.findViewById(R.id.fab_add_atk);
         medusa = dialogView.findViewById(R.id.add_atk_medusa);
         ki = dialogView.findViewById(R.id.add_atk_ki);
         boots = dialogView.findViewById(R.id.add_atk_boots);
@@ -97,7 +100,6 @@ public class CombatLauncher {
                             {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    buildPreRandValues();
                                     startAttack();
                                 }
 
@@ -164,14 +166,22 @@ public class CombatLauncher {
         dialogBuilder.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 unlockOrient();
+                mListener.onEvent();
             }
         });
         alertDialog = dialogBuilder.create();
     }
 
+    public interface OnFinishEventListener {
+        void onEvent();
+    }
+
+    public void setFinishEventListener(OnFinishEventListener eventListener) {
+        mListener = eventListener;
+    }
+
     private void setAddAtkPanel() {
         addAtkPanelIsVisible=false;
-        final ImageButton addAtkButton = dialogView.findViewById(R.id.fab_add_atk);
         final Animation inFromTop = AnimationUtils.loadAnimation(mC,R.anim.infromtopaddatkpanel);
         final Animation outToTop = AnimationUtils.loadAnimation(mC,R.anim.outtotopaddatkpanel);
         final LinearLayout linearAddAtk=dialogView.findViewById(R.id.add_atk_linear);
@@ -179,6 +189,7 @@ public class CombatLauncher {
         addAtkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                refreshFromResource();
                 if (!addAtkPanelIsVisible){
                     linearAddAtk.setVisibility(View.VISIBLE);
                     linearAddAtk.startAnimation(inFromTop);
@@ -192,10 +203,19 @@ public class CombatLauncher {
         });
     }
 
-    private void buildPreRandValues()
-    {
+    private void refreshFromResource() {
+        if(aquene.getAllResources().getResource("resource_ki").getCurrent()<1){ki.setChecked(false);ki.setVisibility(View.GONE);}
+        if(aquene.getAllResources().getResource("resource_boot_add_atk").getCurrent()<1){boots.setChecked(false);boots.setVisibility(View.GONE);}
+    }
+
+    private void startAttack() {
         clearLinear();
+        buildAtksList();
+        if(addAtkPanelIsVisible){addAtkButton.performClick();} //pour le refermer
+        if(ki.isChecked()){aquene.getAllResources().getResource("resource_ki").spend(1);}
+        if(boots.isChecked()){aquene.getAllResources().getResource("resource_boot_add_atk").spend(1);}
         combatLauncherHitCritLines.getPreRandValues();
+        combatLauncherHitCritLines.getRandValues();
     }
 
     private void clearLinear() {
@@ -204,12 +224,6 @@ public class CombatLauncher {
             linear.getChildAt(i).setVisibility(View.GONE);
         }
     }
-
-    private void startAttack() {
-        buildAtksList();
-        combatLauncherHitCritLines.getRandValues();
-    }
-
     private void buildAtksList() {
         atksRolls = new ArrayList<>();
         if (attack.getId().equalsIgnoreCase("attack_flurry")) {
@@ -235,54 +249,18 @@ public class CombatLauncher {
             atksRolls.add(new Roll(mA,mC, toInt(list_att_base_string[0])));
         }
         combatLauncherHitCritLines =new CombatLauncherHitCritLines(mA,mC,dialogView,atksRolls);
-        buildPreRandValues();
     }
 
     private void startDamage() {
         if(!combatLauncherHitCritLines.isMegaFail()){
             combatLauncherDamageLines = new CombatLauncherDamageLines(mA, mC, dialogView, atksRolls);
             combatLauncherDamageLines.getDamageLine();
-            selectedRolls = combatLauncherDamageLines.getSelectedRolls();
-            nDicesSet=0;
-            detailAvailable=false;
-            onChangeDiceListner();
         }
         changeCancelButtonToOk();
     }
-    private void onChangeDiceListner() {
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mC);
-        Boolean manualDiceDmg = settings.getBoolean("switch_manual_diceroll_damage", mC.getResources().getBoolean(R.bool.switch_manual_diceroll_damage_DEF));
-        for (Roll roll : selectedRolls) {
-            if (manualDiceDmg) {
-                roll.setRefreshEventListener(new Roll.OnRefreshEventListener() {
-                    public void onEvent() {
-                        checkAllRollSet();
-                    }
-                });
-            } else {
-                detailAvailable=true;
-                roll.setRefreshEventListener(null);
-            }
-        }
-    }
-
-    private void checkAllRollSet() {
-        int nDices = combatLauncherDamageLines.getSelectedRollsNdices();
-        nDicesSet+=1;
-        if(nDices==nDicesSet){
-            toastIt("Tu as fini la saisie !");
-            combatLauncherDamageLines.inputDone();
-            combatLauncherDamageLines.getDamageDetailDialog().changeCancelButtonToOk();
-            detailAvailable=true;
-        }
-    }
 
     private void displayDetail() {
-        if (selectedRolls!=null && selectedRolls.size()>0 && detailAvailable){
-            combatLauncherDamageLines.getDamageDetailDialog().showDialogDetail();
-        } else {
-            toastIt("Aucun dégat à afficher");
-        }
+        combatLauncherDamageLines.showDialogDetail();
     }
 
     private void toastIt(String s) {

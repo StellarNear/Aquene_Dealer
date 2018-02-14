@@ -43,7 +43,7 @@ public class ProbaFromDiceRand {
             if(roll.isCritConfirmed()){
                 List<ImageView> l10 = roll.getDmgDiceImgList(10);
                 probaNd10Crit += l10.size();
-                for (int i : roll.getDiceValue(10)){probaSumPhyCrit+=i;sumPhy+=i;}
+                for (int i : roll.getDmgDiceValue(10)){probaSumPhyCrit+=i;sumPhy+=i;}
                 sumPhy+=roll.getDmgBonus();
                 sumPhy+=sumPhy;
                 minPhyCrit+=l10.size()+roll.getDmgBonus();
@@ -53,7 +53,7 @@ public class ProbaFromDiceRand {
             } else {
                 List<ImageView> l10 = roll.getDmgDiceImgList(10);
                 probaNd10 += l10.size();
-                for (int i : roll.getDiceValue(10)){probaSumPhy+=i;sumPhy+=i;}
+                for (int i : roll.getDmgDiceValue(10)){probaSumPhy+=i;sumPhy+=i;}
                 sumPhy+=roll.getDmgBonus();
                 minPhy+=l10.size()+roll.getDmgBonus();
                 maxPhy+=10*l10.size()+roll.getDmgBonus();
@@ -62,14 +62,14 @@ public class ProbaFromDiceRand {
             probaNd8+=l8.size();
             minPhy+=l8.size();
             maxPhy+=8*l8.size();
-            sumPhy+=roll.getDiceValue(8).get(0);
-            probaSumPhy+=roll.getDiceValue(8).get(0);  //il n'y a qu'un dès de 8
+            sumPhy+=roll.getDmgDiceValue(8).get(0);
+            probaSumPhy+=roll.getDmgDiceValue(8).get(0);  //il n'y a qu'un dès de 8
             List<ImageView> l6=roll.getDmgDiceImgList(6);
             probaNd6+=l6.size();
-            probaSumFire+=roll.getDiceValue(6).get(0);  //il n'y a qu'un dès de 6
+            probaSumFire+=roll.getDmgDiceValue(6).get(0);  //il n'y a qu'un dès de 6
             minFire+=l6.size();
             maxFire+=6*l6.size();
-            sumFire+=roll.getDiceValue(6).get(0);
+            sumFire+=roll.getDmgDiceValue(6).get(0);
         }
     }
 
