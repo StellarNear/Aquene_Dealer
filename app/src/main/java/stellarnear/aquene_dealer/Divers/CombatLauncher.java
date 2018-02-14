@@ -3,7 +3,6 @@ package stellarnear.aquene_dealer.Divers;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Point;
@@ -19,7 +18,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -27,14 +25,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
 import stellarnear.aquene_dealer.Activities.MainActivity;
 import stellarnear.aquene_dealer.Perso.Attack;
 import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.R;
-
 
 public class CombatLauncher {
     Perso aquene = MainActivity.aquene;
@@ -49,8 +44,6 @@ public class CombatLauncher {
     private boolean fabMoved = false;
     private boolean dmgMoved = false;
     private boolean addAtkPanelIsVisible;
-    private boolean detailAvailable=false;
-    private int nDicesSet;
     private SharedPreferences settings;
     private List<Roll> atksRolls;
     private CombatLauncherHitCritLines combatLauncherHitCritLines;
@@ -79,9 +72,13 @@ public class CombatLauncher {
         img.setImageDrawable(mC.getDrawable(imgId));
         TextView title = dialogView.findViewById(R.id.combat_dialog_attack_name);
         title.setText(attack.getName());
-        TextView summary = dialogView.findViewById(R.id.combat_dialog_attack_summary);
-        summary.setText(attack.getDescr());
-
+        ImageButton summary = dialogView.findViewById(R.id.fab_info_summary);
+        summary.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toastIt(attack.getDescr());
+            }
+        });
         final FloatingActionButton fab = dialogView.findViewById(R.id.fab);
         final FloatingActionButton fabDamage = dialogView.findViewById(R.id.fab_damage);
         final FloatingActionButton fabDetail = dialogView.findViewById(R.id.fab_detail);
@@ -263,14 +260,6 @@ public class CombatLauncher {
         combatLauncherDamageLines.showDialogDetail();
     }
 
-    private void toastIt(String s) {
-        Toast toast = Toast.makeText(mC, s, Toast.LENGTH_LONG);
-        TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
-        if( v != null) v.setGravity(Gravity.CENTER);
-        toast.setGravity(Gravity.CENTER,0,0);
-        toast.show();
-    }
-
     public void showAlertDialog() {
         alertDialog.show();
         lockOrient();
@@ -298,6 +287,15 @@ public class CombatLauncher {
 
     private void unlockOrient() {
         mA.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
+    }
+
+    //TOOLS
+    private void toastIt(String txt) {
+        Toast toast = Toast.makeText(mC, txt, Toast.LENGTH_LONG);
+        TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
+        if( v != null) v.setGravity(Gravity.CENTER);
+        toast.setGravity(Gravity.CENTER,0,0);
+        toast.show();
     }
 
     private Integer toInt(String key) {

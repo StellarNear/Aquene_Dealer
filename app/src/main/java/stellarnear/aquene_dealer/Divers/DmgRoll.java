@@ -42,22 +42,6 @@ public class DmgRoll {
     private List<ImageView> listImgD8=new ArrayList<>();
     private List<ImageView> listImgD10=new ArrayList<>();
 
-    private int minPhy=0;
-    private int maxPhy=0;
-    private int sumPhy=0;
-    private int probMinPhy=0;
-    private int probMaxPhy=0;
-    private int probSumPhy=0;
-    private int probMinPhyCrit=0;
-    private int probMaxPhyCrit=0;
-    private int probSumPhyCrit=0;
-    private int minFire=0;
-    private int maxFire=0;
-    private int sumFire=0;
-    private int probMinFire=0;
-    private int probMaxFire=0;
-    private int probSumFire=0;
-
     public DmgRoll(Activity mA, Context mC,Boolean critConfirmed) {
         this.mA = mA;
         this.mC = mC;
@@ -198,35 +182,18 @@ public class DmgRoll {
     }
 
     public int getSumPhy() {
-        calculProbaStats();
+        int sumPhy=0;
+        for(int i : randD10){
+            if(critConfirmed){sumPhy+=i*2;}else{sumPhy+=i;}
+        }
+        if(critConfirmed){sumPhy+=bonusDmg*2;}else{sumPhy+=bonusDmg;}
+        for(int i : randD8){sumPhy+=i;}
         return sumPhy;
     }
 
-    private void calculProbaStats() {
-        if(!statsCalculated){
-            minPhy=maxPhy=sumPhy=probMinPhyCrit=probMaxPhyCrit=probSumPhyCrit=probMinPhy=probMaxPhy=probSumPhy=minFire=maxFire=sumFire=0;
-            for(int i : randD10){
-                minPhy += 1;  maxPhy += 10; sumPhy += i;
-                if(critConfirmed) {
-                    probMinPhyCrit += 1;  probMaxPhyCrit += 10;   probSumPhyCrit += i;
-                } else {
-                    probMinPhy += 1;  probMaxPhy += 10;  probSumPhy += i;
-                }
-            }
-            minPhy += bonusDmg; maxPhy += bonusDmg;   sumPhy += bonusDmg;
-            if(critConfirmed){   minPhy += minPhy; maxPhy += maxPhy; sumPhy += sumPhy; }
-            for(int i : randD8){
-                minPhy += 1;  maxPhy += 8; sumPhy += i;
-            }
-            for(int i : randD6){
-                minFire += 1;  maxFire += 6; sumFire += i;
-            }
-            statsCalculated=true;
-        }
-    }
-
     public int getSumFire() {
-        calculProbaStats();
+        int sumFire=0;
+        for(int i : randD6){sumFire+=i;}
         return sumFire;
     }
 

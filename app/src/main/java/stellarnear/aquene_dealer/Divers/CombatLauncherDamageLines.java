@@ -43,6 +43,7 @@ public class CombatLauncherDamageLines {
     private int nDicesSet=0;
     private CombatLauncherDamageDetailDialog combatLauncherDamageDetailDialog;
     private boolean statsDisplayed=false;
+    private LinearLayout statPanelLinear;
     public CombatLauncherDamageLines(Activity mA, Context mC, View mainView, List<Roll> allRolls) {
         this.mA=mA;
         this.mC=mC;
@@ -50,6 +51,13 @@ public class CombatLauncherDamageLines {
         this.allRolls = allRolls;
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mC);
         manualDiceDmg = settings.getBoolean("switch_manual_diceroll_damage", mC.getResources().getBoolean(R.bool.switch_manual_diceroll_damage_DEF));
+        statPanelLinear= mainView.findViewById(R.id.stats_linear);
+        statPanelLinear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                switchStats();
+            }
+        });
     }
 
     public void getDamageLine() {
@@ -207,7 +215,7 @@ public class CombatLauncherDamageLines {
             public void onClick(View view) {
                 if(!statsDisplayed){
                     ProbaFromDiceRand proba = new ProbaFromDiceRand(selectedRolls);
-                    proba.giveLinearToFill((LinearLayout) mainView.findViewById(R.id.stats_linear));
+                    proba.giveLinearToFill(statPanelLinear);
                     switchStats();
                 } else {
                     switchStats();
@@ -223,10 +231,12 @@ public class CombatLauncherDamageLines {
         if (!statsDisplayed){
             statsLine.setVisibility(View.VISIBLE);
             statsLine.startAnimation(inFromBot);
+            statsLine.setClickable(true); //pour que les boutons derriere ne soit plus clickable
             statsDisplayed=true;
         } else {
             statsLine.startAnimation(outToBot);
             statsLine.setVisibility(View.GONE);
+            statsLine.setClickable(false); //pour pouvoir recliquer sur les fabs  quand il est masqué
             statsDisplayed=false;
         }
     }

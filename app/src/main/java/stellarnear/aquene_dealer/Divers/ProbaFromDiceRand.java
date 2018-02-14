@@ -1,9 +1,7 @@
 package stellarnear.aquene_dealer.Divers;
 
-import android.content.Context;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -20,13 +18,12 @@ import stellarnear.aquene_dealer.R;
 
 public class ProbaFromDiceRand {
     private int minPhy=0;
-    private int minPhyCrit=0;
     private int minFire=0;
     private int maxPhy=0;
-    private int maxPhyCrit=0;
     private int maxFire=0;
     private int sumFire=0;
     private int sumPhy=0;
+    private int critFactor=2;
     private int probaSumPhy=0;
     private int probaSumPhyCrit=0;
     private int probaSumFire=0;
@@ -45,35 +42,28 @@ public class ProbaFromDiceRand {
         for (Roll roll : selectedRolls)
         {
             if(roll.isCritConfirmed()){
-                List<ImageView> l10 = roll.getDmgDiceImgList(10);
-                probaNd10Crit += l10.size();
-                for (int i : roll.getDmgDiceValue(10)){probaSumPhyCrit+=i;sumPhy+=i;}
-                sumPhy+=roll.getDmgBonus();
-                sumPhy+=sumPhy;
-                minPhyCrit+=l10.size()+roll.getDmgBonus();
-                minPhyCrit+=minPhyCrit;
-                maxPhyCrit+=10*l10.size()+roll.getDmgBonus();
-                maxPhyCrit+=maxPhyCrit;
+                probaNd10Crit += roll.getNDmgDice(10);
+                for (int i : roll.getDmgDiceValue(10)){probaSumPhyCrit+=i;sumPhy+=i*critFactor;}
+                sumPhy+=roll.getDmgBonus()*critFactor;
+                minPhy+=(roll.getNDmgDice(10)+roll.getDmgBonus())*critFactor;
+                maxPhy+=(10*roll.getNDmgDice(10)+roll.getDmgBonus())*critFactor;
             } else {
-                List<ImageView> l10 = roll.getDmgDiceImgList(10);
-                probaNd10 += l10.size();
+                probaNd10 += roll.getNDmgDice(10);
                 for (int i : roll.getDmgDiceValue(10)){probaSumPhy+=i;sumPhy+=i;}
                 sumPhy+=roll.getDmgBonus();
-                minPhy+=l10.size()+roll.getDmgBonus();
-                maxPhy+=10*l10.size()+roll.getDmgBonus();
+                minPhy+=roll.getNDmgDice(10)+roll.getDmgBonus();
+                maxPhy+=10*roll.getNDmgDice(10)+roll.getDmgBonus();
             }
-            List<ImageView> l8=roll.getDmgDiceImgList(8);
-            probaNd8+=l8.size();
-            minPhy+=l8.size();
-            maxPhy+=8*l8.size();
-            sumPhy+=roll.getDmgDiceValue(8).get(0);
-            probaSumPhy+=roll.getDmgDiceValue(8).get(0);  //il n'y a qu'un dès de 8
-            List<ImageView> l6=roll.getDmgDiceImgList(6);
-            probaNd6+=l6.size();
-            probaSumFire+=roll.getDmgDiceValue(6).get(0);  //il n'y a qu'un dès de 6
-            minFire+=l6.size();
-            maxFire+=6*l6.size();
-            sumFire+=roll.getDmgDiceValue(6).get(0);
+            probaNd8+=roll.getNDmgDice(8);
+            minPhy+=roll.getNDmgDice(8);
+            maxPhy+=8*roll.getNDmgDice(8);
+            for (int i : roll.getDmgDiceValue(8)){sumPhy+=i;}
+            for (int i : roll.getDmgDiceValue(8)){probaSumPhy+=i;}
+            probaNd6+=roll.getNDmgDice(6);
+            minFire+=roll.getNDmgDice(6);
+            maxFire+=6*roll.getNDmgDice(6);
+            for (int i : roll.getDmgDiceValue(6)){sumFire+=i;}
+            for (int i : roll.getDmgDiceValue(6)){probaSumFire+=i;}
         }
     }
 
@@ -189,20 +179,6 @@ public class ProbaFromDiceRand {
         return result_percent.doubleValue();
     }
 
-
-    public String getFireRange(Context mC){ //todo ? return direct le textview?
-        TextView fireRange = new TextView(mC);
-        Integer ecart =  maxFire - minFire;
-        Double percentage=0d;
-        if(ecart!=0) {
-            percentage = 100d*(sumFire - minFire) / ecart;
-        }
-        String rangeTxt="["+minFire+" - "+maxFire+"] ("+String.format("%.02f", percentage) +"%)";
-        fireRange.setText(rangeTxt);
-
-        return rangeTxt;
-    }
-
     public  String getRange(String mode){
         int max=0,min=0,sum=0;
         if (mode.equalsIgnoreCase("phy")) { max=maxPhy; min=minPhy ; sum=sumPhy; }
@@ -219,6 +195,7 @@ public class ProbaFromDiceRand {
     public  String getProba(String mode){
         Double percentage=0d;
         if(mode.equalsIgnoreCase("phy")){percentage = 100d-(100*getProba(0,probaNd8,probaNd10,probaSumPhy));}
+        if(mode.equalsIgnoreCase("phyCrit")){percentage = 100d-(100*getProba(0,0,probaNd10Crit,probaSumPhyCrit));}
         if(mode.equalsIgnoreCase("fire")){percentage = 100d-(100*getProba(probaNd6,0,0,probaSumFire));}
         String proba="("+String.format("%.02f", percentage) +"%)";
         return proba;
@@ -239,6 +216,13 @@ public class ProbaFromDiceRand {
             rangeFire.setText(getRange("fire"));
             TextView probaFire =linearStats.findViewById(R.id.combat_dialog_fire_proba_result);
             probaFire.setText(getProba("fire"));
+        }
+        if(probaSumPhyCrit<=0){
+            linearStats.findViewById(R.id.combat_dialog_phy_crit).setVisibility(View.GONE);
+        }else{
+            linearStats.findViewById(R.id.combat_dialog_phy_crit).setVisibility(View.VISIBLE);
+            TextView probaPhyCrit =linearStats.findViewById(R.id.combat_dialog_phy_crit_proba_result);
+            probaPhyCrit.setText(getProba("phyCrit"));
         }
     }
 }
