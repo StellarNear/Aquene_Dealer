@@ -12,6 +12,8 @@ import android.support.v7.app.AlertDialog;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -40,6 +42,7 @@ public class CombatLauncherDamageLines {
     private boolean detailAvailable=false;
     private int nDicesSet=0;
     private CombatLauncherDamageDetailDialog combatLauncherDamageDetailDialog;
+    private boolean statsDisplayed=false;
     public CombatLauncherDamageLines(Activity mA, Context mC, View mainView, List<Roll> allRolls) {
         this.mA=mA;
         this.mC=mC;
@@ -63,7 +66,6 @@ public class CombatLauncherDamageLines {
             selectedRolls.add(roll);
             roll.setDmgRand();
             roll.isDelt();
-
             nD10+=roll.getNDmgDice(10);
             nD8+=roll.getNDmgDice(8);
             nD6+=roll.getNDmgDice(6);
@@ -203,11 +205,30 @@ public class CombatLauncherDamageLines {
         summary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ProbaFromDiceRand proba = new ProbaFromDiceRand(selectedRolls);
-                toastIt(proba.getPhysicalRange(mC));
-                toastIt(proba.getPhysicalProba());
+                if(!statsDisplayed){
+                    ProbaFromDiceRand proba = new ProbaFromDiceRand(selectedRolls);
+                    proba.giveLinearToFill((LinearLayout) mainView.findViewById(R.id.stats_linear));
+                    switchStats();
+                } else {
+                    switchStats();
+                }
             }
         });
+    }
+
+    private void switchStats() {
+        LinearLayout statsLine = mainView.findViewById(R.id.stats_linear);
+        final Animation inFromBot = AnimationUtils.loadAnimation(mC,R.anim.infrombotstatspanel);
+        final Animation outToBot = AnimationUtils.loadAnimation(mC,R.anim.outtobotstatspanel);
+        if (!statsDisplayed){
+            statsLine.setVisibility(View.VISIBLE);
+            statsLine.startAnimation(inFromBot);
+            statsDisplayed=true;
+        } else {
+            statsLine.startAnimation(outToBot);
+            statsLine.setVisibility(View.GONE);
+            statsDisplayed=false;
+        }
     }
 
     private void inputDone(){
@@ -218,12 +239,9 @@ public class CombatLauncherDamageLines {
         sumPhy=0;
         sumFire=0;
         for (Roll roll : selectedRolls) {
-            List<ImageView> l10=roll.getDmgDiceImgList(10);
-            nD10+=l10.size();
-            List<ImageView> l8=roll.getDmgDiceImgList(8);
-            nD8+=l8.size();
-            List<ImageView> l6=roll.getDmgDiceImgList(6);
-            nD6+=l6.size();
+            nD10+=roll.getNDmgDice(10);
+            nD8+=roll.getNDmgDice(8);
+            nD6+=roll.getNDmgDice(6);
             sumPhy+=roll.getDmgSumPhy();
             sumFire+=roll.getDmgSumFire();
         }

@@ -5,13 +5,9 @@
     android:layout_height="match_parent"
     android:clipChildren="false"
     android:clipToPadding="false"
-    android:paddingBottom="@dimen/floatin_button_combat_launcher_margin"
+    android:paddingBottom="@dimen/general_margin"
     android:id="@+id/combat_launcher_dialog_RelativeLayoutMain"
     android:background="@drawable/background_border_dialog">
-
-
-
-
 
     <LinearLayout
 
@@ -202,6 +198,114 @@
         app:backgroundTint="@android:color/darker_gray"
         app:srcCompat="@drawable/mire_test"
         android:visibility="gone"/>
+
+    <LinearLayout
+        android:id="@+id/stats_linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:elevation="10dp"
+        android:layout_marginStart="@dimen/general_margin"
+        android:layout_marginEnd="@dimen/general_margin"
+        android:padding="@dimen/general_margin"
+        android:gravity="center"
+        android:background="@drawable/background_border_dice_list_summary"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:id="@+id/combat_dialog_phy_range"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:gravity="center"
+                android:text="[Plage] (%)"/>
+            <TextView
+                android:id="@+id/combat_dialog_phy_range_result"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:text="[1-100] (45.45%)"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/combat_dialog_phy_proba"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:gravity="center"
+                android:text="Chance de dépassement"/>
+            <TextView
+                android:id="@+id/combat_dialog_phy_proba_result"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:text="45.45%"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/combat_dialog_fire_range"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@color/fireText"
+                android:gravity="center"
+                android:text="[Plage] (%)"/>
+            <TextView
+                android:id="@+id/combat_dialog_fire_range_result"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="@color/fireText"
+                android:gravity="center"
+                android:text="[1-100] (45.45%)"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/combat_dialog_fire_proba"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@color/fireText"
+                android:gravity="center"
+                android:text="Chance de dépassement"/>
+            <TextView
+                android:id="@+id/combat_dialog_fire_proba_result"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="@color/fireText"
+                android:gravity="center"
+                android:text="45.45%"/>
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
 
 
 </RelativeLayout>

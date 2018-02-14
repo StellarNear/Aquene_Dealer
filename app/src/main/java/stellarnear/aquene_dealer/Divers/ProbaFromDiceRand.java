@@ -2,13 +2,17 @@ package stellarnear.aquene_dealer.Divers;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.util.List;
+
+import stellarnear.aquene_dealer.R;
 
 /**
  * Created by Utilisateur on 13/02/2018.
@@ -199,26 +203,43 @@ public class ProbaFromDiceRand {
         return rangeTxt;
     }
 
-    public  String getPhysicalRange(Context mC){
-        TextView fireRange = new TextView(mC);
-        Integer ecart =  maxPhy - minPhy;
+    public  String getRange(String mode){
+        int max=0,min=0,sum=0;
+        if (mode.equalsIgnoreCase("phy")) { max=maxPhy; min=minPhy ; sum=sumPhy; }
+        if (mode.equalsIgnoreCase("fire"))  { max=maxFire; min=minFire ; sum=sumFire; }
+        Integer ecart =  max - min;
         Double percentage=0d;
         if(ecart!=0) {
-            percentage = 100d*(sumPhy - minPhy) / ecart;
+            percentage = 100d*(sum - min) / ecart;
         }
-        String rangeTxt="["+minPhy+" - "+maxPhy+"] ("+String.format("%.02f", percentage) +"%)";
-        fireRange.setText(rangeTxt);
-
+        String rangeTxt="["+min+" - "+max+"]\n("+String.valueOf(percentage.intValue()) +"%)";
         return rangeTxt;
     }
 
-    public  String getPhysicalProba(){
-        Double percentage = 100d-(100*getProba(0,probaNd8,probaNd10,probaSumPhy));
+    public  String getProba(String mode){
+        Double percentage=0d;
+        if(mode.equalsIgnoreCase("phy")){percentage = 100d-(100*getProba(0,probaNd8,probaNd10,probaSumPhy));}
+        if(mode.equalsIgnoreCase("fire")){percentage = 100d-(100*getProba(probaNd6,0,0,probaSumFire));}
+        String proba="("+String.format("%.02f", percentage) +"%)";
+        return proba;
+    }
 
-        String rangeTxt="("+String.format("%.02f", percentage) +"%)";
-
-
-        return rangeTxt;
+    public void giveLinearToFill(LinearLayout linearStats) {
+        TextView rangePhy =linearStats.findViewById(R.id.combat_dialog_phy_range_result);
+        rangePhy.setText(getRange("phy"));
+        TextView probaPhy =linearStats.findViewById(R.id.combat_dialog_phy_proba_result);
+        probaPhy.setText(getProba("phy"));
+        if(sumFire<=0) {
+            linearStats.findViewById(R.id.combat_dialog_fire_proba).setVisibility(View.GONE);
+            linearStats.findViewById(R.id.combat_dialog_fire_range).setVisibility(View.GONE);
+        } else {
+            linearStats.findViewById(R.id.combat_dialog_fire_proba).setVisibility(View.VISIBLE);
+            linearStats.findViewById(R.id.combat_dialog_fire_range).setVisibility(View.VISIBLE);
+            TextView rangeFire = linearStats.findViewById(R.id.combat_dialog_fire_range_result);
+            rangeFire.setText(getRange("fire"));
+            TextView probaFire =linearStats.findViewById(R.id.combat_dialog_fire_proba_result);
+            probaFire.setText(getProba("fire"));
+        }
     }
 }
 

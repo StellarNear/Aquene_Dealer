@@ -73,6 +73,7 @@
 
     <color name="start_gradient_dice_detail_crit">@color/colorBackground</color>
     <color name="end_gradient_dice_detail_crit">@color/colorPrimary</color>
+    <color name="fireText">#FF0000</color>
 
 
 </resources>
