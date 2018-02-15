@@ -162,7 +162,13 @@ public class MainActivityFragmentKi extends Fragment {
                 @Override
                 public void onClick(View view) {
                     aquene.getAllResources().getResource("resource_ki").spend(kiCapaSelected.getCost());
-                    Snackbar snackbar = Snackbar.make(view, "Lancement de : "+kiCapaSelected.getName(), Snackbar.LENGTH_LONG);
+                    String txt= "Lancement de : "+kiCapaSelected.getName();
+                    if(kiCapaSelected.getId().equalsIgnoreCase("kicapacity_heal")){
+                        int heal=aquene.getAbilityScore("ability_lvl");
+                        aquene.getAllResources().getResource("resource_hp").earn(heal);
+                        txt+=" (+"+heal+"pv)";
+                    }
+                    Snackbar snackbar = Snackbar.make(view, txt, Snackbar.LENGTH_LONG);
                     snackbar.show();
                     backToMain();
                 }
