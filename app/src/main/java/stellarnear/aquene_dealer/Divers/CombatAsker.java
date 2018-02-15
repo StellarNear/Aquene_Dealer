@@ -42,7 +42,6 @@ public class CombatAsker {
     private boolean range;
     private boolean kistep;
     private boolean outrange;
-    Button valid;
     View.OnClickListener backToMainListner;
 
     public CombatAsker(Activity mA,Context mC, LinearLayout layout, View.OnClickListener backToMainListner) {
@@ -50,11 +49,14 @@ public class CombatAsker {
         this.mC = mC;
         this.layout = layout;
         this.backToMainListner = backToMainListner;
-
         buildMovedLine();
     }
 
     public void reset() {
+        layout.removeAllViews();
+        stepsView = new ArrayList<View>();
+        mapRadioAtkAtk = new HashMap<>();
+        selectedAttack = null;
         buildMovedLine();
     }
 

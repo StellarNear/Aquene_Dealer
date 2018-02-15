@@ -65,7 +65,7 @@ public class Perso {
         if (allAbilities.getAbi(abiId) != null) {
             abiScore = allAbilities.getAbi(abiId).getValue();
 
-            if (abiId.equalsIgnoreCase("ability_ms") && allStances.getCurrentStance() != null && allStances.getStance("stance_unicorn").isActive()) {
+            if (abiId.equalsIgnoreCase("ability_ms") && allStances.isActive("stance_unicorn")) {
                 abiScore += 6;
             }
 
@@ -73,8 +73,8 @@ public class Perso {
                 abiScore += 4;
             }
 
-            if (abiId.equalsIgnoreCase("ability_force") && allStances.getCurrentStance() != null && allStances.getStance("stance_bear").isActive()) {
-                abiScore += 7;
+            if (abiId.equalsIgnoreCase("ability_bmo") && allStances.isActive("stance_octopus")) {
+                abiScore += getAbilityMod("ability_sagesse");
             }
 
             if (abiId.equalsIgnoreCase("ability_ca")) {
@@ -82,6 +82,9 @@ public class Perso {
                     abiScore += getCaBonusCombatMode("mode_def");
                 } else if (allAttacks.getCombatMode().equals("mode_totaldef")) {
                     abiScore += getCaBonusCombatMode("mode_totaldef");
+                }
+                if(allStances.isActive("stance_bear")) {
+                    abiScore += (int) (getAbilityScore("ability_lvl")/2.0);
                 }
             }
 
@@ -159,8 +162,12 @@ public class Perso {
     public Integer getSkillBonus(String skillId) {
         int bonusTemp = allSkills.getSkill(skillId).getBonus();
         if (skillId.equalsIgnoreCase("skill_acrob")) {
-            bonusTemp += allAbilities.getAbi("ability_lvl").getValue();
+            bonusTemp += getAbilityScore("ability_lvl");
         }   //on ajoute le niveau de moine au jet d'acrob
+
+        if (skillId.equalsIgnoreCase("skill_stealth") && allStances.isActive("stance_bat")) {
+            bonusTemp += getAbilityMod("ability_sagesse");
+        }
         return bonusTemp;
     }
 

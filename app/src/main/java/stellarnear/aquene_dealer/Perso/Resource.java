@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.preference.PreferenceManager;
 
+import stellarnear.aquene_dealer.R;
+
 /**
  * Created by jchatron on 04/01/2018.
  */
@@ -76,10 +78,20 @@ public class Resource {
     }
 
     public void earn(int amount) {
-        if (this.current+amount >= this.max){
-            this.current=this.max;
+        if(this.id.equalsIgnoreCase("resource_hp")){
+            SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mC);
+            int shield = toInt(settings.getString( "resource_hp_shield", String.valueOf(mC.getResources().getInteger(R.integer.resource_hp_shield_def))));
+            if (this.current+amount >= this.max + shield){
+                this.current=this.max+shield;
+            } else {
+                this.current+=amount;
+            }
         } else {
-            this.current+= amount;
+            if (this.current+amount >= this.max){
+                this.current=this.max;
+            } else {
+                this.current+= amount;
+            }
         }
     }
 
@@ -97,5 +109,15 @@ public class Resource {
     public boolean isHidden() {
         return this.hide;
     }
+
+    private Integer toInt(String key) {
+        Integer value = 0;
+        try {
+            value = Integer.parseInt(key);
+        } catch (Exception e) {
+        }
+        return value;
+    }
+
 }
 

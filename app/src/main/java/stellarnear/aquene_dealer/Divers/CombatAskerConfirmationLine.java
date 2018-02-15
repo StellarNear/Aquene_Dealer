@@ -43,6 +43,9 @@ public class CombatAskerConfirmationLine {
                 String txt;
                 if (selectedAttack == null) {
                     txt = "Retour au menu principal";
+                    View toMain = new View(mC);
+                    toMain.setOnClickListener(backToMainListner);
+                    toMain.performClick();
                 } else {
                     txt = "Lancement de : " + selectedAttack.getName();
                     if (aquene.getAllResources().getResource(selectedAttack.getId().replace("attack", "resource")) != null) {

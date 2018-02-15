@@ -48,7 +48,6 @@ public class CombatLauncher {
     private List<Roll> atksRolls;
     private CombatLauncherHitCritLines combatLauncherHitCritLines;
     private CombatLauncherDamageLines combatLauncherDamageLines;
-    private List <Roll> selectedRolls;
     private ImageButton addAtkButton;
     private OnFinishEventListener mListener;
 

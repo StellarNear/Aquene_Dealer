@@ -111,8 +111,8 @@ public class AllStances  {
     }
 
     public boolean isActive(String id){
-        Stance wantedStance = getStance(id);
         boolean active=false;
+        Stance wantedStance = getStance(id);
         if (wantedStance!=null && wantedStance.isActive()){
             active=true;
         }

@@ -12,7 +12,7 @@
         <type>Attaque</type>
         <descr>Grâce à ce sort, le personnage peut repérer les auras magiques. Les informations fournies par détection de la magie dépendent du temps que le personnage passe à étudier le sujet et ou la zone. Premier round : présence ou absence d’auras magiques. Deuxième round : nombre d’auras magiques et intensité de la plus puissante. Troisième round : intensité et emplacement précis de chaque aura</descr>
         <id>stance_falcon</id>
-        <featid>quick_atk</featid>
+        <featid>feat_quick_atk</featid>
     </stance>
 
     <stance>
@@ -41,7 +41,7 @@
         <type>Attaque</type>
         <descr>Rayon d’énergie positive. Le personnage doit réussir une attaque de contact à distance pour atteindre le mort-vivant.</descr>
         <id>stance_rat</id>
-        <featid>dex_atk</featid>
+        <featid>feat_dex_atk</featid>
     </stance>
 
 
