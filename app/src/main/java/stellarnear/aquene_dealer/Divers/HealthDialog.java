@@ -201,7 +201,8 @@ public class HealthDialog {
                 int height=(int) (oriHeight*0.355); //c'est le rapport entre le haut gargouille et la barre
 
                 Double coef = (double) aquene.getResourceValue("resource_hp")/aquene.getAllResources().getResource("resource_hp").getMax();
-                if(coef<0){coef=0d;} //pour les hp negatif
+                if(coef<0d){coef=0d;} //pour les hp negatif
+                if(coef>1d){coef=1d;}
                 para.width=(int) (coef*oriWidth);
                 para.height=height;
                 imgHealth.setLayoutParams(para);
