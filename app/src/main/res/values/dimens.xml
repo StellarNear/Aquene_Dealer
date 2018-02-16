@@ -48,5 +48,8 @@
     <dimen name="icon_main_dices_combat_launcher_size">50dp</dimen>
     <dimen name="margin_combat_launcher">2dp</dimen>
     <dimen name="combat_launcher_dmg_type_icon_size">40dp</dimen>
+    <dimen name="help_icon_flipper">100dp</dimen>
+
+    <dimen name="general_margin_help_infos">30dp</dimen>
 
 </resources>

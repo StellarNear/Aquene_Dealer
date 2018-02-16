@@ -9,8 +9,8 @@
 
     <!-- Nom categorie de stance -->
     <string name="stance_cat_1">Défense</string>
-    <string name="stance_cat_3">Autre</string>
     <string name="stance_cat_2">Attaque</string>
+    <string name="stance_cat_3">Autre</string>
 
     <!-- Nom categorie de dons -->
     <string name="feat_active">Actif</string>
@@ -18,6 +18,11 @@
     <string name="feat_def">Défense</string>
     <string name="feat_other">Autre</string>
     <string name="feat_stance">Posture</string>
+
+    <string name="ability_base">Basique</string>
+    <string name="ability_def">Défensive</string>
+    <string name="ability_advanced">Avancée</string>
+
     <string name="setting_activity">Paramètres</string>
     <string name="stance_activity">Postures de combats</string>
     <string name="help_activity">Centre d\'aide</string>

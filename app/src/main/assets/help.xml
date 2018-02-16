@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<records>
+    <help>
+        <name>Round</name>
+        <descr>Dans l’univers du jeu, chaque round correspond environ à 6 secondes et 10 rounds équivalent à une minute de combat. Un round permet à chaque personnage impliqué dans le combat d’agir. Au cours d'un round on peut effectuer une action simple et une action de mouvement ou bien une seule action complexe.</descr>
+        <id>help_round</id>
+    </help>
+    <help>
+        <name>Jet de sauvegarde</name>
+        <descr>En règle générale, lorsque le personnage est victime d’une attaque magique ou inhabituelle, il a droit à un jet de sauvegarde pour l’annuler, ou du moins pour en amoindrir les effets. Tout comme le jet d’attaque, le jet de sauvegarde se joue avec 1d20, auquel on ajoute un bonus dépendant de la classe du personnage et de son niveau ainsi qu’un modificateur de caractéristique.</descr>
+        <id>help_save</id>
+    </help>
+
+</records>
