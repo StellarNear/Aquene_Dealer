@@ -82,6 +82,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 super.onBackPressed();
+                MainActivity.aquene.refresh();
                 return true;
 
             default:
@@ -134,7 +135,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         public boolean onOptionsItemSelected(MenuItem item) {
             int id = item.getItemId();
             if (id == android.R.id.home) {
-                startActivity(new Intent(getActivity(), SettingsActivity.class));
+                Intent intent = new Intent(getActivity(), SettingsActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
                 return true;
             }
             return super.onOptionsItemSelected(item);
@@ -170,7 +173,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         public boolean onOptionsItemSelected(MenuItem item) {
             int id = item.getItemId();
             if (id == android.R.id.home) {
-                startActivity(new Intent(getActivity(), SettingsActivity.class));
+                Intent intent = new Intent(getActivity(), SettingsActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
                 return true;
             }
             return super.onOptionsItemSelected(item);
@@ -228,7 +233,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         public boolean onOptionsItemSelected(MenuItem item) {
             int id = item.getItemId();
             if (id == android.R.id.home) {
-                startActivity(new Intent(getActivity(), SettingsActivity.class));
+                Intent intent = new Intent(getActivity(), SettingsActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
                 return true;
             }
             return super.onOptionsItemSelected(item);
@@ -298,7 +305,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         public boolean onOptionsItemSelected(MenuItem item) {
             int id = item.getItemId();
             if (id == android.R.id.home) {
-                startActivity(new Intent(getActivity(), SettingsActivity.class));
+                Intent intent = new Intent(getActivity(), SettingsActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
                 return true;
             }
             return super.onOptionsItemSelected(item);
@@ -389,7 +398,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         public boolean onOptionsItemSelected(MenuItem item) {
             int id = item.getItemId();
             if (id == android.R.id.home) {
-                startActivity(new Intent(getActivity(), SettingsActivity.class));
+                Intent intent = new Intent(getActivity(), SettingsActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
                 return true;
             }
             return super.onOptionsItemSelected(item);
@@ -442,7 +453,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                     {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            startActivity(new Intent(getActivity(), MainActivity.class));
+                            Intent intent = new Intent(getActivity(), MainActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                            startActivity(intent);
                         }
 
                     })
@@ -465,7 +478,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                     editor.commit();
 
                     tools.toastIt(getContext(),"Remise à zero des paramètres de l'application","center");
-                    startActivity(new Intent(getActivity(), MainActivity.class));
+                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                    startActivity(intent);
                 }
 
             },time);
@@ -505,7 +520,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                     {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            startActivity(new Intent(getActivity(), MainActivity.class));
+                            Intent intent = new Intent(getActivity(), MainActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                            startActivity(intent);
                         }
 
                     })
@@ -524,7 +541,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 public void run() {
                     MainActivity.aquene.getAllResources().sleepReset();
                     tools.toastIt(getContext(),"Une nouvelle journée pleine de mandales et d'acrobaties t'attends.","center");
-                    startActivity(new Intent(getActivity(), MainActivity.class));
+                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                    startActivity(intent);
                 }
 
             },time);

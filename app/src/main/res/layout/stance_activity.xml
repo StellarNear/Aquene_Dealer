@@ -30,11 +30,15 @@
         android:layout_height="match_parent"
         android:orientation="horizontal"
         android:gravity="center"
+        android:clipChildren="false"
+        android:weightSum="8"
+        android:layout_margin="@dimen/general_margin"
         android:padding="3dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:gravity="center"
@@ -72,10 +76,31 @@
 
         <LinearLayout
             android:id="@+id/stance_linear"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="6"
+            android:layout_height="wrap_content"
+            android:clipChildren="false"
             android:gravity="center"
-            android:orientation="vertical"></LinearLayout>
+            android:layout_margin="@dimen/general_margin"
+            android:orientation="vertical"/>
+       <LinearLayout
+           android:layout_width="0dp"
+           android:layout_weight="1"
+           android:orientation="vertical"
+           android:gravity="center"
+           android:layout_height="wrap_content">
+           <RadioButton
+               android:id="@+id/nostance_checkbox"
+               android:layout_width="40dp"
+               android:layout_height="40dp"
+               android:button="@null"
+               android:background="@drawable/stance_nostance_selector"/>
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:textSize="@dimen/text_size_stance_icons"
+               android:text="Sans"/>
+       </LinearLayout>
 
     </LinearLayout>
 

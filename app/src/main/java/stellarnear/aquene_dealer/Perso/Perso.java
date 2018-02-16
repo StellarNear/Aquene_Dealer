@@ -52,6 +52,8 @@ public class Perso {
         Stance selectedStance = allStances.getStance(stanceId);
         if (selectedStance != null) {
             allStances.activateStance(selectedStance);
+        } else {
+            allStances.desactivateAllStances();
         }
     }
 

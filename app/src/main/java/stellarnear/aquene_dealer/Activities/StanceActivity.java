@@ -16,6 +16,7 @@ import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -24,6 +25,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -40,15 +43,15 @@ import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.Perso.Stance;
 import stellarnear.aquene_dealer.R;
 
-/**
- * Created by jchatron on 26/12/2017.
- */
+/* Created by jchatron on 26/12/2017.*/
 
 public class StanceActivity extends AppCompatActivity {
-    Map<Integer,String> mapRadioButtonStance = new HashMap<>();
-    Map<String,Integer> mapStanceRadioButton = new HashMap<>();
-    List<RadioGroup> listRadioGroups= new ArrayList<RadioGroup>();
-    Perso aquene = MainActivity.aquene;
+    private Map<Integer,String> mapRadioButtonStance = new HashMap<>();
+    private Map<String,Integer> mapStanceRadioButton = new HashMap<>();
+    private List<RadioGroup> listRadioGroups= new ArrayList<RadioGroup>();
+    private Perso aquene = MainActivity.aquene;
+    private RadioGroup.OnCheckedChangeListener multiRadioListner;
+    private RadioButton noStance;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -57,13 +60,22 @@ public class StanceActivity extends AppCompatActivity {
             this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.stance_activity);
 
+        buildMultiRadioListner();
+        noStance = findViewById(R.id.nostance_checkbox);
+        noStance.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(compoundButton.isChecked()){
+                    aquene.activateStance("");
+                    unCheckAllRadio(null);
+                    selectActiveStance();
+                }
+            }
+        });
         LinearLayout all_rows_stances = findViewById(R.id.stance_linear);
-
         createGridSelector(all_rows_stances);
-
         selectActiveStance();
     }
 
@@ -90,6 +102,8 @@ public class StanceActivity extends AppCompatActivity {
             RadioButton radioSelected = findViewById(mapStanceRadioButton.get(currentStance.getId()));
             radioSelected.setChecked(true);
             title=getString(R.string.stance_activity) +" (posture actuelle : "+currentStance.getName()+")";
+        } else {
+            noStance.setChecked(true);
         }
         SpannableString titleSpan = new SpannableString(title);
         titleSpan.setSpan(new ForegroundColorSpan(getColor(R.color.textColorPrimary)),0,title.length(),0);
@@ -102,7 +116,7 @@ public class StanceActivity extends AppCompatActivity {
     private void createGridSelector(LinearLayout allRowsStances) {
         RadioGroup selectStanceAtt = new RadioGroup(this);
         listRadioGroups.add(selectStanceAtt);
-        setListnerMultiRadio(selectStanceAtt);
+        applyListnerMultiRadio(selectStanceAtt);
 
         LinearLayout selectStanceAttNames = new LinearLayout(this);
 
@@ -111,7 +125,7 @@ public class StanceActivity extends AppCompatActivity {
 
         RadioGroup selectStanceDef = new RadioGroup(this);
         listRadioGroups.add(selectStanceDef);
-        setListnerMultiRadio(selectStanceDef);
+        applyListnerMultiRadio(selectStanceDef);
 
         LinearLayout selectStanceDefNames = new LinearLayout(this);
 
@@ -120,13 +134,12 @@ public class StanceActivity extends AppCompatActivity {
 
         RadioGroup selectStanceElse = new RadioGroup(this);
         listRadioGroups.add(selectStanceElse);
-        setListnerMultiRadio(selectStanceElse);
+        applyListnerMultiRadio(selectStanceElse);
 
         LinearLayout selectStanceElseNames = new LinearLayout(this);
 
         allRowsStances.addView(selectStanceElse);
         allRowsStances.addView(selectStanceElseNames);
-
 
         for (Stance stance : aquene.getAllStances().getStancesList()){
             RadioButton icon =new RadioButton(this);
@@ -143,13 +156,13 @@ public class StanceActivity extends AppCompatActivity {
             TextView name = new TextView(this);
             name.setText(stance.getShortName());
             LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(params);
-            params2.height= (int)( 4*  getResources().getDimension(R.dimen.text_size_stance_icons));
+            params2.height= (int)( 2* getResources().getDimensionPixelSize(R.dimen.text_size_stance_icons));
             name.setLayoutParams(params2);
             name.setSingleLine(true);
             name.setGravity(Gravity.CENTER);
             tooltip(stance,name);
-            name.setTextSize(getResources().getDimension(R.dimen.text_size_stance_icons));
-            name.setTextColor(Color.DKGRAY);
+            name.setTextSize(TypedValue.COMPLEX_UNIT_PX,getResources().getDimension(R.dimen.text_size_stance_icons));
+
 
             if (stance.getType().equals(getResources().getString(R.string.stance_cat_1))){
                 selectStanceAtt.addView(icon);
@@ -199,33 +212,33 @@ public class StanceActivity extends AppCompatActivity {
         toast.show();
     }
 
-    private void setListnerMultiRadio(RadioGroup radioSub) {
-        radioSub.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+    private void buildMultiRadioListner() {
+        multiRadioListner = new RadioGroup.OnCheckedChangeListener()
         {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 Log.d("-State-","Changement de bouton");
-                unCheckAllRadio(group,this);
+                unCheckAllRadio(group);
                 RadioButton checkedRadioButton = (RadioButton)group.findViewById(checkedId);
-                // This puts the value (true/false) into the variable
                 boolean isChecked = checkedRadioButton.isChecked();
-                // If the radiobutton that has changed in check state is now checked...
                 if (isChecked)
                 {
-                    //do stuff with active stance
                     saveStance(checkedRadioButton);
+                    noStance.setChecked(false);
                 }
             }
-        });
-
+        };
+    }
+    private void applyListnerMultiRadio(RadioGroup radioSub){
+        radioSub.setOnCheckedChangeListener(multiRadioListner);
     }
 
-    private void unCheckAllRadio(RadioGroup selectedGroup, RadioGroup.OnCheckedChangeListener onCheckedChangeListener) {
+    private void unCheckAllRadio(RadioGroup selectedGroup) {
         for (RadioGroup group : listRadioGroups){
             if (!group.equals(selectedGroup)){
                 group.setOnCheckedChangeListener(null);
                 group.clearCheck();
-                group.setOnCheckedChangeListener(onCheckedChangeListener);
+                group.setOnCheckedChangeListener(multiRadioListner);
             }
         }
     }
@@ -283,5 +296,4 @@ public class StanceActivity extends AppCompatActivity {
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT);
         lin.setLayoutParams(layoutParams);
     }
-
 }

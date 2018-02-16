@@ -106,6 +106,14 @@ public class AllStances  {
         selectedStance.activate();
         currentStance=selectedStance;
     }
+
+    public void desactivateAllStances() {
+        for (Stance stance : allStances){
+            stance.desactivate();
+        }
+        currentStance=null;
+    }
+
     public Stance getCurrentStance(){
         return currentStance;
     }
