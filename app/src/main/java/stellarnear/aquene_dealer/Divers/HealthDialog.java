@@ -32,6 +32,7 @@ public class HealthDialog {
     private AlertDialog alertDialog;
     private View dialogView;
     private TextView miniHealth,fullHealth;
+    private Tools tools=new Tools();
 
     public HealthDialog(Activity mA, Context mC,TextView miniHealth,TextView fullHealth) {
         this.mA=mA;
@@ -156,7 +157,7 @@ public class HealthDialog {
         alert.setView(inputEdit);
         alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
-                int val = toInt(inputEdit.getText().toString());
+                int val =  tools.toInt(inputEdit.getText().toString());
                 if(mode.equalsIgnoreCase("dmg")){
                     aquene.getAllResources().getResource("resource_hp").spend(val);
                     animateText(-val);
@@ -240,14 +241,5 @@ public class HealthDialog {
         Button onlyButton = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
         onlyButton.setText("Ok");
         onlyButton.setBackground(mC.getDrawable(R.drawable.button_ok_gradient));
-    }
-
-    private Integer toInt(String key) {
-        Integer value = 0;
-        try {
-            value = Integer.parseInt(key);
-        } catch (Exception e) {
-        }
-        return value;
     }
 }

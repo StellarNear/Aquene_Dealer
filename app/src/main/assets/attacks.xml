@@ -11,7 +11,8 @@
     <attack>
         <name>Coup étourdissant</name>
         <type>simple</type>
-        <descr>Le moine peut remplacer une des attaques à mains nues d’un déluge de coups par une manœuvre offensive de désarmement, de destruction ou de croc-en-jambe.</descr>
+        <descr>Coup étourdissant oblige tout adversaire frappé par l’attaque à mains nues du personnage à faire un jet de Vigueur. S'il rate ce jet de sauvegarde, le moine choisit un état préjudiciable à lui appliquer : Étourdi, Fatigué, Fiévreux (1min), Chancelante (1d6+1 rounds), Aveuglé/Sourde (permanent), Paralyser (1d6+1 rounds).</descr>
+        <save>true</save>
         <id>attack_stun</id>
     </attack>
 
@@ -25,7 +26,8 @@
     <attack>
         <name>Paume vibratoire</name>
         <type>simple</type>
-        <descr>Le moine peut remplacer une des attaques à mains nues d’un déluge de coups par une manœuvre offensive de désarmement, de destruction ou de croc-en-jambe.</descr>
+        <descr>Si le coup porte et si l’adversaire est blessé, les vibrations sont transmises avec succès au corps de la victime. À partir de ce moment, le moine peut décider de la tuer à tout instant (les vibrations persistent pendant un jour par niveau du moine). Dès qu’il prend cette décision (ce qui lui demande une action libre), la cible doit effectuer un jet de Vigueur). En cas d’échec, elle meurt. Si elle réussit, les vibrations cessent et elle ne risque plus rien.</descr>
+        <save>true</save>
         <id>attack_palm</id>
     </attack>
 

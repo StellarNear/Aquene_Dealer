@@ -44,6 +44,7 @@ public class CombatLauncherDamageLines {
     private CombatLauncherDamageDetailDialog combatLauncherDamageDetailDialog;
     private boolean statsDisplayed=false;
     private LinearLayout statPanelLinear;
+    private Tools tools=new Tools();
     public CombatLauncherDamageLines(Activity mA, Context mC, View mainView, List<Roll> allRolls) {
         this.mA=mA;
         this.mC=mC;
@@ -108,7 +109,7 @@ public class CombatLauncherDamageLines {
         int nDices = nD6+nD8+nD10;
         nDicesSet+=1;
         if(nDices==nDicesSet){
-            toastIt("Tu as fini la saisie !");
+            tools.toastIt(mC,"Tu as fini la saisie !","center");
             inputDone();
             combatLauncherDamageDetailDialog.changeCancelButtonToOk();
             detailAvailable=true;
@@ -127,7 +128,7 @@ public class CombatLauncherDamageLines {
                 TextView sumPhyTxt = new TextView(mC);
                 sumPhyTxt.setGravity(Gravity.CENTER);
                 sumPhyTxt.setText(String.valueOf(sumPhy));
-                sumPhyTxt.setCompoundDrawablesWithIntrinsicBounds(null, null, resize(R.drawable.phy_dmg_type, (int) mC.getResources().getDimension(R.dimen.combat_launcher_dmg_type_icon_size)), null);
+                sumPhyTxt.setCompoundDrawablesWithIntrinsicBounds(null, null, tools.resize(mC,R.drawable.phy_dmg_type, (int) mC.getResources().getDimension(R.dimen.combat_launcher_dmg_type_icon_size)), null);
                 sumPhyTxt.setTextSize(18);
                 sumPhyTxt.setTypeface(null, Typeface.BOLD);
                 frame.addView(sumPhyTxt);
@@ -136,7 +137,7 @@ public class CombatLauncherDamageLines {
                 TextView sumFireTxt = new TextView(mC);
                 sumFireTxt.setGravity(Gravity.CENTER);
                 sumFireTxt.setText(String.valueOf(sumFire));
-                sumFireTxt.setCompoundDrawablesWithIntrinsicBounds(null, null, resize(R.drawable.fire_dmg_type, (int) mC.getResources().getDimension(R.dimen.combat_launcher_dmg_type_icon_size)), null);
+                sumFireTxt.setCompoundDrawablesWithIntrinsicBounds(null, null, tools.resize(mC,R.drawable.fire_dmg_type, (int) mC.getResources().getDimension(R.dimen.combat_launcher_dmg_type_icon_size)), null);
                 sumFireTxt.setTextSize(18);
                 sumFireTxt.setTypeface(null, Typeface.BOLD);
                 frame.addView(sumFireTxt);
@@ -167,7 +168,7 @@ public class CombatLauncherDamageLines {
                 nd10Text.setText(nD10+"d10");
                 nd10Text.setTextSize(18);
                 nd10Text.setTypeface(null, Typeface.BOLD);
-                nd10Text.setCompoundDrawablesWithIntrinsicBounds(resize(R.drawable.d10_main, mC.getResources().getDimensionPixelSize(R.dimen.icon_main_dices_combat_launcher_size)),null,null,null);
+                nd10Text.setCompoundDrawablesWithIntrinsicBounds(tools.resize(mC,R.drawable.d10_main, mC.getResources().getDimensionPixelSize(R.dimen.icon_main_dices_combat_launcher_size)),null,null,null);
                 summary.addView(nd10Text);
             }
             if(nD8>0){
@@ -176,7 +177,7 @@ public class CombatLauncherDamageLines {
                 nd8Text.setText(nD8+"d8");
                 nd8Text.setTextSize(18);
                 nd8Text.setTypeface(null, Typeface.BOLD);
-                nd8Text.setCompoundDrawablesWithIntrinsicBounds(resize(R.drawable.d8_main, mC.getResources().getDimensionPixelSize(R.dimen.icon_main_dices_combat_launcher_size)),null,null,null);
+                nd8Text.setCompoundDrawablesWithIntrinsicBounds(tools.resize(mC,R.drawable.d8_main, mC.getResources().getDimensionPixelSize(R.dimen.icon_main_dices_combat_launcher_size)),null,null,null);
                 summary.addView(nd8Text);
             }
             if(nD6>0){
@@ -185,7 +186,7 @@ public class CombatLauncherDamageLines {
                 nd6Text.setText(nD6+"d6");
                 nd6Text.setTextSize(18);
                 nd6Text.setTypeface(null, Typeface.BOLD);
-                nd6Text.setCompoundDrawablesWithIntrinsicBounds(resize(R.drawable.d6_main, mC.getResources().getDimensionPixelSize(R.dimen.icon_main_dices_combat_launcher_size)),null,null,null);
+                nd6Text.setCompoundDrawablesWithIntrinsicBounds(tools.resize(mC,R.drawable.d6_main, mC.getResources().getDimensionPixelSize(R.dimen.icon_main_dices_combat_launcher_size)),null,null,null);
                 summary.addView(nd6Text);
             }
             setSummaryListnerToInputManualDmg(summary);
@@ -262,24 +263,8 @@ public class CombatLauncherDamageLines {
         if (selectedRolls!=null && !selectedRolls.isEmpty() && detailAvailable){
             combatLauncherDamageDetailDialog.showDialogDetail();
         } else {
-            toastIt("Aucun dégat à afficher");
+            tools.toastIt(mC,"Aucun dégat à afficher","center");
         }
-    }
-
-    //TOOLS
-    private void toastIt(String txt) {
-        Toast toast = Toast.makeText(mC, txt, Toast.LENGTH_LONG);
-        TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
-        if( v != null) v.setGravity(Gravity.CENTER);
-        toast.setGravity(Gravity.CENTER,0,0);
-        toast.show();
-    }
-
-    private Drawable resize(int imageId, int pixel_size_icon) {
-        Drawable image = mC.getDrawable(imageId);
-        Bitmap b = ((BitmapDrawable) image).getBitmap();
-        Bitmap bitmapResized = Bitmap.createScaledBitmap(b, pixel_size_icon, pixel_size_icon, false);
-        return new BitmapDrawable(mC.getResources(), bitmapResized);
     }
 
     private LinearLayout getFrameSummary() {

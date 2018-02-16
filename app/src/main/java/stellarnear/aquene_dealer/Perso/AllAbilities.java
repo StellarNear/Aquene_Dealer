@@ -22,6 +22,8 @@ import java.util.Map;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import stellarnear.aquene_dealer.Divers.Tools;
+
 /**
  * Created by jchatron on 05/01/2018.
  */
@@ -31,6 +33,7 @@ public class AllAbilities {
     private Map<String, Ability> mapIDAbi = new HashMap<>();
     private List<Ability> listAbilities= new ArrayList<>();
     private Context mC;
+    private Tools tools=new Tools();
 
     public AllAbilities(Context mC) {
         this.mC = mC;
@@ -60,8 +63,8 @@ public class AllAbilities {
                             readValue("shortname", element2),
                             readValue("type", element2),
                             readValue("descr", element2),
-                            toBool(readValue("testable", element2)),
-                            toBool(readValue("focusable", element2)),
+                            tools.toBool(readValue("testable", element2)),
+                            tools.toBool(readValue("focusable", element2)),
                             readValue("id", element2),
                             mC);
                     listAbilities.add(abi);
@@ -87,7 +90,7 @@ public class AllAbilities {
     private int readAbility(String key) {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mC);
         int resId = mC.getResources().getIdentifier( key.toLowerCase() + "_def", "integer", mC.getPackageName());
-        return toInt(settings.getString( key.toLowerCase(), String.valueOf(mC.getResources().getInteger(resId))));
+        return tools.toInt(settings.getString( key.toLowerCase(), String.valueOf(mC.getResources().getInteger(resId))));
     }
 
     public void refreshAllAbilities() {
@@ -136,25 +139,4 @@ public class AllAbilities {
         } catch (Exception e){  selecteAbi=null;  }
         return selecteAbi;
     }
-
-    private Boolean toBool(String key) {
-        Boolean value = false;
-        try {
-            value = Boolean.valueOf(key);
-        } catch (Exception e) {
-        }
-        return value;
-    }
-
-    private Integer toInt(String key) {
-        Integer value = 0;
-        try {
-            value = Integer.parseInt(key);
-        } catch (Exception e) {
-        }
-        return value;
-    }
-
-
-
 }

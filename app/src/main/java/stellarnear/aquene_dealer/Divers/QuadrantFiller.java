@@ -3,9 +3,6 @@ package stellarnear.aquene_dealer.Divers;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -18,11 +15,9 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import stellarnear.aquene_dealer.Activities.MainActivity;
 import stellarnear.aquene_dealer.Perso.Ability;
 import stellarnear.aquene_dealer.Perso.Perso;
@@ -46,12 +41,13 @@ public class QuadrantFiller {
     private Map<LinearLayout,String> mapQuadrantType=new HashMap<>();
     private ViewSwitcher viewSwitcher;
     private ImageButton imgExit;
-    LinearLayout quadrantFullSub1;
-    LinearLayout quadrantFullSub2;
+    private LinearLayout quadrantFullSub1;
+    private LinearLayout quadrantFullSub2;
     private boolean fullscreen=false;
+    private Tools tools=new Tools();
+    private TextView miniHealth,fullHealth;
+    private View fullView;
 
-    TextView miniHealth,fullHealth;
-    View fullView;
     public QuadrantFiller(View mainView, Context mC, Activity mA) {
         this.mC=mC;
         this.mA=mA;
@@ -164,7 +160,7 @@ public class QuadrantFiller {
         }
         text.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT,1));
         text.setGravity(Gravity.CENTER_VERTICAL);
-        text.setCompoundDrawablesWithIntrinsicBounds(resize(abi.getImg(),iconSize),null,null,null);
+        text.setCompoundDrawablesWithIntrinsicBounds( tools.resize(mC,abi.getImg(),iconSize),null,null,null);
         if (mode.equalsIgnoreCase("full")){text.setCompoundDrawablePadding(mC.getResources().getDimensionPixelSize(R.dimen.full_quadrant_icons_margin));
         }else{text.setCompoundDrawablePadding(mC.getResources().getDimensionPixelSize(R.dimen.mini_quadrant_icons_margin));}
         quadrantSub1.addView(text);
@@ -216,7 +212,7 @@ public class QuadrantFiller {
 
         text.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT,1));
         text.setGravity(Gravity.CENTER_VERTICAL);
-        text.setCompoundDrawablesWithIntrinsicBounds(resize(res.getImg(),iconSize),null,null,null);
+        text.setCompoundDrawablesWithIntrinsicBounds( tools.resize(mC,res.getImg(),iconSize),null,null,null);
         if (mode.equalsIgnoreCase("full")){text.setCompoundDrawablePadding(mC.getResources().getDimensionPixelSize(R.dimen.full_quadrant_icons_margin));
         }else{text.setCompoundDrawablePadding(mC.getResources().getDimensionPixelSize(R.dimen.mini_quadrant_icons_margin));}
         quadrantSub1.addView(text);
@@ -257,13 +253,6 @@ public class QuadrantFiller {
             }
         });
     }
-
-    private Drawable resize(Drawable image, int pixel_size_icon) {
-        Bitmap b = ((BitmapDrawable) image).getBitmap();
-        Bitmap bitmapResized = Bitmap.createScaledBitmap(b, pixel_size_icon, pixel_size_icon, false);
-        return new BitmapDrawable(mC.getResources(), bitmapResized);
-    }
-
 
     private void switchViewNext() {
         imgExit.setVisibility(View.VISIBLE);

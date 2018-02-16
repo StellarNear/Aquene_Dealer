@@ -3,13 +3,11 @@ package stellarnear.aquene_dealer.Perso;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.view.Gravity;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import stellarnear.aquene_dealer.Divers.Tools;
 import stellarnear.aquene_dealer.R;
 
 /**
@@ -25,6 +23,7 @@ public class Perso {
     private AllKiCapacities allKiCapacities;
     private AllResources allResources;
     private Context mC;
+    private Tools tools =new Tools();
 
     public Perso(Context mC) {
         this.mC = mC;
@@ -224,15 +223,7 @@ public class Perso {
             modeTxt="défense totale";
             summary="\n(+"+getCaBonusCombatMode(mode)+"CA/-une action simple par round)";
         }
-        toastIt("Mode "+modeTxt+" activé."+summary);
-    }
-
-    private void toastIt(String s) {
-        Toast toast = Toast.makeText(mC, s, Toast.LENGTH_LONG);
-        TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
-        if( v != null) v.setGravity(Gravity.CENTER);
-        toast.setGravity(Gravity.CENTER,0,0);
-        toast.show();
+        tools.toastIt(mC,"Mode "+modeTxt+" activé."+summary,"center");
     }
 
     public AllKiCapacities getAllKiCapacities() {

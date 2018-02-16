@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import stellarnear.aquene_dealer.Divers.Tools;
+
 /**
  * Created by jchatron on 10/01/2018.
  */
@@ -16,6 +18,7 @@ public class Skill {
     private int rank;
     private int bonus;
     private Context mC;
+    private Tools tools=new Tools();
 
     public Skill(String name, String abilityDependence, String descr, String id, Context mC){
         this.name=name;
@@ -52,14 +55,6 @@ public class Skill {
         return this.abilityDependence;
     }
 
-    private Integer toInt(String key){
-        Integer value=0;
-        try {
-            value = Integer.parseInt(key);
-        } catch (Exception e){ }
-        return value;
-    }
-
     public void refreshVals() {
         refreshRank();
         refreshBonus();
@@ -71,7 +66,7 @@ public class Skill {
             SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mC);
             int valDefId = mC.getResources().getIdentifier(this.id+"_rankDEF", "integer", mC.getPackageName());
             int valDef = mC.getResources().getInteger(valDefId);
-            valTemp = toInt(settings.getString(this.id+"_rank", String.valueOf(valDef)));
+            valTemp = tools.toInt(settings.getString(this.id+"_rank", String.valueOf(valDef)));
         } catch ( Exception e) {}
         this.rank = valTemp;
     }
@@ -86,7 +81,7 @@ public class Skill {
             SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mC);
             int bonusDefId = mC.getResources().getIdentifier(this.id+"_bonusDEF", "integer", mC.getPackageName());
             int bonusDef = mC.getResources().getInteger(bonusDefId);
-            bonusTemp = toInt(settings.getString(this.id+"_bonus", String.valueOf(bonusDef)));
+            bonusTemp = tools.toInt(settings.getString(this.id+"_bonus", String.valueOf(bonusDef)));
         } catch ( Exception e) {}
         this.bonus= bonusTemp;
     }

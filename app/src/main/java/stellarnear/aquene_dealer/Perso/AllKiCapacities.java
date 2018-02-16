@@ -17,6 +17,8 @@ import java.util.Map;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import stellarnear.aquene_dealer.Divers.Tools;
+
 /**
  * Created by jchatron on 26/12/2017.
  */
@@ -25,6 +27,8 @@ public class AllKiCapacities {
     private Context mC;
     private List<KiCapacity> allKiCapacities = new ArrayList<>();
     private Map<String,KiCapacity> mapIdKicapacity=new HashMap<>();
+    private Tools tools=new Tools();
+
     public AllKiCapacities(Context mC)
     {
         this.mC = mC;
@@ -50,7 +54,7 @@ public class AllKiCapacities {
                     Element element2 = (Element) node;
                     KiCapacity kiCapacity=new KiCapacity(
                             readValue("name", element2),
-                            toInt(readValue("cost", element2)),
+                            tools.toInt(readValue("cost", element2)),
                             readValue("descr", element2),
                             readValue("id", element2),
                             mC);
@@ -85,13 +89,4 @@ public class AllKiCapacities {
             return "";
         }
     }
-    private Integer toInt(String key) {
-        Integer value = 0;
-        try {
-            value = Integer.parseInt(key);
-        } catch (Exception e) {
-        }
-        return value;
-    }
-
 }

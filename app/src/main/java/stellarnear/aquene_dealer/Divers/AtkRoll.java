@@ -38,6 +38,7 @@ public class AtkRoll {
     private CheckBox hitCheckbox;
     private CheckBox critCheckbox;
     private OnRefreshEventListener mListener;
+    private Tools tools=new Tools();
 
     public AtkRoll(Activity mA, Context mC, Integer base) {
         this.mA = mA;
@@ -56,7 +57,7 @@ public class AtkRoll {
 
     public void setAtkRand() {
         if (manualDice) {
-            this.imgAtk.setImageDrawable(resize(R.drawable.d20_main, mC.getResources().getDimensionPixelSize(R.dimen.icon_main_dices_combat_launcher_size)));
+            this.imgAtk.setImageDrawable(tools.resize(mC,R.drawable.d20_main, mC.getResources().getDimensionPixelSize(R.dimen.icon_main_dices_combat_launcher_size)));
             setDiceImgListner(this.imgAtk, 20);
         } else {
             Random rand = new Random();
@@ -94,7 +95,7 @@ public class AtkRoll {
 
     private void setAtkDiceImg() {
         int drawableId = mC.getResources().getIdentifier("d20_" + String.valueOf(this.randAtk), "drawable", mC.getPackageName());
-        this.imgAtk.setImageDrawable(resize(drawableId, mC.getResources().getDimensionPixelSize(R.dimen.icon_main_dices_combat_launcher_size)));
+        this.imgAtk.setImageDrawable(tools.resize(mC,drawableId, mC.getResources().getDimensionPixelSize(R.dimen.icon_main_dices_combat_launcher_size)));
         this.imgAtk.setOnClickListener(null);
     }
 
@@ -144,7 +145,7 @@ public class AtkRoll {
 
     private int getBonusAtk() {
         int bonusAtk = 0;
-        bonusAtk += toInt(settings.getString("bonus_jet_att", String.valueOf(mC.getResources().getInteger(R.integer.bonus_jet_att_DEF))));
+        bonusAtk += tools.toInt(settings.getString("bonus_jet_att", String.valueOf(mC.getResources().getInteger(R.integer.bonus_jet_att_DEF))));
         if (aquene.getAllStances().isActive("stance_rat") && (aquene.getAbilityMod("ability_dexterite") > aquene.getAbilityMod("ability_force")) ) {
             bonusAtk += aquene.getAbilityMod("ability_dexterite");
         } else if (aquene.getAllStances().isActive("stance_dragon") && (aquene.getAbilityMod("ability_sagesse") > aquene.getAbilityMod("ability_force")) ) {
@@ -180,7 +181,7 @@ public class AtkRoll {
 
     public void invalidated() {
         this.invalid = true;
-        this.imgAtk.setImageDrawable(resize(R.drawable.d20_fail, mC.getResources().getDimensionPixelSize(R.dimen.icon_main_dices_combat_launcher_size)));
+        this.imgAtk.setImageDrawable(tools.resize(mC,R.drawable.d20_fail, mC.getResources().getDimensionPixelSize(R.dimen.icon_main_dices_combat_launcher_size)));
         this.imgAtk.setOnClickListener(null);
     }
 
@@ -212,23 +213,6 @@ public class AtkRoll {
 
     public CheckBox getCritCheckbox() {
         return this.critCheckbox;
-    }
-
-    //tools
-    private Integer toInt(String key) {
-        Integer value = 0;
-        try {
-            value = Integer.parseInt(key);
-        } catch (Exception e) {
-        }
-        return value;
-    }
-
-    private Drawable resize(int imageId, int pixel_size_icon) {
-        Drawable image = mC.getDrawable(imageId);
-        Bitmap b = ((BitmapDrawable) image).getBitmap();
-        Bitmap bitmapResized = Bitmap.createScaledBitmap(b, pixel_size_icon, pixel_size_icon, false);
-        return new BitmapDrawable(mC.getResources(), bitmapResized);
     }
 
 }

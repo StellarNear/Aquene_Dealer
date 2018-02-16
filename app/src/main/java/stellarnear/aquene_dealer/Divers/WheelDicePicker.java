@@ -1,10 +1,6 @@
 package stellarnear.aquene_dealer.Divers;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
@@ -22,6 +18,7 @@ public class WheelDicePicker extends AppCompatActivity {
     private Context mC;
     private int valueSelected;
     private int dice;
+    private Tools tools=new Tools();
     public WheelDicePicker(RelativeLayout relativeCenter, int dice, Context mC) {
         this.mC = mC;
         this.dice=dice;
@@ -34,7 +31,7 @@ public class WheelDicePicker extends AppCompatActivity {
 
             ImageButton imgButton = new ImageButton(mC);
             int drawableId=mC.getResources().getIdentifier("d"+dice+"_"+String.valueOf(i+1), "drawable", mC.getPackageName());
-            imgButton.setImageDrawable(resize(drawableId,mC.getResources().getDimensionPixelSize(R.dimen.icon_dices_wheel_size)));
+            imgButton.setImageDrawable( tools.resize(mC,drawableId,mC.getResources().getDimensionPixelSize(R.dimen.icon_dices_wheel_size)));
 
             setPara(imgButton);
 
@@ -57,7 +54,7 @@ public class WheelDicePicker extends AppCompatActivity {
         }
 
         int drawableIdMain=mC.getResources().getIdentifier("d"+dice+"_main", "drawable", mC.getPackageName());
-        mainDice.setImageDrawable(resize(drawableIdMain,mC.getResources().getDimensionPixelSize(R.dimen.icon_main_dices_wheel_size)));
+        mainDice.setImageDrawable( tools.resize(mC,drawableIdMain,mC.getResources().getDimensionPixelSize(R.dimen.icon_main_dices_wheel_size)));
         setPara(mainDice);
         relativeCenter.addView(mainDice);
     }
@@ -71,18 +68,8 @@ public class WheelDicePicker extends AppCompatActivity {
 
     private void changeMainDice(int val_dice,ImageButton mainDice) {
         int drawableId=mC.getResources().getIdentifier("d"+dice+"_"+String.valueOf(val_dice), "drawable", mC.getPackageName());
-        mainDice.setImageDrawable(resize(drawableId,mC.getResources().getDimensionPixelSize(R.dimen.icon_main_dices_wheel_size)));
+        mainDice.setImageDrawable( tools.resize(mC,drawableId,mC.getResources().getDimensionPixelSize(R.dimen.icon_main_dices_wheel_size)));
     }
-
-
-    private Drawable resize(int imageId,int pixel_size_icon) {
-        Drawable image = mC.getDrawable(imageId);
-        Bitmap b = ((BitmapDrawable) image).getBitmap();
-        Bitmap bitmapResized = Bitmap.createScaledBitmap(b, pixel_size_icon, pixel_size_icon, false);
-        return new BitmapDrawable(mC.getResources(), bitmapResized);
-    }
-
-
 
     public int getValueSelected(){
         return this.valueSelected;

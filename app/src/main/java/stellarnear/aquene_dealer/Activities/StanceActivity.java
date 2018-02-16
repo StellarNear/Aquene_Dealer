@@ -133,13 +133,11 @@ public class StanceActivity extends AppCompatActivity {
             icon.setButtonDrawable(null);
 
             Drawable selectorImg = getDrawable( getResources().getIdentifier(stance.getId()+"_stance_selector", "drawable", getPackageName()));
-
             icon.setBackground(selectorImg);
             LinearLayout.LayoutParams params =new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT);
             params.rightMargin=(int) getResources().getDimension(R.dimen.stance_icon_padding);
             params.width=(int) getResources().getDimension(R.dimen.stance_icon);
             params.height=(int) getResources().getDimension(R.dimen.stance_icon);
-
             icon.setLayoutParams(params);
 
             TextView name = new TextView(this);
@@ -178,14 +176,14 @@ public class StanceActivity extends AppCompatActivity {
         name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toatIt(stance.getId()+"_select",stance.getName(),stance.getDescr());
+                toatInfo(stance.getId()+"_select",stance.getName(),stance.getDescr());
             }
         });
     }
 
-    public void toatIt(String imgPath,String nameTxt,String descrTxt) {
+    public void toatInfo(String imgPath, String nameTxt, String descrTxt) {
         LayoutInflater inflater = getLayoutInflater();
-        View view = inflater.inflate(R.layout.custom_toast,(ViewGroup) findViewById(R.id.toast_RelativeLayout));
+        View view = inflater.inflate(R.layout.custom_toast_info_stance,(ViewGroup) findViewById(R.id.toast_RelativeLayout));
 
         ImageView img =  view.findViewById(R.id.toast_image);
         int imgId = getResources().getIdentifier(imgPath, "drawable", getPackageName());
@@ -194,14 +192,11 @@ public class StanceActivity extends AppCompatActivity {
         name.setText(nameTxt);
         TextView descr = view.findViewById(R.id.toast_textDescr);
         descr.setText(descrTxt);
-
         Toast toast = new Toast(this);
         toast.setDuration(Toast.LENGTH_LONG);
-
         toast.setView(view);
         toast.setGravity(Gravity.CENTER|Gravity.CENTER_HORIZONTAL,0,0);
         toast.show();
-
     }
 
     private void setListnerMultiRadio(RadioGroup radioSub) {

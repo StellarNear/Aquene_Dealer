@@ -3,9 +3,6 @@ package stellarnear.aquene_dealer.Divers;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.ImageView;
@@ -41,6 +38,7 @@ public class DmgRoll {
     private List<ImageView> listImgD6=new ArrayList<>();
     private List<ImageView> listImgD8=new ArrayList<>();
     private List<ImageView> listImgD10=new ArrayList<>();
+    private Tools tools=new Tools();
 
     public DmgRoll(Activity mA, Context mC,Boolean critConfirmed) {
         this.mA = mA;
@@ -50,7 +48,7 @@ public class DmgRoll {
         manualDiceDmg = settings.getBoolean("switch_manual_diceroll_damage", mC.getResources().getBoolean(R.bool.switch_manual_diceroll_damage_DEF));
         aldrassil = settings.getBoolean("switch_aldrassil", mC.getResources().getBoolean(R.bool.switch_aldrassil_DEF));
         amulette = settings.getBoolean("switch_amulette", mC.getResources().getBoolean(R.bool.switch_amulette_DEF));
-        nD10= toInt(settings.getString("number_main_dice_dmg", String.valueOf(mC.getResources().getInteger(R.integer.number_main_dice_dmg_DEF))));
+        nD10= tools.toInt(settings.getString("number_main_dice_dmg", String.valueOf(mC.getResources().getInteger(R.integer.number_main_dice_dmg_DEF))));
         nD8=1; //pour les bandage
         nD6=1; //pour l'amulette
         bonusDmg=getBonusDmg();
@@ -78,7 +76,7 @@ public class DmgRoll {
         for (int i=0;i<nDice;i++){
             ImageView img = new ImageView(mC);
             int drawableId = mC.getResources().getIdentifier("d" + dice + "_main", "drawable", mC.getPackageName());
-            img.setImageDrawable(resize(drawableId, mC.getResources().getDimensionPixelSize(R.dimen.icon_main_dices_combat_launcher_size)));
+            img.setImageDrawable( tools.resize(mC,drawableId, mC.getResources().getDimensionPixelSize(R.dimen.icon_main_dices_combat_launcher_size)));
             listImg.add(img);
             setDiceImgListner(img,dice);
         }
@@ -98,14 +96,14 @@ public class DmgRoll {
             listRand.add(valRand);
             ImageView img = new ImageView(mC);
             int drawableId = mC.getResources().getIdentifier("d" + dice + "_"+String.valueOf(valRand), "drawable", mC.getPackageName());
-            img.setImageDrawable(resize(drawableId, mC.getResources().getDimensionPixelSize(R.dimen.icon_main_dices_combat_launcher_size)));
+            img.setImageDrawable( tools.resize(mC,drawableId, mC.getResources().getDimensionPixelSize(R.dimen.icon_main_dices_combat_launcher_size)));
             listImg.add(img);
         }
     }
 
     private int getBonusDmg() {
         int calcBonusDmg = 0;
-        calcBonusDmg += toInt(settings.getString("bonus_jet_dmg", String.valueOf(mC.getResources().getInteger(R.integer.bonus_jet_dmg_DEF))));
+        calcBonusDmg +=  tools.toInt(settings.getString("bonus_jet_dmg", String.valueOf(mC.getResources().getInteger(R.integer.bonus_jet_dmg_DEF))));
         if (aquene.getAllStances().isActive("stance_lion")) {
             calcBonusDmg += (int) (1.5 * aquene.getAbilityMod("ability_force"));
         } else {
@@ -147,7 +145,7 @@ public class DmgRoll {
 
     private void setDmgDiceRandImg(ImageView diceImg, int dice, int randFromWheel) {
         int drawableId = mC.getResources().getIdentifier("d" + dice + "_" + String.valueOf(randFromWheel), "drawable", mC.getPackageName());
-        diceImg.setImageDrawable(resize(drawableId, mC.getResources().getDimensionPixelSize(R.dimen.icon_main_dices_combat_launcher_size)));
+        diceImg.setImageDrawable( tools.resize(mC,drawableId, mC.getResources().getDimensionPixelSize(R.dimen.icon_main_dices_combat_launcher_size)));
         diceImg.setOnClickListener(null);
     }
 
@@ -196,22 +194,4 @@ public class DmgRoll {
         for(int i : randD6){sumFire+=i;}
         return sumFire;
     }
-
-    //tools
-    private Integer toInt(String key) {
-        Integer value = 0;
-        try {
-            value = Integer.parseInt(key);
-        } catch (Exception e) {
-        }
-        return value;
-    }
-
-    private Drawable resize(int imageId, int pixel_size_icon) {
-        Drawable image = mC.getDrawable(imageId);
-        Bitmap b = ((BitmapDrawable) image).getBitmap();
-        Bitmap bitmapResized = Bitmap.createScaledBitmap(b, pixel_size_icon, pixel_size_icon, false);
-        return new BitmapDrawable(mC.getResources(), bitmapResized);
-    }
-
 }

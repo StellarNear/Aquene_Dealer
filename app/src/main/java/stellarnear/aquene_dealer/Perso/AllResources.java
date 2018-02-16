@@ -18,6 +18,7 @@ import java.util.Map;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import stellarnear.aquene_dealer.Divers.Tools;
 import stellarnear.aquene_dealer.R;
 
 /**
@@ -31,6 +32,7 @@ public class AllResources {
     private Map<String, Resource> mapIDRes = new HashMap<>();
     private List<Resource> listResources= new ArrayList<>();
     private SharedPreferences settings;
+    private Tools tools=new Tools();
 
     public AllResources(Context mC, AllFeats allFeats, AllAbilities allAbilities)
     {
@@ -64,8 +66,8 @@ public class AllResources {
                             readValue("name", element2),
                             readValue("shortname", element2),
                             readValue("descr", element2),
-                            toBool(readValue("testable", element2)),
-                            toBool(readValue("hide", element2)),
+                            tools.toBool(readValue("testable", element2)),
+                            tools.toBool(readValue("hide", element2)),
                             readValue("id", element2),
                             mC);
                     listResources.add(res);
@@ -111,7 +113,7 @@ public class AllResources {
 
     private int readResource(String key) {
         int resId = mC.getResources().getIdentifier( key.toLowerCase() + "_def", "integer", mC.getPackageName());
-        return toInt(settings.getString( key.toLowerCase(), String.valueOf(mC.getResources().getInteger(resId))));
+        return tools.toInt(settings.getString( key.toLowerCase(), String.valueOf(mC.getResources().getInteger(resId))));
     }
 
     public void refreshMaxs() {
@@ -143,24 +145,4 @@ public class AllResources {
             res.resetCurrent();
         }
     }
-
-
-    private Boolean toBool(String key) {
-        Boolean value = false;
-        try {
-            value = Boolean.valueOf(key);
-        } catch (Exception e) {
-        }
-        return value;
-    }
-
-    private Integer toInt(String key) {
-        Integer value = 0;
-        try {
-            value = Integer.parseInt(key);
-        } catch (Exception e) {
-        }
-        return value;
-    }
-
 }

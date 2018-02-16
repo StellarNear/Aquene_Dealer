@@ -1,12 +1,6 @@
 package stellarnear.aquene_dealer.Perso;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.ScaleDrawable;
-
-import java.io.Serializable;
-
-import stellarnear.aquene_dealer.R;
 
 /**
  * Created by jchatron on 27/12/2017.

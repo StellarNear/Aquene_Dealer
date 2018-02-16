@@ -4,9 +4,6 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.pm.ActivityInfo;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Gravity;
@@ -20,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import stellarnear.aquene_dealer.Divers.CustomAlertDialog;
+import stellarnear.aquene_dealer.Divers.Tools;
 import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.Perso.Skill;
 import stellarnear.aquene_dealer.R;
@@ -28,9 +26,10 @@ import stellarnear.aquene_dealer.R;
  * A placeholder fragment containing a simple view.
  */
 public class MainActivityFragmentSkill extends Fragment {
-    Perso aquene = MainActivity.aquene;
-    LinearLayout linearSkillScroll;
-    View returnFragView;
+    private Perso aquene = MainActivity.aquene;
+    private LinearLayout linearSkillScroll;
+    private View returnFragView;
+    private Tools tools=new Tools();
     public MainActivityFragmentSkill() {
     }
 
@@ -85,7 +84,7 @@ public class MainActivityFragmentSkill extends Fragment {
         nameTxt.setLayoutParams(nameTitle.getLayoutParams());
         nameTxt.setText(skill.getName());
         int imgId = getResources().getIdentifier(skill.getId(), "drawable", getContext().getPackageName());
-        nameTxt.setCompoundDrawablesWithIntrinsicBounds(resize(getContext().getDrawable(imgId)),null,null,null);
+        nameTxt.setCompoundDrawablesWithIntrinsicBounds(tools.resize(getContext(),getContext().getDrawable(imgId),(int) (getResources().getDimensionPixelSize(R.dimen.icon_skills_list_height)*0.8)),null,null,null);
         nameTxt.setPadding(getResources().getDimensionPixelSize(R.dimen.general_margin),0,0,0);
         nameTxt.setGravity(Gravity.CENTER);
 
@@ -130,13 +129,6 @@ public class MainActivityFragmentSkill extends Fragment {
                 skillDialog.showAlertDialog();
             }
         });
-    }
-
-    private Drawable resize(Drawable image) {
-        Bitmap b = ((BitmapDrawable)image).getBitmap();
-        int pixel_size_icon = (int) (getResources().getDimensionPixelSize(R.dimen.icon_skills_list_height)*0.8);
-        Bitmap bitmapResized = Bitmap.createScaledBitmap(b, pixel_size_icon, pixel_size_icon, false);
-        return new BitmapDrawable(getResources(), bitmapResized);
     }
 
     private void unlockOrient() {

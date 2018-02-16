@@ -3,9 +3,6 @@ package stellarnear.aquene_dealer.Activities;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.pm.ActivityInfo;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.os.Handler;
@@ -20,11 +17,11 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import stellarnear.aquene_dealer.Divers.Tools;
 import stellarnear.aquene_dealer.Perso.KiCapacity;
 import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.R;
@@ -33,11 +30,12 @@ import stellarnear.aquene_dealer.R;
  * A placeholder fragment containing a simple view.
  */
 public class MainActivityFragmentKi extends Fragment {
-    Perso aquene=MainActivity.aquene;
-    View returnFragView;
-    List<LinearLayout> allKiCapa=new ArrayList<>();
-    KiCapacity kiCapaSelected;
-    Button valid;
+    private Perso aquene=MainActivity.aquene;
+    private View returnFragView;
+    private List<LinearLayout> allKiCapa=new ArrayList<>();
+    private KiCapacity kiCapaSelected;
+    private Button valid;
+    private Tools tools=new Tools();
     public MainActivityFragmentKi() {
 
     }
@@ -95,7 +93,7 @@ public class MainActivityFragmentKi extends Fragment {
             nameTxt.setLayoutParams(nameTitle.getLayoutParams());
             nameTxt.setText(kiCapa.getName());
             int imgId = getResources().getIdentifier(kiCapa.getId(), "drawable", getContext().getPackageName());
-            nameTxt.setCompoundDrawablesWithIntrinsicBounds(resize(getContext().getDrawable(imgId)),null,null,null);
+            nameTxt.setCompoundDrawablesWithIntrinsicBounds(tools.resize(getContext(),getContext().getDrawable(imgId),(int) (getResources().getDimensionPixelSize(R.dimen.icon_kicapacities_list))),null,null,null);
             nameTxt.setPadding(getResources().getDimensionPixelSize(R.dimen.general_margin),0,0,0);
             nameTxt.setGravity(Gravity.CENTER);
 
@@ -178,13 +176,7 @@ public class MainActivityFragmentKi extends Fragment {
             valid.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
-                        Toast toast = Toast.makeText(getContext(), "Tu n'as pas assez de points de Ki pour faire cela", Toast.LENGTH_LONG);
-                        TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
-                        if( v != null) v.setGravity(Gravity.CENTER);
-                        toast.setGravity(Gravity.CENTER,0,0);
-                        toast.show();
-
+                        tools.toastIt(getContext(),"Tu n'as pas assez de points de Ki pour faire cela","center");
                 }
             });
         }
@@ -192,12 +184,7 @@ public class MainActivityFragmentKi extends Fragment {
 
     }
 
-    private Drawable resize(Drawable image) {
-        Bitmap b = ((BitmapDrawable)image).getBitmap();
-        int pixel_size_icon = (int) (getResources().getDimensionPixelSize(R.dimen.icon_kicapacities_list));
-        Bitmap bitmapResized = Bitmap.createScaledBitmap(b, pixel_size_icon, pixel_size_icon, false);
-        return new BitmapDrawable(getResources(), bitmapResized);
-    }
+
 
 
     private void unlockOrient() {

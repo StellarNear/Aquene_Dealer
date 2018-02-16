@@ -18,6 +18,7 @@ import java.util.Map;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import stellarnear.aquene_dealer.Divers.Tools;
 import stellarnear.aquene_dealer.R;
 
 /**
@@ -30,6 +31,7 @@ public class AllAttacks {
     private Context mC;
     private String combatMode;
     private int atkRange;
+    private Tools tools=new Tools();
 
     public AllAttacks(Context mC) {
         this.mC = mC;
@@ -41,7 +43,7 @@ public class AllAttacks {
 
     public void refreshAllAttacks() {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mC);
-        atkRange= toInt(settings.getString("attack_range", String.valueOf(mC.getResources().getInteger(R.integer.attack_range_DEF))));
+        atkRange= tools.toInt(settings.getString("attack_range", String.valueOf(mC.getResources().getInteger(R.integer.attack_range_DEF))));
     }
 
     private void buildAttacksList() {
@@ -65,6 +67,7 @@ public class AllAttacks {
                             readValue("name", element2),
                             readValue("type", element2),
                             readValue("descr", element2),
+                            tools.toBool(readValue("save", element2)),
                             readValue("id", element2),
                             mC);
                     listAttacks.add(atk);
@@ -125,14 +128,5 @@ public class AllAttacks {
             }
         }
         return selList;
-    }
-
-    private Integer toInt(String key) {
-        Integer value = 0;
-        try {
-            value = Integer.parseInt(key);
-        } catch (Exception e) {
-        }
-        return value;
     }
 }

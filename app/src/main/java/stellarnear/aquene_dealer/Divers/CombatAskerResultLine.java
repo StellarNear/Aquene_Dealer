@@ -56,7 +56,7 @@ public class CombatAskerResultLine {
             resultTxt = "Il est trop loin, tu peux te deplacer en marchant (" + ms + "m).\n Puis faire autre chose qu'une attaque.\nOu bien courir (" + ms * 4 + "m) vers lui.";
         } else if (!moved && range && !outrange) {
             if(aquene.getAllStances().getCurrentStance()!=null && aquene.getAllStances().isActive("stance_bear")){
-                resultTxt = "Tu es en posture de l'ours, tu ne peux faire qu'une attaque simple.";
+                resultTxt = "La posture de l'ours ne te permet qu'une attaque simple.";
                 possibleAttacks = aquene.getAttacksForType("simple");
             } else {
                 possibleAttacks = aquene.getAttacksForType("complex");

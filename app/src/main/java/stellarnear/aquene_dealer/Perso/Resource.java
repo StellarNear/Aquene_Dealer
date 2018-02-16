@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.preference.PreferenceManager;
 
+import stellarnear.aquene_dealer.Divers.Tools;
 import stellarnear.aquene_dealer.R;
 
 /**
@@ -22,6 +23,7 @@ public class Resource {
     private boolean testable;
     private boolean hide;
     private Drawable img;
+    private Tools tools=new Tools();
 
     public Resource(String name,String shortname, String descr,Boolean testable,Boolean hide, String id, Context mC){
         this.name=name;
@@ -80,7 +82,7 @@ public class Resource {
     public void earn(int amount) {
         if(this.id.equalsIgnoreCase("resource_hp")){
             SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mC);
-            int shield = toInt(settings.getString( "resource_hp_shield", String.valueOf(mC.getResources().getInteger(R.integer.resource_hp_shield_def))));
+            int shield = tools.toInt(settings.getString( "resource_hp_shield", String.valueOf(mC.getResources().getInteger(R.integer.resource_hp_shield_def))));
             if (this.current+amount >= this.max + shield){
                 this.current=this.max+shield;
             } else {
@@ -109,15 +111,5 @@ public class Resource {
     public boolean isHidden() {
         return this.hide;
     }
-
-    private Integer toInt(String key) {
-        Integer value = 0;
-        try {
-            value = Integer.parseInt(key);
-        } catch (Exception e) {
-        }
-        return value;
-    }
-
 }
 

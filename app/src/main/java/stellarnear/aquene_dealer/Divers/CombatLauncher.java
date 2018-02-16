@@ -23,7 +23,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.List;
 import stellarnear.aquene_dealer.Activities.MainActivity;
@@ -50,6 +49,7 @@ public class CombatLauncher {
     private CombatLauncherDamageLines combatLauncherDamageLines;
     private ImageButton addAtkButton;
     private OnFinishEventListener mListener;
+    private Tools tools=new Tools();
 
     public CombatLauncher(Activity mA, Context mC, Attack attack) {
         this.mA = mA;
@@ -75,7 +75,11 @@ public class CombatLauncher {
         summary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                toastIt(attack.getDescr());
+                String txt=attack.getDescr();
+                if(attack.hasSave()){
+                    int val = 10+(int)(aquene.getAbilityScore("ability_lvl")/2.0)+aquene.getAbilityMod("ability_sagesse");
+                    txt+="\n\nJet de sauvegarde que l'ennemi doit égaler : "+val;}
+                tools.toastIt(mC,txt,"long");
             }
         });
         final FloatingActionButton fab = dialogView.findViewById(R.id.fab);
@@ -105,7 +109,6 @@ public class CombatLauncher {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                 }
-
                             })
                             .show();
                 }
@@ -156,7 +159,6 @@ public class CombatLauncher {
         if (attack.getId().equalsIgnoreCase("attack_flurry")) {
             setAddAtkPanel();
         }
-
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(mA, R.style.CustomDialog);
         dialogBuilder.setView(dialogView);
         dialogBuilder.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
@@ -226,23 +228,17 @@ public class CombatLauncher {
             String att_base = settings.getString("jet_att_flurry", mC.getString(R.string.jet_att_flurry_DEF));
             String delim = ",";
             String[] list_att_base_string = att_base.split(delim);
-            if (medusa.isChecked()){
-                atksRolls.add(new Roll(mA,mC, toInt(list_att_base_string[0]))); atksRolls.add(new Roll(mA,mC, toInt(list_att_base_string[0])));
-            }
-            if (ki.isChecked()){
-                atksRolls.add(new Roll(mA,mC, toInt(list_att_base_string[0])));
-            }
-            if (boots.isChecked()){
-                atksRolls.add(new Roll(mA,mC, toInt(list_att_base_string[0])));
-            }
+            if (medusa.isChecked()){  atksRolls.add(new Roll(mA,mC, tools.toInt(list_att_base_string[0]))); atksRolls.add(new Roll(mA,mC, tools.toInt(list_att_base_string[0])));      }
+            if (ki.isChecked()){      atksRolls.add(new Roll(mA,mC, tools.toInt(list_att_base_string[0])));     }
+            if (boots.isChecked()){   atksRolls.add(new Roll(mA,mC, tools.toInt(list_att_base_string[0])));     }
             for (String each : list_att_base_string) {
-                atksRolls.add(new Roll(mA,mC, toInt(each)));
+                atksRolls.add(new Roll(mA,mC, tools.toInt(each)));
             }
         } else {
             String att_base = settings.getString("jet_att", mC.getString(R.string.jet_att_DEF));
             String delim = ",";
             String[] list_att_base_string = att_base.split(delim);
-            atksRolls.add(new Roll(mA,mC, toInt(list_att_base_string[0])));
+            atksRolls.add(new Roll(mA,mC, tools.toInt(list_att_base_string[0])));
         }
         combatLauncherHitCritLines =new CombatLauncherHitCritLines(mA,mC,dialogView,atksRolls);
     }
@@ -286,23 +282,5 @@ public class CombatLauncher {
 
     private void unlockOrient() {
         mA.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
-    }
-
-    //TOOLS
-    private void toastIt(String txt) {
-        Toast toast = Toast.makeText(mC, txt, Toast.LENGTH_LONG);
-        TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
-        if( v != null) v.setGravity(Gravity.CENTER);
-        toast.setGravity(Gravity.CENTER,0,0);
-        toast.show();
-    }
-
-    private Integer toInt(String key) {
-        Integer value = 0;
-        try {
-            value = Integer.parseInt(key);
-        } catch (Exception e) {
-        }
-        return value;
     }
 }

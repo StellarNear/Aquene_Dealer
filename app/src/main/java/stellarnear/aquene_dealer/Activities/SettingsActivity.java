@@ -31,6 +31,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import stellarnear.aquene_dealer.Divers.EditTextPreference;
+import stellarnear.aquene_dealer.Divers.Tools;
 import stellarnear.aquene_dealer.Perso.Feat;
 import stellarnear.aquene_dealer.Perso.Skill;
 import stellarnear.aquene_dealer.Perso.Perso;
@@ -54,7 +55,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
      * A preference value change listener that updates the preference's summary
      * to reflect its new value.
      */
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -413,6 +413,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static class RazPreferenceFragment extends PreferenceFragment {
+        private Tools tools=new Tools();
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -463,10 +464,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                     editor.clear();
                     editor.commit();
 
-                    String descr="Remise à zero des paramètres de l'application";
-                    Toast toast = Toast.makeText(getContext(), descr, Toast.LENGTH_LONG);
-                    toast.setGravity(Gravity.CENTER| Gravity.CENTER_HORIZONTAL,0,0);
-                    toast.show();
+                    tools.toastIt(getContext(),"Remise à zero des paramètres de l'application","center");
                     startActivity(new Intent(getActivity(), MainActivity.class));
                 }
 
@@ -480,7 +478,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static class SleepPreferenceFragment extends PreferenceFragment {
-
+        private Tools tools = new Tools();
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -515,13 +513,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         }
 
         private void sleep() {
-            String descr="Fais de beaux rêves !";
-            Toast toast = Toast.makeText(getContext(), descr, Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.CENTER| Gravity.CENTER_HORIZONTAL,0,0);
-            toast.show();
+            tools.toastIt(getContext(),"Fais de beaux rêves !","center");
 
             int time=2000; // in milliseconds
-
             Handler h=new Handler();
 
             h.postDelayed(new Runnable() {
@@ -529,28 +523,11 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 @Override
                 public void run() {
                     MainActivity.aquene.getAllResources().sleepReset();
-
-                    String descr="Une nouvelle journée pleine de mandales et d'acrobaties t'attends.";
-                    Toast toast = Toast.makeText(getContext(), descr, Toast.LENGTH_LONG);
-                    toast.setGravity(Gravity.CENTER| Gravity.CENTER_HORIZONTAL,0,0);
-                    toast.show();
+                    tools.toastIt(getContext(),"Une nouvelle journée pleine de mandales et d'acrobaties t'attends.","center");
                     startActivity(new Intent(getActivity(), MainActivity.class));
                 }
 
             },time);
         }
-
-        public Integer to_int(String key){
-            Integer value;
-            try {
-                value = Integer.parseInt(key);
-            } catch (Exception e){
-                value=0;
-            }
-            return value;
-        }
     }
-
-
-
 }
