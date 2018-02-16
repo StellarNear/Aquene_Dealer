@@ -51,7 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
-                android:layout_marginBottom="@dimen/general_margin"
+                android:layout_margin="@dimen/general_margin"
                 android:text="Type : blabla"
                 android:visibility="gone"/>
 
@@ -60,6 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/general_margin"
+                android:maxLines="30"
                 android:layout_gravity="left"
                 android:text="This is the demo of Custom Toast Notification" />
         </LinearLayout>

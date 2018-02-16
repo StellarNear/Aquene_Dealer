@@ -2,36 +2,30 @@
 <records>
     <resource>
         <name>Points de vie</name>
-        <descr>base</descr>
         <testable>true</testable>
         <id>resource_hp</id>
     </resource>
     <resource>
         <name>Régénération</name>
-        <descr></descr>
         <id>resource_regen</id>
     </resource>
     <resource>
         <name>Point(s) héroique(s)</name>
         <shortname>Point héroique</shortname>
-        <descr>base</descr>
         <id>resource_heroic</id>
     </resource>
     <resource>
         <name>Réserve de Ki</name>
-        <descr></descr>
         <id>resource_ki</id>
     </resource>
     <resource>
         <name>Coup étourdissant</name>
         <shortname>Coup étourd.</shortname>
-        <descr></descr>
         <id>resource_stun</id>
     </resource>
     <resource>
         <name>Paume vibratoire</name>
         <shortname>Paume vibr.</shortname>
-        <descr></descr>
         <id>resource_palm</id>
     </resource>
     <resource>

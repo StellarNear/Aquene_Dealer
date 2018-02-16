@@ -65,7 +65,6 @@ public class AllResources {
                     Resource res=new Resource(
                             readValue("name", element2),
                             readValue("shortname", element2),
-                            readValue("descr", element2),
                             tools.toBool(readValue("testable", element2)),
                             tools.toBool(readValue("hide", element2)),
                             readValue("id", element2),
@@ -118,7 +117,9 @@ public class AllResources {
 
     public void refreshMaxs() {
         //partie from setting
-        getResource("resource_hp").setMax(readResource("resource_hp"));
+        int hpPool=readResource("resource_hp");
+        if(allFeats.getFeat("feat_robustness").isActive()){hpPool+=allAbilities.getAbi("ability_lvl").getValue();}
+        getResource("resource_hp").setMax(hpPool);
         getResource("resource_regen").setMax(readResource("resource_regen"));
         getResource("resource_heroic").setMax(readResource("resource_heroic"));
 

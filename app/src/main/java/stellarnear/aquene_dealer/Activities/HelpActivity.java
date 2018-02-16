@@ -100,6 +100,7 @@ public class HelpActivity extends AppCompatActivity {
             button.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT,1));
             button.setText(cat);
             button.setTextSize(10);
+            button.setAllCaps(false);
             button.setBackground(getDrawable(R.drawable.button_basic_gradient));
             setButtonListner(button);
             mapButtonCat.put(button,cat);
@@ -141,7 +142,7 @@ public class HelpActivity extends AppCompatActivity {
             for (Ability abi : aquene.getAllAbilities().getAbilitiesList()){
                 View view = getLayoutInflater().inflate(R.layout.custom_help_info_flipper,vg,false);
                 int typeId = getResources().getIdentifier("ability_"+abi.getType(), "string", getPackageName());
-                changeFields(view,abi.getId(),abi.getName(),"Type : "getString(typeId),abi.getDescr());
+                changeFields(view,abi.getId(),abi.getName(),"Type : "+getString(typeId),abi.getDescr());
                 flipper.addView(view);
             }
         }

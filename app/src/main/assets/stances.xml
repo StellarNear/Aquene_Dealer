@@ -3,14 +3,14 @@
     <stance>
         <name>Dragon</name>
         <type>Attaque</type>
-        <descr>Grâce à ce sort, le personnage peut repérer les auras magiques. Les informations fournies par détection de la magie dépendent du temps que le personnage passe à étudier le sujet et ou la zone. Premier round : présence ou absence d’auras magiques. Deuxième round : nombre d’auras magiques et intensité de la plus puissante. Troisième round : intensité et emplacement précis de chaque aura</descr>
+        <descr>Le personnage peut utiliser son bonus de Sagesse au lieu de son bonus de Force pour les jets d’attaque.</descr>
         <id>stance_dragon</id>
     </stance>
 
     <stance>
         <name>Faucon</name>
         <type>Attaque</type>
-        <descr>Grâce à ce sort, le personnage peut repérer les auras magiques. Les informations fournies par détection de la magie dépendent du temps que le personnage passe à étudier le sujet et ou la zone. Premier round : présence ou absence d’auras magiques. Deuxième round : nombre d’auras magiques et intensité de la plus puissante. Troisième round : intensité et emplacement précis de chaque aura</descr>
+        <descr>Le personnage gagne le don Attaque éclair.Attaque éclair : En une action complexe, le personnage peut se déplacer à sa vitesse de base et faire une attaque de corps à corps sans provoquer d’attaque d’opportunité de la part de sa cible. Il peut se déplacer avant et après l’attaque mais il doit parcourir au moins trois mètres avant d’attaquer et la distance parcourue au total ne doit pas dépasser sa vitesse de base.</descr>
         <id>stance_falcon</id>
         <featid>feat_quick_atk</featid>
     </stance>
@@ -18,28 +18,28 @@
     <stance>
         <name>Lion</name>
         <type>Attaque</type>
-        <descr>Rayon d’énergie positive. Le personnage doit réussir une attaque de contact à distance pour atteindre le mort-vivant.</descr>
+        <descr>Le personnage applique 1,5 fois son bonus de Force à ses dégâts à mains nues.</descr>
         <id>stance_lion</id>
     </stance>
 
     <stance>
         <name>Loup</name>
         <type>Attaque</type>
-        <descr>Grâce à ce sort, le personnage peut repérer les auras magiques. Les informations fournies par détection de la magie dépendent du temps que le personnage passe à étudier le sujet et ou la zone. Premier round : présence ou absence d’auras magiques. Deuxième round : nombre d’auras magiques et intensité de la plus puissante. Troisième round : intensité et emplacement précis de chaque aura</descr>
+        <descr>Le personnage gagne le don Science du croc-en-jambe.Science du croc-en-jambe : Le personnage ne provoque pas d’attaque d’opportunité lorsqu’il tente de faire un croc-en-jambe. Il bénéficie de plus d’un bonus de +2 aux tests de combat destinés à faire un croc-en-jambe à un adversaire et un bonus de +2 à la manœuvre défensive quand un ennemi essaie de faire de même.</descr>
         <id>stance_wolf</id>
     </stance>
 
     <stance>
         <name>Oxydeur</name>
         <type>Attaque</type>
-        <descr>Rayon d’énergie positive. Le personnage doit réussir une attaque de contact à distance pour atteindre le mort-vivant.</descr>
+        <descr>Le personnage gagne le don Science de la destruction.Science de la destruction : Lorsque le personnage essaye de détruire un objet tenu ou porté par un adversaire (comme une arme ou un bouclier), il ne s’expose pas à une attaque d’opportunité. Il bénéficie de plus d’un bonus de +2 aux tests de combat destinés à briser un objet et un bonus de +2 à son score de manœuvre défensive quand un ennemi essaie de détruire son équipement.</descr>
         <id>stance_oxyder</id>
     </stance>
 
     <stance>
         <name>Rat</name>
         <type>Attaque</type>
-        <descr>Rayon d’énergie positive. Le personnage doit réussir une attaque de contact à distance pour atteindre le mort-vivant.</descr>
+        <descr>Le personnage gagne le don Attaque en finesse.Attaque en finesse : Le personnage peut choisir d’appliquer son bonus de Dextérité à ses jets d’attaque plutôt que son bonus de Force.</descr>
         <id>stance_rat</id>
         <featid>feat_dex_atk</featid>
     </stance>
@@ -48,7 +48,7 @@
     <stance>
         <name>Chimpanzé</name>
         <type>Défense</type>
-        <descr>Rayon d’énergie positive. Le personnage doit réussir une attaque de contact à distance pour atteindre le mort-vivant.</descr>
+        <descr>Le personnage gagne le don Science du désarmement.Science du désarmement : Le personnage ne provoque pas d’attaque d’opportunité quand il tente de désarmer son ennemi. De plus, il reçoit un bonus de +2 aux tests destinés à désarmer un adversaire et un bonus de +2 à la manœuvre défensive quand ses ennemis essaient de le désarmer.</descr>
         <id>stance_chimpanzee</id>
     </stance>
 
@@ -56,79 +56,78 @@
         <name>Chien esquiveur</name>
         <shortname>Esquiveur</shortname>
         <type>Défense</type>
-        <descr>Rayon d’énergie positive. Le personnage doit réussir une attaque de contact à distance pour atteindre le mort-vivant.</descr>
+        <descr>Le personnage peut se téléporter à une distance de 3m quand il pourrait effectuer un pas de placement.</descr>
         <id>stance_dog</id>
     </stance>
 
     <stance>
         <name>Lézard</name>
         <type>Défense</type>
-        <descr>Rayon d’énergie positive. Le personnage doit réussir une attaque de contact à distance pour atteindre le mort-vivant.</descr>
+        <descr>Le personnage gagne un bonus d’esquive de +2 à la CA au cours de chaque round où il s’est déplacé d’au moins 3 m.</descr>
         <id>stance_lizard</id>
     </stance>
 
     <stance>
         <name>Ours</name>
         <type>Défense</type>
-        <descr>Rayon d’énergie positive. Le personnage doit réussir une attaque de contact à distance pour atteindre le mort-vivant.</descr>
+        <descr>Le moine adopte une posture défensive, il ne peut plus faire d'attaque à outrance mais gagne un bonus à la CA égal à la moitié de son niveau de moine.</descr>
         <id>stance_bear</id>
     </stance>
 
     <stance>
         <name>Phénix</name>
         <type>Défense</type>
-        <descr>Rayon d’énergie positive. Le personnage doit réussir une attaque de contact à distance pour atteindre le mort-vivant.</descr>
+        <descr>Le moine s’isole de la rage du combat recentre ses pensées sur la méditation. Il ne peut plus faire d’attaque à outrance, mais gagne une régeneration de point de vie par round égale à modificateur de sagesse + (survie + premier secours)/10.</descr>
         <id>stance_phenix</id>
     </stance>
 
     <stance>
         <name>Pieuvre</name>
         <type>Défense</type>
-        <descr>Rayon d’énergie positive. Le personnage doit réussir une attaque de contact à distance pour atteindre le mort-vivant.</descr>
+        <descr>Le personnage ajoute son modificateur de sagesse à son jet lorsqu’il effectue une manoeuvre de combat prenant en compte le BBA (comme la lutte, la destruction d’arme ou de désarmement).</descr>
         <id>stance_octopus</id>
     </stance>
-
 
     <stance>
         <name>Chapardeur Ethéré</name>
         <shortname>Chapardeur</shortname>
         <type>Autre</type>
-        <descr>Rayon d’énergie positive. Le personnage doit réussir une attaque de contact à distance pour atteindre le mort-vivant.</descr>
+        <descr>Le personnage gagne le pouvoir de discrétion totale et un bonus égal à son modificateur de Sagesse à tous ses tests de Déplacement silencieux et Discrétion.</descr>
         <id>stance_chaparder</id>
     </stance>
 
     <stance>
         <name>Chauve-souris</name>
         <type>Autre</type>
-        <descr>Rayon d’énergie positive. Le personnage doit réussir une attaque de contact à distance pour atteindre le mort-vivant.</descr>
+        <descr>Le personnage gagne le pouvoir de discrétion totale (pouvoir faire des jets de discretion sans être caché, même en plein champs de vision) et un bonus égal à son modificateur de Sagesse à tous ses tests de Déplacement silencieux et Discrétion</descr>
         <id>stance_bat</id>
     </stance>
 
     <stance>
         <name>Crabe</name>
         <type>Autre</type>
-        <descr>Rayon d’énergie positive. Le personnage doit réussir une attaque de contact à distance pour atteindre le mort-vivant.</descr>
+        <descr>Les poings du moine sont considérés comme une arme à deux mains lorsque cela influe sur une manoeuvre de combat.</descr>
         <id>stance_crab</id>
     </stance>
 
     <stance>
         <name>Léopard</name>
         <type>Autre</type>
-        <descr>Rayon d’énergie positive. Le personnage doit réussir une attaque de contact à distance pour atteindre le mort-vivant.</descr>
+        <descr>Le personnage peut marcher sur les murs à la même vitesse qu’au sol, du moment qu’il termine son mouvement sur une surface plane. S’il le veut, il peut également terminer son déplacement par un saut.</descr>
         <id>stance_leopard</id>
     </stance>
 
     <stance>
         <name>Licorne</name>
         <type>Autre</type>
-        <descr>Rayon d’énergie positive. Le personnage doit réussir une attaque de contact à distance pour atteindre le mort-vivant.</descr>
+        <descr>La vitesse de déplacement au sol du personnage augmente de 6 m.</descr>
         <id>stance_unicorn</id>
     </stance>
 
     <stance>
         <name>Scorpion</name>
         <type>Autre</type>
-        <descr>Rayon d’énergie positive. Le personnage doit réussir une attaque de contact à distance pour atteindre le mort-vivant.</descr>
+        <descr>Lorsque le personnage est adjacent à une créature, tant que celle-ci ne possède pas d’allié adjacent, elle est considérée comme prise en tenaille.</descr>
         <id>stance_scorpio</id>
     </stance>
 

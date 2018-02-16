@@ -17,7 +17,7 @@
             android:layout_width="@dimen/stance_icon_tooltip"
             android:layout_height="@dimen/stance_icon_tooltip"
             android:layout_margin="6dp"
-            ></ImageView>
+            />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -35,7 +35,7 @@
                 android:layout_marginBottom="3dp"
                 android:text="PM is here"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@android:color/black"></TextView>
+                android:textColor="@android:color/black"/>
 
             <TextView
                 android:id="@+id/toast_textDescr"
@@ -43,8 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/imageView1"
                 android:layout_gravity="left"
-                android:text="This is the demo of Custom Toast Notification"
-                android:textColor="@android:color/darker_gray"></TextView>
+                android:text="This is the demo of Custom Toast Notification"/>
         </LinearLayout>
     </LinearLayout>
 

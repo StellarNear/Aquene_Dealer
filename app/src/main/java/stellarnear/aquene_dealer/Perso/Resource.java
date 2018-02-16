@@ -15,7 +15,6 @@ import stellarnear.aquene_dealer.R;
 public class Resource {
     private String name;
     private String shortname;
-    private String descr;
     private String id;
     private Context mC;
     private int max;
@@ -25,12 +24,11 @@ public class Resource {
     private Drawable img;
     private Tools tools=new Tools();
 
-    public Resource(String name,String shortname, String descr,Boolean testable,Boolean hide, String id, Context mC){
+    public Resource(String name,String shortname,Boolean testable,Boolean hide, String id, Context mC){
         this.name=name;
         this.shortname=shortname;
         this.testable=testable;
         this.hide=hide;
-        this.descr=descr;
         this.id=id;
         this.mC=mC;
         int imgId=mC.getResources().getIdentifier(id, "drawable", mC.getPackageName());
@@ -46,10 +44,6 @@ public class Resource {
     }
 
     public Boolean isTestable(){return this.testable;}
-
-    public String getDescr() {
-        return this.descr;
-    }
 
     public String getId() {
         return this.id;
