@@ -4,12 +4,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
 import android.view.Display;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,7 +74,6 @@ public class CustomAlertDialog {
             imgId = mC.getResources().getIdentifier(skill.getId(), "drawable", mC.getPackageName());
             titleTxt = "Test de la compétence :\n"+skill.getName();
             nameLength=skill.getName().length();
-
             //summary
             String abScore;
             if(modBonus>=0){
@@ -251,7 +252,34 @@ public class CustomAlertDialog {
 
             TextView result = dialogView.findViewById(R.id.customDialogTestResult);
             result.setText(String.valueOf(sumResult));
-            callToAction.setText("Fin du test de caractéristique");
+
+            if(abi.getId().equalsIgnoreCase("ability_vig") && aquene.getAllResources().getResource("resource_inhuman_stamina_sup").getCurrent()>0){
+                callToAction.setText("Tu peux relancer une fois le test");
+                callToAction.setTextColor(Color.BLACK);  callToAction.setTextSize(18); callToAction.setGravity(Gravity.CENTER);
+                callToAction.setCompoundDrawablesWithIntrinsicBounds(mC.getDrawable(R.drawable.refresh),null,null,null);
+                callToAction.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        aquene.getAllResources().getResource("resource_inhuman_stamina_sup").spend(1);
+                        alertDialog.cancel();
+                        new CustomAlertDialog( mA,  mC,  abi).showAlertDialog();
+                    }
+                });
+            } else if (abi.getId().equalsIgnoreCase("ability_vol") && aquene.getAllResources().getResource("resource_iron_will_sup").getCurrent()>0){
+                callToAction.setText("Tu peux relancer une fois le test");
+                callToAction.setTextColor(Color.BLACK);  callToAction.setTextSize(18); callToAction.setGravity(Gravity.CENTER);
+                callToAction.setCompoundDrawablesWithIntrinsicBounds(mC.getDrawable(R.drawable.refresh),null,null,null);
+                callToAction.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        aquene.getAllResources().getResource("resource_iron_will_sup").spend(1);
+                        alertDialog.cancel();
+                        new CustomAlertDialog( mA,  mC,  abi).showAlertDialog();
+                    }
+                });
+            } else {
+                callToAction.setText("Fin du test de caractéristique");
+            }
         }
 
 

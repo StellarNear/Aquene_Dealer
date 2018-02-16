@@ -33,12 +33,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal" />
-
         <ViewFlipper
             android:id="@+id/help_activity_flipper"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"/>
+            android:layout_weight="1">
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_info_outline_24dp"/>
+        </ViewFlipper>
 
     </LinearLayout>
 

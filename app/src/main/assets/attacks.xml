@@ -19,7 +19,8 @@
     <attack>
         <name>Coup normal</name>
         <type>simple</type>
-        <descr>Ses attaques peuvent venir de ses poings, mais aussi de ses pieds, de ses coudes ou de ses genoux. Cela signifie qu’un moine peut même porter des attaques « à mains nues » alors que ses deux mains sont occupées. En règle générale, les attaques à mains nues du moine infligent des dégâts létaux, mais le moine peut choisir d’infliger des dégâts non létaux sans devoir subir un malus au jet d’attaque. Ce même choix lui est offert en situation de lutte.</descr>
+        <descr>Ces attaques peuvent venir des poings, mais aussi des pieds, des coudes ou des genoux. Ne pas oublier que les dons de combat Ecole du Scorpion et Poing de la Gorgone seront utilisable sur chaque coup normal (avec un jet de sauvegarde possible). Ecole du scorpion réduit la vitesse de déplacement de base de sa cible à 1,5 m. Sur une cible ralentie Poing de la Gorgone la rendra chancelante.</descr>
+        <save>true</save>
         <id>attack_normal</id>
     </attack>
 

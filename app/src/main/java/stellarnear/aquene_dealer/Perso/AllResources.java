@@ -130,14 +130,15 @@ public class AllResources {
         getResource("resource_ki").setMax(kiPool);
         getResource("resource_stun").setMax(lvl);
         getResource("resource_palm").setMax(1);
-        if(allFeats.getFeat("feat_inhuman_stamina_sup").isActive()){
-            getResource("resource_feat_inhuman_stamina_sup").setMax(1);
-        }
-        if(allFeats.getFeat("feat_iron_will_sup").isActive()){
-            getResource("resource_feat_iron_will_sup").setMax(1);
-        }
+
         if(settings.getBoolean("switch_save_ref_boot",mC.getResources().getBoolean(R.bool.switch_save_ref_boot_DEF))){
             getResource("resource_boot_add_atk").setMax(1);
+        }
+        if(settings.getBoolean("feat_inhuman_stamina_sup",mC.getResources().getBoolean(R.bool.feat_inhuman_stamina_sup))){
+            getResource("resource_inhuman_stamina_sup").setMax(1);
+        }
+        if(settings.getBoolean("feat_iron_will_sup",mC.getResources().getBoolean(R.bool.feat_iron_will_sup))){
+            getResource("resource_iron_will_sup").setMax(1);
         }
     }
 
