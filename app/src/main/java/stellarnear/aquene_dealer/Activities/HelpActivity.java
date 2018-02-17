@@ -1,5 +1,6 @@
 package stellarnear.aquene_dealer.Activities;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -64,6 +65,7 @@ public class HelpActivity extends AppCompatActivity {
     private Map<Button,String> mapButtonCat=new HashMap<>();
     private ViewFlipper flipper;
     private GestureDetector mGestureDetector;
+    private Activity mA;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -72,8 +74,8 @@ public class HelpActivity extends AppCompatActivity {
             this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
         super.onCreate(savedInstanceState);
-
-        mC=getApplicationContext();
+        this.mA=this;
+        this.mC=getApplicationContext();
         setContentView(R.layout.help_activity);
         flipper = findViewById(R.id.help_activity_flipper);
         CustomGestureDetector customGestureDetector = new CustomGestureDetector();
@@ -264,12 +266,14 @@ public class HelpActivity extends AppCompatActivity {
         final Display display = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
 
         if (display.getRotation()==Surface.ROTATION_0) {
-            Intent intent_main = new Intent(HelpActivity.this, MainActivity.class);
-            startActivity(intent_main);
+            Intent intent = new Intent(mA, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            startActivity(intent);
         }
         if (display.getRotation()==Surface.ROTATION_180) {
-            Intent intent_main = new Intent(HelpActivity.this, MainActivity.class);
-            startActivity(intent_main);
+            Intent intent = new Intent(mA, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            startActivity(intent);
         }
     }
 

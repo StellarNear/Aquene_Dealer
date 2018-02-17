@@ -1,5 +1,6 @@
 package stellarnear.aquene_dealer.Activities;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -54,6 +55,7 @@ public class StanceActivity extends AppCompatActivity {
     private RadioButton noStance;
     private List<RadioButton> allRadioButtons=new ArrayList<>();
     private Context mC;
+    private Activity mA;
     private Tools tools=new Tools();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +67,7 @@ public class StanceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.stance_activity);
         this.mC=getApplicationContext();
+        this.mA=this;
         noStance = findViewById(R.id.nostance_checkbox);
         noStance.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -229,12 +232,14 @@ public class StanceActivity extends AppCompatActivity {
         final Display display = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
 
         if (display.getRotation()==Surface.ROTATION_0) {
-            Intent intentMain = new Intent(StanceActivity.this, MainActivity.class);
-            startActivity(intentMain);
+            Intent intent = new Intent(mA, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            startActivity(intent);
         }
         if (display.getRotation()==Surface.ROTATION_180) {
-            Intent intentMain = new Intent(StanceActivity.this, MainActivity.class);
-            startActivity(intentMain);
+            Intent intent = new Intent(mA, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            startActivity(intent);
         }
     }
 
