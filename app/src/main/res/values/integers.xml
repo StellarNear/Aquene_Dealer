@@ -63,7 +63,7 @@
     <integer name="bonus_jet_dmg_DEF">0</integer>
     <integer name="number_main_dice_dmg_DEF">2</integer>
     <integer name="resource_hp_shield_def">0</integer>
-    <integer name="toast_long_duration_DEF">8000</integer>
+    <integer name="toast_long_duration_DEF">15000</integer>
 
 
 </resources>

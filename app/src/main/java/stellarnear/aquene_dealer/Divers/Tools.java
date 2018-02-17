@@ -69,6 +69,56 @@ public class Tools {
         }
     }
 
+    public void toastStanceTooltip(final Context mC, View view, String... modeInput) {
+        // Set the toast and duration
+        stopToast=false;
+        String mode = modeInput.length > 0 ? modeInput[0] : "";
+
+        final Toast mToastToShow = new Toast(mC);
+        mToastToShow.setView(view);
+        mToastToShow.setDuration(Toast.LENGTH_LONG);
+        if(mode.contains("long")){
+            SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mC);
+            int duration = toInt(settings.getString("toast_long_duration", String.valueOf(mC.getResources().getInteger(R.integer.toast_long_duration_DEF))));
+            int toastDurationInMilliSeconds = duration;
+
+            // Set the countdown to display the toast
+            final CountDownTimer toastCountDown;
+            toastCountDown = new CountDownTimer(toastDurationInMilliSeconds, Toast.LENGTH_LONG /*Tick duration*/) {
+                public void onTick(long millisUntilFinished) {
+                    if(!stopToast){  mToastToShow.show();} else { mToastToShow.cancel(); }
+                }
+                public void onFinish() {
+                    mToastToShow.cancel();
+                }
+            };
+            view.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    stopToast=true;
+                    mToastToShow.cancel();
+                    toastCountDown.onFinish();
+                    return true;
+                }
+            });
+            // Show the toast and starts the countdown
+            if(mode.contains("center")){
+                TextView v = (TextView) mToastToShow.getView().findViewById(android.R.id.message);
+                if( v != null) v.setGravity(Gravity.CENTER);
+            }
+            mToastToShow.setGravity(Gravity.CENTER,0,0);
+            mToastToShow.show();
+            toastCountDown.start();
+        } else {
+            if(mode.contains("center")){
+                TextView v = (TextView) mToastToShow.getView().findViewById(android.R.id.message);
+                if( v != null) v.setGravity(Gravity.CENTER);
+            }
+            mToastToShow.setGravity(Gravity.CENTER,0,0);
+            mToastToShow.show();
+        }
+    }
+
     public Integer toInt(String key) {
         Integer value = 0;
         try {   value = Integer.parseInt(key);  } catch (Exception e) {     }

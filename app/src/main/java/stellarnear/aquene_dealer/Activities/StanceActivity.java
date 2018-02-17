@@ -27,6 +27,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -39,6 +40,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import stellarnear.aquene_dealer.Divers.Tools;
 import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.Perso.Stance;
 import stellarnear.aquene_dealer.R;
@@ -46,12 +48,13 @@ import stellarnear.aquene_dealer.R;
 /* Created by jchatron on 26/12/2017.*/
 
 public class StanceActivity extends AppCompatActivity {
-    private Map<Integer,String> mapRadioButtonStance = new HashMap<>();
-    private Map<String,Integer> mapStanceRadioButton = new HashMap<>();
-    private List<RadioGroup> listRadioGroups= new ArrayList<RadioGroup>();
+    private Map<RadioButton,String> mapRadioButtonStance = new HashMap<>();
+    private Map<String,RadioButton> mapStanceRadioButton = new HashMap<>();
     private Perso aquene = MainActivity.aquene;
-    private RadioGroup.OnCheckedChangeListener multiRadioListner;
     private RadioButton noStance;
+    private List<RadioButton> allRadioButtons=new ArrayList<>();
+    private Context mC;
+    private Tools tools=new Tools();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -61,8 +64,7 @@ public class StanceActivity extends AppCompatActivity {
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.stance_activity);
-
-        buildMultiRadioListner();
+        this.mC=getApplicationContext();
         noStance = findViewById(R.id.nostance_checkbox);
         noStance.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -99,7 +101,7 @@ public class StanceActivity extends AppCompatActivity {
         String title=getString(R.string.stance_activity) +" (sélectionnez une posture)";
         if(currentStance!=null)
         {
-            RadioButton radioSelected = findViewById(mapStanceRadioButton.get(currentStance.getId()));
+            RadioButton radioSelected = mapStanceRadioButton.get(currentStance.getId());
             radioSelected.setChecked(true);
             title=getString(R.string.stance_activity) +" (posture actuelle : "+currentStance.getName()+")";
         } else {
@@ -114,75 +116,80 @@ public class StanceActivity extends AppCompatActivity {
     }
 
     private void createGridSelector(LinearLayout allRowsStances) {
-        RadioGroup selectStanceAtt = new RadioGroup(this);
-        listRadioGroups.add(selectStanceAtt);
-        applyListnerMultiRadio(selectStanceAtt);
+        LinearLayout line1 = line(); LinearLayout line2 = line(); LinearLayout line3 = line();
+        allRowsStances.addView(line1);allRowsStances.addView(line2);allRowsStances.addView(line3);
 
+        LinearLayout selectStanceAtt = createRadioGroup();
         LinearLayout selectStanceAttNames = new LinearLayout(this);
+        selectStanceAttNames.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,0,1));
+        selectStanceAttNames.setGravity(Gravity.CENTER);
+        line1.addView(selectStanceAtt); line1.addView(selectStanceAttNames);
 
-        allRowsStances.addView(selectStanceAtt);
-        allRowsStances.addView(selectStanceAttNames);
-
-        RadioGroup selectStanceDef = new RadioGroup(this);
-        listRadioGroups.add(selectStanceDef);
-        applyListnerMultiRadio(selectStanceDef);
-
+        LinearLayout selectStanceDef = createRadioGroup();
         LinearLayout selectStanceDefNames = new LinearLayout(this);
+        selectStanceDefNames.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,0,1));
+        selectStanceDefNames.setGravity(Gravity.CENTER);
+        line2.addView(selectStanceDef); line2.addView(selectStanceDefNames);
 
-        allRowsStances.addView(selectStanceDef);
-        allRowsStances.addView(selectStanceDefNames);
-
-        RadioGroup selectStanceElse = new RadioGroup(this);
-        listRadioGroups.add(selectStanceElse);
-        applyListnerMultiRadio(selectStanceElse);
-
+        LinearLayout selectStanceElse = createRadioGroup();
         LinearLayout selectStanceElseNames = new LinearLayout(this);
-
-        allRowsStances.addView(selectStanceElse);
-        allRowsStances.addView(selectStanceElseNames);
+        selectStanceElseNames.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,0,1));
+        selectStanceElseNames.setGravity(Gravity.CENTER);
+        line3.addView(selectStanceElse); line3.addView(selectStanceElseNames);
 
         for (Stance stance : aquene.getAllStances().getStancesList()){
-            RadioButton icon =new RadioButton(this);
+            LinearLayout box=box();
+
+            final RadioButton icon =new RadioButton(this);
             icon.setButtonDrawable(null);
 
             Drawable selectorImg = getDrawable( getResources().getIdentifier(stance.getId()+"_stance_selector", "drawable", getPackageName()));
-            icon.setBackground(selectorImg);
             LinearLayout.LayoutParams params =new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT);
-            params.rightMargin=(int) getResources().getDimension(R.dimen.stance_icon_padding);
             params.width=(int) getResources().getDimension(R.dimen.stance_icon);
             params.height=(int) getResources().getDimension(R.dimen.stance_icon);
             icon.setLayoutParams(params);
+            icon.setBackground(selectorImg);
 
+            box.addView(icon);
             TextView name = new TextView(this);
             name.setText(stance.getShortName());
-            LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(params);
-            params2.height= (int)( 2* getResources().getDimensionPixelSize(R.dimen.text_size_stance_icons));
+            LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(0,LinearLayout.LayoutParams.WRAP_CONTENT,1);
             name.setLayoutParams(params2);
             name.setSingleLine(true);
             name.setGravity(Gravity.CENTER);
             tooltip(stance,name);
             name.setTextSize(TypedValue.COMPLEX_UNIT_PX,getResources().getDimension(R.dimen.text_size_stance_icons));
 
-
             if (stance.getType().equals(getResources().getString(R.string.stance_cat_1))){
-                selectStanceAtt.addView(icon);
+                selectStanceAtt.addView(box);
                 selectStanceAttNames.addView(name);
             } else if (stance.getType().equals(getResources().getString(R.string.stance_cat_2))) {
-                selectStanceDef.addView(icon);
+                selectStanceDef.addView(box);
                 selectStanceDefNames.addView(name);
             } else {
-                selectStanceElse.addView(icon);
+                selectStanceElse.addView(box);
                 selectStanceElseNames.addView(name);
             }
-            mapRadioButtonStance.put(icon.getId(),stance.getId());
-            mapStanceRadioButton.put(stance.getId(),icon.getId());
+            allRadioButtons.add(icon);
+            mapRadioButtonStance.put(icon,stance.getId());
+            mapStanceRadioButton.put(stance.getId(),icon);
         }
-        setParam(selectStanceAtt);
-        setParam(selectStanceAttNames);
-        setParam(selectStanceDef);
-        setParam(selectStanceDefNames);
-        setParam(selectStanceElse);
-        setParam(selectStanceElseNames);
+        setButtonListner();
+    }
+
+    private void setButtonListner() {
+        for (final RadioButton button : allRadioButtons){
+            button.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    if(compoundButton.isChecked()){
+                        unCheckAllRadio(button);
+                        saveStance(button);
+                        noStance.setChecked(false);
+                    }
+                }
+            });
+        }
     }
 
     public void tooltip(final Stance stance, TextView name) {
@@ -205,40 +212,13 @@ public class StanceActivity extends AppCompatActivity {
         name.setText(nameTxt);
         TextView descr = view.findViewById(R.id.toast_textDescr);
         descr.setText(descrTxt);
-        Toast toast = new Toast(this);
-        toast.setDuration(Toast.LENGTH_LONG);
-        toast.setView(view);
-        toast.setGravity(Gravity.CENTER|Gravity.CENTER_HORIZONTAL,0,0);
-        toast.show();
+        tools.toastStanceTooltip(mC,view,"long");
     }
 
-    private void buildMultiRadioListner() {
-        multiRadioListner = new RadioGroup.OnCheckedChangeListener()
-        {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                Log.d("-State-","Changement de bouton");
-                unCheckAllRadio(group);
-                RadioButton checkedRadioButton = (RadioButton)group.findViewById(checkedId);
-                boolean isChecked = checkedRadioButton.isChecked();
-                if (isChecked)
-                {
-                    saveStance(checkedRadioButton);
-                    noStance.setChecked(false);
-                }
-            }
-        };
-    }
-    private void applyListnerMultiRadio(RadioGroup radioSub){
-        radioSub.setOnCheckedChangeListener(multiRadioListner);
-    }
-
-    private void unCheckAllRadio(RadioGroup selectedGroup) {
-        for (RadioGroup group : listRadioGroups){
-            if (!group.equals(selectedGroup)){
-                group.setOnCheckedChangeListener(null);
-                group.clearCheck();
-                group.setOnCheckedChangeListener(multiRadioListner);
+    private void unCheckAllRadio(RadioButton selectedButton) {
+        for (RadioButton button : allRadioButtons){
+            if (!button.equals(selectedButton)){
+                button.setChecked(false);
             }
         }
     }
@@ -259,7 +239,7 @@ public class StanceActivity extends AppCompatActivity {
     }
 
     private void saveStance(RadioButton selectedButton) {
-        Stance stanceActive=aquene.getAllStances().getStance(mapRadioButtonStance.get(selectedButton.getId()));
+        Stance stanceActive=aquene.getAllStances().getStance(mapRadioButtonStance.get(selectedButton));
         aquene.activateStance(stanceActive.getId());
         String title = getString(R.string.stance_activity) +" (posture actuelle : "+stanceActive.getName()+")";
         SpannableString titleSpan = new SpannableString(title);
@@ -285,15 +265,32 @@ public class StanceActivity extends AppCompatActivity {
         }
     }
 
-    private void setParam(RadioGroup radio) {
-        radio.setOrientation(LinearLayout.HORIZONTAL);
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT);
-        radio.setLayoutParams(layoutParams);
+    private LinearLayout createRadioGroup() {
+        LinearLayout radioG = new LinearLayout(mC);
+        //applyListnerMultiRadio(radioG);
+        radioG.setOrientation(LinearLayout.HORIZONTAL);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
+        radioG.setLayoutParams(layoutParams);
+        radioG.setGravity(Gravity.CENTER);
+        radioG.setClipChildren(false);
+        return radioG;
     }
 
-    private void setParam(LinearLayout lin) {
-        lin.setOrientation(LinearLayout.HORIZONTAL);
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT);
-        lin.setLayoutParams(layoutParams);
+    private LinearLayout line() {
+        LinearLayout line = new LinearLayout(mC);
+        line.setOrientation(LinearLayout.VERTICAL);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,0,1);
+        line.setLayoutParams(layoutParams);
+        line.setGravity(Gravity.CENTER);
+        line.setClipChildren(false);
+        return line;
+    }
+
+    private LinearLayout box() {
+        LinearLayout box = new LinearLayout(mC);
+        box.removeAllViews();
+        box.setGravity(Gravity.CENTER);
+        box.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
+        return box;
     }
 }

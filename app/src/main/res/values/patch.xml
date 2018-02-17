@@ -1,30 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="version">"v1.0"</string>
-    <string name="time_spend">"104h"</string>
-    <string name="basic_infos">"Cette application est développée par player 1 pour son player 2.
-Développée avec amour par Jérémie Chatron en fin 2017-2018."
+    <string name="time_spend">"107h"</string>
+    <string name="basic_infos">"Cette application est développée par player 1 pour son player 2. Développée avec amour par Jérémie Chatron en fin 2017-2018." </string>
+
+    <string name="patch_list">
+"----------------------------------------------------------------------------------
+v1.0
+---Activité Principale---
+-Écran démarrage avec icône avec thème de couleur des barres dans toute l'appli
+-L'application peut être en plein écran (sans la barre statut)
+-Création d'une image de fond pour la barre titre
+-Thème de couleur ! dans les tons du logo
+-Chargement des données pendant lancement en parallèles
+
+-Caracs de base injecté dans calculateur dynamique avec les postures et dons pour retourner les caras actualisées
+-Transition avec animation entre les trois fragments avec des icônes pour chaque
+-Clear de la mémoire entre les activités
+-Création de 4 quadrants
+-Remplissage des quadrant en fonction des caractéristiques par type
+-Création des 6 ressources du perso (icônes aussi)
+-Création d'une barre de vie ! (qui gère les overheal et change de couleur en fonction des pv manquant)
+
+---Settings---
+-Repos (avec confirmation)
+-Reset (avec confirmation)
+-Toute caractéristique est modifiable dans les paramètres
+-Ajout patchnote
+
+♦ Personnage
+-Les dons actifs peuvent être changé via perso et ses paramètres
+-Calcul des caractéristiques du personnage en dynamique
+-Compétences créer à partir d'un ficher
+-Création des 13 images des compétences
+-Dons créer à partir d'un ficher
+-Création des 22 images des dons
+-Abilités créer à partir d'un ficher
+-Création des 26 images des abilitiés
+-Calcul des Score et Modificateur pour chaque Caractéristique
+
+♦ Fragment Ki
+-Création des 6 icônes des sorts Ki
+-Gestion du cast du sort choisi
+
+♦ Fragment Combat
+-Création d'un assistant de combat avec système de logique complexe pour trouver les meilleurs actions possible
+Icônes rajoutés
+-6 icônes mode combat
+-Move/not move select / unselet ok
+-Déplacement Ki avec et sans
+-3 range select / unselect
+-Quand l'attaque est choisit création d'une interface de lancement des attaque
+-Les attaque on leur hit et crit géré dynamiquement
+-Les dès de ddégats sont géré dans l'attaque
+-Manuellement et Automatiquement sont possible pour les attaques
+-Calcul des statistiques pour chaque résultat
+-Affichage des dès dans les détails
+
+
+♦ Fragment Compétences
+-Lancement de fenêtre de test pour chaque compétences
+-Ajout d'une interface listant les modificateur en jeu et les bonus (comme feuille perso)
+
+---Activité Aide---
+-Création d'une image de fond pour la barre titre
+-Création d'un menu clickable
+-Affichage de la sélection avec un swiper !
+
+---Activité Posture---
+-Création d'une image de fond pour la barre titre
+-Création des 18 logos couleur et noir et blanc
+-Sélection d'une posture change le bouton
+-Multi ligne sélection exclusive
+-Tooltip auto-généré avec description des postures quand clic sur le texte
+-Sauvegarde dans le Perso de la posture en cours
+-Optimisation lancement 5sec à >1sec
+-Titre de posture actuelle présent
+-Ajout Bouton sans posture
+
+
+---Autres---
+-Création d'un distributeur de dés !
+-Lancement informatique et manuel fait
+-Validation pour D20+D10+D8+D6
+-Création des images de chaque face pour chaque dés
+-Création de dés mystères pour l'attente de résultat manuel
+-Création d'un système de fenêtre superposable pour les actions de combat/compétences et lancement de dés
+-Optimisation de la RAM utilisée de 300M > 150M
+-Remplissage de toutes les infos sur tout les sorts, abilité compétences etc avec les infos officielles Pathfinder
+----------------------------------------------------------------------------------"
     </string>
-
-<string name="patch_list">
-    "----------------------------------------------------------------------------------
-    v1.0
-
-    Activité Principale :
-
-    Activité Aide :
-
-    Activité Posture :
-    -Creation des 18 logos couleur et noir et blanc
-    -Multi ligne selection exclusive
-    -Tooltip auto-généré avec descrription des postures quand clic sur le texte
-    -Sauvegarde dans le Perso de la stance
-    -Optimisation lancement 5sec à >1sec
-
-    Général :
-    Caracs de base injecté dans calculateur dynamique avec les postures et dons pour retourner les caras actualisées
-
-    "
-</string>
 
 </resources>

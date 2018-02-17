@@ -78,7 +78,7 @@
             android:id="@+id/stance_linear"
             android:layout_width="0dp"
             android:layout_weight="6"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:clipChildren="false"
             android:gravity="center"
             android:layout_margin="@dimen/general_margin"
