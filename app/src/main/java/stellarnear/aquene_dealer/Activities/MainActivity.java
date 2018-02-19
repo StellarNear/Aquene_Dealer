@@ -37,11 +37,12 @@ public class MainActivity extends AppCompatActivity {
     private boolean loading = false;
     private boolean touched = false;
     private boolean gifShow = true;
-    FrameLayout mainFrameFrag;
+    private FrameLayout mainFrameFrag;
+    private SharedPreferences settings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         if (settings.getBoolean("switch_fullscreen_mode", getApplicationContext().getResources().getBoolean(R.bool.switch_fullscreen_mode_DEF))) {
             requestWindowFeature(Window.FEATURE_NO_TITLE);
             this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -129,7 +130,8 @@ public class MainActivity extends AppCompatActivity {
 
         final View gifView = findViewById(R.id.gifImage);
         final View gifContainer = findViewById(R.id.gifContainer);
-        if (gifShow) {
+        Boolean switchCampaignBool = settings.getBoolean("switch_campaign_gif", getApplicationContext().getResources().getBoolean(R.bool.switch_campaign_gif_DEF));
+        if (gifShow && switchCampaignBool) {
             gifView.setVisibility(View.VISIBLE);
             gifContainer.setVisibility(View.VISIBLE);
             gifView.setOnTouchListener(new View.OnTouchListener() {

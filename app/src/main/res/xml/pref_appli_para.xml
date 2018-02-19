@@ -6,6 +6,12 @@
         android:summary="Masque la barre de statut du téléphone"/>
 
     <SwitchPreference
+        android:defaultValue="@bool/switch_campaign_gif_DEF"
+        android:key="switch_campaign_gif"
+        android:title="Voir la cinématique de campagne"/>
+
+
+    <SwitchPreference
         android:defaultValue="@bool/switch_manual_diceroll_DEF"
         android:key="switch_manual_diceroll"
         android:title="Lancement manuel des dés"/>
