@@ -34,27 +34,29 @@ import stellarnear.aquene_dealer.Perso.Perso;
 
 public class MainActivity extends AppCompatActivity {
     public static Perso aquene;
-    boolean loading=false;
-    boolean touched=false;
+    private boolean loading = false;
+    private boolean touched = false;
+    private boolean gifShow = true;
     FrameLayout mainFrameFrag;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        if (settings.getBoolean("switch_fullscreen_mode",getApplicationContext().getResources().getBoolean(R.bool.switch_fullscreen_mode_DEF))) {
+        if (settings.getBoolean("switch_fullscreen_mode", getApplicationContext().getResources().getBoolean(R.bool.switch_fullscreen_mode_DEF))) {
             requestWindowFeature(Window.FEATURE_NO_TITLE);
             this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
         super.onCreate(savedInstanceState);
 
-        if (aquene==null) {
-            final Window window = getWindow();
+        if (aquene == null) {
+            Window window = getWindow();
             window.setStatusBarColor(getColor(R.color.start_back_color));
             lockOrient();
 
             Thread persoCreation = new Thread(new Runnable() {
                 public void run() {
                     aquene = new Perso(getApplicationContext());
-                    loading=true;
+                    loading = true;
                 }
             });
 
@@ -67,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
             Thread loadListner = new Thread(new Runnable() {
                 public void run() {
-                    setLoadCompleteListner(image,window);
+                    setLoadCompleteListner(image);
                 }
             });
             loadListner.start();
@@ -77,12 +79,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void setLoadCompleteListner(final ImageView image,final Window window) {
+    private void setLoadCompleteListner(final ImageView image) {
         Timer timerRefreshLoading = new Timer();
         timerRefreshLoading.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                if(loading){
+                if (loading) {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -91,8 +93,7 @@ public class MainActivity extends AppCompatActivity {
                                 @Override
                                 public boolean onTouch(View arg0, MotionEvent arg1) {
                                     unlockOrient();
-                                    touched=true;
-                                    window.setStatusBarColor(getColor(R.color.colorPrimaryDark));
+                                    touched = true;
                                     buildMainPage();
                                     return true;//always return true to consume event
                                 }
@@ -101,15 +102,16 @@ public class MainActivity extends AppCompatActivity {
                     });
                 }
             }
-        },333,333);
+        }, 333, 333);
     }
 
     private void buildMainPage() {
         setContentView(R.layout.activity_main);
+        mainFrameFrag = findViewById(R.id.fragment_main_frame_layout);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        ImageButton toStance=(ImageButton) findViewById(R.id.button_to_stance);
+        getSupportActionBar().hide();
+        ImageButton toStance = (ImageButton) findViewById(R.id.button_to_stance);
         toStance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -117,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        ImageButton toHelp=(ImageButton) findViewById(R.id.button_to_help);
+        ImageButton toHelp = (ImageButton) findViewById(R.id.button_to_help);
         toHelp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -125,8 +127,32 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mainFrameFrag = findViewById(R.id.fragment_main_frame_layout);
-        startFragment();
+        final View gifView = findViewById(R.id.gifImage);
+        final View gifContainer = findViewById(R.id.gifContainer);
+        if (gifShow) {
+            gifView.setVisibility(View.VISIBLE);
+            gifContainer.setVisibility(View.VISIBLE);
+            gifView.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View arg0, MotionEvent arg1) {
+                    gifShow = false;
+                    gifView.setOnTouchListener(null);
+                    gifView.setBackground(null);
+                    gifView.setVisibility(View.GONE);
+                    gifContainer.setVisibility(View.GONE);
+                    Window window = getWindow();
+                    window.setStatusBarColor(getColor(R.color.colorPrimaryDark));
+                    getSupportActionBar().show();
+                    startFragment();
+                    return true;//always return true to consume event
+                }
+            });
+        } else {
+            getSupportActionBar().show();
+            startFragment();
+        }
+
+
     }
 
     @Override
@@ -137,10 +163,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
         checkOrientStart(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        if (aquene!=null&&loading&&touched) {
+        if (aquene != null && loading && touched) {
             aquene.refresh();
             buildMainPage();
         }
@@ -205,7 +231,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void checkOrientStart(int screenOrientation) {
-        if (getRequestedOrientation()!=screenOrientation) {
+        if (getRequestedOrientation() != screenOrientation) {
             setRequestedOrientation(screenOrientation);
             final Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
