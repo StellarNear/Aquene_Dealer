@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="version">"v1.0"</string>
-    <string name="time_spend">"107h"</string>
+    <string name="version">"v1.1"</string>
+    <string name="time_spend">"110h"</string>
     <string name="basic_infos">"Cette application est développée par player 1 pour son player 2. Développée avec amour par Jérémie Chatron en fin 2017-2018." </string>
 
     <string name="patch_list">
 "----------------------------------------------------------------------------------
+v1.1  : Ajout d'une cinématique de campagne !
+----------------------------------------------------------------------------------
 v1.0
 ---Activité Principale---
 -Écran démarrage avec icône avec thème de couleur des barres dans toute l'appli
