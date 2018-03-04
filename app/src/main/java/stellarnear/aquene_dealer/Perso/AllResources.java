@@ -125,7 +125,7 @@ public class AllResources {
 
         //partie calcul
         int lvl=allAbilities.getAbi("ability_lvl").getValue();
-        int kiPool=lvl;
+        int kiPool=(int) (lvl/2.0) + allAbilities.getAbi("ability_sagesse").getMod();
         if(allFeats.getFeat("feat_bonus_ki").isActive()){kiPool+=2;}
         getResource("resource_ki").setMax(kiPool);
         getResource("resource_stun").setMax(lvl);

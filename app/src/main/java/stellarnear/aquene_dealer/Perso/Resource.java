@@ -17,7 +17,7 @@ public class Resource {
     private String shortname;
     private String id;
     private Context mC;
-    private int max;
+    private int max=0;
     private int current;
     private boolean testable;
     private boolean hide;

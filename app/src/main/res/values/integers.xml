@@ -5,7 +5,7 @@
     <integer name="ability_dexterite_def">23</integer>
     <integer name="ability_constitution_def">16</integer>
     <integer name="ability_intelligence_def">14</integer>
-    <integer name="ability_sagesse_def">20</integer>
+    <integer name="ability_sagesse_def">24</integer>
     <integer name="ability_charisme_def">15</integer>
     <integer name="ability_lvl_def">21</integer>
     <integer name="ability_ms_def">30</integer>
