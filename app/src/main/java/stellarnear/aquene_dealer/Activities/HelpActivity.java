@@ -45,7 +45,10 @@ import java.util.Map;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import stellarnear.aquene_dealer.Divers.AllGeneralHelpInfos;
+import stellarnear.aquene_dealer.Divers.AllMonkPowersInfos;
 import stellarnear.aquene_dealer.Divers.GeneralHelpInfo;
+import stellarnear.aquene_dealer.Divers.MonkPowerInfo;
 import stellarnear.aquene_dealer.Perso.Ability;
 import stellarnear.aquene_dealer.Perso.Attack;
 import stellarnear.aquene_dealer.Perso.Feat;
@@ -81,7 +84,7 @@ public class HelpActivity extends AppCompatActivity {
         CustomGestureDetector customGestureDetector = new CustomGestureDetector();
         mGestureDetector = new GestureDetector(this, customGestureDetector);
 
-        String title=getString(R.string.help_activity); //todo stacking des sub directeory genre Help center : Standard action : Round : Attack
+        String title=getString(R.string.help_activity);
         SpannableString titleSpan = new SpannableString(title);
         titleSpan.setSpan(new ForegroundColorSpan(getColor(R.color.textColorPrimary)),0,title.length(),0);
         titleSpan.setSpan(new RelativeSizeSpan(1.5f)  ,0,getString(R.string.help_activity).length(),0);
@@ -93,20 +96,34 @@ public class HelpActivity extends AppCompatActivity {
     }
 
     private void buildCategories() {
-        List<String> categories = Arrays.asList("Général","Abilités","Compétences","Postures","Dons","Attaques","Capacités de Ki");
+        List<String> categories = Arrays.asList("Général","Caractéristiques","Compétences","Pouvoirs de Moine","Capacités de Ki","Postures","Dons","Attaques");
         LinearLayout buttons = findViewById(R.id.help_activity_button_linear);
         buttons.removeAllViews();
-
+        LinearLayout line1Buttons = new LinearLayout(mC);
+        line1Buttons.setOrientation(LinearLayout.HORIZONTAL);
+        line1Buttons.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        buttons.addView(line1Buttons);
+        LinearLayout line2Buttons = new LinearLayout(mC);
+        line2Buttons.setOrientation(LinearLayout.HORIZONTAL);
+        line2Buttons.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        buttons.addView(line2Buttons);
+        int nButton=1;
         for (String cat : categories){
             Button button = new Button(mC);
             button.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT,1));
             button.setText(cat);
-            button.setTextSize(10);
+            button.setTextSize(15);
             button.setAllCaps(false);
             button.setBackground(getDrawable(R.drawable.button_basic_gradient));
             setButtonListner(button);
             mapButtonCat.put(button,cat);
-            buttons.addView(button);
+
+            if (nButton<= (categories.size()/2)){
+                line1Buttons.addView(button);
+            } else {
+                line2Buttons.addView(button);
+            }
+           nButton+=1;
         }
     }
 
@@ -133,14 +150,14 @@ public class HelpActivity extends AppCompatActivity {
         flipper.removeAllViews();
         ViewGroup vg= findViewById(R.id.help_info_RelativeLayout);
         if(mapButtonCat.get(button).equalsIgnoreCase("Général")){
-            List<GeneralHelpInfo> listHelp = buildGeneralHelp();
+            List<GeneralHelpInfo> listHelp = new AllGeneralHelpInfos(mC).getListGeneralHelpInfos();
             for (GeneralHelpInfo help : listHelp){
                 View view = getLayoutInflater().inflate(R.layout.custom_help_info_flipper,vg,false);
                 changeFields(view,help.getId(),help.getName(),"",help.getDescr());
                 flipper.addView(view);
             }
         }
-        if(mapButtonCat.get(button).equalsIgnoreCase("Abilités")){
+        if(mapButtonCat.get(button).equalsIgnoreCase("Caractéristiques")){
             for (Ability abi : aquene.getAllAbilities().getAbilitiesList()){
                 View view = getLayoutInflater().inflate(R.layout.custom_help_info_flipper,vg,false);
                 int typeId = getResources().getIdentifier("ability_"+abi.getType(), "string", getPackageName());
@@ -152,6 +169,21 @@ public class HelpActivity extends AppCompatActivity {
             for (Skill skill : aquene.getAllSkills().getSkillsList()){
                 View view = getLayoutInflater().inflate(R.layout.custom_help_info_flipper,vg,false);
                 changeFields(view,skill.getId(),skill.getName(),"",skill.getDescr());
+                flipper.addView(view);
+            }
+        }
+        if(mapButtonCat.get(button).equalsIgnoreCase("Pouvoirs de Moine")){
+            List<MonkPowerInfo> listPowers = new AllMonkPowersInfos(mC).getListMonkPowersInfos();
+            for (MonkPowerInfo power : listPowers){
+                View view = getLayoutInflater().inflate(R.layout.custom_help_info_flipper,vg,false);
+                changeFields(view,power.getId(),power.getName(),"Niveau : "+power.getLevel(),power.getDescr());
+                flipper.addView(view);
+            }
+        }
+        if(mapButtonCat.get(button).equalsIgnoreCase("Capacités de Ki")){
+            for (KiCapacity ki : aquene.getAllKiCapacities().getAllKiCapacitiesList()){
+                View view = getLayoutInflater().inflate(R.layout.custom_help_info_flipper,vg,false);
+                changeFields(view,ki.getId(),ki.getName(),"Coût : "+ki.getCost(),ki.getDescr());
                 flipper.addView(view);
             }
         }
@@ -177,13 +209,7 @@ public class HelpActivity extends AppCompatActivity {
                 flipper.addView(view);
             }
         }
-        if(mapButtonCat.get(button).equalsIgnoreCase("Capacités de Ki")){
-            for (KiCapacity ki : aquene.getAllKiCapacities().getAllKiCapacitiesList()){
-                View view = getLayoutInflater().inflate(R.layout.custom_help_info_flipper,vg,false);
-                changeFields(view,ki.getId(),ki.getName(),"Coût : "+ki.getCost(),ki.getDescr());
-                flipper.addView(view);
-            }
-        }
+
     }
 
     private void changeFields(View view,String id,String titleTxt,String typeTxt,String descrTxt) {
@@ -291,46 +317,5 @@ public class HelpActivity extends AppCompatActivity {
     }
 
 
-    private List<GeneralHelpInfo> buildGeneralHelp() {
-        List<GeneralHelpInfo> helpList=new ArrayList<>();
-        try {
-            InputStream is = mC.getAssets().open("help.xml");
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(is);
 
-            Element element = doc.getDocumentElement();
-            element.normalize();
-
-            NodeList nList = doc.getElementsByTagName("help");
-
-            for (int i = 0; i < nList.getLength(); i++) {
-
-                Node node = nList.item(i);
-                if (node.getNodeType() == Node.ELEMENT_NODE) {
-                    Element element2 = (Element) node;
-                    GeneralHelpInfo help = new GeneralHelpInfo(
-                            readValue("name", element2),
-                            readValue("descr", element2),
-                            readValue("id", element2),
-                            mC);
-                    helpList.add(help);
-                }
-            }
-            is.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return helpList;
-    }
-
-    private String readValue(String tag, Element element) {
-        try {
-            NodeList nodeList = element.getElementsByTagName(tag).item(0).getChildNodes();
-            Node node = nodeList.item(0);
-            return node.getNodeValue();
-        } catch (Exception e) {
-            return "";
-        }
-    }
 }

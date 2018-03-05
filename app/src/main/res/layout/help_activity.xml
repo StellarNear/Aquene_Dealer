@@ -32,7 +32,7 @@
             android:id="@+id/help_activity_button_linear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" />
+            android:orientation="vertical" />
         <ViewFlipper
             android:id="@+id/help_activity_flipper"
             android:layout_width="match_parent"

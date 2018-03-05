@@ -6,14 +6,15 @@ import android.content.Context;
  * Created by jchatron on 16/02/2018.
  */
 
-public class GeneralHelpInfo {
+public class MonkPowerInfo {
     private String name;
     private String descr;
+    private int level;
     private String id;
-    private Context mC;
-    public GeneralHelpInfo(String name, String descr, String id) {
+    public MonkPowerInfo(String name, String descr,int level, String id) {
         this.name = name;
         this.descr = descr;
+        this.level=level;
         this.id = id;
     }
 
@@ -24,6 +25,8 @@ public class GeneralHelpInfo {
     public String getDescr() {
         return descr;
     }
+
+    public int getLevel() { return level;}
 
     public String getId() {
         return id;
