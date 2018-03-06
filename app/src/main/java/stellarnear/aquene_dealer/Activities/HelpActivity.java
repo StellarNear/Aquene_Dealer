@@ -16,6 +16,7 @@ import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.view.Display;
 import android.view.GestureDetector;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.Surface;
 import android.view.View;
@@ -25,8 +26,10 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
@@ -34,6 +37,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.w3c.dom.Text;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -67,6 +71,10 @@ public class HelpActivity extends AppCompatActivity {
     private Context mC;
     private Map<Button,String> mapButtonCat=new HashMap<>();
     private ViewFlipper flipper;
+    private View titleLayout;
+    private View menuCategories;
+    private TextView titleCatText;
+    private ImageView infoImg;
     private GestureDetector mGestureDetector;
     private Activity mA;
     @Override
@@ -81,9 +89,23 @@ public class HelpActivity extends AppCompatActivity {
         this.mC=getApplicationContext();
         setContentView(R.layout.help_activity);
         flipper = findViewById(R.id.help_activity_flipper);
+        infoImg = new ImageView(mC);   infoImg.setImageDrawable(getDrawable(R.drawable.ic_info_outline_24dp));
+        infoImg.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT,1));
+        flipper.addView(infoImg);
+        titleCatText = (TextView) findViewById(R.id.help_activity_title_category_text);
+        menuCategories = findViewById(R.id.help_activity_button_linear);
+        titleLayout = findViewById(R.id.help_activity_title_category_relat);
+        ImageButton backToCatMenu = findViewById(R.id.help_activity_button_category_exit);
+        backToCatMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                flipper.removeAllViews();
+                flipper.addView(infoImg);
+                switchMenu(titleLayout,menuCategories);
+            }
+        });
         CustomGestureDetector customGestureDetector = new CustomGestureDetector();
         mGestureDetector = new GestureDetector(this, customGestureDetector);
-
         String title=getString(R.string.help_activity);
         SpannableString titleSpan = new SpannableString(title);
         titleSpan.setSpan(new ForegroundColorSpan(getColor(R.color.textColorPrimary)),0,title.length(),0);
@@ -117,7 +139,6 @@ public class HelpActivity extends AppCompatActivity {
             button.setBackground(getDrawable(R.drawable.button_basic_gradient));
             setButtonListner(button);
             mapButtonCat.put(button,cat);
-
             if (nButton<= (categories.size()/2)){
                 line1Buttons.addView(button);
             } else {
@@ -134,8 +155,33 @@ public class HelpActivity extends AppCompatActivity {
                 button.setBackground(getDrawable(R.drawable.button_ok_gradient));
                 unselectOthers(button);
                 fillFlipper(button);
+                titleCatText.setText(mapButtonCat.get(button));
+                switchMenu(menuCategories,titleLayout);
             }
         });
+    }
+
+    private void switchMenu(final View out,final View in) {
+        final Animation inFromTop = AnimationUtils.loadAnimation(mC,R.anim.infromtopaddatkpanel);
+        final Animation outToTop = AnimationUtils.loadAnimation(mC,R.anim.outtotopaddatkpanel);
+        outToTop.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                // TODO Auto-generated method stub
+            }
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                out.setVisibility(View.GONE);
+                in.setVisibility(View.VISIBLE);
+                in.startAnimation(inFromTop);
+            }
+        });
+        out.startAnimation(outToTop);
     }
 
     private void unselectOthers(Button button) {
@@ -209,7 +255,6 @@ public class HelpActivity extends AppCompatActivity {
                 flipper.addView(view);
             }
         }
-
     }
 
     private void changeFields(View view,String id,String titleTxt,String typeTxt,String descrTxt) {
@@ -231,19 +276,15 @@ public class HelpActivity extends AppCompatActivity {
         descr.setText(descrTxt);
     }
 
-
     class CustomGestureDetector extends GestureDetector.SimpleOnGestureListener {
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-            // Swipe left (next)
-            if (e1.getX() > e2.getX()) {
+            if (e1.getX() > e2.getX()) { // Swipe left (next)
                 flipNext();
             }
-            // Swipe right (previous)
-            if (e1.getX() < e2.getX()) {
+            if (e1.getX() < e2.getX()) {// Swipe right (previous)
                 flipPrevious();
             }
-
             return super.onFling(e1, e2, velocityX, velocityY);
         }
     }
@@ -252,16 +293,14 @@ public class HelpActivity extends AppCompatActivity {
         flipper.clearAnimation();
         Animation in = AnimationUtils.loadAnimation(mC,R.anim.infromright);
         Animation out =  AnimationUtils.loadAnimation(mC,R.anim.outtoleft);
-        flipper.setInAnimation(in);
-        flipper.setOutAnimation(out);
+        flipper.setInAnimation(in);  flipper.setOutAnimation(out);
         flipper.showNext();
     }
     private void flipPrevious() {
         flipper.clearAnimation();
         Animation in = AnimationUtils.loadAnimation(mC,R.anim.infromleft);
         Animation out =  AnimationUtils.loadAnimation(mC,R.anim.outtoright);
-        flipper.setInAnimation(in);
-        flipper.setOutAnimation(out);
+        flipper.setInAnimation(in);  flipper.setOutAnimation(out);
         flipper.showPrevious();
     }
 
@@ -315,7 +354,4 @@ public class HelpActivity extends AppCompatActivity {
             }, 2000);
         }
     }
-
-
-
 }

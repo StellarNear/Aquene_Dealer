@@ -3,6 +3,7 @@ package stellarnear.aquene_dealer.Perso;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
+import android.preference.Preference;
 import android.preference.PreferenceManager;
 
 import stellarnear.aquene_dealer.Divers.Tools;
@@ -23,6 +24,7 @@ public class Resource {
     private boolean hide;
     private Drawable img;
     private Tools tools=new Tools();
+    private SharedPreferences settings;
 
     public Resource(String name,String shortname,Boolean testable,Boolean hide, String id, Context mC){
         this.name=name;
@@ -31,6 +33,7 @@ public class Resource {
         this.hide=hide;
         this.id=id;
         this.mC=mC;
+        this.settings = PreferenceManager.getDefaultSharedPreferences(mC);
         int imgId=mC.getResources().getIdentifier(id, "drawable", mC.getPackageName());
         if(imgId!=0){
             this.img = mC.getDrawable(imgId);
@@ -67,10 +70,25 @@ public class Resource {
         } else {
             this.current-=cost;
         }
+        saveCurrentToSettings();
     }
 
     public void resetCurrent() {
         this.current=this.max;
+        saveCurrentToSettings();
+    }
+
+    public void loadCurrentFromSettings() {
+        int currentVal = settings.getInt(this.id+"_current", -99);
+        if (currentVal != -99) {
+            this.current=currentVal;
+        } else {
+            resetCurrent();
+        }
+    }
+
+    public void saveCurrentToSettings() {
+        settings.edit().putInt(this.id+"_current",this.current).commit();
     }
 
     public void earn(int amount) {
@@ -89,6 +107,7 @@ public class Resource {
                 this.current+= amount;
             }
         }
+        saveCurrentToSettings();
     }
 
     public String getShortname() {
@@ -105,5 +124,9 @@ public class Resource {
     public boolean isHidden() {
         return this.hide;
     }
+
+
+
+
 }
 

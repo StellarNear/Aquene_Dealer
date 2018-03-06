@@ -41,9 +41,6 @@
             android:name=".Activities.HelpActivity"
             android:configChanges="orientation|screenSize"
             android:theme="@style/AppTheme.NoActionBarHelp"/>
-
-
-
     </application>
 
 </manifest>

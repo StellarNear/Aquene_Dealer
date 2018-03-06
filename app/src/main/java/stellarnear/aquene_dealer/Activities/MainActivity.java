@@ -13,6 +13,7 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.Surface;
@@ -181,7 +182,6 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(mainFrameFrag.getId(), fragment);
         fragmentTransaction.commit();
     }
-
 
     @Override
     protected void onDestroy() {
