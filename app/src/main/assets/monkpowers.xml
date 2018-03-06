@@ -61,7 +61,7 @@
         <name>Chute ralentie</name>
         <descr>Lorsque le moine se trouve assez près d’une paroi pour pouvoir la toucher, il peut l’utiliser pour freiner sa chute. Au début, cette aptitude permet de réduire les dégâts résultant de la chute en considérant que celle-ci s’effectuait sur une hauteur de 6 m de moins que sa hauteur réelle. La capacité du moine à ralentir sa chute (c’est-à-dire à en réduire les dégâts en ignorant une partie de la distance parcourue) s’améliore lorsque son niveau augmente et, finalement, au niveau 20, le moine ne subit plus aucun dégât en cas de chute à proximité d’une paroi.</descr>
         <level>4</level>
-        <id>power_</id>
+        <id>power_slowfall</id>
     </power>
 
 
