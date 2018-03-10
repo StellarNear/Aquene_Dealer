@@ -42,9 +42,12 @@
     <string name="health_dialog_heal">soin</string>
     <string name="health_dialog_dmg">dégât</string>
     <string name="health_dialog_regen">régén</string>
+    <string name="health_dialog_shield">(pv temp)</string>
 
     <string name="jet_att_DEF">15,10,5</string>
     <string name="jet_att_flurry_DEF">18,18,13,13,8,8,3</string>
+
+
 
 
 </resources>

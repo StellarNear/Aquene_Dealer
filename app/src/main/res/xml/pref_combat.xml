@@ -50,25 +50,7 @@
         android:summary="+2 d'altération, 1d8 de physique"/>
 
 
-    <stellarnear.aquene_dealer.Divers.EditTextPreference
-        android:defaultValue="@integer/bonus_jet_att_DEF"
-        android:key="bonus_jet_att"
-        android:selectAllOnFocus="true"
-        android:singleLine="true"
-        android:summary="Valeurs : %s"
-        android:inputType="number"
-        android:title="Bonus jet d'attaque"
-        />
 
-    <stellarnear.aquene_dealer.Divers.EditTextPreference
-        android:defaultValue="@integer/bonus_jet_dmg_DEF"
-        android:key="bonus_jet_dmg"
-        android:selectAllOnFocus="true"
-        android:singleLine="true"
-        android:summary="Valeurs : %s"
-        android:inputType="number"
-        android:title="Bonus jet de dégâts"
-        />
 
 
 </PreferenceScreen>

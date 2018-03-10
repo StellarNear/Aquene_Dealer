@@ -20,13 +20,17 @@
         android:summary="Maitrise des compétences"
         android:title="Compétences" />
 
-
     <header
         android:fragment="stellarnear.aquene_dealer.Activities.SettingsActivity$FeatPreferenceFragment"
         android:icon="@drawable/ic_playlist_add_check_black_24dp"
         android:summary="Ensemble des dons connus"
         android:title="Dons actifs" />
 
+    <header
+        android:fragment="stellarnear.aquene_dealer.Activities.SettingsActivity$TempPreferenceFragment"
+        android:icon="@drawable/ic_timelapse_black_24dp"
+        android:summary="Améliorations non permanentes"
+        android:title="Bonus temporaires" />
 
     <header
         android:fragment="stellarnear.aquene_dealer.Activities.SettingsActivity$InfosPreferenceFragment"
@@ -54,7 +58,7 @@
         android:fragment="stellarnear.aquene_dealer.Activities.SettingsActivity$SleepPreferenceFragment"
         android:icon="@drawable/ic_brightness_3_black_24dp"
         android:title="Repos (une bonne nuit de sommeil)"
-        android:summary="Remet les sorts disponibles journaliers à fond"/>
+        android:summary="Réinitialise les aptitudes journalieres"/>
 
 
 </preference-headers>

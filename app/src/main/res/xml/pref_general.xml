@@ -92,17 +92,10 @@
             android:singleLine="true"
             android:inputType="number"
             android:summary="Valeur : %s"/>
-        <stellarnear.aquene_dealer.Divers.EditTextPreference
-            android:defaultValue="@integer/resource_hp_shield_def"
-            android:key="resource_hp_shield"
-            android:title="Point de vie en excédant possible"
-            android:selectAllOnFocus="true"
-            android:singleLine="true"
-            android:inputType="number"
-            android:summary="Valeur : %s"/>
+
         <stellarnear.aquene_dealer.Divers.EditTextPreference
             android:defaultValue="@integer/resource_regen_def"
-            android:key="resourcey_regen"
+            android:key="resource_regen"
             android:title="Régénération (/round)"
             android:selectAllOnFocus="true"
             android:singleLine="true"

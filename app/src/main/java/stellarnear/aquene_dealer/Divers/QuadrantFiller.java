@@ -45,9 +45,8 @@ public class QuadrantFiller {
     private LinearLayout quadrantFullSub2;
     private boolean fullscreen=false;
     private Tools tools=new Tools();
-    private TextView miniHealth,fullHealth;
+    private TextView miniHealth,fullHealthTitle,fullHealth;
     private View fullView;
-
     public QuadrantFiller(View mainView, Context mC, Activity mA) {
         this.mC=mC;
         this.mA=mA;
@@ -97,7 +96,6 @@ public class QuadrantFiller {
             String nameSub2="main_frag_stats_quadrant"+String.valueOf(i+1)+"_2";
             int layIdSub2 = mC.getResources().getIdentifier(nameSub2, "id", mC.getPackageName());
             LinearLayout sub2 =  mainView.findViewById(layIdSub2);
-
             if (i==1){
                 List<Resource> resList=aquene.getAllResources().getResourcesListDisplay();
                 injectStatsRes(resList, sub1, sub2,"mini");
@@ -164,7 +162,6 @@ public class QuadrantFiller {
         if (mode.equalsIgnoreCase("full")){text.setCompoundDrawablePadding(mC.getResources().getDimensionPixelSize(R.dimen.full_quadrant_icons_margin));
         }else{text.setCompoundDrawablePadding(mC.getResources().getDimensionPixelSize(R.dimen.mini_quadrant_icons_margin));}
         quadrantSub1.addView(text);
-
         TextView text2 = new TextView(mC);
         text2.setTextSize(TypedValue.COMPLEX_UNIT_PX,textSize);
         String txt2;
@@ -179,7 +176,6 @@ public class QuadrantFiller {
         } else {
             txt2=String.valueOf(aquene.getAbilityScore(abi.getId()));
         }
-
         text2.setText(txt2);
         text2.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT,1));
         text2.setGravity(Gravity.CENTER_VERTICAL);
@@ -207,7 +203,11 @@ public class QuadrantFiller {
         if (mode.equalsIgnoreCase("mini")){
             text.setText(res.getShortname()+" : ");
         } else {
-            text.setText(res.getName()+" : ");
+            String nameTxt=res.getName()+" : ";
+            if(mode.equalsIgnoreCase("full") && res.getId().equalsIgnoreCase("resource_hp") && res.getShield() > 0 ){
+                nameTxt= res.getName()+" (temp) : ";
+            }
+            text.setText(nameTxt);
         }
 
         text.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT,1));
@@ -221,8 +221,16 @@ public class QuadrantFiller {
         text2.setTextSize(TypedValue.COMPLEX_UNIT_PX,textSize);
         String txt2;
         txt2=String.valueOf(aquene.getResourceValue(res.getId()));
-        if(mode.equalsIgnoreCase("mini") && res.getId().equalsIgnoreCase("resource_hp")){miniHealth=text2;}
-        if(mode.equalsIgnoreCase("full") && res.getId().equalsIgnoreCase("resource_hp")){fullHealth=text2;}
+        if(mode.equalsIgnoreCase("mini") && res.getId().equalsIgnoreCase("resource_hp")){
+            miniHealth=text2;
+            txt2=String.valueOf(aquene.getAllResources().getResource(res.getId()).getCurrent()+aquene.getAllResources().getResource(res.getId()).getShield());
+        }
+        if(mode.equalsIgnoreCase("full") && res.getId().equalsIgnoreCase("resource_hp")){
+            fullHealthTitle=text;
+            fullHealth=text2;
+            txt2=String.valueOf(aquene.getAllResources().getResource(res.getId()).getCurrent());
+            if(aquene.getAllResources().getResource(res.getId()).getShield()>0) {txt2+=" ("+String.valueOf(aquene.getAllResources().getResource(res.getId()).getShield())+")";}
+        }
         text2.setText(txt2);
         text2.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT,1));
         text2.setGravity(Gravity.CENTER_VERTICAL);
@@ -248,7 +256,7 @@ public class QuadrantFiller {
         text.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HealthDialog healthDialog = new HealthDialog(mA,mC,miniHealth,fullHealth);
+                HealthDialog healthDialog = new HealthDialog(mA,mC,miniHealth,fullHealthTitle,fullHealth);
                 healthDialog.showAlertDialog();
             }
         });

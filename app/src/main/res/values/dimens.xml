@@ -51,5 +51,6 @@
     <dimen name="help_icon_flipper">100dp</dimen>
 
     <dimen name="general_margin_help_infos">8dp</dimen>
+    <dimen name="size_button_healthDialog">100dp</dimen>
 
 </resources>

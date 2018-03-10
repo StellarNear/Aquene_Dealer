@@ -31,13 +31,14 @@ public class HealthDialog {
     private Context mC;
     private AlertDialog alertDialog;
     private View dialogView;
-    private TextView miniHealth,fullHealth;
+    private TextView miniHealth,fullHealthTitle,fullHealth;
     private Tools tools=new Tools();
 
-    public HealthDialog(Activity mA, Context mC,TextView miniHealth,TextView fullHealth) {
+    public HealthDialog(Activity mA, Context mC,TextView miniHealth,TextView fullHealthTitle,TextView fullHealth) {
         this.mA=mA;
         this.mC=mC;
         this.miniHealth=miniHealth;
+        this.fullHealthTitle=fullHealthTitle;
         this.fullHealth=fullHealth;
         buildHealthDialog();
     }
@@ -47,7 +48,6 @@ public class HealthDialog {
         dialogView = inflater.inflate(R.layout.health_dialog, null);
 
         setHealthWidth();
-
         Button heal = dialogView.findViewById(R.id.button_healthDialog_heal);
         heal.setOnClickListener( new View.OnClickListener() {
             @Override
@@ -55,7 +55,6 @@ public class HealthDialog {
                 giveEditText("De combien de dégâts as-tu été soigné ?","heal");
             }
         });
-
         Button regen = dialogView.findViewById(R.id.button_healthDialog_regen);
         regen.setOnClickListener( new View.OnClickListener() {
             @Override
@@ -67,7 +66,13 @@ public class HealthDialog {
                 changeCancelButtonToOk();
             }
         });
-
+        Button shield = dialogView.findViewById(R.id.button_healthDialog_shield);
+        shield.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                giveEditText("Combien de points de vie temporaires as-tu gagné ?","shield");
+            }
+        });
         Button dmg = dialogView.findViewById(R.id.button_healthDialog_dmg);
         dmg.setOnClickListener( new View.OnClickListener() {
             @Override
@@ -75,8 +80,6 @@ public class HealthDialog {
                 giveEditText("Combien de dégâts as-tu subi ?","dmg");
             }
         });
-
-
         AlertDialog.Builder dialogBuilder  = new AlertDialog.Builder(mA, R.style.CustomDialog);
         dialogBuilder.setView(dialogView);
         dialogBuilder.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
@@ -95,54 +98,28 @@ public class HealthDialog {
             numberTxt.setText(String.valueOf(number));
             numberTxt.setTextColor(mC.getColor(R.color.cancel));
             in = AnimationUtils.loadAnimation(mA, R.anim.infromright_health);
-            //in.setInterpolator(null);
             out = AnimationUtils.loadAnimation(mA, R.anim.outtoleft_health);
-            //out.setInterpolator(null);
         } else {
             numberTxt.setText("+"+number);
             numberTxt.setTextColor(mC.getColor(R.color.validation));
             in = AnimationUtils.loadAnimation(mA, R.anim.infromleft_health);
-            //in.setInterpolator(null);
             out = AnimationUtils.loadAnimation(mA, R.anim.outtoright_health);
-            //out.setInterpolator(null);
         }
-
         in.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {}
 
             @Override
-            public void onAnimationStart(Animation animation) {
-                // TODO Auto-generated method stub
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-                // TODO Auto-generated method stub
-
-            }
+            public void onAnimationRepeat(Animation animation) {   }
 
             @Override
             public void onAnimationEnd(Animation animation) {
                 numberTxt.startAnimation(out);
-
             }
         });
-
         numberTxt.startAnimation(in);
         numberTxt.setVisibility(View.INVISIBLE);
 
-        //le message résumé
-        TextView numberSummary = dialogView.findViewById(R.id.healthDialogSummary);
-        numberSummary.setVisibility(View.VISIBLE);
-        if (number <= 0){
-            numberSummary.setText("Aie !\nTu as subi "+Math.abs(number)+" dégâts.");
-        } else {
-            numberSummary.setText("Bravo !\nTu as été soigné de "+number+" points de vie.");
-        }
-
-        //refresh les hp dans main frag
-        miniHealth.setText(String.valueOf(aquene.getResourceValue("resource_hp")));
-        fullHealth.setText(String.valueOf(aquene.getResourceValue("resource_hp")));
     }
 
     private void giveEditText(String askText, final String mode) {
@@ -158,12 +135,24 @@ public class HealthDialog {
         alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 int val =  tools.toInt(inputEdit.getText().toString());
+                if(mode.equalsIgnoreCase("shield")){
+                    aquene.getAllResources().getResource("resource_hp").shield(val);
+                    refreshHpPanel();
+                }
                 if(mode.equalsIgnoreCase("dmg")){
                     aquene.getAllResources().getResource("resource_hp").spend(val);
                     animateText(-val);
-                } else {
+                    summaryText(-val,0);
+                }
+                if(mode.equalsIgnoreCase("heal")){
+                    int over = aquene.getAllResources().getResource("resource_hp").getCurrent()+val-aquene.getAllResources().getResource("resource_hp").getMax();
                     aquene.getAllResources().getResource("resource_hp").earn(val);
                     animateText(val);
+                    if (over > 0){
+                        summaryText(val,over);
+                    } else {
+                        summaryText(val,0);
+                    }
                 }
                 setHealthWidth();
                 changeCancelButtonToOk();
@@ -182,32 +171,95 @@ public class HealthDialog {
         });
     }
 
+    private void summaryText(int number,int over) {
+        TextView numberSummary = dialogView.findViewById(R.id.healthDialogSummary);
+        numberSummary.setVisibility(View.VISIBLE);
+        if (number <= 0){
+            numberSummary.setText("Aie !\nTu as subi "+Math.abs(number)+" dégâts");
+        } else {
+            String texte = "Bravo !\nTu as été soigné de "+number+" points de vie";
+
+            if(over > 0){
+                texte+="\n("+over+" en excès)";
+                makeShield(over);
+            }
+            numberSummary.setText(texte);
+        }
+        refreshHpPanel();
+    }
+
+    private void refreshHpPanel() {
+        int hpShield= aquene.getAllResources().getResource("resource_hp").getShield();
+        String hpInfo = String.valueOf(aquene.getResourceValue("resource_hp"));
+        String hpInfoMini = String.valueOf(aquene.getResourceValue("resource_hp"));
+        String hpTitle =String.valueOf(aquene.getAllResources().getResource("resource_hp").getName())+ " : ";
+        if (hpShield>0){
+            hpInfoMini= String.valueOf(aquene.getResourceValue("resource_hp")+hpShield);
+            hpInfo+= " ("+hpShield+")";
+            hpTitle =String.valueOf(aquene.getAllResources().getResource("resource_hp").getName())+ " (temp) : ";
+        }
+        miniHealth.setText(hpInfoMini);
+        fullHealthTitle.setText(hpTitle);
+        fullHealth.setText(hpInfo);
+    }
+
+    private void makeShield(final int over) {
+        new android.app.AlertDialog.Builder(mC)
+                .setIcon(R.drawable.ic_info_black_24dp)
+                .setTitle("Ajout de points de vie temporaire")
+                .setMessage("On ajoute "+over+" aux points de vie temporaires ?")
+                .setPositiveButton("Oui", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        aquene.getAllResources().getResource("resource_hp").shield(over);
+                        setHealthWidth();
+                        refreshHpPanel();
+                    }
+
+                })
+                .setNegativeButton("Non", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                })
+                .show();
+    }
+
     private void setHealthWidth() {
-        TextView textLife = dialogView.findViewById(R.id.healthDialogTestTitle);
-        Double percent = 100.0*aquene.getResourceValue("resource_hp")/aquene.getAllResources().getResource("resource_hp").getMax();
-        String txt = aquene.getResourceValue("resource_hp")+"/"+aquene.getAllResources().getResource("resource_hp").getMax() +" ("+percent.intValue()+"%)";
+        TextView textLife = dialogView.findViewById(R.id.healthDialogHealth);
+        TextView textLifeTitle = dialogView.findViewById(R.id.healthDialogHealthTitle);
+        //Double percent = 100.0*aquene.getResourceValue("resource_hp")/aquene.getAllResources().getResource("resource_hp").getMax();
+        String txt;
+        String txtTitle;
+        int shield = aquene.getAllResources().getResource("resource_hp").getShield();
+        if(shield>0){
+            txt=aquene.getResourceValue("resource_hp")+"/"+aquene.getAllResources().getResource("resource_hp").getMax();
+            txt+= " ("+shield+")";
+            txtTitle="Vie restante (points de vie temporaires) :";
+        } else {
+            txt=aquene.getResourceValue("resource_hp")+"/"+aquene.getAllResources().getResource("resource_hp").getMax();
+            txtTitle="Vie restante :";
+        }
         textLife.setText(txt);
+        textLifeTitle.setText(txtTitle);
 
         final ImageView imgHealthBase = dialogView.findViewById(R.id.health_dialog_back_health_base);
         imgHealthBase.post(new Runnable() {
             @Override
             public void run() {
                 ImageView imgHealth = dialogView.findViewById(R.id.health_dialog_back_health);
-                ViewGroup.LayoutParams paraBase= (ViewGroup.LayoutParams) imgHealthBase.getLayoutParams();
                 ViewGroup.LayoutParams para= (ViewGroup.LayoutParams) imgHealth.getLayoutParams();
-
                 int oriWidth=imgHealthBase.getMeasuredWidth();
                 int oriHeight=imgHealthBase.getMeasuredHeight();
-
                 int height=(int) (oriHeight*0.355); //c'est le rapport entre le haut gargouille et la barre
-
                 Double coef = (double) aquene.getResourceValue("resource_hp")/aquene.getAllResources().getResource("resource_hp").getMax();
                 if(coef<0d){coef=0d;} //pour les hp negatif
                 if(coef>1d){coef=1d;}
                 para.width=(int) (coef*oriWidth);
                 para.height=height;
                 imgHealth.setLayoutParams(para);
-
                 if(coef>=0.75){
                     imgHealth.setImageDrawable(mC.getDrawable(R.drawable.bar_gradient_health_ok));
                 } else if (coef <0.75 && coef >=0.5){
@@ -219,7 +271,6 @@ public class HealthDialog {
                 }
             }
         });
-
     }
 
     public void showAlertDialog(){

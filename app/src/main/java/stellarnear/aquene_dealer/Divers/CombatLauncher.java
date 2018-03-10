@@ -231,6 +231,7 @@ public class CombatLauncher {
             if (medusa.isChecked()){  atksRolls.add(new Roll(mA,mC, tools.toInt(list_att_base_string[0]))); atksRolls.add(new Roll(mA,mC, tools.toInt(list_att_base_string[0])));      }
             if (ki.isChecked()){      atksRolls.add(new Roll(mA,mC, tools.toInt(list_att_base_string[0])));     }
             if (boots.isChecked()){   atksRolls.add(new Roll(mA,mC, tools.toInt(list_att_base_string[0])));     }
+            if ( settings.getBoolean("switch_temp_rapid",mC.getResources().getBoolean(R.bool.switch_temp_rapid_DEF))) {  atksRolls.add(new Roll(mA,mC, tools.toInt(list_att_base_string[0])));  }
             for (String each : list_att_base_string) {
                 atksRolls.add(new Roll(mA,mC, tools.toInt(each)));
             }

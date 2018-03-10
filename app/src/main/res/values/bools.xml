@@ -38,5 +38,6 @@
     <bool name="switch_aldrassil_DEF">true</bool>
     <bool name="switch_manual_diceroll_damage_DEF">false</bool>
     <bool name="switch_campaign_gif_DEF">true</bool>
+    <bool name="switch_temp_rapid_DEF">false</bool>
 
 </resources>

@@ -10,8 +10,7 @@
         <id>resource_regen</id>
     </resource>
     <resource>
-        <name>Point(s) héroique(s)</name>
-        <shortname>Point héroique</shortname>
+        <name>Point héroique</name>
         <id>resource_heroic</id>
     </resource>
     <resource>

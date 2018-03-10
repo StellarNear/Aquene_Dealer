@@ -18,6 +18,7 @@
     <!-- Resources  -->
 
     <integer name="resource_hp_def">227</integer>
+    <integer name="resource_hp_shield_def">0</integer>
     <integer name="resource_regen_def">1</integer>
     <integer name="resource_heroic_def">1</integer>
 
@@ -59,11 +60,11 @@
     <integer name="attack_range_DEF">3</integer>
 
     <integer name="percent_fullscreen_combat_launcher_dialog">95</integer>
-    <integer name="bonus_jet_att_DEF">0</integer>
-    <integer name="bonus_jet_dmg_DEF">0</integer>
     <integer name="number_main_dice_dmg_DEF">2</integer>
-    <integer name="resource_hp_shield_def">0</integer>
     <integer name="toast_long_duration_DEF">15000</integer>
+
+    <integer name="bonus_temp_jet_att_DEF">0</integer>
+    <integer name="bonus_temp_jet_dmg_DEF">0</integer>
 
 
 </resources>

@@ -145,7 +145,7 @@ public class AtkRoll {
 
     private int getBonusAtk() {
         int bonusAtk = 0;
-        bonusAtk += tools.toInt(settings.getString("bonus_jet_att", String.valueOf(mC.getResources().getInteger(R.integer.bonus_jet_att_DEF))));
+        bonusAtk += tools.toInt(settings.getString("bonus_temp_jet_att", String.valueOf(mC.getResources().getInteger(R.integer.bonus_temp_jet_att_DEF))));
         if (aquene.getAllStances().isActive("stance_rat") && (aquene.getAbilityMod("ability_dexterite") > aquene.getAbilityMod("ability_force")) ) {
             bonusAtk += aquene.getAbilityMod("ability_dexterite");
         } else if (aquene.getAllStances().isActive("stance_dragon") && (aquene.getAbilityMod("ability_sagesse") > aquene.getAbilityMod("ability_force")) ) {
@@ -159,6 +159,10 @@ public class AtkRoll {
         if (amulette) {
             bonusAtk += 5;
         }
+        if ( settings.getBoolean("switch_temp_rapid",mC.getResources().getBoolean(R.bool.switch_temp_rapid_DEF))) {
+            bonusAtk += 1;
+        }
+
         return bonusAtk;
     }
     //getters

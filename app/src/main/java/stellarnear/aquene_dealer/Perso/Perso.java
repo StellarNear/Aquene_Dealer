@@ -62,12 +62,16 @@ public class Perso {
     }
 
     public Integer getAbilityScore(String abiId) {
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mC);
         int abiScore = 0;
         if (allAbilities.getAbi(abiId) != null) {
             abiScore = allAbilities.getAbi(abiId).getValue();
 
             if (abiId.equalsIgnoreCase("ability_ms") && allStances.isActive("stance_unicorn")) {
                 abiScore += 6;
+            }
+            if (abiId.equalsIgnoreCase("ability_ms") && settings.getBoolean("switch_temp_rapid",mC.getResources().getBoolean(R.bool.switch_temp_rapid_DEF))) {
+                abiScore += 9;
             }
 
             if (abiId.equalsIgnoreCase("ability_init") && featIsActive("feat_init")) {
@@ -87,13 +91,15 @@ public class Perso {
                 if(allStances.isActive("stance_bear")) {
                     abiScore += (int) (getAbilityScore("ability_lvl")/2.0);
                 }
+                if (settings.getBoolean("switch_temp_rapid",mC.getResources().getBoolean(R.bool.switch_temp_rapid_DEF))) {
+                    abiScore += 1;
+                }
             }
 
             if (abiId.equalsIgnoreCase("ability_ref")||abiId.equalsIgnoreCase("ability_vig")||abiId.equalsIgnoreCase("ability_vol")) {
                 if (abiId.equalsIgnoreCase("ability_ref")){abiScore+=getAbilityMod("ability_dexterite");}
                 if (abiId.equalsIgnoreCase("ability_vig")){abiScore+=getAbilityMod("ability_constitution");}
                 if (abiId.equalsIgnoreCase("ability_vol")){abiScore+=getAbilityMod("ability_sagesse");}
-                SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mC);
                 if (settings.getBoolean("switch_save_race",mC.getResources().getBoolean(R.bool.switch_save_race_DEF))) {
                     abiScore+=1;
                 }
@@ -104,6 +110,9 @@ public class Perso {
                     abiScore+=5;
                 }
                 if (abiId.equalsIgnoreCase("ability_ref") && settings.getBoolean("switch_save_ref_boot",mC.getResources().getBoolean(R.bool.switch_save_ref_boot_DEF))) {
+                    abiScore+=1;
+                }
+                if (abiId.equalsIgnoreCase("ability_ref") && settings.getBoolean("switch_temp_rapid",mC.getResources().getBoolean(R.bool.switch_temp_rapid_DEF))) {
                     abiScore+=1;
                 }
                 if (abiId.equalsIgnoreCase("ability_vol") && featIsActive("feat_iron_will")) {
