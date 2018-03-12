@@ -31,16 +31,21 @@ public class HealthDialog {
     private Context mC;
     private AlertDialog alertDialog;
     private View dialogView;
-    private TextView miniHealth,fullHealthTitle,fullHealth;
+    private OnRefreshEventListener mListener;
     private Tools tools=new Tools();
 
-    public HealthDialog(Activity mA, Context mC,TextView miniHealth,TextView fullHealthTitle,TextView fullHealth) {
+    public HealthDialog(Activity mA, Context mC) {
         this.mA=mA;
         this.mC=mC;
-        this.miniHealth=miniHealth;
-        this.fullHealthTitle=fullHealthTitle;
-        this.fullHealth=fullHealth;
         buildHealthDialog();
+    }
+
+    public interface OnRefreshEventListener {
+        void onEvent();
+    }
+
+    public void setRefreshEventListener(OnRefreshEventListener eventListener) {
+        mListener = eventListener;
     }
 
     private void buildHealthDialog() {
@@ -83,9 +88,7 @@ public class HealthDialog {
         AlertDialog.Builder dialogBuilder  = new AlertDialog.Builder(mA, R.style.CustomDialog);
         dialogBuilder.setView(dialogView);
         dialogBuilder.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                // User clicked cancel button
-            }
+            public void onClick(DialogInterface dialog, int id) { }
         });
         alertDialog = dialogBuilder.create();
     }
@@ -189,7 +192,8 @@ public class HealthDialog {
     }
 
     private void refreshHpPanel() {
-        int hpShield= aquene.getAllResources().getResource("resource_hp").getShield();
+        mListener.onEvent();
+        /*int hpShield= aquene.getAllResources().getResource("resource_hp").getShield();
         String hpInfo = String.valueOf(aquene.getResourceValue("resource_hp"));
         String hpInfoMini = String.valueOf(aquene.getResourceValue("resource_hp"));
         String hpTitle =String.valueOf(aquene.getAllResources().getResource("resource_hp").getName())+ " : ";
@@ -200,7 +204,7 @@ public class HealthDialog {
         }
         miniHealth.setText(hpInfoMini);
         fullHealthTitle.setText(hpTitle);
-        fullHealth.setText(hpInfo);
+        fullHealth.setText(hpInfo);*/
     }
 
     private void makeShield(final int over) {

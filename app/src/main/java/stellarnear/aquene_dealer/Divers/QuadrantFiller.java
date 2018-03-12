@@ -24,9 +24,7 @@ import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.Perso.Resource;
 import stellarnear.aquene_dealer.R;
 
-/**
- * Created by jchatron on 19/01/2018.
- */
+/* Created by jchatron on 19/01/2018. */
 
 public class QuadrantFiller {
     private Context mC;
@@ -45,16 +43,13 @@ public class QuadrantFiller {
     private LinearLayout quadrantFullSub2;
     private boolean fullscreen=false;
     private Tools tools=new Tools();
-    private TextView miniHealth,fullHealthTitle,fullHealth;
     private View fullView;
     public QuadrantFiller(View mainView, Context mC, Activity mA) {
         this.mC=mC;
         this.mA=mA;
         this.mainView=mainView;
         viewSwitcher=mainView.findViewById(R.id.viewSwitcherQuadrant);
-
         LayoutInflater inflater = (LayoutInflater) mC.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
         fullView =(View) inflater.inflate(R.layout.quadrant_full, null);
         viewSwitcher.addView(fullView);
         quadrantFullSub1 = fullView.findViewById(R.id.quadrant_full_sub1);
@@ -68,7 +63,6 @@ public class QuadrantFiller {
                 switchViewPrevious();
             }
         });
-
         quadrant1 = mainView.findViewById(R.id.main_frag_stats_quadrant1);
         quadrant2 = mainView.findViewById(R.id.main_frag_stats_quadrant2);
         quadrant3 = mainView.findViewById(R.id.main_frag_stats_quadrant3);
@@ -81,14 +75,11 @@ public class QuadrantFiller {
         mapQuadrantType.put(quadrant3,"def");
         mapLayoutTextTitle.put(quadrant4,mC.getResources().getString(R.string.quadrantQ4Title));
         mapQuadrantType.put(quadrant4,"advanced");
-
         buildAllMini();
     }
 
     private void buildAllMini() {
-
         String[] types = {"base","res","def","advanced"};
-
         for (int i=0;i<types.length ;i++){
             String nameSub1="main_frag_stats_quadrant"+String.valueOf(i+1)+"_1";
             int layIdSub1 = mC.getResources().getIdentifier(nameSub1, "id", mC.getPackageName());
@@ -114,7 +105,6 @@ public class QuadrantFiller {
             List<Ability> abiList=aquene.getAllAbilities().getAbilitiesList(mapQuadrantType.get(layout));
             injectStatsAbi(abiList, quadrantFullSub1, quadrantFullSub2,"full");
         }
-
         switchTextTitle(mapLayoutTextTitle.get(layout));
         switchViewNext();
     }
@@ -122,7 +112,6 @@ public class QuadrantFiller {
     private void injectStatsAbi(List<Ability> abiList, LinearLayout quadrantSub1, LinearLayout quadrantSub2,String mode) {
         quadrantSub1.removeAllViews();
         quadrantSub2.removeAllViews();
-
         for (Ability abi : abiList){
             addTextAbi(abi,quadrantSub1,quadrantSub2,mode);
         }
@@ -131,7 +120,6 @@ public class QuadrantFiller {
     private void injectStatsRes(List<Resource> resList, LinearLayout quadrantSub1, LinearLayout quadrantSub2,String mode) {
         quadrantSub1.removeAllViews();
         quadrantSub2.removeAllViews();
-
         for (Resource res : resList){
             addTextRes(res,quadrantSub1,quadrantSub2,mode);
         }
@@ -139,16 +127,8 @@ public class QuadrantFiller {
 
 
     private void addTextAbi(Ability abi, LinearLayout quadrantSub1, LinearLayout quadrantSub2, String mode) {
-        float textSize;
-        int iconSize;
-        if (mode.equalsIgnoreCase("mini")){
-            textSize=mC.getResources().getDimension(R.dimen.textSizeQuadrantMini);
-            iconSize=mC.getResources().getDimensionPixelSize(R.dimen.iconSizeQuadrantMini);
-        } else {
-            textSize=mC.getResources().getDimension(R.dimen.textSizeQuadrantFull);
-            iconSize=mC.getResources().getDimensionPixelSize(R.dimen.iconSizeQuadrantFull);
-        }
-
+        float textSize;  int iconSize;
+        if (mode.equalsIgnoreCase("mini")){  textSize=mC.getResources().getDimension(R.dimen.textSizeQuadrantMini); iconSize=mC.getResources().getDimensionPixelSize(R.dimen.iconSizeQuadrantMini);  } else { textSize=mC.getResources().getDimension(R.dimen.textSizeQuadrantFull);  iconSize=mC.getResources().getDimensionPixelSize(R.dimen.iconSizeQuadrantFull);   }
         TextView text = new TextView(mC);
         text.setTextSize(TypedValue.COMPLEX_UNIT_PX,textSize);
         if (mode.equalsIgnoreCase("mini")){
@@ -188,57 +168,44 @@ public class QuadrantFiller {
     }
 
     private void addTextRes(Resource res, LinearLayout quadrantSub1, LinearLayout quadrantSub2, String mode) {
-        float textSize;
-        int iconSize;
+        float textSize; int iconSize;
+        if (mode.equalsIgnoreCase("mini")){ textSize=mC.getResources().getDimension(R.dimen.textSizeQuadrantMini);   iconSize=mC.getResources().getDimensionPixelSize(R.dimen.iconSizeQuadrantMini);  } else {    textSize=mC.getResources().getDimension(R.dimen.textSizeQuadrantFull);    iconSize=mC.getResources().getDimensionPixelSize(R.dimen.iconSizeQuadrantFull); }
+        TextView column1 = new TextView(mC);
+        column1.setTextSize(TypedValue.COMPLEX_UNIT_PX,textSize);
         if (mode.equalsIgnoreCase("mini")){
-            textSize=mC.getResources().getDimension(R.dimen.textSizeQuadrantMini);
-            iconSize=mC.getResources().getDimensionPixelSize(R.dimen.iconSizeQuadrantMini);
+            column1.setText(res.getShortname()+" : ");
         } else {
-            textSize=mC.getResources().getDimension(R.dimen.textSizeQuadrantFull);
-            iconSize=mC.getResources().getDimensionPixelSize(R.dimen.iconSizeQuadrantFull);
-        }
-
-        TextView text = new TextView(mC);
-        text.setTextSize(TypedValue.COMPLEX_UNIT_PX,textSize);
-        if (mode.equalsIgnoreCase("mini")){
-            text.setText(res.getShortname()+" : ");
-        } else {
-            String nameTxt=res.getName()+" : ";
+            String column1txt=res.getName()+" : ";
             if(mode.equalsIgnoreCase("full") && res.getId().equalsIgnoreCase("resource_hp") && res.getShield() > 0 ){
-                nameTxt= res.getName()+" (temp) : ";
+                column1txt= res.getName()+" (temp) : ";
             }
-            text.setText(nameTxt);
+            column1.setText(column1txt);
         }
-
-        text.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT,1));
-        text.setGravity(Gravity.CENTER_VERTICAL);
-        text.setCompoundDrawablesWithIntrinsicBounds( tools.resize(mC,res.getImg(),iconSize),null,null,null);
-        if (mode.equalsIgnoreCase("full")){text.setCompoundDrawablePadding(mC.getResources().getDimensionPixelSize(R.dimen.full_quadrant_icons_margin));
-        }else{text.setCompoundDrawablePadding(mC.getResources().getDimensionPixelSize(R.dimen.mini_quadrant_icons_margin));}
-        quadrantSub1.addView(text);
-
-        TextView text2 = new TextView(mC);
-        text2.setTextSize(TypedValue.COMPLEX_UNIT_PX,textSize);
-        String txt2;
-        txt2=String.valueOf(aquene.getResourceValue(res.getId()));
+        column1.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT,1));
+        column1.setGravity(Gravity.CENTER_VERTICAL);
+        column1.setCompoundDrawablesWithIntrinsicBounds( tools.resize(mC,res.getImg(),iconSize),null,null,null);
+        if (mode.equalsIgnoreCase("full")){column1.setCompoundDrawablePadding(mC.getResources().getDimensionPixelSize(R.dimen.full_quadrant_icons_margin));
+        }else{column1.setCompoundDrawablePadding(mC.getResources().getDimensionPixelSize(R.dimen.mini_quadrant_icons_margin));}
+        quadrantSub1.addView(column1);
+        TextView column2 = new TextView(mC);
+        column2.setTextSize(TypedValue.COMPLEX_UNIT_PX,textSize);
+        String column2txt;
+        column2txt=String.valueOf(aquene.getResourceValue(res.getId()));
         if(mode.equalsIgnoreCase("mini") && res.getId().equalsIgnoreCase("resource_hp")){
-            miniHealth=text2;
-            txt2=String.valueOf(aquene.getAllResources().getResource(res.getId()).getCurrent()+aquene.getAllResources().getResource(res.getId()).getShield());
+            column2txt=String.valueOf(aquene.getAllResources().getResource(res.getId()).getCurrent()+aquene.getAllResources().getResource(res.getId()).getShield());
         }
         if(mode.equalsIgnoreCase("full") && res.getId().equalsIgnoreCase("resource_hp")){
-            fullHealthTitle=text;
-            fullHealth=text2;
-            txt2=String.valueOf(aquene.getAllResources().getResource(res.getId()).getCurrent());
-            if(aquene.getAllResources().getResource(res.getId()).getShield()>0) {txt2+=" ("+String.valueOf(aquene.getAllResources().getResource(res.getId()).getShield())+")";}
+            column2txt=String.valueOf(aquene.getAllResources().getResource(res.getId()).getCurrent());
+            if(aquene.getAllResources().getResource(res.getId()).getShield()>0) {column2txt+=" ("+String.valueOf(aquene.getAllResources().getResource(res.getId()).getShield())+")";}
         }
-        text2.setText(txt2);
-        text2.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT,1));
-        text2.setGravity(Gravity.CENTER_VERTICAL);
-        quadrantSub2.addView(text2);
+        column2.setText(column2txt);
+        column2.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT,1));
+        column2.setGravity(Gravity.CENTER_VERTICAL);
+        quadrantSub2.addView(column2);
 
         if(mode.equalsIgnoreCase("full") && res.isTestable()){ //correspond à hp
-            setListner(text,res);
-            setListner(text2,res);
+            setListner(column1,res);
+            setListner(column2,res);
         }
     }
 
@@ -256,7 +223,14 @@ public class QuadrantFiller {
         text.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HealthDialog healthDialog = new HealthDialog(mA,mC,miniHealth,fullHealthTitle,fullHealth);
+                HealthDialog healthDialog = new HealthDialog(mA,mC);
+                healthDialog.setRefreshEventListener(new HealthDialog.OnRefreshEventListener() {
+                    public void onEvent() {
+                        List<Resource> abiRes=aquene.getAllResources().getResourcesListDisplay();
+                        injectStatsRes(abiRes, quadrantFullSub1, quadrantFullSub2,"full"); //refresh le full
+                        buildAllMini(); //refresh les mini
+                    }
+                });
                 healthDialog.showAlertDialog();
             }
         });
@@ -301,7 +275,6 @@ public class QuadrantFiller {
         out.setAnimationListener( new  Animation.AnimationListener(){
             @Override
             public void onAnimationEnd(Animation arg0) {
-
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     public void run() {
@@ -310,32 +283,18 @@ public class QuadrantFiller {
                         quadrantTitle.startAnimation(in);
                     }
                 }, 50);
-
             }
-
             @Override
-            public void onAnimationRepeat(Animation arg0) {
-                // TODO Auto-generated method stub
-
-            }
-
+            public void onAnimationRepeat(Animation arg0) {         }
             @Override
-            public void onAnimationStart(Animation arg0) {
-                // TODO Auto-generated method stub
-            }
+            public void onAnimationStart(Animation arg0) { }
         });
         quadrantTitle.startAnimation(out);
     }
 
-    public boolean isFullscreen() {
-        return fullscreen;
-    }
+    public boolean isFullscreen() { return fullscreen;  }
 
-    private void lockOrient() {
-        mA.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-    }
+    private void lockOrient() {    mA.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);  }
 
-    private void unlockOrient() {
-        mA.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
-    }
+    private void unlockOrient() {     mA.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);  }
 }

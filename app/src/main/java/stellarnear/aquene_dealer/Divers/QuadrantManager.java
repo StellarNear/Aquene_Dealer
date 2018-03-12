@@ -51,7 +51,6 @@ public class QuadrantManager {
     }
 
     private void setLayoutsListners() {
-
         for (final LinearLayout layout : quadrantList) {
             layout.setOnClickListener(new View.OnClickListener()
             {
@@ -64,7 +63,6 @@ public class QuadrantManager {
                     layout.requestLayout();
                 }
             });
-
         }
     }
 

@@ -26,7 +26,6 @@ public class DmgRoll {
     private OnRefreshEventListener mListener;
     private Perso aquene= MainActivity.aquene;
     private Boolean critConfirmed=false;
-    private Boolean statsCalculated=false;
 
     private int bonusDmg=0;
     private List<Integer> randD6=new ArrayList<>();
