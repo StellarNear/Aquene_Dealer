@@ -65,6 +65,7 @@ public class AllAttacks {
                     Element element2 = (Element) node;
                     Attack atk=new Attack(
                             readValue("name", element2),
+                            readValue("shortname", element2),
                             readValue("type", element2),
                             readValue("descr", element2),
                             tools.toBool(readValue("save", element2)),

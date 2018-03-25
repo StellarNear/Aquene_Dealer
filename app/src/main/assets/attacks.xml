@@ -3,6 +3,7 @@
 
     <attack>
         <name>Déluge de coup</name>
+        <shortname>Déluge</shortname>
         <type>complex</type>
         <descr>Le moine peut remplacer une des attaques à mains nues d’un déluge de coups par une manœuvre offensive de désarmement, de destruction ou de croc-en-jambe.</descr>
         <id>attack_flurry</id>
@@ -10,6 +11,7 @@
 
     <attack>
         <name>Coup étourdissant</name>
+        <shortname>Étourdissant</shortname>
         <type>simple</type>
         <descr>Coup étourdissant oblige tout adversaire frappé par l’attaque à mains nues du personnage à faire un jet de Vigueur. S'il rate ce jet de sauvegarde, le moine choisit un état préjudiciable à lui appliquer : Étourdi, Fatigué, Fiévreux (1min), Chancelante (1d6+1 rounds), Aveuglé/Sourde (permanent), Paralyser (1d6+1 rounds).</descr>
         <save>true</save>
@@ -18,6 +20,7 @@
 
     <attack>
         <name>Coup normal</name>
+        <shortname>Normal</shortname>
         <type>simple</type>
         <descr>Ces attaques peuvent venir des poings, mais aussi des pieds, des coudes ou des genoux. Ne pas oublier que les dons de combat Ecole du Scorpion et Poing de la Gorgone seront utilisable sur chaque coup normal (avec un jet de sauvegarde possible). Ecole du scorpion réduit la vitesse de déplacement de base de sa cible à 1,5 m. Sur une cible ralentie Poing de la Gorgone la rendra chancelante.</descr>
         <save>true</save>
@@ -26,6 +29,7 @@
 
     <attack>
         <name>Paume vibratoire</name>
+        <shortname>Paume</shortname>
         <type>simple</type>
         <descr>Si le coup porte et si l’adversaire est blessé, les vibrations sont transmises avec succès au corps de la victime. À partir de ce moment, le moine peut décider de la tuer à tout instant (les vibrations persistent pendant un jour par niveau du moine). Dès qu’il prend cette décision (ce qui lui demande une action libre), la cible doit effectuer un jet de Vigueur). En cas d’échec, elle meurt. Si elle réussit, les vibrations cessent et elle ne risque plus rien.</descr>
         <save>true</save>

@@ -92,7 +92,7 @@
         <name>Chapardeur Ethéré</name>
         <shortname>Chapardeur</shortname>
         <type>Autre</type>
-        <descr>Le personnage gagne le pouvoir de discrétion totale et un bonus égal à son modificateur de Sagesse à tous ses tests de Déplacement silencieux et Discrétion.</descr>
+        <descr>Le moine passe dans le plan éthéré, évitant ainsi les attaques d’opportunité et les obstacles.</descr>
         <id>stance_chaparder</id>
     </stance>
 

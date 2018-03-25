@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="version">"v1.3"</string>
-    <string name="time_spend">"118h"</string>
+    <string name="version">"v1.4"</string>
+    <string name="time_spend">"120h"</string>
     <string name="basic_infos">"Cette application est développée par player 1 pour son player 2. Développée avec amour par Jérémie Chatron en fin 2017-2018." </string>
     <string name="patch_list">"----------------------------------------------------------------------------------
+v1.4
+-Révision du flow de questions dans le menu combat
+-Ajout de l'attaque normal dans le menu combat
+-Bonus temporaire d'armure ajouté
+-Bonus temporaire de resistance magique ajouté
+-Bonus temporaire de jets de sauvegardes ajouté
+-Correction du texte de la posture chapardeur
+-Changement de affichage dans paramètres des lancements manuels
+-Changement de l'icone language du soleil et de la lune
+----------------------------------------------------------------------------------
 v1.3
 -Ajout des points de vie temporaires dans la barre de vie
 -Proposition d'ajout des points de vie en exces en points de vie temporaires

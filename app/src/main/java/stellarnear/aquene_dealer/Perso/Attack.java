@@ -8,6 +8,7 @@ import android.content.Context;
 
 public class Attack {
     private String name;
+    private String shortname;
     private String type;
     private String descr;
     private Boolean save;
@@ -15,8 +16,9 @@ public class Attack {
     private Context mC;
 
 
-    public Attack(String name, String type, String descr,Boolean save, String id, Context mC){
+    public Attack(String name,String shortname, String type, String descr,Boolean save, String id, Context mC){
         this.name=name;
+        this.shortname=shortname;
         this.type=type;
         this.descr=descr;
         this.save=save;
@@ -26,6 +28,10 @@ public class Attack {
 
     public String getName() {
         return name;
+    }
+
+    public String getShortname() {
+        return shortname;
     }
 
     public String getType() {

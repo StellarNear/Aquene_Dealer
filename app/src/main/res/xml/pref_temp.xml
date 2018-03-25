@@ -26,5 +26,35 @@
         android:title="Rapidité"
         android:summary="+1 attaque, +1 jet  d'attaque, +1 CA, +1 reflexe, +9m déplacement"/>
 
+    <stellarnear.aquene_dealer.Divers.EditTextPreference
+        android:defaultValue="@integer/bonus_temp_ca_DEF"
+        android:key="bonus_temp_ca"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:summary="Valeurs : %s"
+        android:inputType="number"
+        android:title="Bonus à la CA"
+        />
+
+    <stellarnear.aquene_dealer.Divers.EditTextPreference
+        android:defaultValue="@integer/bonus_temp_save_DEF"
+        android:key="bonus_temp_save"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:summary="Valeurs : %s"
+        android:inputType="number"
+        android:title="Bonus aux jets de sauvegardes"
+        />
+
+    <stellarnear.aquene_dealer.Divers.EditTextPreference
+        android:defaultValue="@integer/bonus_temp_rm_DEF"
+        android:key="bonus_temp_rm"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:summary="Valeurs : %s"
+        android:inputType="number"
+        android:title="Bonus à la résisitance magique"
+        />
+
 
 </PreferenceScreen>

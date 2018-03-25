@@ -67,6 +67,10 @@ public class Perso {
         if (allAbilities.getAbi(abiId) != null) {
             abiScore = allAbilities.getAbi(abiId).getValue();
 
+            if (abiId.equalsIgnoreCase("ability_rm")) {
+                int bonusRm = tools.toInt(settings.getString("bonus_temp_rm", String.valueOf(mC.getResources().getInteger(R.integer.bonus_temp_rm_DEF))));
+                if (bonusRm>abiScore) { abiScore = bonusRm; }
+            }
             if (abiId.equalsIgnoreCase("ability_ms") && allStances.isActive("stance_unicorn")) {
                 abiScore += 6;
             }
@@ -83,6 +87,7 @@ public class Perso {
             }
 
             if (abiId.equalsIgnoreCase("ability_ca")) {
+                abiScore += tools.toInt(settings.getString("bonus_temp_ca",String.valueOf(mC.getResources().getInteger(R.integer.bonus_temp_ca_DEF))));
                 if (allAttacks.getCombatMode().equals("mode_def")) {
                     abiScore += getCaBonusCombatMode("mode_def");
                 } else if (allAttacks.getCombatMode().equals("mode_totaldef")) {
@@ -97,6 +102,7 @@ public class Perso {
             }
 
             if (abiId.equalsIgnoreCase("ability_ref")||abiId.equalsIgnoreCase("ability_vig")||abiId.equalsIgnoreCase("ability_vol")) {
+                abiScore += tools.toInt(settings.getString("bonus_temp_save",String.valueOf(mC.getResources().getInteger(R.integer.bonus_temp_save_DEF))));
                 if (abiId.equalsIgnoreCase("ability_ref")){abiScore+=getAbilityMod("ability_dexterite");}
                 if (abiId.equalsIgnoreCase("ability_vig")){abiScore+=getAbilityMod("ability_constitution");}
                 if (abiId.equalsIgnoreCase("ability_vol")){abiScore+=getAbilityMod("ability_sagesse");}
@@ -205,15 +211,13 @@ public class Perso {
             if (atk.getId().equalsIgnoreCase("attack_stun")){
                 if (featIsActive("feat_stun") && allResources.getResource(atk.getId().replace("attack","resource")).getCurrent()>0){
                     selectedAttack.add(atk);
-                } else {
-                    selectedAttack.add(allAttacks.getAttack("attack_normal"));
                 }
             } else if (atk.getId().equalsIgnoreCase("attack_palm")){
                 if (allResources.getResource(atk.getId().replace("attack","resource")).getCurrent()>0){
                     selectedAttack.add(atk);
                 }
             } else {
-                if(!atk.getId().equalsIgnoreCase("attack_normal")){selectedAttack.add(atk);} //les attaque normal ne sont ajoutées que si plus de stun
+                selectedAttack.add(atk);
             }
         }
         return selectedAttack;

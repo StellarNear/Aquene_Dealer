@@ -33,7 +33,6 @@ public class CombatAsker {
     private Perso aquene = MainActivity.aquene;
     private Activity mA;
     private Context mC;
-    private int lastStep;
     private LinearLayout layout;
     private ArrayList<View> stepsView = new ArrayList<View>();
     private Map<RadioButton, Attack> mapRadioAtkAtk = new HashMap<>();
@@ -49,7 +48,7 @@ public class CombatAsker {
         this.mC = mC;
         this.layout = layout;
         this.backToMainListner = backToMainListner;
-        buildMovedLine();
+        buildRangeLine();
     }
 
     public void reset() {
@@ -57,50 +56,11 @@ public class CombatAsker {
         stepsView = new ArrayList<View>();
         mapRadioAtkAtk = new HashMap<>();
         selectedAttack = null;
-        buildMovedLine();
-    }
-
-    private void buildMovedLine() {
-        clearStep(0);
-        CombatAskerMovedLine lineMoved = new CombatAskerMovedLine(mC);
-        setRadioButtonListnerMoved(lineMoved.getYesButton(), lineMoved.getNoButton());
-        stepsView.add(lineMoved.getMovedLine());
-        getLayout();
-    }
-
-    private void setRadioButtonListnerMoved(final RadioButton yes, final RadioButton no) {
-        final List<RadioButton> listRadio = Arrays.asList(yes, no);
-        for (final RadioButton check : listRadio) {
-            check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (isChecked) {
-                        for (RadioButton checkToUnselect : listRadio) {
-                            if (!checkToUnselect.equals(check)) {
-                                checkToUnselect.setChecked(false);
-                            }
-                        }
-                        if (check.equals(yes)) {
-                            moved = true;
-                        } else {
-                            moved = false;
-                        }
-                        buildRangeLine();
-                    }
-                }
-            });
-        }
-    }
-
-    private void clearStep(int rankStep) {
-        while (stepsView.size() > rankStep) {
-            stepsView.remove(stepsView.size() - 1);
-        }
-        getLayout();
+        buildRangeLine();
     }
 
     private void buildRangeLine() {
-        clearStep(1);
+        clearStep(0);
         CombatAskerRangeLine lineRange = new CombatAskerRangeLine(mC);
         setRadioButtonListnerRange(lineRange.getContactButton(), lineRange.getMidButton(), lineRange.getOutButton());
         stepsView.add(lineRange.getRangeLine());
@@ -123,21 +83,21 @@ public class CombatAsker {
                             range = true;
                             kistep=false;
                             outrange = false;
-                            buildResultLine();
+                            buildMovedLine();
                         } else if (check.equals(mid)) {
                             range = false;
                             kistep=false;
                             outrange = false;
-                            buildResultLine();
+                            buildMovedLine();
                         } else {
-                            if (!moved && aquene.getAllResources().getResource("resource_ki").getCurrent()>=aquene.getAllKiCapacities().getKicapacity("kicapacity_step").getCost()) {
+                            if (aquene.getAllResources().getResource("resource_ki").getCurrent()>=aquene.getAllKiCapacities().getKicapacity("kicapacity_step").getCost()) {
                                 range = false;
                                 askForKiMovement();
                             } else {
                                 range = false;
                                 kistep=false;
                                 outrange = true;
-                                buildResultLine();
+                                buildMovedLine();
                             }
                         }
                     }
@@ -147,7 +107,7 @@ public class CombatAsker {
     }
 
     private void askForKiMovement() {
-        clearStep(2);
+        clearStep(1);
         final CombatAskerKiMovment lineKiMovement = new CombatAskerKiMovment(mC);
 
         setRadioButtonListnerKiRange(lineKiMovement.getContactButton(),lineKiMovement.getOutButton());
@@ -171,7 +131,7 @@ public class CombatAsker {
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     public void run() {
-                        clearStep(1);
+                        clearStep(0);
                         stepsView.add(lineKiMovement.getKiMovementLine());
                         lineKiMovement.getKiMovementLine().startAnimation(inRight);
                         getLayout();
@@ -179,7 +139,7 @@ public class CombatAsker {
                 }, 50);
             }
         });
-        stepsView.get(1).startAnimation(outLeft);
+        stepsView.get(0).startAnimation(outLeft);
     }
 
     private void setRadioButtonListnerKiRange(final RadioButton contact, final RadioButton out) {
@@ -201,12 +161,52 @@ public class CombatAsker {
                             kistep=false;
                             outrange=true;
                         }
+                        buildMovedLine();
+                    }
+                }
+            });
+        }
+    }
+
+    private void buildMovedLine() {
+        clearStep(1);
+        CombatAskerMovedLine lineMoved = new CombatAskerMovedLine(mC);
+        setRadioButtonListnerMoved(lineMoved.getYesButton(), lineMoved.getNoButton());
+        stepsView.add(lineMoved.getMovedLine());
+        getLayout();
+    }
+
+    private void setRadioButtonListnerMoved(final RadioButton yes, final RadioButton no) {
+        final List<RadioButton> listRadio = Arrays.asList(yes, no);
+        for (final RadioButton check : listRadio) {
+            check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (isChecked) {
+                        for (RadioButton checkToUnselect : listRadio) {
+                            if (!checkToUnselect.equals(check)) {
+                                checkToUnselect.setChecked(false);
+                            }
+                        }
+                        if (check.equals(yes)) {
+                            moved = false;  //j'ai pas encore bougé
+                        } else {
+                            moved = true;   //je peux plus bouger
+                        }
                         buildResultLine();
                     }
                 }
             });
         }
     }
+
+    private void clearStep(int rankStep) {
+        while (stepsView.size() > rankStep) {
+            stepsView.remove(stepsView.size() - 1);
+        }
+        getLayout();
+    }
+
 
     private void buildResultLine() {
         clearStep(2);

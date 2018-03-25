@@ -26,7 +26,7 @@ public class CombatAskerMovedLine {
         lineStep = new LinearLayout(mC);
         lineStep.setOrientation(LinearLayout.VERTICAL);
 
-        TextView question = questionLayout("T'es tu déplacé au cours de ce round ?");
+        TextView question = questionLayout("Es-ce que tu peux encore te déplacer ?");
         lineStep.addView(question);
 
         LinearLayout answers = new LinearLayout(mC);
@@ -49,8 +49,8 @@ public class CombatAskerMovedLine {
         buttonTxt.setOrientation(LinearLayout.HORIZONTAL);
         buttonTxt.setPadding(0, 0, 0, (int) mC.getResources().getDimension(R.dimen.margin_combat_asker));
 
-        TextView yesTxt = summaryText("Oui j'ai bougé");
-        TextView noTxt = summaryText("Non je n'ai rien fais");
+        TextView yesTxt = summaryText("Oui je peux !");
+        TextView noTxt = summaryText("Non je peux plus ...");
 
         LinearLayout yesBoxTxt = box();
         LinearLayout noBoxTxt = box();

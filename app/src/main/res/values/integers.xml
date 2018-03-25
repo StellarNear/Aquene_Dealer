@@ -65,6 +65,9 @@
 
     <integer name="bonus_temp_jet_att_DEF">0</integer>
     <integer name="bonus_temp_jet_dmg_DEF">0</integer>
+    <integer name="bonus_temp_rm_DEF">0</integer>
+    <integer name="bonus_temp_save_DEF">0</integer>
+    <integer name="bonus_temp_ca_DEF">0</integer>
 
 
 </resources>

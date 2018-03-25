@@ -109,7 +109,7 @@ public class CombatAskerResultLine {
 
                 LinearLayout boxTxt;
                 boxTxt = box();
-                TextView txt = summaryText(atk.getName());
+                TextView txt = summaryText(atk.getShortname());
                 boxTxt.addView(txt);
                 scrollAtkLinTxt.addView(boxTxt);
             }

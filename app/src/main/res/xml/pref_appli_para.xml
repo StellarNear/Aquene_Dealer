@@ -14,12 +14,12 @@
     <SwitchPreference
         android:defaultValue="@bool/switch_manual_diceroll_DEF"
         android:key="switch_manual_diceroll"
-        android:title="Lancement manuel des dés"/>
+        android:title="Lancement manuel D20"/>
 
     <SwitchPreference
         android:defaultValue="@bool/switch_manual_diceroll_damage_DEF"
         android:key="switch_manual_diceroll_damage"
-        android:title="Lancement manuel des dés pour les dégats"/>
+        android:title="Lancement manuel dégâts"/>
 
     <stellarnear.aquene_dealer.Divers.EditTextPreference
         android:defaultValue="@integer/toast_long_duration_DEF"
