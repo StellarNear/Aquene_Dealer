@@ -103,6 +103,8 @@ public class DmgRoll {
     private int getBonusDmg() {
         int calcBonusDmg = 0;
         calcBonusDmg +=  tools.toInt(settings.getString("bonus_temp_jet_dmg", String.valueOf(mC.getResources().getInteger(R.integer.bonus_temp_jet_dmg_DEF))));
+        calcBonusDmg +=  tools.toInt(settings.getString("attack_dmg_epic", String.valueOf(mC.getResources().getInteger(R.integer.attack_dmg_epic_DEF))));
+
         if (aquene.getAllStances().isActive("stance_lion")) {
             calcBonusDmg += (int) (1.5 * aquene.getAbilityMod("ability_force"));
         } else {

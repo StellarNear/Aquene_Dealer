@@ -27,6 +27,12 @@
         android:title="Dons actifs" />
 
     <header
+        android:fragment="stellarnear.aquene_dealer.Activities.SettingsActivity$LegRingPreferenceFragment"
+        android:icon="@drawable/ic_power_ring"
+        android:summary="Bague légendaire de Bruhni le Dragon Sauvage"
+        android:title="Aaleilis l'exaltée" />
+
+    <header
         android:fragment="stellarnear.aquene_dealer.Activities.SettingsActivity$TempPreferenceFragment"
         android:icon="@drawable/ic_timelapse_black_24dp"
         android:summary="Améliorations non permanentes"

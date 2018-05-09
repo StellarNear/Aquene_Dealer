@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--  Stat de base du perso  -->
-    <integer name="ability_force_def">21</integer>
-    <integer name="ability_dexterite_def">23</integer>
+    <integer name="ability_force_def">23</integer>
+    <integer name="ability_dexterite_def">25</integer>
     <integer name="ability_constitution_def">16</integer>
     <integer name="ability_intelligence_def">14</integer>
     <integer name="ability_sagesse_def">24</integer>
@@ -10,6 +10,7 @@
     <integer name="ability_lvl_def">21</integer>
     <integer name="ability_ms_def">30</integer>
     <integer name="ability_ca_stuff_def">5</integer>
+    <integer name="epic_save_def">1</integer>
     <integer name="ability_vig_def">12</integer>
     <integer name="ability_ref_def">12</integer>
     <integer name="ability_vol_def">12</integer>
@@ -51,13 +52,14 @@
     <integer name="skill_swim_bonusDEF">8</integer>
     <integer name="skill_percept_bonusDEF">13</integer>
     <integer name="skill_heal_bonusDEF">11</integer>
-    <integer name="skill_psycho_bonusDEF">8</integer>
+    <integer name="skill_psycho_bonusDEF">11</integer>
     <integer name="skill_survival_bonusDEF">11</integer>
 
     <integer name="percent_fullscreen_customdialog">90</integer>
 
     <integer name="translationFragDuration">500</integer>
     <integer name="attack_range_DEF">3</integer>
+    <integer name="attack_dmg_epic_DEF">1</integer>
 
     <integer name="percent_fullscreen_combat_launcher_dialog">95</integer>
     <integer name="number_main_dice_dmg_DEF">2</integer>
@@ -68,6 +70,7 @@
     <integer name="bonus_temp_rm_DEF">0</integer>
     <integer name="bonus_temp_save_DEF">0</integer>
     <integer name="bonus_temp_ca_DEF">0</integer>
+
 
 
 </resources>

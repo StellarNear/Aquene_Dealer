@@ -1,6 +1,8 @@
 package stellarnear.aquene_dealer.Perso;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -16,18 +18,22 @@ import java.util.Map;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import stellarnear.aquene_dealer.R;
+
 /**
  * Created by jchatron on 27/12/2017.
  */
 
 public class AllStances  {
     private List<Stance> allStances = new ArrayList<Stance>();
+    private List<Stance> permasList = new ArrayList<Stance>();
     private Map<String,Stance> mapIdStance=new HashMap<>();
     private Context mC;
     private Stance currentStance;
     public AllStances(Context mC) {
         this.mC=mC;
         buildStancesList();
+        checkPermaStance();
     }
 
     private void buildStancesList() {
@@ -125,5 +131,21 @@ public class AllStances  {
             active=true;
         }
         return  active;
+    }
+
+    public void checkPermaStance()
+    {
+        permasList.clear();
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mC);
+        if (settings.getBoolean("first_step_leg_ring",mC.getResources().getBoolean(R.bool.first_step_leg_ring_def))) {
+            mapIdStance.get("stance_falcon").makePerma(true);
+            permasList.add(mapIdStance.get("stance_falcon"));
+        } else {
+            mapIdStance.get("stance_falcon").makePerma(false);
+        }
+    }
+
+    public List<Stance> getPermasList() {
+        return permasList;
     }
 }

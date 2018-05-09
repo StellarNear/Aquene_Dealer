@@ -37,6 +37,17 @@
         android:title="Nombre de dès de 10 pour les dégats à main nues"
         />
 
+    <stellarnear.aquene_dealer.Divers.EditTextPreference
+        android:defaultValue="@integer/attack_dmg_epic_DEF"
+        android:key="attack_dmg_epic"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:inputType="number"
+        android:summary="Valeurs : %s"
+        android:title="Bonus dégats épique"
+        />
+
+
     <SwitchPreference
         android:defaultValue="@bool/switch_amulette_DEF"
         android:key="switch_amulette"

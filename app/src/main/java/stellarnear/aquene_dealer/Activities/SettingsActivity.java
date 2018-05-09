@@ -110,6 +110,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 || FeatPreferenceFragment.class.getName().equals(fragmentName)
                 || CombatPreferenceFragment.class.getName().equals(fragmentName)
                 || SkillsPreferenceFragment.class.getName().equals(fragmentName)
+                || LegRingPreferenceFragment.class.getName().equals(fragmentName)
                 || TempPreferenceFragment.class.getName().equals(fragmentName)
                 || InfosPreferenceFragment.class.getName().equals(fragmentName)
                 || AppliParaPreferenceFragment.class.getName().equals(fragmentName)
@@ -314,6 +315,45 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             return super.onOptionsItemSelected(item);
         }
     }
+
+    /**
+     page anneau leg
+     */
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public static class LegRingPreferenceFragment extends PreferenceFragment {
+
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            addPreferencesFromResource(R.xml.pref_leg_ring);
+            setHasOptionsMenu(true);
+
+        }
+
+
+        @Override
+        public boolean onOptionsItemSelected(MenuItem item) {
+            int id = item.getItemId();
+            if (id == android.R.id.home) {
+                Intent intent = new Intent(getActivity(), SettingsActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
+                return true;
+            }
+            return super.onOptionsItemSelected(item);
+        }
+
+        @Override
+        public void onActivityCreated(Bundle savedInstanceState) {
+            super.onActivityCreated(savedInstanceState);
+
+            // remove dividers
+            View rootView = getView();
+            ListView list = (ListView) rootView.findViewById(android.R.id.list);
+            list.setDivider(getActivity().getDrawable(R.drawable.divider_pref));
+        }
+    }
+
 
     /**
      page temp

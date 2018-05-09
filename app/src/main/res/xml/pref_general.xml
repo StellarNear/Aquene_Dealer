@@ -129,6 +129,15 @@
         android:key="SAVE"
         android:title="Jets de sauvegarde">
         <Preference android:layout="@layout/divider_pref" android:selectable="false"/>
+
+        <stellarnear.aquene_dealer.Divers.EditTextPreference
+            android:defaultValue="@integer/epic_save_def"
+            android:key="epic_save"
+            android:title="Bonus épique"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:inputType="number"
+            android:summary="Valeur : %s"/>
         <SwitchPreference
             android:defaultValue="@bool/switch_save_race_DEF"
             android:key="switch_save_race"

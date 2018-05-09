@@ -107,8 +107,10 @@ public class StanceActivity extends AppCompatActivity {
             RadioButton radioSelected = mapStanceRadioButton.get(currentStance.getId());
             radioSelected.setChecked(true);
             title=getString(R.string.stance_activity) +" (posture actuelle : "+currentStance.getName()+")";
+            unCheckAllRadio(radioSelected);
         } else {
             noStance.setChecked(true);
+            unCheckAllRadio(null);
         }
         SpannableString titleSpan = new SpannableString(title);
         titleSpan.setSpan(new ForegroundColorSpan(getColor(R.color.textColorPrimary)),0,title.length(),0);
@@ -182,16 +184,18 @@ public class StanceActivity extends AppCompatActivity {
 
     private void setButtonListner() {
         for (final RadioButton button : allRadioButtons){
-            button.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                    if(compoundButton.isChecked()){
-                        unCheckAllRadio(button);
-                        saveStance(button);
-                        noStance.setChecked(false);
+            if(!aquene.getAllStances().getStance(mapRadioButtonStance.get(button)).isPerma()) {
+                button.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                        if (compoundButton.isChecked()) {
+                            unCheckAllRadio(button);
+                            saveStance(button);
+                            noStance.setChecked(false);
+                        }
                     }
-                }
-            });
+                });
+            }
         }
     }
 
@@ -220,7 +224,9 @@ public class StanceActivity extends AppCompatActivity {
 
     private void unCheckAllRadio(RadioButton selectedButton) {
         for (RadioButton button : allRadioButtons){
-            if (!button.equals(selectedButton)){
+            if (aquene.getAllStances().getStance(mapRadioButtonStance.get(button)).isPerma()){
+                button.setChecked(true);
+            } else if (!button.equals(selectedButton)){
                 button.setChecked(false);
             }
         }

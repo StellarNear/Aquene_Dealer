@@ -14,9 +14,11 @@ public class Stance {
     private String id;
     private String featId;
     private Boolean active;
+    private Boolean permanent;
     private Context mC;
     public Stance(String name, String shortname, String type, String descr, String id,String featId,Context mC){
         this.active=false;
+        this.permanent=false;
         this.name=name;
         this.shortname=shortname;
         this.type=type;
@@ -56,4 +58,12 @@ public class Stance {
     }
 
     public String getFeatId() {return featId;}
+
+    public void makePerma(Boolean bool) {
+        this.permanent=bool;
+    }
+
+    public boolean isPerma(){
+        return this.permanent;
+    }
 }

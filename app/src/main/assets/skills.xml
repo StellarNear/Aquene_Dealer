@@ -33,7 +33,7 @@
     </skill>
     <skill>
         <name>Escalade</name>
-        <abilityDependence>ability_dexterite</abilityDependence>
+        <abilityDependence>ability_force</abilityDependence>
         <descr>Le personnage s’est entraîné à escalader toutes sortes de parois verticales, des murs relativement lisses de la ville jusqu’aux falaises rocailleuses. Un test de compétence raté de 1 à 4 points indique que le personnage ne parvient pas à progresser, alors qu’un test raté de 5 points ou plus implique une chute sur toute la hauteur déjà parcourue.</descr>
         <id>skill_climb</id>
     </skill>

@@ -7,13 +7,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.app.Fragment;
-import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.Surface;
@@ -25,6 +25,7 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.VideoView;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     public static Perso aquene;
     private boolean loading = false;
     private boolean touched = false;
-    private boolean gifShow = true;
+    private boolean campaignShow = true;
     private FrameLayout mainFrameFrag;
     private SharedPreferences settings;
 
@@ -129,20 +130,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        final View gifView = findViewById(R.id.gifImage);
-        final View gifContainer = findViewById(R.id.gifContainer);
+        final VideoView campaignVideo = (VideoView) findViewById(R.id.campaignContainer);
+
         Boolean switchCampaignBool = settings.getBoolean("switch_campaign_gif", getApplicationContext().getResources().getBoolean(R.bool.switch_campaign_gif_DEF));
-        if (gifShow && switchCampaignBool) {
-            gifView.setVisibility(View.VISIBLE);
-            gifContainer.setVisibility(View.VISIBLE);
-            gifView.setOnTouchListener(new View.OnTouchListener() {
+        if (campaignShow && switchCampaignBool) {
+            campaignVideo.setVisibility(View.VISIBLE);
+
+            String fileName = "android.resource://"+  getPackageName() + "/raw/campaign";
+            campaignVideo.setMediaController(null);
+            campaignVideo.setVideoURI(Uri.parse(fileName));
+            campaignVideo.start();
+
+            campaignVideo.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View arg0, MotionEvent arg1) {
-                    gifShow = false;
-                    gifView.setOnTouchListener(null);
-                    gifView.setBackground(null);
-                    gifView.setVisibility(View.GONE);
-                    gifContainer.setVisibility(View.GONE);
+                    campaignShow = false;
+                    campaignVideo.setOnTouchListener(null);
+                    campaignVideo.setVisibility(View.GONE);
                     Window window = getWindow();
                     window.setStatusBarColor(getColor(R.color.colorPrimaryDark));
                     getSupportActionBar().show();
@@ -150,6 +154,7 @@ public class MainActivity extends AppCompatActivity {
                     return true;//always return true to consume event
                 }
             });
+
         } else {
             getSupportActionBar().show();
             startFragment();

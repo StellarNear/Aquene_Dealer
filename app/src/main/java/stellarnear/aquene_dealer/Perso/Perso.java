@@ -42,6 +42,7 @@ public class Perso {
         allAbilities.refreshAllAbilities();
         allAttacks.refreshAllAttacks();
         allResources.refreshMaxs();
+        allStances.checkPermaStance();
     }
 
     public AllStances getAllStances() {
@@ -103,6 +104,7 @@ public class Perso {
 
             if (abiId.equalsIgnoreCase("ability_ref")||abiId.equalsIgnoreCase("ability_vig")||abiId.equalsIgnoreCase("ability_vol")) {
                 abiScore += tools.toInt(settings.getString("bonus_temp_save",String.valueOf(mC.getResources().getInteger(R.integer.bonus_temp_save_DEF))));
+                abiScore += tools.toInt(settings.getString("epic_save",String.valueOf(mC.getResources().getInteger(R.integer.epic_save_def))));
                 if (abiId.equalsIgnoreCase("ability_ref")){abiScore+=getAbilityMod("ability_dexterite");}
                 if (abiId.equalsIgnoreCase("ability_vig")){abiScore+=getAbilityMod("ability_constitution");}
                 if (abiId.equalsIgnoreCase("ability_vol")){abiScore+=getAbilityMod("ability_sagesse");}
@@ -197,6 +199,13 @@ public class Perso {
         if (allStances.getCurrentStance() != null && allStances.getCurrentStance().getFeatId().contains(featId)) {
             active = true;
         }
+
+        for (Stance stance : allStances.getPermasList()){
+            if (stance.getFeatId().contains(featId)) {
+                active = true;
+            }
+        }
+
         return active;
     }
 

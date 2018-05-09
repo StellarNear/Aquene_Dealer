@@ -81,7 +81,8 @@ public class CustomAlertDialog {
             } else {
                 abScore = String.valueOf(modBonus);
             }
-            summaryTxt="Abilité ("+skill.getAbilityDependence().substring(8,11)+") : "+abScore+",  Maîtrise : "+skill.getRank()+",  Bonus : "+aquene.getSkillBonus(skill.getId());
+            int sumScore=modBonus+skill.getRank()+aquene.getSkillBonus(skill.getId());
+            summaryTxt=String.valueOf(sumScore)+"\nAbilité ("+skill.getAbilityDependence().substring(8,11)+") : "+abScore+",  Maîtrise : "+skill.getRank()+",  Bonus : "+aquene.getSkillBonus(skill.getId());
         } else {
             imgId = mC.getResources().getIdentifier(abi.getId(), "drawable", mC.getPackageName());
             titleTxt = "Test de la caractéristique :\n"+abi.getName();

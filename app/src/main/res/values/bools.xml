@@ -40,4 +40,8 @@
     <bool name="switch_campaign_gif_DEF">true</bool>
     <bool name="switch_temp_rapid_DEF">false</bool>
 
+    <!-- autres -->
+    <bool name="first_step_leg_ring_def">true</bool>
+    <bool name="second_step_leg_ring_def">false</bool>
+
 </resources>
