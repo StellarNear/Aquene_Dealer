@@ -21,6 +21,7 @@ public class Perso {
     private AllSkills allSkills;
     private AllAttacks allAttacks;
     private AllKiCapacities allKiCapacities;
+    private AllEquipments allEquipments;
     private AllResources allResources;
     private Context mC;
     private Tools tools =new Tools();
@@ -33,6 +34,7 @@ public class Perso {
         allSkills = new AllSkills(mC);
         allAttacks = new AllAttacks(mC);
         allKiCapacities = new AllKiCapacities(mC);
+        allEquipments = new AllEquipments(mC);
         allResources = new AllResources(mC,allFeats,allAbilities);
     }
 
@@ -67,6 +69,9 @@ public class Perso {
         int abiScore = 0;
         if (allAbilities.getAbi(abiId) != null) {
             abiScore = allAbilities.getAbi(abiId).getValue();
+            if (abiId.equalsIgnoreCase("ability_equipment")) {
+                abiScore=allEquipments.getAllItemsCount();
+            }
 
             if (abiId.equalsIgnoreCase("ability_rm")) {
                 int bonusRm = tools.toInt(settings.getString("bonus_temp_rm", String.valueOf(mC.getResources().getInteger(R.integer.bonus_temp_rm_DEF))));
@@ -272,5 +277,9 @@ public class Perso {
             value+=getAbilityMod("ability_sagesse")+ (int) ((survScore+healScore)/10.);
         }
         return value;
+    }
+
+    public AllEquipments getAllEquipments() {
+        return allEquipments;
     }
 }

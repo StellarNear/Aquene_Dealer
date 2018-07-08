@@ -59,7 +59,27 @@ public class CustomAlertDialog {
         this.mC=mC;
         this.abi=abi;
         this.mode="abi";
-        buildAlertDialog();
+        if (abi.getId().equalsIgnoreCase("ability_equipment")){
+            showEquipment();
+        } else {
+            buildAlertDialog();
+        }
+    }
+
+    private void showEquipment(){
+        LayoutInflater inflater = mA.getLayoutInflater();
+        dialogView = inflater.inflate(R.layout.equipment_dialog, null);
+        AlertDialog.Builder dialogBuilder  = new AlertDialog.Builder(mA, R.style.CustomDialog);
+        dialogBuilder.setView(dialogView);
+        aquene.getAllEquipments().setImageOnDialog(mA,dialogView);
+        dialogBuilder.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked cancel button
+            }
+        });
+
+        alertDialog = dialogBuilder.create();
+
     }
 
     private void buildAlertDialog() {
@@ -282,7 +302,5 @@ public class CustomAlertDialog {
                 callToAction.setText("Fin du test de caractéristique");
             }
         }
-
-
     }
 }

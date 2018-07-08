@@ -133,4 +133,12 @@
         <id>ability_dmd</id>
     </ability>
 
+    <ability>
+        <name>Inventaire</name>
+        <type>advanced</type>
+        <descr>Ensemble des objets portés par le personnage.</descr>
+        <id>ability_equipment</id>
+        <testable>true</testable>
+    </ability>
+
 </records>

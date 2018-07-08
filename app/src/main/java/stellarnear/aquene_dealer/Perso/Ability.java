@@ -93,7 +93,7 @@ public class Ability {
 
     public boolean isFocusable(){
         return this.focusable;
-    }
+    } //c'est pour les jet à+10 et 20 en réussite passive quand les test peuvent etre fait au calme
 
 }
 

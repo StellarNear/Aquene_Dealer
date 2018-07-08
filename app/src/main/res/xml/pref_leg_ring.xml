@@ -1,5 +1,6 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
+
     <SwitchPreference
         android:defaultValue="@bool/first_step_leg_ring_def"
         android:key="first_step_leg_ring"

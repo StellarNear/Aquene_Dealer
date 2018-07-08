@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="version">"v1.5"</string>
-    <string name="time_spend">"125h"</string>
+    <string name="version">"v1.6"</string>
+    <string name="time_spend">"131h"</string>
     <string name="basic_infos">"Cette application est développée par player 1 pour son player 2. Développée avec amour par Jérémie Chatron en fin 2017-2018." </string>
     <string name="patch_list">"----------------------------------------------------------------------------------
+v1.6
+-Ajout d'une nouvelle icone à lécran principal dans les caracs avancées
+-Ajout d'un menu d'équipement
+-Nouvelle objet dans le personnage pour gerer dynamiquement l'ensemble des objets à partir d'un parsing de XML
+-Affichage des objets présent (placeholder passe en vert)
+-En cliquant sur l'objet ouverture d'un toast avec les detail et l'image de l'objet
+-Création et importation de l'ensemble des images des placeholders et des images des objets d'Aquene
+----------------------------------------------------------------------------------
 v1.5
 -Ajout d'une nouvelle cinématique de campagne : La gardienne de l'illusion
 -Mise à jour de toutes les caractéristiques avec le nouvel équipement

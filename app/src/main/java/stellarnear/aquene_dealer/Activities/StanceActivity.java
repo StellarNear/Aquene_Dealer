@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,7 +15,6 @@ import android.support.v7.widget.Toolbar;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.Gravity;
@@ -26,15 +24,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -210,7 +204,7 @@ public class StanceActivity extends AppCompatActivity {
 
     public void toatInfo(String imgPath, String nameTxt, String descrTxt) {
         LayoutInflater inflater = getLayoutInflater();
-        View view = inflater.inflate(R.layout.custom_toast_info_stance,(ViewGroup) findViewById(R.id.toast_RelativeLayout));
+        View view = inflater.inflate(R.layout.custom_toast_info,(ViewGroup) findViewById(R.id.toast_RelativeLayout));
 
         ImageView img =  view.findViewById(R.id.toast_image);
         int imgId = getResources().getIdentifier(imgPath, "drawable", getPackageName());

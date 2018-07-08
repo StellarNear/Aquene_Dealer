@@ -3,18 +3,15 @@ package stellarnear.aquene_dealer.Perso;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.util.Log;
-import android.view.Gravity;
-import android.widget.Toast;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -107,6 +104,8 @@ public class AllAbilities {
                 val = getAbi("ability_dexterite").getMod();
             } else if (abi.getId().equalsIgnoreCase("ability_rm")) {
                 val = readAbility("ability_lvl") + 10;
+            } else if (abi.getId().equalsIgnoreCase("ability_equipment")) {
+                //on laisse à 0 le nombre de piece de stuff est calculer au niveau du perso
             } else {
                 val = readAbility(abi.getId());
             }

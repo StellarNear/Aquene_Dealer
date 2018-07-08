@@ -18,23 +18,13 @@ import stellarnear.aquene_dealer.R;
  */
 
 public class QuadrantManager {
-    private Context mC;
-    private View mainView;
-    private LinearLayout quadrantLine1;
-    private LinearLayout quadrantLine2;
     private LinearLayout quadrant1;
     private LinearLayout quadrant2;
     private LinearLayout quadrant3;
     private LinearLayout quadrant4;
-    private Perso aquene = MainActivity.aquene;
-    private Map<LinearLayout,String> mapLayoutTextTitle =new HashMap<>();
     private List<LinearLayout> quadrantList;
     private QuadrantFiller quadrantFiller;
     public QuadrantManager(View mainView, Context mC, Activity mA) {
-        this.mC=mC;
-        this.mainView=mainView;
-        quadrantLine1 = mainView.findViewById(R.id.main_frag_stats_quadrantLine1);
-        quadrantLine2 = mainView.findViewById(R.id.main_frag_stats_quadrantLine2);
 
         quadrant1 = mainView.findViewById(R.id.main_frag_stats_quadrant1);
 
