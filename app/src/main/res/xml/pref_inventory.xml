@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <PreferenceScreen
+        android:key="pref_inventory_money"
+        android:icon="@drawable/ic_cash"
+        android:summary="Gestion des pièces de platine, or, argent, cuivre"
+        android:title="Monnaie" />
+
+    <PreferenceScreen
+        android:key="show_equipment"
+        android:icon="@drawable/ic_binoculars"
+        android:summary="Affiche l'inventaire du personnage"
+        android:title="Examiner l'équipement" />
+
+    <PreferenceScreen
+        android:key="pref_inventory_legring"
+        android:icon="@drawable/ic_power_ring"
+        android:summary="Bague légendaire de Bruhni le Dragon Sauvage"
+        android:title="Aaleilis l'exaltée" />
+
+</PreferenceScreen>

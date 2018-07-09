@@ -1,13 +1,6 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
 
-    <PreferenceScreen android:key="top_key_0"
-        android:icon="@drawable/bag_slot"
-        android:title="on test">
-
-</PreferenceScreen>
-
-
     <SwitchPreference
         android:defaultValue="@bool/first_step_leg_ring_def"
         android:key="first_step_leg_ring"

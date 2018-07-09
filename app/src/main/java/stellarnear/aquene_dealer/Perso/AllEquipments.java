@@ -2,15 +2,21 @@ package stellarnear.aquene_dealer.Perso;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
+import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.preference.PreferenceManager;
+import android.support.v7.app.AlertDialog;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.w3c.dom.Document;
@@ -43,6 +49,7 @@ public class AllEquipments {
     private List<Equipment> listBag = new ArrayList<>();
     private Context mC;
     private Tools tools = new Tools();
+    private View equipView;
 
     public AllEquipments(Context mC) {
         this.mC = mC;
@@ -119,9 +126,34 @@ public class AllEquipments {
         }
     }
 
+    public void showEquipment(Activity mA){
+        LayoutInflater inflater = mA.getLayoutInflater();
+        equipView = inflater.inflate(R.layout.equipment_dialog, null);
+        AlertDialog.Builder dialogBuilder  = new AlertDialog.Builder(mA, R.style.CustomDialog);
+        dialogBuilder.setView(equipView);
+        dialogBuilder.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked cancel button
+            }
+        });
+        AlertDialog alertDialog = dialogBuilder.create();
+        alertDialog.show();
+        Display display = mA.getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        Float factor = mC.getResources().getInteger(R.integer.percent_fullscreen_customdialog)/100f;
+        alertDialog.getWindow().setLayout((int) (factor*size.x), (int)(factor*size.y));
+        Button onlyButton = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+        LinearLayout.LayoutParams onlyButtonLL = (LinearLayout.LayoutParams) onlyButton.getLayoutParams();
+        onlyButtonLL.width=ViewGroup.LayoutParams.WRAP_CONTENT;
+        onlyButton.setLayoutParams(onlyButtonLL);
+        onlyButton.setTextColor(mC.getColor(R.color.colorBackground));
+        onlyButton.setBackground(mC.getDrawable(R.drawable.button_ok_gradient));
 
-    public void setImageOnDialog(final Activity mA,View equipView) {
+        setImageOnDialog(mA);
+    }
 
+    private void setImageOnDialog(final Activity mA) {
         for (final Equipment equi : listEquipment) {
             try {
                 int resID = mC.getResources().getIdentifier(equi.getSlotId(), "id", mC.getPackageName());
@@ -167,5 +199,7 @@ public class AllEquipments {
     public int getAllItemsCount(){
         return listBag.size()+listEquipment.size();
     }
+
+
 }
 

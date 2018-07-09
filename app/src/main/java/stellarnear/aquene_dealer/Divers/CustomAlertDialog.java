@@ -52,6 +52,7 @@ public class CustomAlertDialog {
         this.modBonus=modBonus;
         this.mode="skill";
         buildAlertDialog();
+        showAlertDialog();
     }
 
     public CustomAlertDialog(Activity mA, Context mC, Ability abi) {
@@ -60,26 +61,11 @@ public class CustomAlertDialog {
         this.abi=abi;
         this.mode="abi";
         if (abi.getId().equalsIgnoreCase("ability_equipment")){
-            showEquipment();
+            aquene.getAllEquipments().showEquipment(mA);
         } else {
             buildAlertDialog();
+            showAlertDialog();
         }
-    }
-
-    private void showEquipment(){
-        LayoutInflater inflater = mA.getLayoutInflater();
-        dialogView = inflater.inflate(R.layout.equipment_dialog, null);
-        AlertDialog.Builder dialogBuilder  = new AlertDialog.Builder(mA, R.style.CustomDialog);
-        dialogBuilder.setView(dialogView);
-        aquene.getAllEquipments().setImageOnDialog(mA,dialogView);
-        dialogBuilder.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                // User clicked cancel button
-            }
-        });
-
-        alertDialog = dialogBuilder.create();
-
     }
 
     private void buildAlertDialog() {
@@ -283,7 +269,7 @@ public class CustomAlertDialog {
                     public void onClick(View view) {
                         aquene.getAllResources().getResource("resource_inhuman_stamina_sup").spend(1);
                         alertDialog.cancel();
-                        new CustomAlertDialog( mA,  mC,  abi).showAlertDialog();
+                        new CustomAlertDialog( mA,  mC,  abi);
                     }
                 });
             } else if (abi.getId().equalsIgnoreCase("ability_vol") && aquene.getAllResources().getResource("resource_iron_will_sup").getCurrent()>0){
@@ -295,7 +281,7 @@ public class CustomAlertDialog {
                     public void onClick(View view) {
                         aquene.getAllResources().getResource("resource_iron_will_sup").spend(1);
                         alertDialog.cancel();
-                        new CustomAlertDialog( mA,  mC,  abi).showAlertDialog();
+                        new CustomAlertDialog( mA,  mC,  abi);
                     }
                 });
             } else {

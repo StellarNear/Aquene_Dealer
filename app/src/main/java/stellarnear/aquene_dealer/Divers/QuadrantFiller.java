@@ -213,13 +213,12 @@ public class QuadrantFiller {
         text.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                 CustomAlertDialog abilityAlertDialog = new CustomAlertDialog(mA, mC, abi);
-                 abilityAlertDialog.showAlertDialog();
+                 new CustomAlertDialog(mA, mC, abi);
             }
         });
     }
 
-    private void setListner(TextView text,final Resource res) {
+    private void setListner(TextView text,final Resource res) { //constructeur ressoruce pour Healthbar
         text.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {

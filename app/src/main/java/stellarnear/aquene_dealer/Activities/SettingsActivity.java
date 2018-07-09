@@ -45,7 +45,7 @@ import java.util.List;
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On
  * handset devices, settings are presented as a single list. On tablets,
- * settings are split by category, with category headers shown to the left of
+ * settings are split by category, with category pref shown to the left of
  * the list of settings.
  * <p>
  * See <a href="http://developer.android.com/design/patterns/settings.html">
@@ -60,6 +60,11 @@ public class SettingsActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        if (settings.getBoolean("switch_fullscreen_mode",getApplicationContext().getResources().getBoolean(R.bool.switch_fullscreen_mode_DEF))) {
+            requestWindowFeature(Window.FEATURE_NO_TITLE);
+            this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }
         super.onCreate(savedInstanceState);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -71,8 +76,6 @@ public class SettingsActivity extends AppCompatActivity
                 .replace(android.R.id.content, settingsFragment)
                 .commit();
     }
-
-
 
     //
     // Handle what happens on up button
@@ -88,6 +91,12 @@ public class SettingsActivity extends AppCompatActivity
                 return true;
         }
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        MainActivity.aquene.refresh();
+        settingsFragment.onUpButton();
     }
 
     // ...

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <stellarnear.aquene_dealer.Divers.EditTextPreference
+        android:defaultValue="0"
+        android:key="money_p"
+        android:title="Nombre de pièces de platine"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:inputType="number"
+        android:summary="Valeur : %s"/>
+    <stellarnear.aquene_dealer.Divers.EditTextPreference
+        android:defaultValue="0"
+        android:key="money_g"
+        android:title="Nombre de pièces d'or"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:inputType="number"
+        android:summary="Valeur : %s"/>
+    <stellarnear.aquene_dealer.Divers.EditTextPreference
+        android:defaultValue="0"
+        android:key="money_s"
+        android:title="Nombre de pièces d'argent"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:inputType="number"
+        android:summary="Valeur : %s"/>
+    <stellarnear.aquene_dealer.Divers.EditTextPreference
+        android:defaultValue="0"
+        android:key="money_c"
+        android:title="Nombre de pièces de cuivre"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:inputType="number"
+        android:summary="Valeur : %s"/>
+</PreferenceScreen>

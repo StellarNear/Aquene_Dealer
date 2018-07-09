@@ -125,8 +125,8 @@ public class MainActivityFragmentSkill extends Fragment {
         line.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CustomAlertDialog skillDialog = new CustomAlertDialog(getActivity(),getContext(),skill,aquene.getAbilityMod(skill.getAbilityDependence()));
-                skillDialog.showAlertDialog();
+                new CustomAlertDialog(getActivity(),getContext(),skill,aquene.getAbilityMod(skill.getAbilityDependence()));
+
             }
         });
     }

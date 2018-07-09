@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Aquene Compagnion</string>
-    <string name="action_settings">Paramètres</string>
 
     <!-- Nom categorie d'action main -->
     <string name="main_action_ki">Ki</string>
