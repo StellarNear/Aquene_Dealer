@@ -3,14 +3,9 @@ package stellarnear.aquene_dealer.Divers;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.view.Gravity;
-import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
-
-import java.security.PublicKey;
-import java.util.ArrayList;
-import java.util.List;
 
 import stellarnear.aquene_dealer.Activities.MainActivity;
 import stellarnear.aquene_dealer.Perso.Perso;

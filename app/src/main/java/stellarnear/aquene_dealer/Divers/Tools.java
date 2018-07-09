@@ -69,7 +69,7 @@ public class Tools {
         }
     }
 
-    public void toastStanceTooltip(final Context mC, View view, String... modeInput) {
+    public void toastTooltipCustomView(final Context mC, View view, String... modeInput) {
         // Set the toast and duration
         stopToast=false;
         String mode = modeInput.length > 0 ? modeInput[0] : "";

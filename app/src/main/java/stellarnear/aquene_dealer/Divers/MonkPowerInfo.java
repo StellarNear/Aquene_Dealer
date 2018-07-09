@@ -1,7 +1,5 @@
 package stellarnear.aquene_dealer.Divers;
 
-import android.content.Context;
-
 /**
  * Created by jchatron on 16/02/2018.
  */

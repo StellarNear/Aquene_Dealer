@@ -1,10 +1,10 @@
 package stellarnear.aquene_dealer.Activities;
 
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.os.Handler;
 import android.support.design.widget.Snackbar;
 import android.view.Gravity;

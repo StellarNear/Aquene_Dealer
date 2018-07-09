@@ -2,8 +2,8 @@ package stellarnear.aquene_dealer.Divers;
 
 import android.app.Activity;
 import android.content.Context;
-import android.widget.ImageView;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 
 import java.util.List;
 

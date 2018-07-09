@@ -7,8 +7,6 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-import stellarnear.aquene_dealer.Activities.MainActivity;
-import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.R;
 
 /**

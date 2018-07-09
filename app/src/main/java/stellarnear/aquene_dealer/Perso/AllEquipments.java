@@ -3,12 +3,8 @@ package stellarnear.aquene_dealer.Perso;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
-import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Point;
-import android.graphics.PorterDuff;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -33,7 +29,6 @@ import java.util.Map;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import stellarnear.aquene_dealer.Activities.MainActivity;
 import stellarnear.aquene_dealer.Divers.Tools;
 import stellarnear.aquene_dealer.R;
 
@@ -47,18 +42,20 @@ public class AllEquipments {
     private List<Equipment> listEquipment = new ArrayList<>();
     private Map<String, Equipment> mapIDBag = new HashMap<>();
     private List<Equipment> listBag = new ArrayList<>();
+    private Map<String, Equipment> mapIDOther = new HashMap<>();
+    private List<Equipment> listOther = new ArrayList<>();
     private Context mC;
     private Tools tools = new Tools();
     private View equipView;
 
     public AllEquipments(Context mC) {
         this.mC = mC;
-        buildAllEquipmentsList();
-        buildAllBagList();
-        //setImageOnDialog();
+        buildList("equipped_slot", mapIDEquipment, listEquipment);
+        buildList("unequipped", mapIDBag, listBag);
+        buildList("equipped_slotless", mapIDOther, listOther);
     }
 
-    private void buildAllEquipmentsList() {
+    private void buildList(String tag, Map<String, Equipment> map, List<Equipment> list) {
         try {
             InputStream is = mC.getAssets().open("equipment.xml");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -66,7 +63,7 @@ public class AllEquipments {
             Document doc = dBuilder.parse(is);
             Element element = doc.getDocumentElement();
             element.normalize();
-            NodeList nList = doc.getElementsByTagName("equipped");
+            NodeList nList = doc.getElementsByTagName(tag);
             for (int i = 0; i < nList.getLength(); i++) {
                 Node node = nList.item(i);
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
@@ -77,37 +74,8 @@ public class AllEquipments {
                             readValue("imgId", element2),
                             readValue("slotId", element2),
                             mC);
-                    listEquipment.add(equi);
-                    mapIDEquipment.put(equi.getSlotId(), equi);
-                }
-            }
-            is.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void buildAllBagList() {
-        try {
-            InputStream is = mC.getAssets().open("equipment.xml");
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(is);
-            Element element = doc.getDocumentElement();
-            element.normalize();
-            NodeList nList = doc.getElementsByTagName("unequipped");
-            for (int i = 0; i < nList.getLength(); i++) {
-                Node node = nList.item(i);
-                if (node.getNodeType() == Node.ELEMENT_NODE) {
-                    Element element2 = (Element) node;
-                    Equipment equi = new Equipment(
-                            readValue("name", element2),
-                            readValue("descr", element2),
-                            readValue("imgId", element2),
-                            readValue("slotId", element2),
-                            mC);
-                    listBag.add(equi);
-                    mapIDBag.put(equi.getSlotId(), equi);
+                    list.add(equi);
+                    map.put(equi.getSlotId(), equi);
                 }
             }
             is.close();
@@ -126,10 +94,10 @@ public class AllEquipments {
         }
     }
 
-    public void showEquipment(Activity mA){
+    public void showEquipment(Activity mA) {
         LayoutInflater inflater = mA.getLayoutInflater();
         equipView = inflater.inflate(R.layout.equipment_dialog, null);
-        AlertDialog.Builder dialogBuilder  = new AlertDialog.Builder(mA, R.style.CustomDialog);
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(mA, R.style.CustomDialog);
         dialogBuilder.setView(equipView);
         dialogBuilder.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
@@ -141,11 +109,11 @@ public class AllEquipments {
         Display display = mA.getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-        Float factor = mC.getResources().getInteger(R.integer.percent_fullscreen_customdialog)/100f;
-        alertDialog.getWindow().setLayout((int) (factor*size.x), (int)(factor*size.y));
+        Float factor = mC.getResources().getInteger(R.integer.percent_fullscreen_customdialog) / 100f;
+        alertDialog.getWindow().setLayout((int) (factor * size.x), (int) (factor * size.y));
         Button onlyButton = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
         LinearLayout.LayoutParams onlyButtonLL = (LinearLayout.LayoutParams) onlyButton.getLayoutParams();
-        onlyButtonLL.width=ViewGroup.LayoutParams.WRAP_CONTENT;
+        onlyButtonLL.width = ViewGroup.LayoutParams.WRAP_CONTENT;
         onlyButton.setLayoutParams(onlyButtonLL);
         onlyButton.setTextColor(mC.getColor(R.color.colorBackground));
         onlyButton.setBackground(mC.getDrawable(R.drawable.button_ok_gradient));
@@ -154,26 +122,49 @@ public class AllEquipments {
     }
 
     private void setImageOnDialog(final Activity mA) {
+
+        float[] mat = new float[]
+                {
+                        1, 0, 0, 0, 0,
+                        0, 2, 0, 0, 0,
+                        0, 0, 1, 0, 0,
+                        0, 0, 0, 1, 0,
+                        0, 0, 0, 0, 1
+                };
+        ColorMatrixColorFilter matrix = new ColorMatrixColorFilter(mat);
+
+        if (listBag.size() > 0) {
+            int resID = mC.getResources().getIdentifier("bag_slot", "id", mC.getPackageName());
+            ImageView img = (ImageView) equipView.findViewById(resID);
+            img.getDrawable().setColorFilter(matrix);
+            img.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    toatListInfo(mA, listBag);
+                }
+            });
+        }
+        if (listOther.size() > 0) {
+            int resID = mC.getResources().getIdentifier("other_slot", "id", mC.getPackageName());
+            ImageView img = (ImageView) equipView.findViewById(resID);
+            img.getDrawable().setColorFilter(matrix);
+            img.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    toatListInfo(mA, listOther);
+                }
+            });
+        }
+
         for (final Equipment equi : listEquipment) {
             try {
                 int resID = mC.getResources().getIdentifier(equi.getSlotId(), "id", mC.getPackageName());
                 ImageView img = (ImageView) equipView.findViewById(resID);
-
-                float[] mat = new float[]
-                        {
-                                1,0,0,0,0,
-                                0,2,0,0,0,
-                                0,0,1,0,0,
-                                0,0,0,1,0,
-                                0,0,0,0,1
-                        };
-                ColorMatrixColorFilter matrix = new ColorMatrixColorFilter(mat);
                 img.getDrawable().setColorFilter(matrix);
-
                 img.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        toatInfo(mA,equi);
+                        toatInfo(mA, equi);
                     }
                 });
 
@@ -183,21 +174,41 @@ public class AllEquipments {
         }
     }
 
-    public void toatInfo(Activity mA,Equipment equi) {
+    private void toatInfo(Activity mA, Equipment equi) {
         LayoutInflater inflater = mA.getLayoutInflater();
-        View view = inflater.inflate(R.layout.custom_toast_info,(ViewGroup) mA.findViewById(R.id.toast_RelativeLayout));
+        View view = inflater.inflate(R.layout.custom_toast_info, (ViewGroup) mA.findViewById(R.id.toast_RelativeLayout));
 
-        ImageView img =  view.findViewById(R.id.toast_image);
+        ImageView img = view.findViewById(R.id.toast_image);
         img.setImageDrawable(equi.getImg());
         TextView name = view.findViewById(R.id.toast_textName);
         name.setText(equi.getName());
         TextView descr = view.findViewById(R.id.toast_textDescr);
         descr.setText(equi.getDescr());
-        tools.toastStanceTooltip(mC,view,"long");
+        tools.toastTooltipCustomView(mC, view, "long");
     }
 
-    public int getAllItemsCount(){
-        return listBag.size()+listEquipment.size();
+    private void toatListInfo(Activity mA, List<Equipment> equipmentsList) {
+
+        LayoutInflater inflater = mA.getLayoutInflater();
+        View view = inflater.inflate(R.layout.custom_toast_slotless_list_info,(ViewGroup) mA.findViewById(R.id.toast_list_RelativeLayout));
+        LinearLayout scrollLin = view.findViewById(R.id.toast_list_scroll_mainlin);
+        for (Equipment equi:equipmentsList){
+            View yourLayout = inflater.inflate(R.layout.custom_toast_slotless_list_element,scrollLin, false);
+            ImageView img =  yourLayout.findViewById(R.id.toast_list_element_image);
+            img.setImageDrawable(equi.getImg());
+            TextView name = yourLayout.findViewById(R.id.toast_list_element_textName);
+            name.setText(equi.getName());
+            TextView descr = yourLayout.findViewById(R.id.toast_list_element_textDescr);
+            descr.setText(equi.getDescr());
+
+            scrollLin.addView(yourLayout);
+        }
+
+        tools.toastTooltipCustomView(mC,view,"long");
+    }
+
+    public int getAllItemsCount() {
+        return listBag.size() + listEquipment.size();
     }
 
 

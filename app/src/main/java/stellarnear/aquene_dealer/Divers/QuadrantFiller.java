@@ -15,9 +15,11 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import stellarnear.aquene_dealer.Activities.MainActivity;
 import stellarnear.aquene_dealer.Perso.Ability;
 import stellarnear.aquene_dealer.Perso.Perso;

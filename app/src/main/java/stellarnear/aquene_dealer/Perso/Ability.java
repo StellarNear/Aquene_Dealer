@@ -1,9 +1,7 @@
 package stellarnear.aquene_dealer.Perso;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
-import android.preference.PreferenceManager;
 
 /**
  * Created by jchatron on 04/01/2018.

@@ -1,5 +1,6 @@
 package stellarnear.aquene_dealer.Activities;
 
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
@@ -13,13 +14,12 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.app.Fragment;
 import android.view.Display;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.Surface;
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
@@ -30,8 +30,8 @@ import android.widget.VideoView;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import stellarnear.aquene_dealer.R;
 import stellarnear.aquene_dealer.Perso.Perso;
+import stellarnear.aquene_dealer.R;
 
 
 public class MainActivity extends AppCompatActivity {

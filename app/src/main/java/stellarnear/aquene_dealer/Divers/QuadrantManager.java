@@ -4,13 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 import android.widget.LinearLayout;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
-import stellarnear.aquene_dealer.Activities.MainActivity;
-import stellarnear.aquene_dealer.Perso.Perso;
+import java.util.Arrays;
+import java.util.List;
+
 import stellarnear.aquene_dealer.R;
 
 /**

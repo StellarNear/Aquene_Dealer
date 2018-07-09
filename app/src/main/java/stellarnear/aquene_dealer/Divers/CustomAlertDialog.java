@@ -21,7 +21,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-
 import java.util.Random;
 
 import stellarnear.aquene_dealer.Activities.MainActivity;

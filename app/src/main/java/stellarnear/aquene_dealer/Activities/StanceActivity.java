@@ -213,7 +213,7 @@ public class StanceActivity extends AppCompatActivity {
         name.setText(nameTxt);
         TextView descr = view.findViewById(R.id.toast_textDescr);
         descr.setText(descrTxt);
-        tools.toastStanceTooltip(mC,view,"long");
+        tools.toastTooltipCustomView(mC,view,"long");
     }
 
     private void unCheckAllRadio(RadioButton selectedButton) {

@@ -3,7 +3,6 @@ package stellarnear.aquene_dealer.Divers;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.view.Gravity;
-import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;

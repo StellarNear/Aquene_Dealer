@@ -19,8 +19,15 @@ public class Equipment {
         this.descr = descr;
         this.slotId = slotId;
         this.mC = mC;
-        int imgId=mC.getResources().getIdentifier(imgIdTxt, "drawable", mC.getPackageName());
-        this.img = mC.getDrawable(imgId);
+        int imgId= 0;
+        try {
+            imgId = mC.getResources().getIdentifier(imgIdTxt, "drawable", mC.getPackageName());
+            this.img = mC.getDrawable(imgId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            this.img=null;
+        }
+
     }
 
     public String getName() {

@@ -3,13 +3,10 @@ package stellarnear.aquene_dealer.Divers;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-
 import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
-
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
-
 
 import stellarnear.aquene_dealer.R;
 
