@@ -22,8 +22,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import stellarnear.aquene_dealer.Activities.MainActivity;
 import stellarnear.aquene_dealer.Perso.Feat;
 import stellarnear.aquene_dealer.Perso.Perso;
@@ -31,10 +33,11 @@ import stellarnear.aquene_dealer.Perso.Skill;
 import stellarnear.aquene_dealer.R;
 
 public class SettingsFragment extends PreferenceFragment {
-    private List<Integer> histoXML=new ArrayList<>();
-    private List<String> histoTitle=new ArrayList<>();
+    private List<Integer> histoXML = new ArrayList<>();
+    private List<String> histoTitle = new ArrayList<>();
     private Perso aquene = MainActivity.aquene;
-    private List<View> additionalsViews= new ArrayList<>();
+    private List<View> additionalsViews = new ArrayList<>();
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +46,7 @@ public class SettingsFragment extends PreferenceFragment {
         histoTitle.add(getResources().getString(R.string.setting_activity));
     }
 
-    public void changePrefScreen(int xmlId,String title) {
+    public void changePrefScreen(int xmlId, String title) {
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(title.toString());
         getPreferenceScreen().removeAll();
         addPreferencesFromResource(xmlId);
@@ -51,7 +54,7 @@ public class SettingsFragment extends PreferenceFragment {
 
     // will be called by SettingsActivity (Host Activity)
     public void onUpButton() {
-        if (histoXML.get(histoXML.size()-1) == R.xml.pref || histoXML.size()<=1) // in top-level
+        if (histoXML.get(histoXML.size() - 1) == R.xml.pref || histoXML.size() <= 1) // in top-level
         {
             Intent intent = new Intent(getActivity(), MainActivity.class);// Switch to MainActivity
             intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
@@ -60,27 +63,28 @@ public class SettingsFragment extends PreferenceFragment {
         } else // in sub-level
         {
             cleanAdditionals();
-            changePrefScreen(histoXML.get(histoXML.size()-2),histoTitle.get(histoTitle.size()-2));
-            histoXML.remove(histoXML.size()-1); histoTitle.remove(histoTitle.size()-1);
+            changePrefScreen(histoXML.get(histoXML.size() - 2), histoTitle.get(histoTitle.size() - 2));
+            histoXML.remove(histoXML.size() - 1);
+            histoTitle.remove(histoTitle.size() - 1);
         }
     }
 
     private void cleanAdditionals() {
         ContentFrameLayout window = (ContentFrameLayout) getActivity().findViewById(android.R.id.content);
-        for (View v : additionalsViews){
+        for (View v : additionalsViews) {
             window.removeView(v);
         }
-        additionalsViews=new ArrayList<>();
+        additionalsViews = new ArrayList<>();
     }
 
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
         String key = preference.getKey();
-        int xmlID =  getResources().getIdentifier(key, "xml", getContext().getPackageName());
+        int xmlID = getResources().getIdentifier(key, "xml", getContext().getPackageName());
         if (key.contains("pref_")) {
             histoXML.add(xmlID);
             histoTitle.add(preference.getTitle().toString());
-            changePrefScreen(xmlID,preference.getTitle().toString());
+            changePrefScreen(xmlID, preference.getTitle().toString());
             switch (key) {
                 case "pref_character_feat":
                     addFeatsList();
@@ -95,14 +99,17 @@ public class SettingsFragment extends PreferenceFragment {
                     histoXML.add(xmlID);
                     histoTitle.add(preference.getTitle().toString());
                     getPreferenceScreen().removeAll();
+                    ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(preference.getTitle().toString());
                     addInfos();
                     break;
                 case "reset_para":
-                    getPreferenceScreen().removeAll();
+                    ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(preference.getTitle().toString());
+                    ((ContentFrameLayout) getActivity().findViewById(android.R.id.content)).removeAllViews();
                     addResetScreen();
                     break;
                 case "sleep":
-                    getPreferenceScreen().removeAll();
+                    ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(preference.getTitle().toString());
+                    ((ContentFrameLayout) getActivity().findViewById(android.R.id.content)).removeAllViews();
                     addSleepScreen();
                     break;
                 case "show_equipment":

@@ -17,9 +17,10 @@
 
     <PreferenceScreen
         android:key="pref_appli"
-        android:summary="Paramètres généraux de l'application"
-        android:icon="@drawable/ic_smartphone"
-        android:title="Paramètres et informations de l'application" />
+        android:title="Gestion de l'application"
+        android:summary="Paramètres et informations de l'application"
+        android:icon="@drawable/ic_smartphone" />
+
 
 
     <PreferenceScreen
@@ -31,8 +32,8 @@
     <PreferenceScreen
         android:key="sleep"
         android:icon="@drawable/ic_brightness_3_black_24dp"
-        android:title="Repos (une bonne nuit de sommeil)"
-        android:summary="Réinitialise les aptitudes journalieres"/>
+        android:title="Repos "
+        android:summary="Une bonne nuit de sommeil"/>
 
 
 </PreferenceScreen>
