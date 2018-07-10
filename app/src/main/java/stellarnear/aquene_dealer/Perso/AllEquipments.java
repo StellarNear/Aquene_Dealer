@@ -3,8 +3,10 @@ package stellarnear.aquene_dealer.Perso;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Point;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -19,9 +21,12 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,26 +43,29 @@ import stellarnear.aquene_dealer.R;
 
 public class AllEquipments {
 
-    private Map<String, Equipment> mapIDEquipment = new HashMap<>();
+    //private Map<String, Equipment> mapIDEquipment = new HashMap<>();
     private List<Equipment> listEquipment = new ArrayList<>();
-    private Map<String, Equipment> mapIDBag = new HashMap<>();
-    private List<Equipment> listBag = new ArrayList<>();
-    private Map<String, Equipment> mapIDOther = new HashMap<>();
+    //private Map<String, Equipment> mapIDOther = new HashMap<>();
     private List<Equipment> listOther = new ArrayList<>();
+    //private Map<String, Equipment> mapIDBag = new HashMap<>();
+    private List<Equipment> listBag = new ArrayList<>();
     private Context mC;
     private Tools tools = new Tools();
     private View equipView;
 
     public AllEquipments(Context mC) {
         this.mC = mC;
-        buildList("equipped_slot", mapIDEquipment, listEquipment);
-        buildList("unequipped", mapIDBag, listBag);
-        buildList("equipped_slotless", mapIDOther, listOther);
+        buildList("equipped_slot", listEquipment);
+        buildList("equipped_slotless", listOther);
+
+        buildBag();
     }
 
-    private void buildList(String tag, Map<String, Equipment> map, List<Equipment> list) {
+
+    private void buildList(String tag, List<Equipment> list) {
         try {
             InputStream is = mC.getAssets().open("equipment.xml");
+
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(is);
@@ -71,17 +79,63 @@ public class AllEquipments {
                     Equipment equi = new Equipment(
                             readValue("name", element2),
                             readValue("descr", element2),
+                            readValue("value", element2),
                             readValue("imgId", element2),
                             readValue("slotId", element2),
                             mC);
                     list.add(equi);
-                    map.put(equi.getSlotId(), equi);
+                    //map.put(equi.getSlotId(), equi);
                 }
             }
             is.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void buildBag() {
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mC);
+        String rawBagPref = settings.getString("bag_unequipped_pref", "");
+
+        String rawToParse = "";
+        if (!rawBagPref.equalsIgnoreCase("")) {
+            rawToParse = rawBagPref;
+        } else {
+            rawToParse = readXMLBag();
+        }
+
+        for (String line : rawToParse.split("\n")) {
+            String name = "";
+            String value = "";
+
+            try {
+                name = line.substring(0, line.indexOf("("));
+                value = line.substring(line.indexOf("(")+1, line.indexOf(")"));
+            } catch (Exception e) {
+                name=line;
+                e.printStackTrace();
+            }
+
+            Equipment equi = new Equipment(name, "", value, "", "", mC);
+            listBag.add(equi);
+        }
+    }
+
+    private String readXMLBag() {
+        String rawBagXML = "";
+        try {
+            InputStream is = mC.getAssets().open("equipment.xml");
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(is);
+            Element element = doc.getDocumentElement();
+            element.normalize();
+            rawBagXML = doc.getElementsByTagName("unequipped").item(0).getFirstChild().getNodeValue();
+            is.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return rawBagXML;
     }
 
     private String readValue(String tag, Element element) {
@@ -183,32 +237,37 @@ public class AllEquipments {
         TextView name = view.findViewById(R.id.toast_textName);
         name.setText(equi.getName());
         TextView descr = view.findViewById(R.id.toast_textDescr);
-        descr.setText(equi.getDescr());
+        String descrTxt = "Valeur : " + equi.getValue();
+        if (!equi.getDescr().equalsIgnoreCase("")){ descrTxt+= "\n\n" + equi.getDescr();}
+        descr.setText( descrTxt );
         tools.toastTooltipCustomView(mC, view, "long");
     }
 
     private void toatListInfo(Activity mA, List<Equipment> equipmentsList) {
 
         LayoutInflater inflater = mA.getLayoutInflater();
-        View view = inflater.inflate(R.layout.custom_toast_slotless_list_info,(ViewGroup) mA.findViewById(R.id.toast_list_RelativeLayout));
+        View view = inflater.inflate(R.layout.custom_toast_slotless_list_info, (ViewGroup) mA.findViewById(R.id.toast_list_RelativeLayout));
         LinearLayout scrollLin = view.findViewById(R.id.toast_list_scroll_mainlin);
-        for (Equipment equi:equipmentsList){
-            View yourLayout = inflater.inflate(R.layout.custom_toast_slotless_list_element,scrollLin, false);
-            ImageView img =  yourLayout.findViewById(R.id.toast_list_element_image);
+        for (Equipment equi : equipmentsList) {
+            View yourLayout = inflater.inflate(R.layout.custom_toast_slotless_list_element, scrollLin, false);
+            ImageView img = yourLayout.findViewById(R.id.toast_list_element_image);
             img.setImageDrawable(equi.getImg());
             TextView name = yourLayout.findViewById(R.id.toast_list_element_textName);
             name.setText(equi.getName());
             TextView descr = yourLayout.findViewById(R.id.toast_list_element_textDescr);
-            descr.setText(equi.getDescr());
+
+            String descrTxt = "Valeur : " + equi.getValue();
+            if (!equi.getDescr().equalsIgnoreCase("")){ descrTxt+= "\n\n" + equi.getDescr();}
+            descr.setText( descrTxt );
 
             scrollLin.addView(yourLayout);
         }
 
-        tools.toastTooltipCustomView(mC,view,"long");
+        tools.toastTooltipCustomView(mC, view, "long");
     }
 
     public int getAllItemsCount() {
-        return listBag.size() + listEquipment.size();
+        return listBag.size() + listEquipment.size() + listOther.size();
     }
 
 

@@ -11,12 +11,14 @@
     <equipped_slot>
         <name>Amulette des poings invincibles (+5)</name>
         <descr>+5 jet d’attaque et dégats</descr>
+        <value>100 000 po</value>
         <imgId>equipment_neck</imgId>
         <slotId>neck_slot</slotId>
     </equipped_slot>
     <equipped_slot>
         <name>Anneau de régénération</name>
         <descr>+1 pv / round , les membres repoussent, immunise aux saignements</descr>
+        <value>90000 po</value>
         <imgId>equipment_regen_ring</imgId>
         <slotId>ring2_slot</slotId>
     </equipped_slot>
@@ -43,6 +45,7 @@
     <equipped_slot>
         <name>Cape de resistances draconique</name>
         <descr>+5 à tout les jet de resistances</descr>
+        <value>25 000 po</value>
         <imgId>equipment_cloak</imgId>
         <slotId>shoulder_slot</slotId>
     </equipped_slot>
@@ -63,6 +66,7 @@
     <equipped_slot>
         <name>Ceinture de force de geant </name>
         <descr>+4 Force</descr>
+        <value>16 000 po</value>
         <imgId>equipment_belt</imgId>
         <slotId>belt_slot</slotId>
     </equipped_slot>
@@ -73,20 +77,21 @@
     <equipped_slotless>
         <name>Pierres d'ioun de dextérité</name>
         <descr>+2 dex</descr>
+        <value>8 000 po</value>
         <imgId>equipment_ioun_dex</imgId>
     </equipped_slotless>
     <equipped_slotless>
         <name>Pierres d'ioun d'intuition</name>
         <descr>+1 CA</descr>
+        <value>5 000 po</value>
         <imgId>equipment_ioun_ca</imgId>
     </equipped_slotless>
-
     <equipped_slotless>
         <name>Pierres d'ioun</name>
         <descr>+1 CA</descr>
-        <imgId>equipment_ioun_ca</imgId>
+        <value>5 000 po</value>
+        <imgId>equipment_ioujn_ca</imgId>
     </equipped_slotless>
-
     <equipped_slotless>
         <name>Griffe du premier dragon du temps</name>
         <descr>Tout dragon est amical</descr>
@@ -94,9 +99,13 @@
     </equipped_slotless>
 
 
-
     <!-- BAG -->
-
-
+    <unequipped>Blabla pas cher(20 po)
+un truc qui est la depuis longtemp(700 po)
+blabla cher(7 000 po)
+poudre d'aluminium(1 po)
+un parcheminn
+un autre parchemin</unequipped>
 
 </records>
+

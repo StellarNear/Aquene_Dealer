@@ -10,18 +10,24 @@ import android.graphics.drawable.Drawable;
 public class Equipment {
     private String name;
     private String descr;
+    private String value;
     private String slotId;
     private Context mC;
     private Drawable img;
 
-    public Equipment(String name,String descr, String imgIdTxt,String slotId, Context mC) {
+    public Equipment(String name,String descr,String value, String imgIdTxt,String slotId, Context mC) {
         this.name = name;
         this.descr = descr;
+        if (value.equalsIgnoreCase("")){
+            this.value="-";
+        } else {
+            this.value=value;
+        }
+
         this.slotId = slotId;
         this.mC = mC;
-        int imgId= 0;
         try {
-            imgId = mC.getResources().getIdentifier(imgIdTxt, "drawable", mC.getPackageName());
+            int imgId = mC.getResources().getIdentifier(imgIdTxt, "drawable", mC.getPackageName());
             this.img = mC.getDrawable(imgId);
         } catch (Exception e) {
             e.printStackTrace();
@@ -45,6 +51,8 @@ public class Equipment {
     public Drawable getImg(){
         return this.img;
     }
+
+    public String getValue() {return this.value;}
 
 }
 

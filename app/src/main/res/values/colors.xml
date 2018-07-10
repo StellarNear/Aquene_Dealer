@@ -75,6 +75,7 @@
     <color name="end_gradient_dice_detail_crit">@color/colorPrimary</color>
     <color name="fireText">#FF0000</color>
     <color name="information">#81BEF7</color>
+    <color name="information_light">#d4e9ff</color>
     <color name="back_gif_player">#d3d3d5</color>
 
 
