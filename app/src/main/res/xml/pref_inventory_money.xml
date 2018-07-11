@@ -2,7 +2,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <stellarnear.aquene_dealer.Divers.EditTextPreference
         android:defaultValue="0"
-        android:key="money_p"
+        android:key="money_plat"
         android:title="Nombre de pièces de platine"
         android:selectAllOnFocus="true"
         android:singleLine="true"
@@ -10,7 +10,7 @@
         android:summary="Valeur : %s"/>
     <stellarnear.aquene_dealer.Divers.EditTextPreference
         android:defaultValue="0"
-        android:key="money_g"
+        android:key="money_gold"
         android:title="Nombre de pièces d'or"
         android:selectAllOnFocus="true"
         android:singleLine="true"
@@ -18,7 +18,7 @@
         android:summary="Valeur : %s"/>
     <stellarnear.aquene_dealer.Divers.EditTextPreference
         android:defaultValue="0"
-        android:key="money_s"
+        android:key="money_silver"
         android:title="Nombre de pièces d'argent"
         android:selectAllOnFocus="true"
         android:singleLine="true"
@@ -26,7 +26,7 @@
         android:summary="Valeur : %s"/>
     <stellarnear.aquene_dealer.Divers.EditTextPreference
         android:defaultValue="0"
-        android:key="money_c"
+        android:key="money_copper"
         android:title="Nombre de pièces de cuivre"
         android:selectAllOnFocus="true"
         android:singleLine="true"

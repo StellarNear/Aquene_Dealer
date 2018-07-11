@@ -3,12 +3,6 @@
 
 
     <PreferenceScreen
-        android:key="pref_inventory_money"
-        android:icon="@drawable/ic_cash"
-        android:summary="Gestion des pièces de platine, or, argent, cuivre"
-        android:title="Monnaie" />
-
-    <PreferenceScreen
         android:key="show_equipment"
         android:icon="@drawable/ic_binoculars"
         android:summary="Affiche l'inventaire du personnage"
@@ -19,5 +13,18 @@
         android:icon="@drawable/ic_power_ring"
         android:summary="Bague légendaire de Bruhni le Dragon Sauvage"
         android:title="Aaleilis l'exaltée" />
+
+    <PreferenceScreen
+        android:key="pref_inventory_money"
+        android:icon="@drawable/ic_cash"
+        android:summary="Gestion des pièces de platine, or, argent, cuivre"
+        android:title="Monnaie" />
+
+    <stellarnear.aquene_dealer.Divers.EditTextPreference
+        android:defaultValue="@string/jet_att_DEF"
+        android:key="bag_unequipped_list"
+        android:icon="@drawable/ic_bag"
+        android:summary="Objets non équipés :\n%s"
+        android:title="Gestion des objets du sac"   />
 
 </PreferenceScreen>

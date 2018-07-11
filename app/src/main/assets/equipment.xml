@@ -90,7 +90,7 @@
         <name>Pierres d'ioun</name>
         <descr>+1 CA</descr>
         <value>5 000 po</value>
-        <imgId>equipment_ioujn_ca</imgId>
+        <imgId>equipment_ioun_ca</imgId>
     </equipped_slotless>
     <equipped_slotless>
         <name>Griffe du premier dragon du temps</name>
@@ -100,12 +100,11 @@
 
 
     <!-- BAG -->
-    <unequipped>Blabla pas cher(20 po)
-un truc qui est la depuis longtemp(700 po)
-blabla cher(7 000 po)
-poudre d'aluminium(1 po)
-un parcheminn
-un autre parchemin</unequipped>
-
+    <unequipped>diamant de ouf[2000 po]
+vielle chaussette(ca pue)[10pc]
+super potion rarissime[7 000 po](aucune idée de ce qu'elle fait)
+poudre d'aluminium(ca brille)[1 po]
+un parcheminn[10pa]
+un autre parchemin[10pa]</unequipped>
 </records>
 

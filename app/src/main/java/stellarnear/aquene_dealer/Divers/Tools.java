@@ -125,6 +125,12 @@ public class Tools {
         return value;
     }
 
+    public Long toLong(String key) {
+        Long value = 0L;
+        try {   value = Long.parseLong(key);  } catch (Exception e) {     }
+        return value;
+    }
+
     public Boolean toBool(String key) {
         Boolean value = false;
         try {

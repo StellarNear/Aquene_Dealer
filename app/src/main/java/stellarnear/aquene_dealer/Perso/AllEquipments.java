@@ -6,9 +6,11 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Point;
+import android.graphics.drawable.Drawable;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.view.Display;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,14 +52,15 @@ public class AllEquipments {
     //private Map<String, Equipment> mapIDBag = new HashMap<>();
     private List<Equipment> listBag = new ArrayList<>();
     private Context mC;
+    private  SharedPreferences settings;
     private Tools tools = new Tools();
     private View equipView;
 
     public AllEquipments(Context mC) {
         this.mC = mC;
+        settings = PreferenceManager.getDefaultSharedPreferences(mC);
         buildList("equipped_slot", listEquipment);
         buildList("equipped_slotless", listOther);
-
         buildBag();
     }
 
@@ -94,29 +97,51 @@ public class AllEquipments {
     }
 
     private void buildBag() {
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mC);
-        String rawBagPref = settings.getString("bag_unequipped_pref", "");
+        listBag = new ArrayList<>();
+        String rawBagPref = settings.getString("bag_unequipped_list", "");
 
         String rawToParse = "";
         if (!rawBagPref.equalsIgnoreCase("")) {
             rawToParse = rawBagPref;
         } else {
             rawToParse = readXMLBag();
+            settings.edit().putString("bag_unequipped_list",rawToParse).apply();
         }
 
         for (String line : rawToParse.split("\n")) {
+            String lineTrim=line.trim();
             String name = "";
+            String descr = "";
             String value = "";
 
+            int indexFirstKeyDescr = -1;
+            int indexFirstKeyVal = -1;
             try {
-                name = line.substring(0, line.indexOf("("));
-                value = line.substring(line.indexOf("(")+1, line.indexOf(")"));
+                descr = lineTrim.substring(lineTrim.indexOf("(")+1, lineTrim.indexOf(")"));
+                indexFirstKeyDescr=lineTrim.indexOf("(");
             } catch (Exception e) {
-                name=line;
+                e.printStackTrace();
+            }
+            try {
+                value= lineTrim.substring(lineTrim.indexOf("[")+1, lineTrim.indexOf("]"));
+                indexFirstKeyVal=lineTrim.indexOf("[");
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
-            Equipment equi = new Equipment(name, "", value, "", "", mC);
+            int indexFirstKey=0;
+            if ((indexFirstKeyDescr<indexFirstKeyVal && indexFirstKeyDescr>0) || (indexFirstKeyDescr>0 && indexFirstKeyVal<0)){
+                indexFirstKey=indexFirstKeyDescr;
+            } else if (indexFirstKeyVal>0){
+                indexFirstKey=indexFirstKeyVal;
+            }
+
+            if (indexFirstKey>0) {
+                name = lineTrim.substring(0, indexFirstKey);
+            } else {
+                name = lineTrim;
+            }
+            Equipment equi = new Equipment(name, descr, value, "", "", mC);
             listBag.add(equi);
         }
     }
@@ -194,6 +219,7 @@ public class AllEquipments {
             img.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    buildBag();
                     toatListInfo(mA, listBag);
                 }
             });
@@ -243,47 +269,58 @@ public class AllEquipments {
     }
 
     private void toatListInfo(Activity mA, List<Equipment> equipmentsList) {
-
         LayoutInflater inflater = mA.getLayoutInflater();
-        View view = inflater.inflate(R.layout.custom_toast_slotless_list_info, (ViewGroup) mA.findViewById(R.id.toast_list_RelativeLayout));
-
+        View view = inflater.inflate(R.layout.custom_toast_slotless_list_info, null);
         if(equipmentsList.equals(listBag)){
-            LinearLayout mainlin = view.findViewById(R.id.toast_list_linear);
-            LinearLayout money = new LinearLayout(mC);
-            money.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-
-            for(int i=0;i<=3;i++) {
-                TextView text = new TextView(mC);
-            text.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
-            text.setText("bon bah "+String.valueOf(i));
-            money.addView(text);
-            }
-            mainlin.addView(money,0);
+            LinearLayout money = view.findViewById(R.id.toast_list_money);
+            money.setVisibility(View.VISIBLE);
+            TextView title = view.findViewById(R.id.toast_list_title);
+            title.setText("Inventaire du sac");
+            ((TextView)view.findViewById(R.id.money_plat_text)).setText(getMoney("money_plat"));
+            ((TextView)view.findViewById(R.id.money_gold_text)).setText(getMoney("money_gold"));
+            ((TextView)view.findViewById(R.id.money_silver_text)).setText(getMoney("money_silver"));
+            ((TextView)view.findViewById(R.id.money_copper_text)).setText(getMoney("money_copper"));
         }
 
         LinearLayout scrollLin = view.findViewById(R.id.toast_list_scroll_mainlin);
+        scrollLin.removeAllViews();
         for (Equipment equi : equipmentsList) {
-            View yourLayout = inflater.inflate(R.layout.custom_toast_slotless_list_element, scrollLin, false);
+            View yourLayout = inflater.inflate(R.layout.custom_toast_slotless_list_element, null);
             ImageView img = yourLayout.findViewById(R.id.toast_list_element_image);
             img.setImageDrawable(equi.getImg());
             TextView name = yourLayout.findViewById(R.id.toast_list_element_textName);
             name.setText(equi.getName());
             TextView descr = yourLayout.findViewById(R.id.toast_list_element_textDescr);
-
             String descrTxt = "Valeur : " + equi.getValue();
             if (!equi.getDescr().equalsIgnoreCase("")){ descrTxt+= "\n\n" + equi.getDescr();}
             descr.setText( descrTxt );
-
             scrollLin.addView(yourLayout);
         }
 
         tools.toastTooltipCustomView(mC, view, "long");
     }
 
+    private String getMoney(String key) {
+        long money = tools.toLong(settings.getString(key,"0"));
+        String appendix ="";
+        if (money>=1000000000){
+            money = money/1000000000;
+            appendix+="G";
+        }
+        if (money>=1000000){
+            money = money/1000000;
+            appendix+="M";
+        }
+        if (money>=1000){
+            money = money/1000;
+            appendix+="k";
+        }
+        String moneyTxt = String.valueOf(money)+appendix;
+        return moneyTxt;
+    }
+
     public int getAllItemsCount() {
         return listBag.size() + listEquipment.size() + listOther.size();
     }
-
-
 }
 

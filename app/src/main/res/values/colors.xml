@@ -79,5 +79,8 @@
     <color name="back_gif_player">#d3d3d5</color>
 
 
+    <color name="start_gradient_money_inventory">@android:color/darker_gray</color>
+    <color name="end_gradient_money_inventory">#000000</color>
+
 
 </resources>

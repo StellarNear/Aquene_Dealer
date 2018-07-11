@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="version">"v1.6"</string>
-    <string name="time_spend">"140h"</string>
+    <string name="time_spend">"148h"</string>
     <string name="basic_infos">"Cette application est développée par player 1 pour son player 2. Développée avec amour par Jérémie Chatron en fin 2017-2018." </string>
     <string name="patch_list">"----------------------------------------------------------------------------------
 v1.6
--Ajout d'une nouvelle icone à lécran principal dans les caracs avancées
--Ajout d'un menu d'équipement
+-Ajout d'une nouvelle icone à l'écran principal dans les caracs avancées
+-Ajout d'un nouveau type de fenetre popup pour montrer l'équipement
 -Nouvelle objet dans le personnage pour gerer dynamiquement l'ensemble des objets à partir d'un parsing de XML
 -Affichage des objets présent (placeholder passe en vert)
 -En cliquant sur l'objet ouverture d'un toast avec les detail et l'image de l'objet
 -Création et importation de l'ensemble des images des placeholders et des images des objets d'Aquene
--Ajout d'un système de Paramètres imbriqués (pour une navigation plus intuitive)
--Ajout d'un menu Inventaire (avec possibilité d'ouvrir l'équipement)
+-Ajout d'un système de Paramètres (settings) imbriqués (pour une navigation plus intuitive)
 -Ajout d'un menu Monnaie
+-Ajout d'un menu Inventaire (avec possibilité d'ouvrir l'équipement)
 -Création d'icones de paramètre pour : Inventaire, Monnaie, Examiner equipement, Charac de base, Ressoruces, CA , Jets de sauvegarde
 -Popup avec liste défilante d'objets pour les objets sans empalcement
+-Ajout d'un affichage du sac + monnaie (calul des grosses sommes k,M,G)
+-Ajout d'une gestion du sac par édition d'une liste de texte simple qui est interprétée symboles () pour la description [] pour la valeur et chaque nouvelle ligne est un objet
 ----------------------------------------------------------------------------------
 v1.5
 -Ajout d'une nouvelle cinématique de campagne : La gardienne de l'illusion
