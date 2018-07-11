@@ -29,11 +29,14 @@
 
     </FrameLayout>
 
-    <FrameLayout
+    <LinearLayout
+        android:id="@+id/toast_list_linear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clipChildren="true"
-        android:padding="@dimen/general_margin">
+        android:gravity="center"
+        android:padding="@dimen/general_margin"
+        android:orientation="vertical">
 
         <ScrollView
             android:id="@+id/toast_list_scroll"
@@ -52,5 +55,5 @@
 
 
         </ScrollView>
-    </FrameLayout>
+    </LinearLayout>
 </LinearLayout>
