@@ -197,22 +197,24 @@ public class StanceActivity extends AppCompatActivity {
         name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toatInfo(stance.getId()+"_select",stance.getName(),stance.getDescr());
+                toatInfo(stance);
             }
         });
     }
 
-    public void toatInfo(String imgPath, String nameTxt, String descrTxt) {
+    public void toatInfo(Stance stance) {
         LayoutInflater inflater = getLayoutInflater();
         View view = inflater.inflate(R.layout.custom_toast_info,(ViewGroup) findViewById(R.id.toast_RelativeLayout));
 
         ImageView img =  view.findViewById(R.id.toast_image);
-        int imgId = getResources().getIdentifier(imgPath, "drawable", getPackageName());
+        int imgId = getResources().getIdentifier(stance.getId()+"_select", "drawable", getPackageName());
         img.setImageResource(imgId);
         TextView name = view.findViewById(R.id.toast_textName);
-        name.setText(nameTxt);
+        name.setText(stance.getName());
+        TextView subTitle = view.findViewById(R.id.toast_textVal);
+        subTitle.setText("Type : "+stance.getType());
         TextView descr = view.findViewById(R.id.toast_textDescr);
-        descr.setText(descrTxt);
+        descr.setText(stance.getDescr());
         tools.toastTooltipCustomView(mC,view,"long");
     }
 

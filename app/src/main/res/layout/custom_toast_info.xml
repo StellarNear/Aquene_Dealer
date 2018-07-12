@@ -27,9 +27,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_gravity="center"
-            android:textAlignment="center">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/toast_textName"
@@ -43,11 +41,16 @@
                 android:textColor="@android:color/black"/>
 
             <TextView
+                android:id="@+id/toast_textVal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/general_margin"
+                android:text="sub title"/>
+
+            <TextView
                 android:id="@+id/toast_textDescr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/imageView1"
-                android:layout_gravity="left"
                 android:text="This is the demo of Custom Toast Notification"/>
         </LinearLayout>
     </LinearLayout>

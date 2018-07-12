@@ -258,13 +258,16 @@ public class AllEquipments {
         LayoutInflater inflater = mA.getLayoutInflater();
         View view = inflater.inflate(R.layout.custom_toast_info, (ViewGroup) mA.findViewById(R.id.toast_RelativeLayout));
         ImageView img = view.findViewById(R.id.toast_image);
-        img.setImageDrawable(equi.getImg());
+        if (equi.getImg()!=null){ img.setImageDrawable(equi.getImg());} else {img.setVisibility(View.GONE);}
         TextView name = view.findViewById(R.id.toast_textName);
         name.setText(equi.getName());
+        TextView value = view.findViewById(R.id.toast_textVal);
+        value.setText("Valeur : " + equi.getValue());
         TextView descr = view.findViewById(R.id.toast_textDescr);
-        String descrTxt = "Valeur : " + equi.getValue();
-        if (!equi.getDescr().equalsIgnoreCase("")){ descrTxt+= "\n\n" + equi.getDescr();}
-        descr.setText( descrTxt );
+        if (!equi.getDescr().equalsIgnoreCase("")){
+            descr.setText( equi.getDescr() );
+        } else { descr.setVisibility(View.GONE);}
+
         tools.toastTooltipCustomView(mC, view, "long");
     }
 
@@ -287,13 +290,15 @@ public class AllEquipments {
         for (Equipment equi : equipmentsList) {
             View yourLayout = inflater.inflate(R.layout.custom_toast_slotless_list_element, null);
             ImageView img = yourLayout.findViewById(R.id.toast_list_element_image);
-            img.setImageDrawable(equi.getImg());
+            if (equi.getImg()!=null){ img.setImageDrawable(equi.getImg());} else {img.setVisibility(View.GONE);}
             TextView name = yourLayout.findViewById(R.id.toast_list_element_textName);
             name.setText(equi.getName());
+            TextView value = yourLayout.findViewById(R.id.toast_list_element_textVal);
+            value.setText("Valeur : " + equi.getValue());
             TextView descr = yourLayout.findViewById(R.id.toast_list_element_textDescr);
-            String descrTxt = "Valeur : " + equi.getValue();
-            if (!equi.getDescr().equalsIgnoreCase("")){ descrTxt+= "\n\n" + equi.getDescr();}
-            descr.setText( descrTxt );
+            if (!equi.getDescr().equalsIgnoreCase("")){
+                descr.setText(equi.getDescr());
+            } else { descr.setVisibility(View.GONE);}
             scrollLin.addView(yourLayout);
         }
 
