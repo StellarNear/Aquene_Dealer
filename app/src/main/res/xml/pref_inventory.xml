@@ -21,7 +21,7 @@
         android:title="Monnaie" />
 
     <stellarnear.aquene_dealer.Divers.EditTextPreference
-        android:defaultValue="@string/jet_att_DEF"
+        android:defaultValue=""
         android:key="bag_unequipped_list"
         android:icon="@drawable/ic_bag"
         android:summary="Objets non équipés :\n%s"

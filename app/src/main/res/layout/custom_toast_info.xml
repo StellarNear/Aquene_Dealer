@@ -4,7 +4,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:id="@+id/toast_RelativeLayout"
-    android:background="@drawable/background_border_stance_infos"
+    android:background="@drawable/background_border_infos"
     android:padding="@dimen/general_margin">
 
     <LinearLayout

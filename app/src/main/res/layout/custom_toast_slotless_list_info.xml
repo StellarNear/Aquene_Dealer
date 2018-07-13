@@ -4,7 +4,7 @@
     android:id="@+id/toast_list_RelativeLayout"
     android:layout_width="300dp"
     android:layout_height="wrap_content"
-    android:background="@drawable/background_border_stance_infos"
+    android:background="@drawable/background_border_infos"
     android:gravity="center"
     android:orientation="vertical"
     android:padding="@dimen/general_margin">
