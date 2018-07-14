@@ -35,6 +35,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import stellarnear.aquene_dealer.Divers.CustomToast;
 import stellarnear.aquene_dealer.Divers.Tools;
 import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.Perso.Stance;
@@ -215,7 +216,9 @@ public class StanceActivity extends AppCompatActivity {
         subTitle.setText("Type : "+stance.getType());
         TextView descr = view.findViewById(R.id.toast_textDescr);
         descr.setText(stance.getDescr());
-        tools.toastTooltipCustomView(mC,view,"long");
+        CustomToast ct = new CustomToast(mC,view,"long");
+        ct.clickToHide(view.findViewById(R.id.toast_LinearLayout));
+        ct.showToast();
     }
 
     private void unCheckAllRadio(RadioButton selectedButton) {

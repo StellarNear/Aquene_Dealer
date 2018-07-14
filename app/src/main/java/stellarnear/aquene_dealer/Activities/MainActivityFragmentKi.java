@@ -21,6 +21,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import stellarnear.aquene_dealer.Divers.CustomToast;
 import stellarnear.aquene_dealer.Divers.Tools;
 import stellarnear.aquene_dealer.Perso.KiCapacity;
 import stellarnear.aquene_dealer.Perso.Perso;
@@ -176,7 +177,7 @@ public class MainActivityFragmentKi extends Fragment {
             valid.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                        tools.toastIt(getContext(),"Tu n'as pas assez de points de Ki pour faire cela","center");
+                        new CustomToast(getContext(),"Tu n'as pas assez de points de Ki pour faire cela","center").showToast();
                 }
             });
         }

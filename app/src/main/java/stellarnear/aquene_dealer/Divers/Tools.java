@@ -12,7 +12,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import stellarnear.aquene_dealer.R;
 
 /**
@@ -20,104 +19,6 @@ import stellarnear.aquene_dealer.R;
  */
 
 public class Tools {
-    private boolean stopToast;
-    public void toastIt(final Context mC, String txt, String... modeInput) {
-        // Set the toast and duration
-        stopToast=false;
-        String mode = modeInput.length > 0 ? modeInput[0] : "";
-
-        final Toast mToastToShow = Toast.makeText(mC, txt, Toast.LENGTH_LONG);
-        if(mode.contains("long")){
-            SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mC);
-            int duration = toInt(settings.getString("toast_long_duration", String.valueOf(mC.getResources().getInteger(R.integer.toast_long_duration_DEF))));
-            int toastDurationInMilliSeconds = duration;
-
-            // Set the countdown to display the toast
-            final CountDownTimer toastCountDown;
-            toastCountDown = new CountDownTimer(toastDurationInMilliSeconds, Toast.LENGTH_LONG /*Tick duration*/) {
-                public void onTick(long millisUntilFinished) {
-                    if(!stopToast){  mToastToShow.show();} else { mToastToShow.cancel(); }
-                }
-                public void onFinish() {
-                    mToastToShow.cancel();
-                }
-            };
-            mToastToShow.getView().setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View view, MotionEvent motionEvent) {
-                    stopToast=true;
-                    mToastToShow.cancel();
-                    toastCountDown.onFinish();
-                    return true;
-                }
-            });
-            // Show the toast and starts the countdown
-            if(mode.contains("center")){
-                TextView v = (TextView) mToastToShow.getView().findViewById(android.R.id.message);
-                if( v != null) v.setGravity(Gravity.CENTER);
-            }
-            mToastToShow.setGravity(Gravity.CENTER,0,0);
-            mToastToShow.show();
-            toastCountDown.start();
-        } else {
-            if(mode.contains("center")){
-                TextView v = (TextView) mToastToShow.getView().findViewById(android.R.id.message);
-                if( v != null) v.setGravity(Gravity.CENTER);
-            }
-            mToastToShow.setGravity(Gravity.CENTER,0,0);
-            mToastToShow.show();
-        }
-    }
-
-    public void toastTooltipCustomView(final Context mC, View view, String... modeInput) {
-        // Set the toast and duration
-        stopToast=false;
-        String mode = modeInput.length > 0 ? modeInput[0] : "";
-
-        final Toast mToastToShow = new Toast(mC);
-        mToastToShow.setView(view);
-        mToastToShow.setDuration(Toast.LENGTH_LONG);
-        if(mode.contains("long")){
-            SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mC);
-            int duration = toInt(settings.getString("toast_long_duration", String.valueOf(mC.getResources().getInteger(R.integer.toast_long_duration_DEF))));
-            int toastDurationInMilliSeconds = duration;
-
-            // Set the countdown to display the toast
-            final CountDownTimer toastCountDown;
-            toastCountDown = new CountDownTimer(toastDurationInMilliSeconds, Toast.LENGTH_LONG /*Tick duration*/) {
-                public void onTick(long millisUntilFinished) {
-                    if(!stopToast){  mToastToShow.show();} else { mToastToShow.cancel(); }
-                }
-                public void onFinish() {
-                    mToastToShow.cancel();
-                }
-            };
-            view.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View view, MotionEvent motionEvent) {
-                    stopToast=true;
-                    mToastToShow.cancel();
-                    toastCountDown.onFinish();
-                    return true;
-                }
-            });
-            // Show the toast and starts the countdown
-            if(mode.contains("center")){
-                TextView v = (TextView) mToastToShow.getView().findViewById(android.R.id.message);
-                if( v != null) v.setGravity(Gravity.CENTER);
-            }
-            mToastToShow.setGravity(Gravity.CENTER,0,0);
-            mToastToShow.show();
-            toastCountDown.start();
-        } else {
-            if(mode.contains("center")){
-                TextView v = (TextView) mToastToShow.getView().findViewById(android.R.id.message);
-                if( v != null) v.setGravity(Gravity.CENTER);
-            }
-            mToastToShow.setGravity(Gravity.CENTER,0,0);
-            mToastToShow.show();
-        }
-    }
 
     public Integer toInt(String key) {
         Integer value = 0;

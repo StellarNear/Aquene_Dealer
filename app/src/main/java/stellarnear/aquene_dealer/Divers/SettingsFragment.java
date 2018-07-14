@@ -152,14 +152,14 @@ public class SettingsFragment extends PreferenceFragment {
 
     private void sleep() {
         final Tools tools = new Tools();
-        tools.toastIt(getContext(), "Fais de beaux rêves !", "center");
+        new CustomToast(getContext(), "Fais de beaux rêves !", "center").showToast();
         int time = 2000; // in milliseconds
         Handler h = new Handler();
         h.postDelayed(new Runnable() {
             @Override
             public void run() {
                 MainActivity.aquene.getAllResources().sleepReset();
-                tools.toastIt(getContext(), "Une nouvelle journée pleine de mandales et d'acrobaties t'attends.", "center");
+                new CustomToast(getContext(), "Une nouvelle journée pleine de mandales et d'acrobaties t'attends.", "center").showToast();
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
@@ -202,7 +202,7 @@ public class SettingsFragment extends PreferenceFragment {
                 SharedPreferences.Editor editor = prefs.edit();
                 editor.clear();
                 editor.commit();
-                tools.toastIt(getContext(), "Remise à zero des paramètres de l'application", "center");
+                new CustomToast(getContext(), "Remise à zero des paramètres de l'application", "center").showToast();
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);

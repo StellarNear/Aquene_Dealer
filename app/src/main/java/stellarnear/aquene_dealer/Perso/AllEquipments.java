@@ -36,6 +36,7 @@ import java.util.Map;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import stellarnear.aquene_dealer.Divers.CustomToast;
 import stellarnear.aquene_dealer.Divers.Tools;
 import stellarnear.aquene_dealer.R;
 
@@ -268,7 +269,9 @@ public class AllEquipments {
             descr.setText( equi.getDescr() );
         } else { descr.setVisibility(View.GONE);}
 
-        tools.toastTooltipCustomView(mC, view, "long");
+        CustomToast ct = new CustomToast(mC, view, "long");
+        ct.clickToHide(view.findViewById(R.id.toast_LinearLayout));
+        ct.showToast();
     }
 
     private void toatListInfo(Activity mA, List<Equipment> equipmentsList) {
@@ -302,7 +305,9 @@ public class AllEquipments {
             scrollLin.addView(yourLayout);
         }
 
-        tools.toastTooltipCustomView(mC, view, "long");
+        CustomToast ct = new CustomToast(mC, view, "long");
+        ct.clickToHide(view.findViewById(R.id.toast_list_title_frame));
+        ct.showToast();
     }
 
     private String getMoney(String key) {

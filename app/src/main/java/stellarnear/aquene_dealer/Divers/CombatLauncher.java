@@ -79,7 +79,7 @@ public class CombatLauncher {
                 if(attack.hasSave()){
                     int val = 10+(int)(aquene.getAbilityScore("ability_lvl")/2.0)+aquene.getAbilityMod("ability_sagesse");
                     txt+="\n\nJet de sauvegarde (vigueur) que l'ennemi doit égaler : "+val;}
-                tools.toastIt(mC,txt,"long");
+                new CustomToast(mC,txt,"long").showToast();
             }
         });
         final FloatingActionButton fab = dialogView.findViewById(R.id.fab);
