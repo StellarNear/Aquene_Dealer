@@ -47,6 +47,15 @@
         android:title="Bonus dégats épique"
         />
 
+    <stellarnear.aquene_dealer.Divers.EditTextPreference
+        android:defaultValue="@integer/attack_prouesse_epic_DEF"
+        android:key="attack_prouesse_epic"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:inputType="number"
+        android:summary="Valeur : %s"
+        android:title="Bonus prouesse épique (appliqué à la dernière attaque)" />
+
 
     <SwitchPreference
         android:defaultValue="@bool/switch_amulette_DEF"

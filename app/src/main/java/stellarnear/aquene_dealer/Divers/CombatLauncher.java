@@ -23,6 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import stellarnear.aquene_dealer.Activities.MainActivity;
@@ -227,13 +228,19 @@ public class CombatLauncher {
         if (attack.getId().equalsIgnoreCase("attack_flurry")) {
             String att_base = settings.getString("jet_att_flurry", mC.getString(R.string.jet_att_flurry_DEF));
             String delim = ",";
-            String[] list_att_base_string = att_base.split(delim);
-            if (medusa.isChecked()){  atksRolls.add(new Roll(mA,mC, tools.toInt(list_att_base_string[0]))); atksRolls.add(new Roll(mA,mC, tools.toInt(list_att_base_string[0])));      }
-            if (ki.isChecked()){      atksRolls.add(new Roll(mA,mC, tools.toInt(list_att_base_string[0])));     }
-            if (boots.isChecked()){   atksRolls.add(new Roll(mA,mC, tools.toInt(list_att_base_string[0])));     }
-            if ( settings.getBoolean("switch_temp_rapid",mC.getResources().getBoolean(R.bool.switch_temp_rapid_DEF))) {  atksRolls.add(new Roll(mA,mC, tools.toInt(list_att_base_string[0])));  }
-            for (String each : list_att_base_string) {
-                atksRolls.add(new Roll(mA,mC, tools.toInt(each)));
+            List<String> list_att_base_string = Arrays.asList(att_base.split(delim));
+            List<Integer> list_att_base = tools.toInt(list_att_base_string);
+            int prowess=tools.toInt(settings.getString("attack_prouesse_epic",String.valueOf( mC.getResources().getInteger(R.integer.attack_prouesse_epic_DEF))));
+            if(prowess>0){
+                list_att_base.set(list_att_base.size()-1,list_att_base.get(list_att_base.size()-1)+prowess);  //TODO:faire un truc d'assignation inteligent avec les parametre etc
+            }
+            if (medusa.isChecked()){  atksRolls.add(new Roll(mA,mC, list_att_base.get(0))); atksRolls.add(new Roll(mA,mC, list_att_base.get(0)));      }
+            if (ki.isChecked()){      atksRolls.add(new Roll(mA,mC, list_att_base.get(0)));     }
+            if (boots.isChecked()){   atksRolls.add(new Roll(mA,mC, list_att_base.get(0)));     }
+            if ( settings.getBoolean("switch_temp_rapid",mC.getResources().getBoolean(R.bool.switch_temp_rapid_DEF))) {  atksRolls.add(new Roll(mA,mC, list_att_base.get(0)));  }
+
+            for (Integer each : list_att_base) {
+                    atksRolls.add(new Roll(mA,mC, each));
             }
         } else {
             String att_base = settings.getString("jet_att", mC.getString(R.string.jet_att_DEF));

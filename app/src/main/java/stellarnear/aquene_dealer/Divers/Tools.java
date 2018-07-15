@@ -12,6 +12,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import stellarnear.aquene_dealer.R;
 
 /**
@@ -24,6 +28,14 @@ public class Tools {
         Integer value = 0;
         try {   value = Integer.parseInt(key);  } catch (Exception e) {     }
         return value;
+    }
+
+    public List<Integer> toInt(List<String> listKey) {
+        List<Integer> list=new ArrayList<>();
+        for (String key : listKey){
+            list.add(toInt(key));
+        }
+        return list;
     }
 
     public Long toLong(String key) {

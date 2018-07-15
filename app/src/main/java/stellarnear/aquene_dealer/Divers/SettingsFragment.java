@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -114,6 +115,22 @@ public class SettingsFragment extends PreferenceFragment {
                     break;
                 case "show_equipment":
                     aquene.getAllEquipments().showEquipment(getActivity());
+                    break;
+
+                case "add_current_xp":
+                    /* TODO : finri le bouton ajout
+
+                    preference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                        @Override
+                        public boolean onPreferenceChange(Preference preference, Object o) {
+                            Tools tools=new Tools();
+                            SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
+                            int xp = tools.toInt(settings.getString("current_xp", String.valueOf(getContext().getResources().getInteger(R.integer.current_xp_def))));
+                            int addXp= tools.toInt(settings.getString("add_current_xp", String.valueOf(getContext().getResources().getInteger(R.integer.add_current_xp_def))));
+                            settings.edit().putString("current_xp",String.valueOf(xp+addXp)).apply();
+                            return false;
+                        }
+                    }); */
                     break;
             }
         }

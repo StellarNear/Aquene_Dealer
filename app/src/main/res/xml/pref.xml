@@ -5,7 +5,7 @@
     <PreferenceScreen
         android:key="pref_character"
         android:icon="@drawable/ic_person_black_24dp"
-        android:title="Paramètres généraux"
+        android:title="Personnage"
         android:summary="Statistiques de base du personnage"/>
 
 

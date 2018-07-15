@@ -1,0 +1,31 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <stellarnear.aquene_dealer.Divers.EditTextPreference
+        android:defaultValue="@integer/current_xp_def"
+        android:key="current_xp"
+        android:title="Points d'experience actuels"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:inputType="number"
+        android:summary="Valeur : %s xp"/>
+
+    <!---  TODO finir l'ajout du bouton add
+    <EditTextPreference
+        android:defaultValue="@integer/add_current_xp_def"
+        android:key="add_current_xp"
+        android:title="Ajout d'exeperience"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:inputType="number" /> -->
+
+    <stellarnear.aquene_dealer.Divers.EditTextPreference
+        android:defaultValue="@integer/next_level_def"
+        android:key="next_level"
+        android:title="Points pour le prochain niveau"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:inputType="number"
+        android:summary="Valeur : %s xp"/>
+
+
+</PreferenceScreen>
