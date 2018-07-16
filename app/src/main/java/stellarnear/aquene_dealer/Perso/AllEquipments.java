@@ -6,11 +6,9 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Point;
-import android.graphics.drawable.Drawable;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.view.Display;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,20 +21,15 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import stellarnear.aquene_dealer.Divers.CustomToast;
+import stellarnear.aquene_dealer.Divers.CustomAlertDialog;
 import stellarnear.aquene_dealer.Divers.Tools;
 import stellarnear.aquene_dealer.R;
 
@@ -269,7 +262,7 @@ public class AllEquipments {
             descr.setText( equi.getDescr() );
         } else { descr.setVisibility(View.GONE);}
 
-        CustomToast ct = new CustomToast(mC, view, "long");
+        CustomAlertDialog ct = new CustomAlertDialog(mA,mC, view);
         ct.clickToHide(view.findViewById(R.id.toast_LinearLayout));
         ct.showToast();
     }
@@ -305,7 +298,7 @@ public class AllEquipments {
             scrollLin.addView(yourLayout);
         }
 
-        CustomToast ct = new CustomToast(mC, view, "long");
+        CustomAlertDialog ct = new CustomAlertDialog(mA,mC, view);
         ct.clickToHide(view.findViewById(R.id.toast_list_title_frame));
         ct.showToast();
     }

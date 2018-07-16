@@ -7,7 +7,7 @@ import android.preference.PreferenceManager;
 import java.util.ArrayList;
 import java.util.List;
 
-import stellarnear.aquene_dealer.Divers.CustomToast;
+import stellarnear.aquene_dealer.Divers.CustomAlertDialog;
 import stellarnear.aquene_dealer.Divers.Tools;
 import stellarnear.aquene_dealer.R;
 
@@ -253,7 +253,7 @@ public class Perso {
             modeTxt="défense totale";
             summary="\n(+"+getCaBonusCombatMode(mode)+"CA/-une action simple par round)";
         }
-        new CustomToast(mC,"Mode "+modeTxt+" activé."+summary,"center").showToast();
+        tools.customToast(mC,"Mode "+modeTxt+" activé."+summary,"center");
     }
 
     public AllKiCapacities getAllKiCapacities() {

@@ -35,7 +35,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import stellarnear.aquene_dealer.Divers.CustomToast;
+import stellarnear.aquene_dealer.Divers.CustomAlertDialog;
 import stellarnear.aquene_dealer.Divers.Tools;
 import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.Perso.Stance;
@@ -216,7 +216,7 @@ public class StanceActivity extends AppCompatActivity {
         subTitle.setText("Type : "+stance.getType());
         TextView descr = view.findViewById(R.id.toast_textDescr);
         descr.setText(stance.getDescr());
-        CustomToast ct = new CustomToast(mC,view,"long");
+        CustomAlertDialog ct = new CustomAlertDialog(mA,mC,view);
         ct.clickToHide(view.findViewById(R.id.toast_LinearLayout));
         ct.showToast();
     }

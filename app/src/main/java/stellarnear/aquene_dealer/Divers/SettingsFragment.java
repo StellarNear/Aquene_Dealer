@@ -22,7 +22,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toolbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -169,14 +168,14 @@ public class SettingsFragment extends PreferenceFragment {
 
     private void sleep() {
         final Tools tools = new Tools();
-        new CustomToast(getContext(), "Fais de beaux rêves !", "center").showToast();
+        tools.customToast(getContext(), "Fais de beaux rêves !", "center");
         int time = 2000; // in milliseconds
         Handler h = new Handler();
         h.postDelayed(new Runnable() {
             @Override
             public void run() {
                 MainActivity.aquene.getAllResources().sleepReset();
-                new CustomToast(getContext(), "Une nouvelle journée pleine de mandales et d'acrobaties t'attends.", "center").showToast();
+                tools.customToast(getContext(), "Une nouvelle journée pleine de mandales et d'acrobaties t'attends.", "center");
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
@@ -219,7 +218,7 @@ public class SettingsFragment extends PreferenceFragment {
                 SharedPreferences.Editor editor = prefs.edit();
                 editor.clear();
                 editor.commit();
-                new CustomToast(getContext(), "Remise à zero des paramètres de l'application", "center").showToast();
+                tools.customToast(getContext(), "Remise à zero des paramètres de l'application", "center");
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);

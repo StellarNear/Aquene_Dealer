@@ -21,14 +21,21 @@
         android:key="switch_manual_diceroll_damage"
         android:title="Lancement manuel dégâts"/>
 
+    <SwitchPreference
+        android:defaultValue="@bool/switch_autoclose_dialog_DEF"
+        android:key="switch_autoclose_dialog"
+        android:title="Popups éphémères"
+        android:summary="Les fenetres d'infos se referment automatiquement"/>
+
     <stellarnear.aquene_dealer.Divers.EditTextPreference
-        android:defaultValue="@integer/toast_long_duration_DEF"
-        android:key="toast_long_duration"
+        android:defaultValue="@integer/custom_alert_long_duration_DEF"
+        android:dependency="switch_autoclose_dialog"
+        android:key="custom_alert_long_duration"
         android:selectAllOnFocus="true"
         android:singleLine="true"
         android:inputType="number"
         android:summary="Valeurs : %s ms"
-        android:title="Durée d'affichage des toasts long"
+        android:title="Durée d'affichage des fenêtres"
         />
 
 

@@ -26,13 +26,16 @@ public class Tools {
 
     public Integer toInt(String key) {
         Integer value = 0;
-        try {   value = Integer.parseInt(key);  } catch (Exception e) {     }
+        try {
+            value = Integer.parseInt(key);
+        } catch (Exception e) {
+        }
         return value;
     }
 
     public List<Integer> toInt(List<String> listKey) {
-        List<Integer> list=new ArrayList<>();
-        for (String key : listKey){
+        List<Integer> list = new ArrayList<>();
+        for (String key : listKey) {
             list.add(toInt(key));
         }
         return list;
@@ -40,7 +43,10 @@ public class Tools {
 
     public Long toLong(String key) {
         Long value = 0L;
-        try {   value = Long.parseLong(key);  } catch (Exception e) {     }
+        try {
+            value = Long.parseLong(key);
+        } catch (Exception e) {
+        }
         return value;
     }
 
@@ -53,8 +59,8 @@ public class Tools {
         return value;
     }
 
-    public Drawable resize(Context mC,Drawable image, int pixelSizeIcon) {
-        Bitmap b = ((BitmapDrawable)image).getBitmap();
+    public Drawable resize(Context mC, Drawable image, int pixelSizeIcon) {
+        Bitmap b = ((BitmapDrawable) image).getBitmap();
         Bitmap bitmapResized = Bitmap.createScaledBitmap(b, pixelSizeIcon, pixelSizeIcon, false);
         return new BitmapDrawable(mC.getResources(), bitmapResized);
     }
@@ -65,4 +71,20 @@ public class Tools {
         Bitmap bitmapResized = Bitmap.createScaledBitmap(b, pixel_size_icon, pixel_size_icon, false);
         return new BitmapDrawable(mC.getResources(), bitmapResized);
     }
+
+
+    public void customToast(Context mC, String txt, String... modeInput) {
+        // Set the toast and duration
+        String mode = modeInput.length > 0 ? modeInput[0] : "";
+        Toast mToastToShow = Toast.makeText(mC, txt, Toast.LENGTH_LONG);
+
+        if (mode.contains("center")) {
+            TextView v = (TextView) mToastToShow.getView().findViewById(android.R.id.message);
+            if (v != null) v.setGravity(Gravity.CENTER);
+        }
+        mToastToShow.setGravity(Gravity.CENTER, 0, 0);
+        mToastToShow.show();
+
+    }
+
 }

@@ -104,7 +104,7 @@ public class CombatLauncherDamageLines {
         int nDices = nD6+nD8+nD10;
         nDicesSet+=1;
         if(nDices==nDicesSet){
-            new CustomToast(mC,"Tu as fini la saisie !","center").showToast();
+            tools.customToast(mC,"Tu as fini la saisie !","center");
             inputDone();
             combatLauncherDamageDetailDialog.changeCancelButtonToOk();
             detailAvailable=true;
@@ -258,7 +258,7 @@ public class CombatLauncherDamageLines {
         if (selectedRolls!=null && !selectedRolls.isEmpty() && detailAvailable){
             combatLauncherDamageDetailDialog.showDialogDetail();
         } else {
-            new CustomToast(mC,"Aucun dégat à afficher","center").showToast();
+            tools.customToast(mC,"Aucun dégat à afficher","center");
         }
     }
 

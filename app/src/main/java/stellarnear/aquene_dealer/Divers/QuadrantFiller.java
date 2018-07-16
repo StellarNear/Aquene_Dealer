@@ -215,7 +215,7 @@ public class QuadrantFiller {
         text.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                 new CustomAlertDialog(mA, mC, abi);
+                 new TestAlertDialog(mA, mC, abi);
             }
         });
     }

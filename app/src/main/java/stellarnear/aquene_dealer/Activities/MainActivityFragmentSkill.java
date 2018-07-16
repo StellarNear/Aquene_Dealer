@@ -16,7 +16,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import stellarnear.aquene_dealer.Divers.CustomAlertDialog;
+import stellarnear.aquene_dealer.Divers.TestAlertDialog;
 import stellarnear.aquene_dealer.Divers.Tools;
 import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.Perso.Skill;
@@ -125,7 +125,7 @@ public class MainActivityFragmentSkill extends Fragment {
         line.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new CustomAlertDialog(getActivity(),getContext(),skill,aquene.getAbilityMod(skill.getAbilityDependence()));
+                new TestAlertDialog(getActivity(),getContext(),skill,aquene.getAbilityMod(skill.getAbilityDependence()));
 
             }
         });

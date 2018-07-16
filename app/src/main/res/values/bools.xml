@@ -43,5 +43,6 @@
     <!-- autres -->
     <bool name="first_step_leg_ring_def">true</bool>
     <bool name="second_step_leg_ring_def">false</bool>
+    <bool name="switch_autoclose_dialog_DEF">true</bool>
 
 </resources>
