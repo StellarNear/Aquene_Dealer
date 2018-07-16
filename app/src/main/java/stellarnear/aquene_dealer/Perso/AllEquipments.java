@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.ColorMatrixColorFilter;
 import android.preference.PreferenceManager;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,8 +19,6 @@ import org.w3c.dom.NodeList;
 
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -42,20 +39,17 @@ public class AllEquipments {
     //private Map<String, Equipment> mapIDOther = new HashMap<>();
     private List<Equipment> listOther = new ArrayList<>();
     //private Map<String, Equipment> mapIDBag = new HashMap<>();
-    private List<Equipment> listBag = new ArrayList<>();
-    private List<String> listTags = new ArrayList<>();
+    private Bag bag;
     private Activity mA;
     private Context mC;
-    private  SharedPreferences settings;
-    private Tools tools = new Tools();
     private View equipView;
 
     public AllEquipments(Context mC) {
         this.mC = mC;
-        settings = PreferenceManager.getDefaultSharedPreferences(mC);
         buildList("equipped_slot", listEquipment);
         buildList("equipped_slotless", listOther);
-        buildBag(); // TODO : objet séparé bag
+        bag = new Bag(mC);
+        bag.buildBag();
     }
 
 
@@ -90,80 +84,6 @@ public class AllEquipments {
         }
     }
 
-    private void buildBag() {
-        listBag = new ArrayList<>();
-        String rawBagPref = settings.getString("bag_unequipped_list", "");
-
-        String rawToParse = "";
-        if (!rawBagPref.equalsIgnoreCase("")) {
-            rawToParse = rawBagPref;
-        } else {
-            rawToParse = readXMLBag();
-            settings.edit().putString("bag_unequipped_list",rawToParse).apply();
-        }
-
-        for (String line : rawToParse.split("\n")) {
-            String lineTrim = line.trim();
-            String name = "";
-            String descr = "";
-            String value = "";
-            String tag = "";
-
-            int indexFirstKeyDescr = 999;
-            int indexFirstKeyVal = 999;
-            int indexFirstKeyTag = 999;
-            try {
-                descr = lineTrim.substring(lineTrim.indexOf("(") + 1, lineTrim.indexOf(")"));
-                indexFirstKeyDescr = lineTrim.indexOf("(");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            try {
-                value = lineTrim.substring(lineTrim.indexOf("[") + 1, lineTrim.indexOf("]"));
-                indexFirstKeyVal = lineTrim.indexOf("[");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            try {
-                tag = lineTrim.substring(lineTrim.indexOf("{") + 1, lineTrim.indexOf("}"));
-                if (!listBag.contains(tag)) {
-                    listTags.add(tag);
-                }
-                indexFirstKeyTag = lineTrim.indexOf("{");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            int indexFirstKey = Collections.min(Arrays.asList(indexFirstKeyDescr, indexFirstKeyVal, indexFirstKeyTag));
-
-            if (indexFirstKey > 0 && indexFirstKey != 999) {
-                name = lineTrim.substring(0, indexFirstKey);
-            } else {
-                name = lineTrim;
-            }
-            Equipment equi = new Equipment(name, descr, value, "", tag, mC);
-            listBag.add(equi);
-        }
-    }
-
-    private String readXMLBag() {
-        String rawBagXML = "";
-        try {
-            InputStream is = mC.getAssets().open("equipment.xml");
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(is);
-            Element element = doc.getDocumentElement();
-            element.normalize();
-            rawBagXML = doc.getElementsByTagName("unequipped").item(0).getFirstChild().getNodeValue();
-            is.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return rawBagXML;
-    }
-
     private String readValue(String tag, Element element) {
         try {
             NodeList nodeList = element.getElementsByTagName(tag).item(0).getChildNodes();
@@ -196,15 +116,15 @@ public class AllEquipments {
                 };
         ColorMatrixColorFilter matrix = new ColorMatrixColorFilter(mat);
 
-        if (listBag.size() > 0) {
+        if (bag.getListBag().size() > 0) {
             int resID = mC.getResources().getIdentifier("bag_slot", "id", mC.getPackageName());
             ImageView img = (ImageView) equipView.findViewById(resID);
             img.getDrawable().setColorFilter(matrix);
             img.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    buildBag();
-                    customInfo(listBag);
+                    bag.buildBag();
+                    customInfo(bag.getListBag());
                 }
             });
         }
@@ -260,16 +180,16 @@ public class AllEquipments {
     private void customInfo(List<Equipment> equipmentsList) {
         LayoutInflater inflater = mA.getLayoutInflater();
         View view = inflater.inflate(R.layout.custom_toast_list_info, null);
-        if(equipmentsList.equals(listBag)){
+        if(equipmentsList.equals(bag.getListBag())){
             LinearLayout money = view.findViewById(R.id.toast_list_money);
             money.setVisibility(View.VISIBLE);
             TextView title = view.findViewById(R.id.toast_list_title);
             title.setText("Inventaire du sac");
-            ((TextView)view.findViewById(R.id.money_plat_text)).setText(getMoney("money_plat"));
-            ((TextView)view.findViewById(R.id.money_gold_text)).setText(getMoney("money_gold"));
-            ((TextView)view.findViewById(R.id.money_silver_text)).setText(getMoney("money_silver"));
-            ((TextView)view.findViewById(R.id.money_copper_text)).setText(getMoney("money_copper"));
-            calculateTagsSums(((LinearLayout) view.findViewById(R.id.linearTagMoney)));
+            ((TextView)view.findViewById(R.id.money_plat_text)).setText(bag.getMoney("money_plat"));
+            ((TextView)view.findViewById(R.id.money_gold_text)).setText(bag.getMoney("money_gold"));
+            ((TextView)view.findViewById(R.id.money_silver_text)).setText(bag.getMoney("money_silver"));
+            ((TextView)view.findViewById(R.id.money_copper_text)).setText(bag.getMoney("money_copper"));
+            bag.calculateTagsSums(((LinearLayout) view.findViewById(R.id.linearTagMoney)));
         }
 
         LinearLayout scrollLin = view.findViewById(R.id.toast_list_scroll_mainlin);
@@ -295,72 +215,10 @@ public class AllEquipments {
         ca.showAlert();
     }
 
-    private String getMoney(String key) {
-        long money = tools.toLong(settings.getString(key,"0"));
-        String appendix ="";
-        if (money>=1000000000){
-            money = money/1000000000;
-            appendix+="G";
-        }
-        if (money>=1000000){
-            money = money/1000000;
-            appendix+="M";
-        }
-        if (money>=1000){
-            money = money/1000;
-            appendix+="k";
-        }
-        String moneyTxt = String.valueOf(money)+appendix;
-        return moneyTxt;
-    }
 
-    private void calculateTagsSums(LinearLayout tagMain) {
-        List<String> displayedTags=new ArrayList<>();
-        if (listTags.size() > 0) {
-            tagMain.removeAllViews();
-            tagMain.setVisibility(View.VISIBLE);
-            for (String tag : listTags) {
-                if (!displayedTags.contains(tag)) {
-                    TextView text = new TextView(mC);
-                    text.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-                    text.setGravity(Gravity.CENTER);
-                    text.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                    text.setText(tag + " : " + getSumPo(tag));
-                    text.setCompoundDrawablesWithIntrinsicBounds(null, null, mC.getDrawable(R.drawable.ic_gold_coin), null);
-                    tagMain.addView(text);
-                    displayedTags.add(tag);
-                }
-            }
-        }
-    }
-
-    private String getSumPo(String tag) {
-        int moneySum = 0;
-        for (Equipment equi : listBag) {
-            if (equi.getSlotId().equalsIgnoreCase(tag)) {
-                moneySum += getPo(equi.getValue());
-            }
-        }
-        return String.valueOf(moneySum);
-    }
-
-    private int getPo(String value) {
-        int po = 0;
-        try {
-            String numberTxt = value.substring(0, value.indexOf("p"));
-            if (value.contains("po")) {
-                po = tools.toInt(numberTxt.trim());
-            } else if (value.contains("pp")) {
-                po = 10 * tools.toInt(numberTxt.trim());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return po;
-    }
 
     public int getAllItemsCount() {
-        return listBag.size() + listEquipment.size() + listOther.size();
+        return bag.getListBag().size() + listEquipment.size() + listOther.size();
     }
 }
 

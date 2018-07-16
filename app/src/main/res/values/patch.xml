@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="version">"v1.61"</string>
-    <string name="time_spend">"153h"</string>
+    <string name="time_spend">"154h"</string>
     <string name="basic_infos">"Cette application est développée par player 1 pour son player 2. Développée avec amour par Jérémie Chatron en fin 2017-2018." </string>
     <string name="patch_list">"----------------------------------------------------------------------------------
 v1.61
 -Ajout du menu d'experience (avec possibilité d'ajouter directement de l'xp)
--Refonte du système de fenetre temporaires
-
+-Refonte du système de fenêtres temporaires (paramètrable dans option d'appli)
 ----------------------------------------------------------------------------------
 v1.6
 -Ajout d'une nouvelle icone à l'écran principal dans les caracs avancées
