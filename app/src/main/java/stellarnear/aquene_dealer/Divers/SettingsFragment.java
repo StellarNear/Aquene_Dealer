@@ -37,6 +37,7 @@ public class SettingsFragment extends PreferenceFragment {
     private List<String> histoTitle = new ArrayList<>();
     private Perso aquene = MainActivity.aquene;
     private List<View> additionalsViews = new ArrayList<>();
+    private Tools tools=new Tools();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -117,19 +118,18 @@ public class SettingsFragment extends PreferenceFragment {
                     break;
 
                 case "add_current_xp":
-                    /* TODO : finri le bouton ajout
-
                     preference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                         @Override
                         public boolean onPreferenceChange(Preference preference, Object o) {
-                            Tools tools=new Tools();
                             SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
                             int xp = tools.toInt(settings.getString("current_xp", String.valueOf(getContext().getResources().getInteger(R.integer.current_xp_def))));
-                            int addXp= tools.toInt(settings.getString("add_current_xp", String.valueOf(getContext().getResources().getInteger(R.integer.add_current_xp_def))));
-                            settings.edit().putString("current_xp",String.valueOf(xp+addXp)).apply();
-                            return false;
+                            settings.edit().putString("current_xp",String.valueOf(xp+tools.toInt(o.toString()))).apply();
+                            settings.edit().putString("add_current_xp",String.valueOf(0)).apply();
+                            getPreferenceScreen().removeAll();
+                            addPreferencesFromResource(R.xml.pref_character_xp); //pour refresh le current
+                            return true;
                         }
-                    }); */
+                    });
                     break;
             }
         }

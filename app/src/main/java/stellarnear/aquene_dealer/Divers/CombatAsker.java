@@ -112,12 +112,10 @@ public class CombatAsker {
         outLeft.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-                // TODO Auto-generated method stub
             }
 
             @Override
             public void onAnimationRepeat(Animation animation) {
-                // TODO Auto-generated method stub
             }
 
             @Override

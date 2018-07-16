@@ -27,7 +27,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|end"
-            android:src="@drawable/ic_undo_black_24dp" />
+            android:src="@drawable/ic_undo_black_24dp"
+            android:layout_margin="@dimen/general_margin"/>
 
     </FrameLayout>
 
@@ -120,6 +121,15 @@
             </FrameLayout>
 
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearTagMoney"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:gravity="center">
         </LinearLayout>
 
         <ScrollView

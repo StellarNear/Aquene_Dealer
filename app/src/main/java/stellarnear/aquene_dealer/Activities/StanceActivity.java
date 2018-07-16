@@ -218,7 +218,7 @@ public class StanceActivity extends AppCompatActivity {
         descr.setText(stance.getDescr());
         CustomAlertDialog ct = new CustomAlertDialog(mA,mC,view);
         ct.clickToHide(view.findViewById(R.id.toast_LinearLayout));
-        ct.showToast();
+        ct.showAlert();
     }
 
     private void unCheckAllRadio(RadioButton selectedButton) {

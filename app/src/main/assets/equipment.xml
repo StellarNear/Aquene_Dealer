@@ -100,10 +100,10 @@
 
 
     <!-- BAG -->
-    <unequipped>diamant de ouf[2000 po]
-vielle chaussette(ca pue)[10pc]
+    <unequipped>diamant de ouf[2000 po]{tag1}
+vielle chaussette(ca pue)[10po]{tag1}
 super potion rarissime[7 000 po](aucune idée de ce qu'elle fait)
-poudre d'aluminium(ca brille)[1 po]
+poudre d'aluminium(ca brille)[1 po]{tag2}
 un parcheminn[10pa]
 un autre parchemin[10pa]</unequipped>
 </records>

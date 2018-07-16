@@ -9,14 +9,13 @@
         android:inputType="number"
         android:summary="Valeur : %s xp"/>
 
-    <!---  TODO finir l'ajout du bouton add
     <EditTextPreference
         android:defaultValue="@integer/add_current_xp_def"
         android:key="add_current_xp"
-        android:title="Ajout d'exeperience"
+        android:title="Ajout d'expérience"
         android:selectAllOnFocus="true"
         android:singleLine="true"
-        android:inputType="number" /> -->
+        android:inputType="number" />
 
     <stellarnear.aquene_dealer.Divers.EditTextPreference
         android:defaultValue="@integer/next_level_def"
@@ -26,6 +25,5 @@
         android:singleLine="true"
         android:inputType="number"
         android:summary="Valeur : %s xp"/>
-
 
 </PreferenceScreen>

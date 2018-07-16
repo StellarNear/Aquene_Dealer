@@ -154,11 +154,9 @@ public class HelpActivity extends AppCompatActivity {
         outToTop.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-                // TODO Auto-generated method stub
             }
             @Override
             public void onAnimationRepeat(Animation animation) {
-                // TODO Auto-generated method stub
             }
 
             @Override

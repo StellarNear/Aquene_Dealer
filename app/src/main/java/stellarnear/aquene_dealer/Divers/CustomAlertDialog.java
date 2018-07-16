@@ -20,6 +20,7 @@ import stellarnear.aquene_dealer.R;
 public class CustomAlertDialog {
     private AlertDialog alert;
     private Context mC;
+    private boolean permanent=false;
     public CustomAlertDialog(Activity mA, Context mC, View view) {
         // Set the toast and duration
         this.mC=mC;
@@ -28,14 +29,14 @@ public class CustomAlertDialog {
         alert = dialogBuilder.create();
     }
 
-    public void showToast() {
+    public void showAlert() {
         alert.show();
         setTimer();
     }
 
     private void setTimer() {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mC);
-        if (settings.getBoolean("switch_autoclose_dialog",mC.getResources().getBoolean(R.bool.switch_autoclose_dialog_DEF))){
+        if (settings.getBoolean("switch_autoclose_dialog",mC.getResources().getBoolean(R.bool.switch_autoclose_dialog_DEF)) && !permanent){
             int duration = new Tools().toInt(settings.getString("custom_alert_long_duration",String.valueOf(mC.getResources().getInteger(R.integer.custom_alert_long_duration_DEF))));
             Handler h = new Handler();
             h.postDelayed(new Runnable() {
@@ -47,7 +48,7 @@ public class CustomAlertDialog {
         }
     }
 
-    public void hideToast() {
+    private void hideToast() {
         alert.dismiss();
     }
 
@@ -58,5 +59,9 @@ public class CustomAlertDialog {
                 hideToast();
             }
         });
+    }
+
+    public void setPermanent(boolean b) {
+        this.permanent=b;
     }
 }

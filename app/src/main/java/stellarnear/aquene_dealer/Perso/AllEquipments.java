@@ -2,17 +2,13 @@ package stellarnear.aquene_dealer.Perso;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.ColorMatrixColorFilter;
-import android.graphics.Point;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AlertDialog;
-import android.view.Display;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -24,6 +20,8 @@ import org.w3c.dom.NodeList;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -45,6 +43,8 @@ public class AllEquipments {
     private List<Equipment> listOther = new ArrayList<>();
     //private Map<String, Equipment> mapIDBag = new HashMap<>();
     private List<Equipment> listBag = new ArrayList<>();
+    private List<String> listTags = new ArrayList<>();
+    private Activity mA;
     private Context mC;
     private  SharedPreferences settings;
     private Tools tools = new Tools();
@@ -55,7 +55,7 @@ public class AllEquipments {
         settings = PreferenceManager.getDefaultSharedPreferences(mC);
         buildList("equipped_slot", listEquipment);
         buildList("equipped_slotless", listOther);
-        buildBag();
+        buildBag(); // TODO : objet séparé bag
     }
 
 
@@ -103,39 +103,46 @@ public class AllEquipments {
         }
 
         for (String line : rawToParse.split("\n")) {
-            String lineTrim=line.trim();
+            String lineTrim = line.trim();
             String name = "";
             String descr = "";
             String value = "";
+            String tag = "";
 
-            int indexFirstKeyDescr = -1;
-            int indexFirstKeyVal = -1;
+            int indexFirstKeyDescr = 999;
+            int indexFirstKeyVal = 999;
+            int indexFirstKeyTag = 999;
             try {
-                descr = lineTrim.substring(lineTrim.indexOf("(")+1, lineTrim.indexOf(")"));
-                indexFirstKeyDescr=lineTrim.indexOf("(");
+                descr = lineTrim.substring(lineTrim.indexOf("(") + 1, lineTrim.indexOf(")"));
+                indexFirstKeyDescr = lineTrim.indexOf("(");
             } catch (Exception e) {
                 e.printStackTrace();
             }
             try {
-                value= lineTrim.substring(lineTrim.indexOf("[")+1, lineTrim.indexOf("]"));
-                indexFirstKeyVal=lineTrim.indexOf("[");
+                value = lineTrim.substring(lineTrim.indexOf("[") + 1, lineTrim.indexOf("]"));
+                indexFirstKeyVal = lineTrim.indexOf("[");
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
-            int indexFirstKey=0;
-            if ((indexFirstKeyDescr<indexFirstKeyVal && indexFirstKeyDescr>0) || (indexFirstKeyDescr>0 && indexFirstKeyVal<0)){
-                indexFirstKey=indexFirstKeyDescr;
-            } else if (indexFirstKeyVal>0){
-                indexFirstKey=indexFirstKeyVal;
+            try {
+                tag = lineTrim.substring(lineTrim.indexOf("{") + 1, lineTrim.indexOf("}"));
+                if (!listBag.contains(tag)) {
+                    listTags.add(tag);
+                }
+                indexFirstKeyTag = lineTrim.indexOf("{");
+            } catch (Exception e) {
+                e.printStackTrace();
             }
 
-            if (indexFirstKey>0) {
+            int indexFirstKey = Collections.min(Arrays.asList(indexFirstKeyDescr, indexFirstKeyVal, indexFirstKeyTag));
+
+            if (indexFirstKey > 0 && indexFirstKey != 999) {
                 name = lineTrim.substring(0, indexFirstKey);
             } else {
                 name = lineTrim;
             }
-            Equipment equi = new Equipment(name, descr, value, "", "", mC);
+            Equipment equi = new Equipment(name, descr, value, "", tag, mC);
             listBag.add(equi);
         }
     }
@@ -168,34 +175,17 @@ public class AllEquipments {
     }
 
     public void showEquipment(Activity mA) {
+        this.mA=mA;
         LayoutInflater inflater = mA.getLayoutInflater();
         equipView = inflater.inflate(R.layout.equipment_dialog, null);
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(mA, R.style.CustomDialog);
-        dialogBuilder.setView(equipView);
-        dialogBuilder.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                // User clicked cancel button
-            }
-        });
-        AlertDialog alertDialog = dialogBuilder.create();
-        alertDialog.show();
-        Display display = mA.getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        Float factor = mC.getResources().getInteger(R.integer.percent_fullscreen_customdialog) / 100f;
-        alertDialog.getWindow().setLayout((int) (factor * size.x), (int) (factor * size.y));
-        Button onlyButton = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
-        LinearLayout.LayoutParams onlyButtonLL = (LinearLayout.LayoutParams) onlyButton.getLayoutParams();
-        onlyButtonLL.width = ViewGroup.LayoutParams.WRAP_CONTENT;
-        onlyButton.setLayoutParams(onlyButtonLL);
-        onlyButton.setTextColor(mC.getColor(R.color.colorBackground));
-        onlyButton.setBackground(mC.getDrawable(R.drawable.button_ok_gradient));
-
-        setImageOnDialog(mA);
+        CustomAlertDialog ca = new CustomAlertDialog(mA,mC,equipView);
+        ca.setPermanent(true);
+        ca.clickToHide(equipView.findViewById(R.id.equipment_dialog_main_title_frame));
+        setImageOnDialog();
+        ca.showAlert();
     }
 
-    private void setImageOnDialog(final Activity mA) {
-
+    private void setImageOnDialog() {
         float[] mat = new float[]
                 {
                         1, 0, 0, 0, 0,
@@ -214,7 +204,7 @@ public class AllEquipments {
                 @Override
                 public void onClick(View v) {
                     buildBag();
-                    toatListInfo(mA, listBag);
+                    customInfo(listBag);
                 }
             });
         }
@@ -225,7 +215,7 @@ public class AllEquipments {
             img.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    toatListInfo(mA, listOther);
+                    customInfo(listOther);
                 }
             });
         }
@@ -238,7 +228,7 @@ public class AllEquipments {
                 img.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        toatInfo(mA, equi);
+                        customInfo(equi);
                     }
                 });
 
@@ -248,7 +238,7 @@ public class AllEquipments {
         }
     }
 
-    private void toatInfo(Activity mA, Equipment equi) {
+    private void customInfo(Equipment equi) {
         LayoutInflater inflater = mA.getLayoutInflater();
         View view = inflater.inflate(R.layout.custom_toast_info, (ViewGroup) mA.findViewById(R.id.toast_RelativeLayout));
         ImageView img = view.findViewById(R.id.toast_image);
@@ -264,12 +254,12 @@ public class AllEquipments {
 
         CustomAlertDialog ct = new CustomAlertDialog(mA,mC, view);
         ct.clickToHide(view.findViewById(R.id.toast_LinearLayout));
-        ct.showToast();
+        ct.showAlert();
     }
 
-    private void toatListInfo(Activity mA, List<Equipment> equipmentsList) {
+    private void customInfo(List<Equipment> equipmentsList) {
         LayoutInflater inflater = mA.getLayoutInflater();
-        View view = inflater.inflate(R.layout.custom_toast_slotless_list_info, null);
+        View view = inflater.inflate(R.layout.custom_toast_list_info, null);
         if(equipmentsList.equals(listBag)){
             LinearLayout money = view.findViewById(R.id.toast_list_money);
             money.setVisibility(View.VISIBLE);
@@ -279,12 +269,13 @@ public class AllEquipments {
             ((TextView)view.findViewById(R.id.money_gold_text)).setText(getMoney("money_gold"));
             ((TextView)view.findViewById(R.id.money_silver_text)).setText(getMoney("money_silver"));
             ((TextView)view.findViewById(R.id.money_copper_text)).setText(getMoney("money_copper"));
+            calculateTagsSums(((LinearLayout) view.findViewById(R.id.linearTagMoney)));
         }
 
         LinearLayout scrollLin = view.findViewById(R.id.toast_list_scroll_mainlin);
         scrollLin.removeAllViews();
         for (Equipment equi : equipmentsList) {
-            View yourLayout = inflater.inflate(R.layout.custom_toast_slotless_list_element, null);
+            View yourLayout = inflater.inflate(R.layout.custom_toast_list_element, null);
             ImageView img = yourLayout.findViewById(R.id.toast_list_element_image);
             if (equi.getImg()!=null){ img.setImageDrawable(equi.getImg());} else {img.setVisibility(View.GONE);}
             TextView name = yourLayout.findViewById(R.id.toast_list_element_textName);
@@ -298,9 +289,10 @@ public class AllEquipments {
             scrollLin.addView(yourLayout);
         }
 
-        CustomAlertDialog ct = new CustomAlertDialog(mA,mC, view);
-        ct.clickToHide(view.findViewById(R.id.toast_list_title_frame));
-        ct.showToast();
+        CustomAlertDialog ca = new CustomAlertDialog(mA,mC, view);
+        ca.setPermanent(true);
+        ca.clickToHide(view.findViewById(R.id.toast_list_title_frame));
+        ca.showAlert();
     }
 
     private String getMoney(String key) {
@@ -320,6 +312,51 @@ public class AllEquipments {
         }
         String moneyTxt = String.valueOf(money)+appendix;
         return moneyTxt;
+    }
+
+    private void calculateTagsSums(LinearLayout tagMain) {
+        List<String> displayedTags=new ArrayList<>();
+        if (listTags.size() > 0) {
+            tagMain.removeAllViews();
+            tagMain.setVisibility(View.VISIBLE);
+            for (String tag : listTags) {
+                if (!displayedTags.contains(tag)) {
+                    TextView text = new TextView(mC);
+                    text.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                    text.setGravity(Gravity.CENTER);
+                    text.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                    text.setText(tag + " : " + getSumPo(tag));
+                    text.setCompoundDrawablesWithIntrinsicBounds(null, null, mC.getDrawable(R.drawable.ic_gold_coin), null);
+                    tagMain.addView(text);
+                    displayedTags.add(tag);
+                }
+            }
+        }
+    }
+
+    private String getSumPo(String tag) {
+        int moneySum = 0;
+        for (Equipment equi : listBag) {
+            if (equi.getSlotId().equalsIgnoreCase(tag)) {
+                moneySum += getPo(equi.getValue());
+            }
+        }
+        return String.valueOf(moneySum);
+    }
+
+    private int getPo(String value) {
+        int po = 0;
+        try {
+            String numberTxt = value.substring(0, value.indexOf("p"));
+            if (value.contains("po")) {
+                po = tools.toInt(numberTxt.trim());
+            } else if (value.contains("pp")) {
+                po = 10 * tools.toInt(numberTxt.trim());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return po;
     }
 
     public int getAllItemsCount() {
