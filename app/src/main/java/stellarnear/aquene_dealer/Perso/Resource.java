@@ -99,7 +99,7 @@ public class Resource {
     }
 
     public void saveCurrentToSettings() {
-        settings.edit().putInt(this.id + "_current", this.current).commit();
+        settings.edit().putInt(this.id + "_current", this.current).apply();
     }
 
     public void earn(int amount) {

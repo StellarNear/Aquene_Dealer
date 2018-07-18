@@ -60,7 +60,7 @@ public class TestAlertDialog {
         this.abi=abi;
         this.mode="abi";
         if (abi.getId().equalsIgnoreCase("ability_equipment")){
-            aquene.getAllEquipments().showEquipment(mA);
+            aquene.getInventory().showEquipment(mA);
         } else {
             buildAlertDialog();
             showAlertDialog();

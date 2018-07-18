@@ -114,7 +114,7 @@ public class SettingsFragment extends PreferenceFragment {
                     addSleepScreen();
                     break;
                 case "show_equipment":
-                    aquene.getAllEquipments().showEquipment(getActivity());
+                    aquene.getInventory().showEquipment(getActivity());
                     break;
 
                 case "add_current_xp":

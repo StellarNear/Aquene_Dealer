@@ -39,7 +39,6 @@ public class Bag {
     public void buildBag() {
         listBag = new ArrayList<>();
         String rawBagPref = settings.getString("bag_unequipped_list", "");
-
         String rawToParse = "";
         if (!rawBagPref.equalsIgnoreCase("")) {
             rawToParse = rawBagPref;
@@ -88,7 +87,7 @@ public class Bag {
             } else {
                 name = lineTrim;
             }
-            Equipment equi = new Equipment(name, descr, value, "", tag, mC);
+            Equipment equi = new Equipment(name, descr, value, "", tag, false);
             listBag.add(equi);
         }
     }
@@ -102,7 +101,7 @@ public class Bag {
             Document doc = dBuilder.parse(is);
             Element element = doc.getDocumentElement();
             element.normalize();
-            rawBagXML = doc.getElementsByTagName("unequipped").item(0).getFirstChild().getNodeValue();
+            rawBagXML = doc.getElementsByTagName("bag").item(0).getFirstChild().getNodeValue();
             is.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -180,5 +179,32 @@ public class Bag {
 
     public List<String> getListTags() {
         return listTags;
+    }
+
+    public int getBagSize(){
+        return listBag.size();
+    }
+
+    public void remove(Equipment equi) {
+        listBag.remove(equi);
+        saveToString();
+    }
+
+    private void saveToString() {
+        String bagList="";
+        for (Equipment equi : listBag){
+            String equiTxt="";
+            if (!equi.getName().equalsIgnoreCase("")){ equiTxt+=equi.getName();}
+            if (!equi.getDescr().equalsIgnoreCase("")){ equiTxt+="("+equi.getDescr()+")";}
+            if (!equi.getValue().equalsIgnoreCase("")){ equiTxt+="["+equi.getValue()+"]";}
+            if (!equi.getSlotId().equalsIgnoreCase("")){ equiTxt+="{"+equi.getSlotId()+"}";}
+            if (bagList.equalsIgnoreCase("")){
+                bagList += equiTxt;
+            } else {
+                bagList += "\n"+equiTxt;
+            }
+
+        }
+        settings.edit().putString("bag_unequipped_list",bagList).apply();
     }
 }

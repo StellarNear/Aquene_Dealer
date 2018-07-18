@@ -68,6 +68,7 @@ public class HealthDialog {
                 aquene.getAllResources().getResource("resource_hp").earn(regen);
                 animateText(regen);
                 setHealthWidth();
+                refreshHpPanel();
                 changeCancelButtonToOk();
             }
         });
@@ -146,6 +147,7 @@ public class HealthDialog {
                     aquene.getAllResources().getResource("resource_hp").spend(val);
                     animateText(-val);
                     summaryText(-val,0);
+                    refreshHpPanel();
                 }
                 if(mode.equalsIgnoreCase("heal")){
                     int over = aquene.getAllResources().getResource("resource_hp").getCurrent()+val-aquene.getAllResources().getResource("resource_hp").getMax();
@@ -156,6 +158,7 @@ public class HealthDialog {
                     } else {
                         summaryText(val,0);
                     }
+                    refreshHpPanel();
                 }
                 setHealthWidth();
                 changeCancelButtonToOk();
@@ -218,7 +221,6 @@ public class HealthDialog {
                     public void onClick(DialogInterface dialog, int which) {
                         aquene.getAllResources().getResource("resource_hp").shield(over);
                         setHealthWidth();
-                        refreshHpPanel();
                     }
 
                 })

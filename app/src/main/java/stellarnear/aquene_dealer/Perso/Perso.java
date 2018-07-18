@@ -7,7 +7,6 @@ import android.preference.PreferenceManager;
 import java.util.ArrayList;
 import java.util.List;
 
-import stellarnear.aquene_dealer.Divers.CustomAlertDialog;
 import stellarnear.aquene_dealer.Divers.Tools;
 import stellarnear.aquene_dealer.R;
 
@@ -22,7 +21,7 @@ public class Perso {
     private AllSkills allSkills;
     private AllAttacks allAttacks;
     private AllKiCapacities allKiCapacities;
-    private AllEquipments allEquipments;
+    private Inventory inventory;
     private AllResources allResources;
     private Context mC;
     private Tools tools =new Tools();
@@ -35,7 +34,7 @@ public class Perso {
         allSkills = new AllSkills(mC);
         allAttacks = new AllAttacks(mC);
         allKiCapacities = new AllKiCapacities(mC);
-        allEquipments = new AllEquipments(mC);
+        inventory = new Inventory(mC);
         allResources = new AllResources(mC,allFeats,allAbilities);
     }
 
@@ -71,7 +70,7 @@ public class Perso {
         if (allAbilities.getAbi(abiId) != null) {
             abiScore = allAbilities.getAbi(abiId).getValue();
             if (abiId.equalsIgnoreCase("ability_equipment")) {
-                abiScore=allEquipments.getAllItemsCount();
+                abiScore= inventory.getAllItemsCount();
             }
 
             if (abiId.equalsIgnoreCase("ability_rm")) {
@@ -280,7 +279,7 @@ public class Perso {
         return value;
     }
 
-    public AllEquipments getAllEquipments() {
-        return allEquipments;
+    public Inventory getInventory() {
+        return inventory;
     }
 }

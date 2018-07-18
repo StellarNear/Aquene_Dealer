@@ -24,7 +24,7 @@
                 android:layout_margin="@dimen/general_margin"
                 android:gravity="center_horizontal"
                 android:layout_gravity="center"
-                android:text="Equipement"
+                android:text="Inventaire"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@android:color/black" />
 
@@ -193,7 +193,7 @@
                 android:src="@drawable/other_slot" />
 
             <ImageView
-                android:id="@+id/bag_slot"
+                android:id="@+id/bag"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
