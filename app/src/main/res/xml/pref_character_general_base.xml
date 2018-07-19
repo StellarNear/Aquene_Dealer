@@ -50,14 +50,6 @@
         android:inputType="number"
         android:summary="Valeur : %s"/>
     <stellarnear.aquene_dealer.Divers.EditTextPreference
-        android:defaultValue="@integer/ability_lvl_def"
-        android:key="ability_lvl"
-        android:title="Niveau de moine"
-        android:selectAllOnFocus="true"
-        android:singleLine="true"
-        android:inputType="number"
-        android:summary="Valeur : %s"/>
-    <stellarnear.aquene_dealer.Divers.EditTextPreference
         android:defaultValue="@integer/ability_ms_def"
         android:key="ability_ms"
         android:title="Vitesse de déplacement"

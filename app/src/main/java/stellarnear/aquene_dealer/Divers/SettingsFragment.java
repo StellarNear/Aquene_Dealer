@@ -116,7 +116,6 @@ public class SettingsFragment extends PreferenceFragment {
                 case "show_equipment":
                     aquene.getInventory().showEquipment(getActivity(),true);
                     break;
-
                 case "add_current_xp":
                     preference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                         @Override

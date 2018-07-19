@@ -1,4 +1,12 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <stellarnear.aquene_dealer.Divers.EditTextPreference
+        android:defaultValue="@integer/ability_lvl_def"
+        android:key="ability_lvl"
+        android:title="Niveau de moine"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:inputType="number"
+        android:summary="Valeur : %s"/>
 
     <stellarnear.aquene_dealer.Divers.EditTextPreference
         android:defaultValue="@integer/current_xp_def"
