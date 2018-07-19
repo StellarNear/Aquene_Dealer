@@ -81,6 +81,7 @@
         <equipped>true</equipped>
     </equipment>
 
+<!-- Hors slot -->
     <equipment>
         <name>Pierres d'ioun de dextérité</name>
         <descr>+2 dex</descr>
@@ -111,6 +112,18 @@
         <imgId>equipment_dragonclaw</imgId>
         <slotId>other_slot</slotId>
         <equipped>true</equipped>
+    </equipment>
+
+
+    <!-- SPare -->
+
+    <equipment>
+        <name>Ceinture DEUX</name>
+        <descr>+4 Force</descr>
+        <value>100 po</value>
+        <imgId>mire_test</imgId>
+        <slotId>belt_slot</slotId>
+        <equipped>false</equipped>
     </equipment>
 
 

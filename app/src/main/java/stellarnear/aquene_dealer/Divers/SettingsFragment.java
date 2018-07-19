@@ -114,7 +114,7 @@ public class SettingsFragment extends PreferenceFragment {
                     addSleepScreen();
                     break;
                 case "show_equipment":
-                    aquene.getInventory().showEquipment(getActivity());
+                    aquene.getInventory().showEquipment(getActivity(),true);
                     break;
 
                 case "add_current_xp":
@@ -218,6 +218,7 @@ public class SettingsFragment extends PreferenceFragment {
                 SharedPreferences.Editor editor = prefs.edit();
                 editor.clear();
                 editor.commit();
+                aquene.getAllResources().sleepReset();
                 tools.customToast(getContext(), "Remise à zero des paramètres de l'application", "center");
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
