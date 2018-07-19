@@ -125,7 +125,13 @@
         <slotId>belt_slot</slotId>
         <equipped>false</equipped>
     </equipment>
-
+    <equipment>
+        <name>Casque</name>
+        <descr>+2 Sagesse</descr>
+        <imgId>mire_test</imgId>
+        <slotId>helm_slot</slotId>
+        <equipped>false</equipped>
+    </equipment>
 
     <!-- BAG -->
     <bag>diamant de ouf[2000 po]{tag1}

@@ -105,6 +105,16 @@ public class AllEquipments {
         return list;
     }
 
+    public List<Equipment> getAllSpareEquipment() {
+        List<Equipment> list = new ArrayList<>();
+        for (Equipment equipment : listEquipments) {
+            if (!equipment.isEquiped()) {
+                list.add(equipment);
+            }
+        }
+        return list;
+    }
+
     public List<Equipment> getSpareEquipment(String slot) {
         List<Equipment> list = new ArrayList<>();
         for (Equipment equipment : listEquipments) {
@@ -129,7 +139,7 @@ public class AllEquipments {
         return list;
     }
 
-    private Equipment getEquipmentsEquiped(String slot) {
+    public Equipment getEquipmentsEquiped(String slot) {
         Equipment equiFind = null;
         for (Equipment equipment : listEquipments) {
             if (equipment.isEquiped() && equipment.getSlotId().equalsIgnoreCase(slot)) {
@@ -203,7 +213,13 @@ public class AllEquipments {
         });
     }
 
-    private void showSpareList(List<Equipment> spareEquipments) {
+    public void showSpareList(List<Equipment> spareEquipments) {
+        customInfo(spareEquipments,true);
+    }
+
+    public void showSpareList(Activity mA,List<Equipment> spareEquipments,Boolean editable) {
+        this.mA=mA;
+        this.editable=editable;
         customInfo(spareEquipments,true);
     }
 

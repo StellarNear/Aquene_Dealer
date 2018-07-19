@@ -34,9 +34,9 @@ public class Inventory {
         this.allEquipments = new AllEquipments(mC);
     }
 
-    public void showEquipment(Activity mA,Boolean... canDelete){
+    public void showEquipment(Activity mA, Boolean... canDelete) {
         this.mA = mA;
-        editable=canDelete.length > 0 ? canDelete[0] : false;  //parametre optionnel pour editer le contenu de l'invertaire
+        editable = canDelete.length > 0 ? canDelete[0] : false;  //parametre optionnel pour editer le contenu de l'invertaire
 
         LayoutInflater inflater = mA.getLayoutInflater();
         inventoryView = inflater.inflate(R.layout.equipment_dialog, null);
@@ -56,16 +56,25 @@ public class Inventory {
                         0, 0, 0, 1, 0,
                         0, 0, 0, 0, 1
                 };
-        ColorMatrixColorFilter matrix = new ColorMatrixColorFilter(mat);
+        ColorMatrixColorFilter matrixGreen = new ColorMatrixColorFilter(mat);
+        float[] mat2 = new float[]
+                {
+                        0.5f, 0, 0, 0, 0,
+                        0, 1, 0, 0, 0,
+                        0, 0, 2, 0, 0,
+                        0, 0, 0, 1, 0,
+                        0, 0, 0, 0, 1
+                };
+        ColorMatrixColorFilter matrixBlue = new ColorMatrixColorFilter(mat2);
 
         if (bag.getBagSize() > 0) {
             int resID = mC.getResources().getIdentifier("bag", "id", mC.getPackageName());
             ImageView img = (ImageView) inventoryView.findViewById(resID);
-            img.getDrawable().setColorFilter(matrix);
+            img.getDrawable().mutate().setColorFilter(matrixGreen);
             img.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    bag.showBag(mA,editable);
+                    bag.showBag(mA, editable);
                 }
             });
         }
@@ -74,22 +83,53 @@ public class Inventory {
             try {
                 int resID = mC.getResources().getIdentifier(equi.getSlotId(), "id", mC.getPackageName());
                 ImageView img = (ImageView) inventoryView.findViewById(resID);
-                img.getDrawable().setColorFilter(matrix);
+                img.getDrawable().mutate().setColorFilter(matrixGreen);
                 img.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        allEquipments.showSlot(mA,equi.getSlotId(),editable);
-                        allEquipments.setRefreshEventListener(new AllEquipments.OnRefreshEventListener() {
-                            @Override
-                            public void onEvent() {
-                                equipWindow.dismissToast();
-                                showEquipment(mA,editable);
-                            }
-                        });
+                        allEquipments.showSlot(mA, equi.getSlotId(), editable);
+                        if (editable) {
+                            allEquipments.setRefreshEventListener(new AllEquipments.OnRefreshEventListener() {
+                                @Override
+                                public void onEvent() {
+                                    equipWindow.dismissToast();
+                                    showEquipment(mA, editable);
+                                }
+                            });
+                        }
                     }
                 });
             } catch (Exception e) {
                 e.printStackTrace();
+            }
+        }
+
+        if (editable) {
+            for (final Equipment equi : allEquipments.getAllSpareEquipment()) {
+                try {
+                    if (allEquipments.getEquipmentsEquiped(equi.getSlotId()) == null) {
+                        int resID = mC.getResources().getIdentifier(equi.getSlotId(), "id", mC.getPackageName());
+                        ImageView img = (ImageView) inventoryView.findViewById(resID);
+                        img.getDrawable().mutate().setColorFilter(matrixBlue);
+                        img.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                allEquipments.showSpareList(mA,allEquipments.getSpareEquipment(equi.getSlotId()),editable);
+                                allEquipments.setRefreshEventListener(new AllEquipments.OnRefreshEventListener() {
+                                    @Override
+                                    public void onEvent() {
+                                        equipWindow.dismissToast();
+                                        showEquipment(mA, editable);
+                                    }
+                                });
+
+                            }
+                        });
+
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
