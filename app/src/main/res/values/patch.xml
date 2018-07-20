@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="version">"v1.61"</string>
-    <string name="time_spend">"162h"</string>
+    <string name="version">"v1.7"</string>
+    <string name="time_spend">"169h"</string>
     <string name="basic_infos">"Cette application est développée par player 1 pour son player 2. Développée avec amour par Jérémie Chatron en fin 2017-2018." </string>
     <string name="patch_list">"----------------------------------------------------------------------------------
+v1.7
+-Gestion des objets V2 !
+-Possibilité de créer de nouveaux objets dans le sac depuis les paramètres
+-Possibilité de créer de nouveaux équipements depuis les paramètres
+-Possibilité de changer de pièce équipée
+-Possibilité de supprimer des objets du sac dans les paramètres
+-Possibilité de supprimer des équipements (non portés) dans les paramètres
+-Gestion des objets en base de données embarquée sur le téléphone
+----------------------------------------------------------------------------------
 v1.61
 -Ajout du menu d'experience (avec possibilité d'ajouter directement de l'xp)
 -Refonte du système de fenêtres temporaires (paramètrable dans option d'appli)

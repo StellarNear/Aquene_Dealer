@@ -5,8 +5,14 @@
     <PreferenceScreen
         android:key="show_equipment"
         android:icon="@drawable/ic_binoculars"
-        android:summary="Affiche l'inventaire du personnage"
-        android:title="Examiner l'équipement" />
+        android:summary="On peut y intervertir les pièces d'équipment"
+        android:title="Afficher l'équipement" />
+
+    <PreferenceScreen
+        android:key="pref_inventory_equipment"
+        android:icon="@drawable/ic_battle_gear"
+        android:summary="Ajout/Suppression des objets équipable"
+        android:title="Gestion de l'équipement"   />
 
     <PreferenceScreen
         android:key="pref_inventory_legring"
@@ -20,11 +26,10 @@
         android:summary="Gestion des pièces de platine, or, argent, cuivre"
         android:title="Monnaie" />
 
-    <stellarnear.aquene_dealer.Divers.EditTextPreference
-        android:defaultValue=""
-        android:key="bag_unequipped_list"
+    <PreferenceScreen
+        android:key="pref_inventory_bag"
         android:icon="@drawable/ic_bag"
-        android:summary="Objets non équipés :\n%s"
+        android:summary="Ajout/Suppression des objets non équipable"
         android:title="Gestion des objets du sac"   />
 
 </PreferenceScreen>

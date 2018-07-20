@@ -12,7 +12,7 @@
     <equipment>
         <name>Amulette des poings invincibles (+5)</name>
         <descr>+5 jet d’attaque et dégats</descr>
-        <value>100 000 po</value>
+        <value>100000 po</value>
         <imgId>equipment_neck</imgId>
         <slotId>neck_slot</slotId>
         <equipped>true</equipped>
@@ -51,7 +51,7 @@
     <equipment>
         <name>Cape de resistances draconique</name>
         <descr>+5 à tout les jet de resistances</descr>
-        <value>25 000 po</value>
+        <value>25000 po</value>
         <imgId>equipment_cloak</imgId>
         <slotId>shoulder_slot</slotId>
         <equipped>true</equipped>
@@ -62,7 +62,7 @@
 
 1/j : 21 de resistance degat physique et energie destruc. pendant 1 round (action libre)</descr>
         <imgId>equipment_armor</imgId>
-        <slotId>body_slot</slotId>
+        <slotId>armor_slot</slotId>
         <equipped>true</equipped>
     </equipment>
     <equipment>
@@ -75,7 +75,7 @@
     <equipment>
         <name>Ceinture de force de geant </name>
         <descr>+4 Force</descr>
-        <value>16 000 po</value>
+        <value>16000 po</value>
         <imgId>equipment_belt</imgId>
         <slotId>belt_slot</slotId>
         <equipped>true</equipped>
@@ -85,7 +85,7 @@
     <equipment>
         <name>Pierres d'ioun de dextérité</name>
         <descr>+2 dex</descr>
-        <value>8 000 po</value>
+        <value>8000 po</value>
         <imgId>equipment_ioun_dex</imgId>
         <slotId>other_slot</slotId>
         <equipped>true</equipped>
@@ -93,7 +93,7 @@
     <equipment>
         <name>Pierres d'ioun d'intuition</name>
         <descr>+1 CA</descr>
-        <value>5 000 po</value>
+        <value>5000 po</value>
         <imgId>equipment_ioun_ca</imgId>
         <slotId>other_slot</slotId>
         <equipped>true</equipped>
@@ -101,7 +101,7 @@
     <equipment>
         <name>Pierres d'ioun</name>
         <descr>+1 CA</descr>
-        <value>5 000 po</value>
+        <value>5000 po</value>
         <imgId>equipment_ioun_ca</imgId>
         <slotId>other_slot</slotId>
         <equipped>true</equipped>
@@ -117,26 +117,22 @@
 
     <!-- SPare -->
 
-    <equipment>
-        <name>Ceinture DEUX</name>
-        <descr>+4 Force</descr>
-        <value>100 po</value>
-        <imgId>mire_test</imgId>
-        <slotId>belt_slot</slotId>
-        <equipped>false</equipped>
-    </equipment>
-    <equipment>
-        <name>Casque</name>
-        <descr>+2 Sagesse</descr>
-        <imgId>mire_test</imgId>
-        <slotId>helm_slot</slotId>
-        <equipped>false</equipped>
-    </equipment>
+    <!--
+        <equipment>
+            <name>Casque</name>
+            <descr>+2 Sagesse</descr>
+            <imgId>mire_test</imgId>
+            <slotId>helm_slot</slotId>
+            <equipped>false</equipped>
+        </equipment>
+    -->
 
-    <!-- BAG -->
+
+
+        <!-- BAG -->
     <bag>diamant de ouf[2000 po]{tag1}
 vielle chaussette(ca pue)[10po]{tag1}
-super potion rarissime[7 000 po](aucune idée de ce qu'elle fait)
+super potion rarissime[7000 po](aucune idée de ce qu'elle fait)
 poudre d'aluminium(ca brille)[1 po]{tag2}
 un parcheminn[10pa]
 un autre parchemin[10pa]</bag>

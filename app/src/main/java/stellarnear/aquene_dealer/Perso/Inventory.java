@@ -92,7 +92,7 @@ public class Inventory {
                             allEquipments.setRefreshEventListener(new AllEquipments.OnRefreshEventListener() {
                                 @Override
                                 public void onEvent() {
-                                    equipWindow.dismissToast();
+                                    equipWindow.dismissAlert();
                                     showEquipment(mA, editable);
                                 }
                             });
@@ -118,7 +118,7 @@ public class Inventory {
                                 allEquipments.setRefreshEventListener(new AllEquipments.OnRefreshEventListener() {
                                     @Override
                                     public void onEvent() {
-                                        equipWindow.dismissToast();
+                                        equipWindow.dismissAlert();
                                         showEquipment(mA, editable);
                                     }
                                 });
@@ -134,9 +134,21 @@ public class Inventory {
         }
     }
 
+    public Bag getBag() {
+        return bag;
+    }
+
+    public AllEquipments getAllEquipments() {
+        return allEquipments;
+    }
 
     public int getAllItemsCount() {
         return bag.getBagSize() + allEquipments.getAllEquipmentsSize();
+    }
+
+    public void resetInventory() {
+        bag.refreshBag();
+        allEquipments.refreshEquipment();
     }
 }
 

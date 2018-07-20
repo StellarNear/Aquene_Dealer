@@ -2,30 +2,62 @@ package stellarnear.aquene_dealer.Divers;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 
 import stellarnear.aquene_dealer.R;
 
 public class CustomAlertDialog {
+    private AlertDialog.Builder dialogBuilder;
     private AlertDialog alert;
     private Context mC;
     private boolean permanent=false;
+    private boolean positiveButton=false;
+    private boolean cancelButton=false;
+    private OnAcceptEventListener mListener;
+
     public CustomAlertDialog(Activity mA, Context mC, View view) {
         // Set the toast and duration
         this.mC=mC;
-        AlertDialog.Builder dialogBuilder  = new AlertDialog.Builder(mA,R.style.CustomDialog);
+        dialogBuilder  = new AlertDialog.Builder(mA,R.style.CustomDialog);
         dialogBuilder.setView(view);
-        alert = dialogBuilder.create();
     }
 
     public void showAlert() {
+        alert = dialogBuilder.create();
         alert.show();
+        if(positiveButton){applyStyleToOkButton();}
+        if(cancelButton){applyStyleToCancelButton();}
         setTimer();
     }
+
+
+    private void applyStyleToOkButton() {
+        Button button = alert.getButton(AlertDialog.BUTTON_POSITIVE);
+        LinearLayout.LayoutParams positiveButtonLL = (LinearLayout.LayoutParams) button.getLayoutParams();
+        positiveButtonLL.width= ViewGroup.LayoutParams.WRAP_CONTENT;
+        positiveButtonLL.setMargins(mC.getResources().getDimensionPixelSize(R.dimen.general_margin),0,0,0);
+        button.setLayoutParams(positiveButtonLL);
+        button.setTextColor(mC.getColor(R.color.colorBackground));
+        button.setBackground(mC.getDrawable(R.drawable.button_ok_gradient));
+    }
+
+    private void applyStyleToCancelButton() {
+        Button button = alert.getButton(AlertDialog.BUTTON_NEGATIVE);
+        LinearLayout.LayoutParams negativeButtonLL = (LinearLayout.LayoutParams) button.getLayoutParams();
+        negativeButtonLL.width=ViewGroup.LayoutParams.WRAP_CONTENT;
+        button.setLayoutParams(negativeButtonLL);
+        button.setTextColor(mC.getColor(R.color.colorBackground));
+        button.setBackground(mC.getDrawable(R.drawable.button_cancel_gradient));
+    }
+
 
     private void setTimer() {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mC);
@@ -35,13 +67,13 @@ public class CustomAlertDialog {
             h.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    dismissToast();
+                    dismissAlert();
                 }
             }, duration);
         }
     }
 
-    public void dismissToast() {
+    public void dismissAlert() {
         alert.dismiss();
     }
 
@@ -49,12 +81,38 @@ public class CustomAlertDialog {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dismissToast();
+                dismissAlert();
             }
         });
     }
 
     public void setPermanent(boolean b) {
         this.permanent=b;
+    }
+
+    public void addConfirmButton(String txt) {
+        dialogBuilder.setPositiveButton(txt, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                mListener.onEvent();
+            }
+        });
+        positiveButton=true;
+    }
+
+    public void addCancelButton(String txt) {
+        dialogBuilder.setNegativeButton(txt, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dismissAlert();
+            }
+        });
+        cancelButton=true;
+    }
+
+    public interface OnAcceptEventListener {
+        void onEvent();
+    }
+
+    public void setAcceptEventListener(OnAcceptEventListener eventListener) {
+        mListener = eventListener;
     }
 }

@@ -169,7 +169,7 @@
         android:layout_margin="@dimen/general_margin"
         android:background="@color/transparent"
         android:visibility="gone"
-        app:srcCompat="@drawable/ic_add_circle_outline_black_24dp" />
+        app:srcCompat="@drawable/ic_add_circle_outline_green_24dp" />
 
     <ImageButton
         android:id="@+id/fab_info_summary"

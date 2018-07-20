@@ -1,7 +1,9 @@
 package stellarnear.aquene_dealer.Perso;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +44,10 @@ public class AllEquipments {
 
     public AllEquipments(Context mC) {
         this.mC = mC;
+        refreshEquipment();
+    }
+
+    public void refreshEquipment() {
         tinyDB = new TinyDB(mC);
         List<Equipment> listDB = tinyDB.getListEquipments("localSaveListEquipments");
         if (listDB.size() == 0) {
@@ -57,6 +63,7 @@ public class AllEquipments {
     }
 
     private void buildList() {
+        listEquipments = new ArrayList<>();
         try {
             InputStream is = mC.getAssets().open("equipment.xml");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -197,6 +204,9 @@ public class AllEquipments {
             if (spareEquipments.size() > 0) {
                 ImageView swap = view.findViewById(R.id.toast_info_swap);
                 setButtonToSwap(swap, equi, spareEquipments, ct);
+            } else {
+                ImageView unequip = view.findViewById(R.id.toast_info_unequip);
+                setButtonToUnequip(unequip, equi, ct);
             }
         }
         ct.showAlert();
@@ -207,7 +217,7 @@ public class AllEquipments {
         swap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ct.dismissToast();
+                ct.dismissAlert();
                 showSpareList(spareEquipments);
             }
         });
@@ -223,6 +233,35 @@ public class AllEquipments {
         customInfo(spareEquipments,true);
     }
 
+    private void setButtonToUnequip(ImageView unequip, final Equipment equi, final  CustomAlertDialog ct) {
+        unequip.setVisibility(View.VISIBLE);
+        unequip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AlertDialog.Builder(mA)
+                        .setIcon(R.drawable.ic_warning_black_24dp)
+                        .setTitle("Enlevern")
+                        .setMessage("Es-tu sûre de vouloir déséquiper cet objet ?")
+                        .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                equi.setEquiped(false);
+                                ct.dismissAlert();
+                                mListener.onEvent();
+                            }
+                        })
+                        .setNegativeButton("Non", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                ct.dismissAlert();
+                            }
+                        }).show();
+            }
+        });
+
+
+    }
+
     private void customInfo(List<Equipment> equipmentsList,Boolean... selectToEquipBool) {
         Boolean selectToEquip=selectToEquipBool.length > 0 ? selectToEquipBool[0] : false;
         LayoutInflater inflater = mA.getLayoutInflater();
@@ -230,10 +269,10 @@ public class AllEquipments {
         final CustomAlertDialog ca = new CustomAlertDialog(mA, mC, view);
         ca.setPermanent(true);
         ca.clickToHide(view.findViewById(R.id.toast_list_title_frame));
-        Boolean bagList =false;
+
         if(selectToEquip){
             TextView title = view.findViewById(R.id.toast_list_title);
-            title.setText("Rechange(s) possible(s)");
+            title.setText("Rechanges possibles");
         }
 
         LinearLayout scrollLin = view.findViewById(R.id.toast_list_scroll_mainlin);
@@ -262,7 +301,7 @@ public class AllEquipments {
                     @Override
                     public void onClick(View view) {
                         equip(equi);
-                        ca.dismissToast();
+                        ca.dismissAlert();
                         mListener.onEvent();
                     }
                 });
@@ -272,6 +311,16 @@ public class AllEquipments {
         ca.showAlert();
     }
 
+    public void createEquipment(Equipment equi) {
+        listEquipments.add(equi);
+        saveLocalAllEquipments();
+    }
+
+    public void remove(Equipment equi) {
+        listEquipments.remove(equi);
+        saveLocalAllEquipments();
+    }
+
     public interface OnRefreshEventListener {
         void onEvent();
     }
@@ -279,6 +328,5 @@ public class AllEquipments {
     public void setRefreshEventListener(OnRefreshEventListener eventListener) {
         mListener = eventListener;
     }
-
 }
 

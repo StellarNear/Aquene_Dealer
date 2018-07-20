@@ -43,7 +43,14 @@ public class Bag {
     public Bag(Context mC){
         this.mC = mC;
         settings = PreferenceManager.getDefaultSharedPreferences(mC);
+        refreshBag();
+    }
 
+    private void saveLocalBag() {
+        tinyDB.putListEquipments("localSaveListBag", listBag);
+    }
+
+    public void refreshBag(){
         tinyDB = new TinyDB(mC);
         List<Equipment> listDB = tinyDB.getListEquipments("localSaveListBag");
         if (listDB.size() == 0) {
@@ -54,11 +61,7 @@ public class Bag {
         }
     }
 
-    private void saveLocalBag() {
-        tinyDB.putListEquipments("localSaveListBag", listBag);
-    }
-
-    public void buildBag() {
+    private void buildBag() {
         listBag = new ArrayList<>();
         String rawToParse = readXMLBag();
         for (String line : rawToParse.split("\n")) {
@@ -172,9 +175,9 @@ public class Bag {
         try {
             String numberTxt = value.substring(0, value.indexOf("p"));
             if (value.contains("po")) {
-                po = tools.toInt(numberTxt.trim());
+                po = tools.toInt(numberTxt.trim().replace(" ",""));
             } else if (value.contains("pp")) {
-                po = 10 * tools.toInt(numberTxt.trim());
+                po = 10 * tools.toInt(numberTxt.trim().replace(" ",""));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -194,13 +197,18 @@ public class Bag {
         return listBag.size();
     }
 
-    private void remove(Equipment equi) {
+    public void createItem(Equipment equipment) {
+        listBag.add(equipment);
+        saveLocalBag();
+    }
+
+    public void remove(Equipment equi) {
         listBag.remove(equi);
         saveLocalBag();
     }
 
     public void showBag(Activity mA,Boolean removable){
-        buildBag();
+        refreshBag();
         this.mA=mA;
         this.removable=removable;
         customInfo();
@@ -260,11 +268,11 @@ public class Bag {
                 new AlertDialog.Builder(mA)
                         .setIcon(R.drawable.ic_warning_black_24dp)
                         .setTitle("Suppression")
-                        .setMessage("Es-tu sûre de vouloir enlever cet objet de ton sac ?")
+                        .setMessage("Es-tu sûre de vouloir jeter cet objet de ton sac ?")
                         .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                ca.dismissToast();
+                                ca.dismissAlert();
                                 remove(equi);
                                 customInfo();
                             }

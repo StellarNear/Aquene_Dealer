@@ -19,6 +19,7 @@
             android:layout_height="wrap_content">
 
             <TextView
+                android:id="@+id/equipment_dialog_main_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/general_margin"
@@ -29,6 +30,7 @@
                 android:textColor="@android:color/black" />
 
             <ImageView
+                android:id="@+id/equipment_dialog_back_arrow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|end"
@@ -111,11 +113,11 @@
                     android:src="@drawable/neck_slot" />
 
                 <ImageView
-                    android:id="@+id/body_slot"
+                    android:id="@+id/armor_slot"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:src="@drawable/body_slot" />
+                    android:src="@drawable/armor_slot" />
 
                 <ImageView
                     android:id="@+id/belt_slot"
