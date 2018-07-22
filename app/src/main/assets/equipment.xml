@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <records>
 
-    <!-- SLOTS -->
+    <!-- SLOTS Equipped -->
     <equipment>
         <name>Bandage d’Aldrassil</name>
         <descr>+ 2 jet d’attaque,+1d8+2 dégats</descr>
@@ -43,7 +43,8 @@
         <name>Bottes de rapidité</name>
         <descr>+1 réflexe +3 CA
 
-+1 attaque une fois par jour</descr>
+            +1 attaque une fois par jour
+        </descr>
         <imgId>equipment_feet</imgId>
         <slotId>feet_slot</slotId>
         <equipped>true</equipped>
@@ -60,20 +61,21 @@
         <name>Toge de défense draconique</name>
         <descr>50 % de chance de rater la confirmation des critiques
 
-1/j : 21 de resistance degat physique et energie destruc. pendant 1 round (action libre)</descr>
+            1/j : 21 de resistance degat physique et energie destruc. pendant 1 round (action libre)
+        </descr>
         <imgId>equipment_armor</imgId>
         <slotId>armor_slot</slotId>
         <equipped>true</equipped>
     </equipment>
     <equipment>
-        <name>Bandeau d’inspiration </name>
+        <name>Bandeau d’inspiration</name>
         <descr>+4 Sagesse</descr>
         <imgId>equipment_headband</imgId>
         <slotId>face_slot</slotId>
         <equipped>true</equipped>
     </equipment>
     <equipment>
-        <name>Ceinture de force de geant </name>
+        <name>Ceinture de force de geant</name>
         <descr>+4 Force</descr>
         <value>16000 po</value>
         <imgId>equipment_belt</imgId>
@@ -81,7 +83,7 @@
         <equipped>true</equipped>
     </equipment>
 
-<!-- Hors slot -->
+    <!-- Hors slot -->
     <equipment>
         <name>Pierres d'ioun de dextérité</name>
         <descr>+2 dex</descr>
@@ -117,24 +119,71 @@
 
     <!-- SPare -->
 
-    <!--
-        <equipment>
-            <name>Casque</name>
-            <descr>+2 Sagesse</descr>
-            <imgId>mire_test</imgId>
-            <slotId>helm_slot</slotId>
-            <equipped>false</equipped>
-        </equipment>
-    -->
+
+    <equipment>
+        <name>Anneau de l'ours</name>
+        <descr>+2 force +2 CA</descr>
+        <imgId>equipment_ring1_slot_def</imgId>
+        <slotId>ring1_slot</slotId>
+        <equipped>false</equipped>
+    </equipment>
 
 
+    <equipment>
+        <name>Anneau de force</name>
+        <descr>+2 force</descr>
+        <imgId>equipment_ring1_slot_def</imgId>
+        <slotId>ring1_slot</slotId>
+        <equipped>false</equipped>
+    </equipment>
 
-        <!-- BAG -->
-    <bag>diamant de ouf[2000 po]{tag1}
-vielle chaussette(ca pue)[10po]{tag1}
-super potion rarissime[7000 po](aucune idée de ce qu'elle fait)
-poudre d'aluminium(ca brille)[1 po]{tag2}
-un parcheminn[10pa]
-un autre parchemin[10pa]</bag>
+    <equipment>
+        <name>Anneau de résistance au feu</name>
+        <descr>-10 contre le feu</descr>
+        <imgId>equipment_ring1_slot_def</imgId>
+        <slotId>ring1_slot</slotId>
+        <equipped>false</equipped>
+    </equipment>
+
+    <equipment>
+        <name>Anneau de CA</name>
+        <descr>+2 CA</descr>
+        <imgId>equipment_ring1_slot_def</imgId>
+        <slotId>ring1_slot</slotId>
+        <equipped>false</equipped>
+    </equipment>
+
+    <equipment>
+        <name>Amulette des poings invincibles (+2)</name>
+        <descr>+2 jet d’attaque et dégats</descr>
+        <imgId>equipment_neck</imgId>
+        <slotId>neck_slot</slotId>
+        <equipped>false</equipped>
+    </equipment>
+
+    <equipment>
+        <name>Cape d'invisibilité</name>
+        <descr>1/j dure 3min</descr>
+        <imgId>equipment_shoulder_slot_def</imgId>
+        <slotId>shoulder_slot</slotId>
+        <equipped>false</equipped>
+    </equipment>
+
+    <equipment>
+        <name>Amulette à tête d'ours</name>
+        <value>15000 po</value>
+        <descr>similaire à perle des sirènes</descr>
+        <imgId>equipment_neck_slot_def</imgId>
+        <slotId>neck_slot</slotId>
+        <equipped>false</equipped>
+    </equipment>
+
+
+    <!-- BAG -->
+    <bag>Bracelets en or[100po](lien avec Halda pour Lien sacré)
+        Anneau de platine[50po](pour halda sort : Protection d'autrui)
+        Corde 15m
+        Statue mouche[16500po](pégase 3/semaine pendant 12h)
+        Pierre d'alerte(cube antivol)</bag>
 </records>
 

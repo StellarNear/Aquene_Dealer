@@ -225,6 +225,7 @@ public class CombatLauncher {
     }
     private void buildAtksList() {
         atksRolls = new ArrayList<>();
+        String bonus_epic_att = settings.getString("attack_att_epic", String.valueOf(mC.getResources().getInteger(R.integer.attack_att_epic_DEF)));
         if (attack.getId().equalsIgnoreCase("attack_flurry")) {
             String att_base = settings.getString("jet_att_flurry", mC.getString(R.string.jet_att_flurry_DEF));
             String delim = ",";
@@ -240,13 +241,13 @@ public class CombatLauncher {
             if ( settings.getBoolean("switch_temp_rapid",mC.getResources().getBoolean(R.bool.switch_temp_rapid_DEF))) {  atksRolls.add(new Roll(mA,mC, list_att_base.get(0)));  }
 
             for (Integer each : list_att_base) {
-                    atksRolls.add(new Roll(mA,mC, each));
+                    atksRolls.add(new Roll(mA,mC, each+tools.toInt(bonus_epic_att)));
             }
         } else {
             String att_base = settings.getString("jet_att", mC.getString(R.string.jet_att_DEF));
             String delim = ",";
             String[] list_att_base_string = att_base.split(delim);
-            atksRolls.add(new Roll(mA,mC, tools.toInt(list_att_base_string[0])));
+            atksRolls.add(new Roll(mA,mC, tools.toInt(list_att_base_string[0]) +tools.toInt(bonus_epic_att)));
         }
         combatLauncherHitCritLines =new CombatLauncherHitCritLines(mA,mC,dialogView,atksRolls);
     }

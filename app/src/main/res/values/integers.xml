@@ -58,6 +58,7 @@
 
     <integer name="translationFragDuration">500</integer>
     <integer name="attack_range_DEF">3</integer>
+    <integer name="attack_att_epic_DEF">1</integer>
     <integer name="attack_dmg_epic_DEF">1</integer>
     <integer name="attack_prouesse_epic_DEF">1</integer>
 
@@ -76,6 +77,7 @@
     <integer name="current_xp_def">6625294</integer>
     <integer name="next_level_def">6830000</integer>
     <integer name="add_current_xp_def">0</integer>
+
 
 
 </resources>

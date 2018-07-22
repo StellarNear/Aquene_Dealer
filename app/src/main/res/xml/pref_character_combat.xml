@@ -18,6 +18,17 @@
         android:summary="Valeurs : %s"
         android:title="Jets d'attaque de base (x,x,x)"
         />
+
+    <stellarnear.aquene_dealer.Divers.EditTextPreference
+        android:defaultValue="@integer/attack_att_epic_DEF"
+        android:key="attack_att_epic"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:inputType="number"
+        android:summary="Valeurs : %s"
+        android:title="Bonus d'attaque épique"
+        />
+
     <stellarnear.aquene_dealer.Divers.EditTextPreference
         android:defaultValue="@string/jet_att_flurry_DEF"
         android:key="jet_att_flurry"
