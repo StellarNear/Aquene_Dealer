@@ -69,5 +69,12 @@ public class SettingsActivity extends AppCompatActivity
         settingsFragment.onUpButton();
     }
 
-    // ...
+    @Override
+    protected void onDestroy() {
+        System.runFinalization();
+        Runtime.getRuntime().gc();
+        System.gc();
+        finish();
+        super.onDestroy();
+    }
 }

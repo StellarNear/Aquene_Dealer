@@ -7,7 +7,6 @@
     <integer name="ability_intelligence_def">14</integer>
     <integer name="ability_sagesse_def">24</integer>
     <integer name="ability_charisme_def">15</integer>
-    <integer name="ability_lvl_def">22</integer>
     <integer name="ability_ms_def">30</integer>
     <integer name="ability_ca_stuff_def">5</integer>
     <integer name="epic_save_def">1</integer>
@@ -71,9 +70,12 @@
     <integer name="bonus_temp_rm_DEF">0</integer>
     <integer name="bonus_temp_save_DEF">0</integer>
     <integer name="bonus_temp_ca_DEF">0</integer>
-    <integer name="current_xp_def">6003694</integer>
+
+
+    <integer name="ability_lvl_def">22</integer>
+    <integer name="current_xp_def">6625294</integer>
     <integer name="next_level_def">6830000</integer>
-    <integer name="add_current_xp_def">1</integer>
+    <integer name="add_current_xp_def">0</integer>
 
 
 </resources>
