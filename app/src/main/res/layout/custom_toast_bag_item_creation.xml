@@ -57,7 +57,7 @@
         <EditText
             android:id="@+id/descr_item_creation"
             android:hint="Description de l'objet"
-            android:inputType="text"
+            android:inputType="textMultiLine"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 

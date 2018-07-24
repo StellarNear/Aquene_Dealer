@@ -29,14 +29,30 @@
             android:layout_gravity="center"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/toast_list_element_textName"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="3dp"
-                android:text="PM is here"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@android:color/black" />
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginBottom="3dp">
+
+                <TextView
+                    android:id="@+id/toast_list_element_textName"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Test long name of magical item PM is here"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@android:color/black"/>
+
+                <ImageView
+                    android:id="@+id/toast_info_element_trash"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_trash_can"
+                    android:layout_gravity="top|end"
+                    android:visibility="gone"/>
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/toast_list_element_textVal"
@@ -53,23 +69,6 @@
         </LinearLayout>
 
     </LinearLayout>
-    <ImageView
-        android:id="@+id/toast_info_element_trash"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:src="@drawable/ic_trash_can"
-        android:layout_margin="@dimen/general_margin"
-        android:visibility="gone"/>
 
-    <ImageView
-        android:id="@+id/toast_info_element_swap"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:src="@drawable/ic_back_forth"
-        android:layout_margin="@dimen/general_margin"
-        android:visibility="gone"/>
+
 </RelativeLayout>

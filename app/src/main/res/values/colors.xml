@@ -82,5 +82,10 @@
     <color name="start_gradient_money_inventory">@android:color/darker_gray</color>
     <color name="end_gradient_money_inventory">#000000</color>
 
+    <color name="gold">#FFD700</color>
+
+    <color name="end_gradient_xp_bar">#0099cc</color>
+    <color name="start_gradient_xp_bar">#33ccff</color>
+
 
 </resources>

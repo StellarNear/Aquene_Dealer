@@ -33,7 +33,6 @@ import stellarnear.aquene_dealer.R;
  */
 
 public class AllEquipments {
-    //private Map<String, Equipment> mapSlotIdEquipment = new HashMap<>();
     private List<Equipment> listEquipments = new ArrayList<>();
     private Context mC;
     private Activity mA;
@@ -156,7 +155,6 @@ public class AllEquipments {
         return equiFind;
     }
 
-
     public void equip(Equipment equiToPut) {
         for (Equipment equi: getSlotListEquipment(equiToPut.getSlotId())){
             if(equi!=equiToPut){
@@ -164,6 +162,7 @@ public class AllEquipments {
             }
         }
         equiToPut.setEquiped(true);
+        saveLocalAllEquipments();
     }
 
     public void showSlot(Activity mA,String slotId, Boolean editable) {
@@ -203,7 +202,7 @@ public class AllEquipments {
             List<Equipment> spareEquipments = getSpareEquipment(equi.getSlotId());
             if (spareEquipments.size() > 0) {
                 ImageView swap = view.findViewById(R.id.toast_info_swap);
-                setButtonToSwap(swap, equi, spareEquipments, ct);
+                setButtonToSwap(swap, spareEquipments, ct);
             } else {
                 ImageView unequip = view.findViewById(R.id.toast_info_unequip);
                 setButtonToUnequip(unequip, equi, ct);
@@ -212,7 +211,7 @@ public class AllEquipments {
         ct.showAlert();
     }
 
-    private void setButtonToSwap(ImageView swap,final Equipment equi, final List<Equipment> spareEquipments, final CustomAlertDialog ct) {
+    private void setButtonToSwap(ImageView swap, final List<Equipment> spareEquipments, final CustomAlertDialog ct) {
         swap.setVisibility(View.VISIBLE);
         swap.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -246,6 +245,7 @@ public class AllEquipments {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 equi.setEquiped(false);
+                                saveLocalAllEquipments();
                                 ct.dismissAlert();
                                 mListener.onEvent();
                             }
@@ -258,8 +258,6 @@ public class AllEquipments {
                         }).show();
             }
         });
-
-
     }
 
     private void customInfo(List<Equipment> equipmentsList,Boolean... selectToEquipBool) {
@@ -269,7 +267,6 @@ public class AllEquipments {
         final CustomAlertDialog ca = new CustomAlertDialog(mA, mC, view);
         ca.setPermanent(true);
         ca.clickToHide(view.findViewById(R.id.toast_list_title_frame));
-
         if(selectToEquip){
             TextView title = view.findViewById(R.id.toast_list_title);
             title.setText("Rechanges possibles");

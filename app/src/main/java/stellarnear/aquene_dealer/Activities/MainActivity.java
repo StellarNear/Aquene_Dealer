@@ -160,6 +160,8 @@ public class MainActivity extends AppCompatActivity {
             });
 
         } else {
+            Window window = getWindow();
+            window.setStatusBarColor(getColor(R.color.colorPrimaryDark));
             getSupportActionBar().show();
             startFragment();
         }

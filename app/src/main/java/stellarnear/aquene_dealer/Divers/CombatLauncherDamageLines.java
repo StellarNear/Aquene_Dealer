@@ -4,15 +4,19 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +49,7 @@ public class CombatLauncherDamageLines {
         this.mC=mC;
         this.mainView =mainView;
         this.allRolls = allRolls;
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mC);
+        settings = PreferenceManager.getDefaultSharedPreferences(mC);
         manualDiceDmg = settings.getBoolean("switch_manual_diceroll_damage", mC.getResources().getBoolean(R.bool.switch_manual_diceroll_damage_DEF));
         statPanelLinear= mainView.findViewById(R.id.stats_linear);
         statPanelLinear.setOnClickListener(new View.OnClickListener() {
@@ -139,12 +143,39 @@ public class CombatLauncherDamageLines {
             }
             damageLine.addView(frame);
             setSummaryListnerToShowStats(frame);
+            checkHighScore();
         } else {
             damageLineTitle.setVisibility(View.VISIBLE);
             TextView noDmg=new TextView(mC);
             noDmg.setTextSize(20);
             noDmg.setText("Aucun dégats infligé");
             damageLine.addView(noDmg);
+        }
+    }
+
+    private void checkHighScore() {
+        int highscore = settings.getInt("highscore",0);
+        if(sumPhy+sumFire > highscore){
+            LayoutInflater inflater = mA.getLayoutInflater();
+            final View layoutRecordVideo = inflater.inflate(R.layout.highscore, null);
+            final CustomAlertDialog customVideo = new CustomAlertDialog(mA,mC,layoutRecordVideo);
+            customVideo.setPermanent(true);
+            final VideoView video = (VideoView) layoutRecordVideo.findViewById(R.id.highscore_video);
+            video.setVisibility(View.VISIBLE);
+            String fileName = "android.resource://"+  mA.getPackageName() + "/raw/explosion";
+            video.setMediaController(null);
+            video.setVideoURI(Uri.parse(fileName));
+            customVideo.showAlert();
+            video.start();
+            tools.customToast(mC,String.valueOf(sumFire+sumPhy)+" dégats !\nC'est un nouveau record !","center");
+            settings.edit().putInt("highscore",sumFire+sumPhy).apply();
+            video.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                   video.stopPlayback();
+                   customVideo.dismissAlert();
+                }
+            });
         }
     }
 

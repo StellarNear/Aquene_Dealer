@@ -1,11 +1,11 @@
 package stellarnear.aquene_dealer.Divers;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.Preference;
@@ -19,6 +19,8 @@ import android.support.v7.widget.ContentFrameLayout;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -27,11 +29,9 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import stellarnear.aquene_dealer.Activities.MainActivity;
-import stellarnear.aquene_dealer.Perso.AllEquipments;
 import stellarnear.aquene_dealer.Perso.Equipment;
 import stellarnear.aquene_dealer.Perso.Feat;
 import stellarnear.aquene_dealer.Perso.Perso;
@@ -44,10 +44,12 @@ public class SettingsFragment extends PreferenceFragment {
     private Perso aquene = MainActivity.aquene;
     private List<View> additionalsViews = new ArrayList<>();
     private Tools tools = new Tools();
+    private SharedPreferences settings;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        settings = PreferenceManager.getDefaultSharedPreferences(getContext());
         addPreferencesFromResource(R.xml.pref);
         histoXML.add(R.xml.pref);
         histoTitle.add(getResources().getString(R.string.setting_activity));
@@ -105,6 +107,9 @@ public class SettingsFragment extends PreferenceFragment {
                 case "pref_inventory_bag":
                     addBagList();
                     break;
+                case "pref_character_xp":
+                    refreshXpBar();
+                    break;
             }
         } else {
             switch (key) {
@@ -128,6 +133,20 @@ public class SettingsFragment extends PreferenceFragment {
                 case "show_equipment":
                     aquene.getInventory().showEquipment(getActivity(), true);
                     break;
+                case "add_gold":
+                    preference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                        @Override
+                        public boolean onPreferenceChange(Preference preference, Object o) {
+                            SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
+                            int gold = tools.toInt(settings.getString("money_gold", String.valueOf(getContext().getResources().getInteger(R.integer.money_gold_def))));
+                            settings.edit().putString("money_gold", String.valueOf(gold + tools.toInt(o.toString()))).apply();
+                            settings.edit().putString("add_gold", String.valueOf(0)).apply();
+                            getPreferenceScreen().removeAll();
+                            addPreferencesFromResource(R.xml.pref_inventory_money); //pour refresh le current
+                            return true;
+                        }
+                    });
+                    break;
                 case "add_current_xp":
                     preference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                         @Override
@@ -138,10 +157,27 @@ public class SettingsFragment extends PreferenceFragment {
                             settings.edit().putString("add_current_xp", String.valueOf(0)).apply();
                             getPreferenceScreen().removeAll();
                             addPreferencesFromResource(R.xml.pref_character_xp); //pour refresh le current
+                            refreshXpBar();
                             return true;
                         }
                     });
                     break;
+                case "ability_lvl":
+                case "current_xp":
+                case "previous_level":
+                case "next_level":
+                    preference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                        @Override
+                        public boolean onPreferenceChange(Preference preference, Object o) {
+                            settings.edit().putString(preference.getKey(), o.toString()).apply();
+                            getPreferenceScreen().removeAll();
+                            addPreferencesFromResource(R.xml.pref_character_xp); //pour refresh le current
+                            refreshXpBar();
+                            return true;
+                        }
+                    });
+                    break;
+
                 case "create_bag_item":
                     createBagItem();
                     break;
@@ -158,7 +194,6 @@ public class SettingsFragment extends PreferenceFragment {
         if (key.equals("second_level_key_0")) {        // do something...    }       */
         return true;
     }
-
 
     private void addSleepScreen() {
         View window = getActivity().findViewById(android.R.id.content);
@@ -416,6 +451,15 @@ public class SettingsFragment extends PreferenceFragment {
             }
         });
         creationItemAlert.showAlert();
+        final EditText editName = ((EditText) creationView.findViewById(R.id.name_item_creation));
+        editName.post(new Runnable() {
+            public void run() {
+                editName.setFocusableInTouchMode(true);
+                editName.requestFocusFromTouch();
+                InputMethodManager lManager = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                lManager.showSoftInput(editName, InputMethodManager.SHOW_IMPLICIT);
+            }
+        });
     }
     private void addEditableEquipment(){
         addOtherSlotEquipment();
@@ -565,5 +609,48 @@ public class SettingsFragment extends PreferenceFragment {
             }
         });
         creationEquipmentAlert.showAlert();
+        final EditText editName = ((EditText) creationView.findViewById(R.id.name_equipment_creation));
+        editName.post(new Runnable() {
+            public void run() {
+                editName.setFocusableInTouchMode(true);
+                editName.requestFocusFromTouch();
+                InputMethodManager lManager = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                lManager.showSoftInput(editName, InputMethodManager.SHOW_IMPLICIT);
+            }
+        });
     }
+
+
+    private void refreshXpBar() {
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                final View mainView = ((ContentFrameLayout) getActivity().findViewById(android.R.id.content));
+                mainView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        TextView percent = mainView.findViewById(R.id.xp_bar_percent);
+                        ImageView backgroundBar = mainView.findViewById(R.id.xp_bar_background);
+                        ViewGroup.LayoutParams para= (ViewGroup.LayoutParams) backgroundBar.getLayoutParams();
+                        ImageView overlayBar = mainView.findViewById(R.id.xp_bar_overlay);
+                        int oriWidth=overlayBar.getMeasuredWidth();
+                        int oriHeight=overlayBar.getMeasuredHeight();
+                        int currentXp = tools.toInt(settings.getString("current_xp",String.valueOf(getContext().getResources().getInteger(R.integer.current_xp_def))));
+                        int nextLvlXp = tools.toInt(settings.getString("next_level",String.valueOf(getContext().getResources().getInteger(R.integer.next_level_def))));
+                        int previousLvlXp = tools.toInt(settings.getString("previous_level",String.valueOf(getContext().getResources().getInteger(R.integer.previous_level_def))));
+                        Double coef = (double) (currentXp-previousLvlXp)/(nextLvlXp-previousLvlXp);
+                        if(coef<0d){coef=0d;}
+                        if(coef>1d){coef=1d;}
+                        percent.setText(String.valueOf((int) (100*coef))+"%");
+                        para.width=(int) (coef*oriWidth);
+                        para.height=oriHeight;
+                        backgroundBar.setLayoutParams(para);
+                    }
+                });
+
+            }
+        }, 50); //pour attendre le changement de preference visiblement ce n'est pas instantané
+    }
+
 }

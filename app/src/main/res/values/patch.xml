@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="version">"v1.7"</string>
-    <string name="time_spend">"169h"</string>
+    <string name="version">"v1.8"</string>
+    <string name="time_spend">"178h"</string>
     <string name="basic_infos">"Cette application est développée par player 1 pour son player 2. Développée avec amour par Jérémie Chatron en fin 2017-2018." </string>
     <string name="patch_list">"----------------------------------------------------------------------------------
+v1.8
+-Ajout d'une popup quand un nouveau record de dégats est fait !
+-Correction d'un bug de superposition d'image du changement d'item ou du déséquipage avec le nom de l'objet
+-Possibilité d'ajouter directement des pièces d'or
+-Ajout d'une barre d'xp
+----------------------------------------------------------------------------------
 v1.7
 -Gestion des objets V2 !
 -Possibilité de créer de nouveaux objets dans le sac depuis les paramètres
