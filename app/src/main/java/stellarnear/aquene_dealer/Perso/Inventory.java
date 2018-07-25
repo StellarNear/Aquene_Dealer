@@ -1,14 +1,10 @@
 package stellarnear.aquene_dealer.Perso;
 
 import android.app.Activity;
-
 import android.content.Context;
-
 import android.graphics.ColorMatrixColorFilter;
-
 import android.view.LayoutInflater;
 import android.view.View;
-
 import android.widget.ImageView;
 
 import stellarnear.aquene_dealer.Divers.CustomAlertDialog;

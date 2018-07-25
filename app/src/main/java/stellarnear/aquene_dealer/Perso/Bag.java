@@ -58,6 +58,7 @@ public class Bag {
             saveLocalBag();
         } else {
             listBag = listDB;
+            refreshTags();
         }
     }
 
@@ -121,23 +122,13 @@ public class Bag {
         return rawBagXML;
     }
 
-    public String getMoney(String key) {
-        long money = tools.toLong(settings.getString(key,"0"));
-        String appendix ="";
-        if (money>=1000000000){
-            money = money/1000000000;
-            appendix+="G";
+    private void refreshTags() {
+        listTags = new ArrayList<>();
+        for (Equipment equi : listBag){
+            if(!equi.getSlotId().equalsIgnoreCase("")){
+                listTags.add(equi.getSlotId());
+            }
         }
-        if (money>=1000000){
-            money = money/1000000;
-            appendix+="M";
-        }
-        if (money>=1000){
-            money = money/1000;
-            appendix+="k";
-        }
-        String moneyTxt = String.valueOf(money)+appendix;
-        return moneyTxt;
     }
 
     public void calculateTagsSums(LinearLayout tagMain) {
@@ -259,6 +250,25 @@ public class Bag {
             scrollLin.addView(yourLayout);
         }
         ca.showAlert();
+    }
+
+    public String getMoney(String key) {
+        long money = tools.toLong(settings.getString(key,"0"));
+        String appendix ="";
+        if (money>=1000000000){
+            money = money/1000000000;
+            appendix+="G";
+        }
+        if (money>=1000000){
+            money = money/1000000;
+            appendix+="M";
+        }
+        if (money>=1000){
+            money = money/1000;
+            appendix+="k";
+        }
+        String moneyTxt = String.valueOf(money)+appendix;
+        return moneyTxt;
     }
 
     private void setButtonToDeleteFromBag(ImageView trash, final Equipment equi,final CustomAlertDialog ca) {

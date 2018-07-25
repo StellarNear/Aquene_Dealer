@@ -21,7 +21,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import stellarnear.aquene_dealer.Divers.CustomAlertDialog;
 import stellarnear.aquene_dealer.Divers.Tools;
 import stellarnear.aquene_dealer.Perso.KiCapacity;
 import stellarnear.aquene_dealer.Perso.Perso;
@@ -163,7 +162,7 @@ public class MainActivityFragmentKi extends Fragment {
                     aquene.getAllResources().getResource("resource_ki").spend(kiCapaSelected.getCost());
                     String txt= "Lancement de : "+kiCapaSelected.getName();
                     if(kiCapaSelected.getId().equalsIgnoreCase("kicapacity_heal")){
-                        int heal=aquene.getAbilityScore("ability_lvl");
+                        int heal=aquene.getAbilityScore(getContext(),"ability_lvl");
                         aquene.getAllResources().getResource("resource_hp").earn(heal);
                         txt+=" (+"+heal+"pv)";
                     }

@@ -106,9 +106,9 @@ public class DmgRoll {
         calcBonusDmg +=  tools.toInt(settings.getString("attack_dmg_epic", String.valueOf(mC.getResources().getInteger(R.integer.attack_dmg_epic_DEF))));
 
         if (aquene.getAllStances().isActive("stance_lion")) {
-            calcBonusDmg += (int) (1.5 * aquene.getAbilityMod("ability_force"));
+            calcBonusDmg += (int) (1.5 * aquene.getAbilityMod(mC,"ability_force"));
         } else {
-            calcBonusDmg += aquene.getAbilityMod("ability_force");
+            calcBonusDmg += aquene.getAbilityMod(mC,"ability_force");
         }
         if (aldrassil) {   calcBonusDmg += 2;  }
         if (amulette) {    calcBonusDmg += 5;  }

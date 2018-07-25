@@ -46,7 +46,7 @@ public class CombatAskerResultLine {
         String resultTxt = "";
 
         possibleAttacks = new ArrayList<>();
-        int ms = aquene.getAbilityScore("ability_ms");
+        int ms = aquene.getAbilityScore(mC,"ability_ms");
         if (aquene.getAllAttacks().getCombatMode().equalsIgnoreCase("mode_totaldef")) {
             resultTxt = "Tu es en mode défénse total.\nIl ne te reste qu'une action de mouvement par round.\nTu peux te deplacer en marchant (" + ms + "m).";
         } else if (outrange && moved) {

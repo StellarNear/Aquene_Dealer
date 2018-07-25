@@ -98,7 +98,7 @@ public class MainActivityFragmentCombat extends Fragment {
     }
 
     private void persoChange(String mode) {
-        aquene.setCombatMode(mode);
+        aquene.setCombatMode(getContext(),mode);
     }
 
 

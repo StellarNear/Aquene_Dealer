@@ -1,22 +1,15 @@
 package stellarnear.aquene_dealer.Divers;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.os.CountDownTimer;
-import android.preference.PreferenceManager;
 import android.view.Gravity;
-import android.view.MotionEvent;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import stellarnear.aquene_dealer.R;
 
 /**
  * Created by jchatron on 16/02/2018.

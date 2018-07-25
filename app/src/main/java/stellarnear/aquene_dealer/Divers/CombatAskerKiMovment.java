@@ -50,7 +50,7 @@ public class CombatAskerKiMovment {
         buttonTxt.setPadding(0, 0, 0, (int) mC.getResources().getDimension(R.dimen.margin_combat_asker));
 
         int atkRange = aquene.getAllAttacks().getAtkRange();
-        int tpKi = 120 + 12*aquene.getAbilityScore("ability_lvl");
+        int tpKi = 120 + 12*aquene.getAbilityScore(mC,"ability_lvl");
         int sum =  atkRange + tpKi;
         TextView contactTxt = summaryText("Moins de " + sum + "m");
         TextView outTxt = summaryText("Plus de " + sum + "m");

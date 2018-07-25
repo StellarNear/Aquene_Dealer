@@ -23,11 +23,9 @@ public class Perso {
     private AllKiCapacities allKiCapacities;
     private Inventory inventory;
     private AllResources allResources;
-    private Context mC;
     private Tools tools =new Tools();
 
     public Perso(Context mC) {
-        this.mC = mC;
         allStances = new AllStances(mC);
         allFeats = new AllFeats(mC);
         allAbilities = new AllAbilities(mC);
@@ -64,7 +62,7 @@ public class Perso {
         return allAbilities;
     }
 
-    public Integer getAbilityScore(String abiId) {
+    public Integer getAbilityScore(Context mC,String abiId) {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mC);
         int abiScore = 0;
         if (allAbilities.getAbi(abiId) != null) {
@@ -89,7 +87,7 @@ public class Perso {
             }
 
             if (abiId.equalsIgnoreCase("ability_bmo") && allStances.isActive("stance_octopus")) {
-                abiScore += getAbilityMod("ability_sagesse");
+                abiScore += getAbilityMod(mC,"ability_sagesse");
             }
 
             if (abiId.equalsIgnoreCase("ability_ca")) {
@@ -100,7 +98,7 @@ public class Perso {
                     abiScore += getCaBonusCombatMode("mode_totaldef");
                 }
                 if(allStances.isActive("stance_bear")) {
-                    abiScore += (int) (getAbilityScore("ability_lvl")/2.0);
+                    abiScore += (int) (getAbilityScore(mC,"ability_lvl")/2.0);
                 }
                 if (settings.getBoolean("switch_temp_rapid",mC.getResources().getBoolean(R.bool.switch_temp_rapid_DEF))) {
                     abiScore += 1;
@@ -110,9 +108,9 @@ public class Perso {
             if (abiId.equalsIgnoreCase("ability_ref")||abiId.equalsIgnoreCase("ability_vig")||abiId.equalsIgnoreCase("ability_vol")) {
                 abiScore += tools.toInt(settings.getString("bonus_temp_save",String.valueOf(mC.getResources().getInteger(R.integer.bonus_temp_save_DEF))));
                 abiScore += tools.toInt(settings.getString("epic_save",String.valueOf(mC.getResources().getInteger(R.integer.epic_save_def))));
-                if (abiId.equalsIgnoreCase("ability_ref")){abiScore+=getAbilityMod("ability_dexterite");}
-                if (abiId.equalsIgnoreCase("ability_vig")){abiScore+=getAbilityMod("ability_constitution");}
-                if (abiId.equalsIgnoreCase("ability_vol")){abiScore+=getAbilityMod("ability_sagesse");}
+                if (abiId.equalsIgnoreCase("ability_ref")){abiScore+=getAbilityMod(mC,"ability_dexterite");}
+                if (abiId.equalsIgnoreCase("ability_vig")){abiScore+=getAbilityMod(mC,"ability_constitution");}
+                if (abiId.equalsIgnoreCase("ability_vol")){abiScore+=getAbilityMod(mC,"ability_sagesse");}
                 if (settings.getBoolean("switch_save_race",mC.getResources().getBoolean(R.bool.switch_save_race_DEF))) {
                     abiScore+=1;
                 }
@@ -161,12 +159,12 @@ public class Perso {
         return caBonus;
     }
 
-    public Integer getAbilityMod(String abiId) {
+    public Integer getAbilityMod(Context mC,String abiId) {
         int abiMod = 0;
         Ability abi = allAbilities.getAbi(abiId);
 
         if (abi != null && abi.getType().equalsIgnoreCase("base")) {
-            int abiScore = getAbilityScore(abiId);
+            int abiScore = getAbilityScore(mC,abiId);
 
             float modFloat = (float) ((abiScore - 10.) / 2.0);
             if (modFloat >= 0) {
@@ -182,14 +180,14 @@ public class Perso {
         return allSkills;
     }
 
-    public Integer getSkillBonus(String skillId) {
+    public Integer getSkillBonus(Context mC,String skillId) {
         int bonusTemp = allSkills.getSkill(skillId).getBonus();
         if (skillId.equalsIgnoreCase("skill_acrob")) {
-            bonusTemp += getAbilityScore("ability_lvl");
+            bonusTemp += getAbilityScore(mC,"ability_lvl");
         }   //on ajoute le niveau de moine au jet d'acrob
 
         if (skillId.equalsIgnoreCase("skill_stealth") && allStances.isActive("stance_bat")) {
-            bonusTemp += getAbilityMod("ability_sagesse");
+            bonusTemp += getAbilityMod(mC,"ability_sagesse");
         }
         return bonusTemp;
     }
@@ -237,7 +235,7 @@ public class Perso {
         return selectedAttack;
     }
 
-    public void setCombatMode(String mode){
+    public void setCombatMode(Context mC,String mode){
         allAttacks.setCombatMode(mode);
         String modeTxt="";
         String summary="";
@@ -263,7 +261,7 @@ public class Perso {
         return this.allResources;
     }
 
-    public Integer getResourceValue(String resId){
+    public Integer getResourceValue(Context mC,String resId){
         Resource res = allResources.getResource(resId);
         Integer value=0;
         if(res!=null){
@@ -271,10 +269,10 @@ public class Perso {
         }
         if(resId.equalsIgnoreCase("resource_regen") && allStances.isActive("stance_phenix")){
             Skill surv=allSkills.getSkill("skill_survival");
-            int survScore= surv.getRank()+surv.getBonus()+getAbilityMod(surv.getAbilityDependence());
+            int survScore= surv.getRank()+surv.getBonus()+getAbilityMod(mC,surv.getAbilityDependence());
             Skill heal=allSkills.getSkill("skill_heal");
-            int healScore= heal.getRank()+heal.getBonus()+getAbilityMod(heal.getAbilityDependence());
-            value+=getAbilityMod("ability_sagesse")+ (int) ((survScore+healScore)/10.);
+            int healScore= heal.getRank()+heal.getBonus()+getAbilityMod(mC,heal.getAbilityDependence());
+            value+=getAbilityMod(mC,"ability_sagesse")+ (int) ((survScore+healScore)/10.);
         }
         return value;
     }

@@ -64,7 +64,7 @@ public class HealthDialog {
         regen.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int regen=aquene.getResourceValue("resource_regen");
+                int regen=aquene.getResourceValue(mC,"resource_regen");
                 aquene.getAllResources().getResource("resource_hp").earn(regen);
                 animateText(regen);
                 setHealthWidth();
@@ -241,11 +241,11 @@ public class HealthDialog {
         String txtTitle;
         int shield = aquene.getAllResources().getResource("resource_hp").getShield();
         if(shield>0){
-            txt=aquene.getResourceValue("resource_hp")+"/"+aquene.getAllResources().getResource("resource_hp").getMax();
+            txt=aquene.getResourceValue(mC,"resource_hp")+"/"+aquene.getAllResources().getResource("resource_hp").getMax();
             txt+= " ("+shield+")";
             txtTitle="Vie restante (points de vie temporaires) :";
         } else {
-            txt=aquene.getResourceValue("resource_hp")+"/"+aquene.getAllResources().getResource("resource_hp").getMax();
+            txt=aquene.getResourceValue(mC,"resource_hp")+"/"+aquene.getAllResources().getResource("resource_hp").getMax();
             txtTitle="Vie restante :";
         }
         textLife.setText(txt);
@@ -260,7 +260,7 @@ public class HealthDialog {
                 int oriWidth=imgHealthBase.getMeasuredWidth();
                 int oriHeight=imgHealthBase.getMeasuredHeight();
                 int height=(int) (oriHeight*0.355); //c'est le rapport entre le haut gargouille et la barre
-                Double coef = (double) aquene.getResourceValue("resource_hp")/aquene.getAllResources().getResource("resource_hp").getMax();
+                Double coef = (double) aquene.getResourceValue(mC,"resource_hp")/aquene.getAllResources().getResource("resource_hp").getMax();
                 if(coef<0d){coef=0d;} //pour les hp negatif
                 if(coef>1d){coef=1d;}
                 para.width=(int) (coef*oriWidth);

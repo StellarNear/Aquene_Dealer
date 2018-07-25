@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="version">"v1.8"</string>
-    <string name="time_spend">"178h"</string>
+    <string name="time_spend">"179h"</string>
     <string name="basic_infos">"Cette application est développée par player 1 pour son player 2. Développée avec amour par Jérémie Chatron en fin 2017-2018." </string>
     <string name="patch_list">"----------------------------------------------------------------------------------
 v1.8
@@ -9,6 +9,7 @@ v1.8
 -Correction d'un bug de superposition d'image du changement d'item ou du déséquipage avec le nom de l'objet
 -Possibilité d'ajouter directement des pièces d'or
 -Ajout d'une barre d'xp
+-Optimisation de perte de mémoire vive
 ----------------------------------------------------------------------------------
 v1.7
 -Gestion des objets V2 !

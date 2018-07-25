@@ -43,7 +43,7 @@
         <name>Bottes de rapidité</name>
         <descr>+1 réflexe +3 CA
 
-            +1 attaque une fois par jour
++1 attaque une fois par jour
         </descr>
         <imgId>equipment_feet</imgId>
         <slotId>feet_slot</slotId>
@@ -61,7 +61,7 @@
         <name>Toge de défense draconique</name>
         <descr>50 % de chance de rater la confirmation des critiques
 
-            1/j : 21 de resistance degat physique et energie destruc. pendant 1 round (action libre)
+1/j : 21 de resistance degat physique et energie destruc. pendant 1 round (action libre)
         </descr>
         <imgId>equipment_armor</imgId>
         <slotId>armor_slot</slotId>

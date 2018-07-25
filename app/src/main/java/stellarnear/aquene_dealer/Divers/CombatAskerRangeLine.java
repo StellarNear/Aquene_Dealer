@@ -56,7 +56,7 @@ public class CombatAskerRangeLine  {
 
         int atkRange = aquene.getAllAttacks().getAtkRange();
         TextView contactTxt = summaryText("Moins de " + atkRange + "m");
-        int ms = aquene.getAbilityScore("ability_ms");
+        int ms = aquene.getAbilityScore(mC,"ability_ms");
         int sum = ms + atkRange;
         TextView midTxt = summaryText("Entre " + atkRange + "m et " + sum + "m");
         TextView outTxt = summaryText("Plus de " + sum + "m");

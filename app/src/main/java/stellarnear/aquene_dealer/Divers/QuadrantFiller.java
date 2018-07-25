@@ -149,14 +149,14 @@ public class QuadrantFiller {
         String txt2;
         if (abi.getType().equalsIgnoreCase("base")){
             String abScore = "";
-            if(aquene.getAbilityMod(abi.getId())>=0){
-                abScore = "+"+aquene.getAbilityMod(abi.getId());
+            if(aquene.getAbilityMod(mC,abi.getId())>=0){
+                abScore = "+"+aquene.getAbilityMod(mC,abi.getId());
             } else {
-                abScore = String.valueOf(aquene.getAbilityMod(abi.getId()));
+                abScore = String.valueOf(aquene.getAbilityMod(mC,abi.getId()));
             }
-            txt2=String.valueOf(aquene.getAbilityScore(abi.getId()))+ " ("+abScore+")";
+            txt2=String.valueOf(aquene.getAbilityScore(mC,abi.getId()))+ " ("+abScore+")";
         } else {
-            txt2=String.valueOf(aquene.getAbilityScore(abi.getId()));
+            txt2=String.valueOf(aquene.getAbilityScore(mC,abi.getId()));
         }
         text2.setText(txt2);
         text2.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT,1));
@@ -192,7 +192,7 @@ public class QuadrantFiller {
         TextView column2 = new TextView(mC);
         column2.setTextSize(TypedValue.COMPLEX_UNIT_PX,textSize);
         String column2txt;
-        column2txt=String.valueOf(aquene.getResourceValue(res.getId()));
+        column2txt=String.valueOf(aquene.getResourceValue(mC,res.getId()));
         if(mode.equalsIgnoreCase("mini") && res.getId().equalsIgnoreCase("resource_hp")){
             column2txt=String.valueOf(aquene.getAllResources().getResource(res.getId()).getCurrent()+aquene.getAllResources().getResource(res.getId()).getShield());
         }

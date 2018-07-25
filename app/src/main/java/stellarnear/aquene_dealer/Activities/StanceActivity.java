@@ -36,7 +36,6 @@ import java.util.List;
 import java.util.Map;
 
 import stellarnear.aquene_dealer.Divers.CustomAlertDialog;
-import stellarnear.aquene_dealer.Divers.Tools;
 import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.Perso.Stance;
 import stellarnear.aquene_dealer.R;
@@ -51,7 +50,7 @@ public class StanceActivity extends AppCompatActivity {
     private List<RadioButton> allRadioButtons=new ArrayList<>();
     private Context mC;
     private Activity mA;
-    private Tools tools=new Tools();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());

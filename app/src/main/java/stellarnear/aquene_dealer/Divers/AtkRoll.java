@@ -144,12 +144,12 @@ public class AtkRoll {
     private int getBonusAtk() {
         int bonusAtk = 0;
         bonusAtk += tools.toInt(settings.getString("bonus_temp_jet_att", String.valueOf(mC.getResources().getInteger(R.integer.bonus_temp_jet_att_DEF))));
-        if (aquene.getAllStances().isActive("stance_rat") && (aquene.getAbilityMod("ability_dexterite") > aquene.getAbilityMod("ability_force")) ) {
-            bonusAtk += aquene.getAbilityMod("ability_dexterite");
-        } else if (aquene.getAllStances().isActive("stance_dragon") && (aquene.getAbilityMod("ability_sagesse") > aquene.getAbilityMod("ability_force")) ) {
-            bonusAtk += aquene.getAbilityMod("ability_sagesse");
+        if (aquene.getAllStances().isActive("stance_rat") && (aquene.getAbilityMod(mC,"ability_dexterite") > aquene.getAbilityMod(mC,"ability_force")) ) {
+            bonusAtk += aquene.getAbilityMod(mC,"ability_dexterite");
+        } else if (aquene.getAllStances().isActive("stance_dragon") && (aquene.getAbilityMod(mC,"ability_sagesse") > aquene.getAbilityMod(mC,"ability_force")) ) {
+            bonusAtk += aquene.getAbilityMod(mC,"ability_sagesse");
         } else {
-            bonusAtk += aquene.getAbilityMod("ability_force");
+            bonusAtk += aquene.getAbilityMod(mC,"ability_force");
         }
         if (aldrassil) {
             bonusAtk += 2;

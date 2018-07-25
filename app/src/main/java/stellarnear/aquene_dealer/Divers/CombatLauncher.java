@@ -78,7 +78,7 @@ public class CombatLauncher {
             public void onClick(View view) {
                 String txt=attack.getDescr();
                 if(attack.hasSave()){
-                    int val = 10+(int)(aquene.getAbilityScore("ability_lvl")/2.0)+aquene.getAbilityMod("ability_sagesse");
+                    int val = 10+(int)(aquene.getAbilityScore(mC,"ability_lvl")/2.0)+aquene.getAbilityMod(mC,"ability_sagesse");
                     txt+="\n\nJet de sauvegarde (vigueur) que l'ennemi doit égaler : "+val;}
                 tools.customToast(mC,txt,"center");
             }
