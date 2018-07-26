@@ -131,7 +131,7 @@ public class Bag {
         }
     }
 
-    public void calculateTagsSums(LinearLayout tagMain) {
+    private void calculateTagsSums(LinearLayout tagMain) {
         List<String> displayedTags=new ArrayList<>();
         if (listTags.size() > 0) {
             tagMain.removeAllViews();
@@ -142,7 +142,7 @@ public class Bag {
                     text.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
                     text.setGravity(Gravity.CENTER);
                     text.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                    text.setText(tag + " : " + getSumPo(tag));
+                    text.setText(tag + " : " + getAppedix(Long.parseLong(getSumPo(tag))));
                     text.setCompoundDrawablesWithIntrinsicBounds(null, null, mC.getDrawable(R.drawable.ic_gold_coin), null);
                     tagMain.addView(text);
                     displayedTags.add(tag);
@@ -252,8 +252,13 @@ public class Bag {
         ca.showAlert();
     }
 
-    public String getMoney(String key) {
-        long money = tools.toLong(settings.getString(key,"0"));
+    private String getMoney(String key) {
+        int money_defID = mC.getResources().getIdentifier(key+"_def", "integer", mC.getPackageName());
+        long money = tools.toLong(settings.getString(key,String.valueOf(mC.getResources().getInteger(money_defID))));
+        return getAppedix(money);
+    }
+
+    private String getAppedix(long money) {
         String appendix ="";
         if (money>=1000000000){
             money = money/1000000000;
@@ -267,8 +272,7 @@ public class Bag {
             money = money/1000;
             appendix+="k";
         }
-        String moneyTxt = String.valueOf(money)+appendix;
-        return moneyTxt;
+        return String.valueOf(money)+appendix;
     }
 
     private void setButtonToDeleteFromBag(ImageView trash, final Equipment equi,final CustomAlertDialog ca) {

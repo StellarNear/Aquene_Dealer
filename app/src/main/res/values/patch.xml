@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="version">"v1.8"</string>
-    <string name="time_spend">"179h"</string>
+    <string name="version">"v1.81"</string>
+    <string name="time_spend">"181h"</string>
     <string name="basic_infos">"Cette application est développée par player 1 pour son player 2. Développée avec amour par Jérémie Chatron en fin 2017-2018." </string>
     <string name="patch_list">"----------------------------------------------------------------------------------
+v1.81
+-Ajout d'un system de record par attaque
+-Affichage du record précédant dans les statistiques d'attaque
+-Correction d'un bug qui réaffichait les statistiques en cas de relancement de jet d'attaque ou dégats
+----------------------------------------------------------------------------------
 v1.8
 -Ajout d'une popup quand un nouveau record de dégats est fait !
 -Correction d'un bug de superposition d'image du changement d'item ou du déséquipage avec le nom de l'objet

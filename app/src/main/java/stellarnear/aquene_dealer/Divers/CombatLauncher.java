@@ -6,6 +6,8 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Point;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
@@ -21,6 +23,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -102,6 +105,7 @@ public class CombatLauncher {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     startAttack();
+                                    combatLauncherDamageLines.hideStatLine();
                                 }
 
                             })
@@ -134,6 +138,7 @@ public class CombatLauncher {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         startDamage();
+                                        combatLauncherDamageLines.hideStatLine();
                                     }
 
                                 })
@@ -256,8 +261,36 @@ public class CombatLauncher {
         if(!combatLauncherHitCritLines.isMegaFail()){
             combatLauncherDamageLines = new CombatLauncherDamageLines(mA, mC, dialogView, atksRolls);
             combatLauncherDamageLines.getDamageLine();
+            checkHighscore(combatLauncherDamageLines.getSum());
         }
         changeCancelButtonToOk();
+    }
+
+    private void checkHighscore(int sum) {
+        TextView highscore = dialogView.findViewById(R.id.combat_dialog_highscore);
+        highscore.setText("Précédent Record : "+String.valueOf(attack.getHighscore()));
+            if(attack.isHighscore(sum)){
+                LayoutInflater inflater = mA.getLayoutInflater();
+                final View layoutRecordVideo = inflater.inflate(R.layout.highscore, null);
+                final CustomAlertDialog customVideo = new CustomAlertDialog(mA,mC,layoutRecordVideo);
+                customVideo.setPermanent(true);
+                final VideoView video = (VideoView) layoutRecordVideo.findViewById(R.id.highscore_video);
+                video.setVisibility(View.VISIBLE);
+                String fileName = "android.resource://"+  mA.getPackageName() + "/raw/explosion";
+                video.setMediaController(null);
+                video.setVideoURI(Uri.parse(fileName));
+                customVideo.showAlert();
+                video.start();
+                tools.customToast(mC,String.valueOf(sum)+" dégats !\nC'est un nouveau record !","center");
+                video.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                        video.stopPlayback();
+                        customVideo.dismissAlert();
+                    }
+                });
+            }
+
     }
 
     private void displayDetail() {
