@@ -83,6 +83,7 @@
     <color name="end_gradient_money_inventory">#000000</color>
 
     <color name="gold">#FFD700</color>
+    <color name="gold_light">#fff7cc</color>
 
     <color name="end_gradient_xp_bar">#0099cc</color>
     <color name="start_gradient_xp_bar">#33ccff</color>

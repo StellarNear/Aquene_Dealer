@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="version">"v1.81"</string>
-    <string name="time_spend">"181h"</string>
+    <string name="version">"v1.82"</string>
+    <string name="time_spend">"183h"</string>
     <string name="basic_infos">"Cette application est développée par player 1 pour son player 2. Développée avec amour par Jérémie Chatron en fin 2017-2018." </string>
     <string name="patch_list">"----------------------------------------------------------------------------------
+v1.82
+-Calcul automatique de l'experience pour les niveaux
+-Fix des couleurs des séparateurs dans les menus d'option
+----------------------------------------------------------------------------------
 v1.81
 -Ajout d'un system de record par attaque
 -Affichage du record précédant dans les statistiques d'attaque

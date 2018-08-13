@@ -270,27 +270,9 @@ public class CombatLauncher {
         TextView highscore = dialogView.findViewById(R.id.combat_dialog_highscore);
         highscore.setText("Précédent Record : "+String.valueOf(attack.getHighscore()));
             if(attack.isHighscore(sum)){
-                LayoutInflater inflater = mA.getLayoutInflater();
-                final View layoutRecordVideo = inflater.inflate(R.layout.highscore, null);
-                final CustomAlertDialog customVideo = new CustomAlertDialog(mA,mC,layoutRecordVideo);
-                customVideo.setPermanent(true);
-                final VideoView video = (VideoView) layoutRecordVideo.findViewById(R.id.highscore_video);
-                video.setVisibility(View.VISIBLE);
-                String fileName = "android.resource://"+  mA.getPackageName() + "/raw/explosion";
-                video.setMediaController(null);
-                video.setVideoURI(Uri.parse(fileName));
-                customVideo.showAlert();
-                video.start();
-                tools.customToast(mC,String.valueOf(sum)+" dégats !\nC'est un nouveau record !","center");
-                video.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                    @Override
-                    public void onCompletion(MediaPlayer mp) {
-                        video.stopPlayback();
-                        customVideo.dismissAlert();
-                    }
-                });
+                tools.playVideo(mA,mC,"/raw/explosion");
+                tools.customToast(mC, String.valueOf(sum) + " dégats !\nC'est un nouveau record !", "center");
             }
-
     }
 
     private void displayDetail() {
