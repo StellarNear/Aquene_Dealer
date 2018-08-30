@@ -153,7 +153,7 @@
 
     <power>
         <name>Clairvoyance épique</name>
-        <descr>Tant qu'un moine épique a encore un point de Ki dans sa réserve, il gagne a un pouvoir surnaturel. [Pouvoir choisi au niveau 21] Bonus de +8 à tout les tests des compétences suivants : Acrobaties, Discretion, Equitation, Escalade, Escamotage, Evasion, Natation, Perception, Premiers secours, Psychologie, Survie, Vol.</descr>
+        <descr>Tant qu'un moine épique a encore un point de Ki dans sa réserve, il gagne a un pouvoir surnaturel. [Pouvoir choisi au niveau 21] Bonus de +8 à tout les tests des compétences suivants : Acrobaties, Discretion, Equitation, Escalade, Escamotage, Evasion, Natation, Perception, Premiers secours, Psychologie, Survie, Vol. [Pouvoir choisi au niveau 23] +2 Reduction/Chaos.</descr>
         <level>21</level>
         <id>power_insight_skill</id>
     </power>

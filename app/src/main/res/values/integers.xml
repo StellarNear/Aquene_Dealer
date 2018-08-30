@@ -13,10 +13,10 @@
     <integer name="ability_vig_def">12</integer>
     <integer name="ability_ref_def">12</integer>
     <integer name="ability_vol_def">12</integer>
-    <integer name="ability_reduc_def">10</integer>
+    <integer name="ability_reduc_def">12</integer>
 
     <!-- Resources  -->
-    <integer name="resource_hp_def">237</integer>
+    <integer name="resource_hp_def">252</integer>
     <integer name="resource_hp_shield_def">0</integer>
     <integer name="resource_regen_def">1</integer>
     <integer name="resource_heroic_def">1</integer>
@@ -24,19 +24,19 @@
 
 
     <!--  Rank de maitrise des compétences  -->
-    <integer name="skill_acrob_rankDEF">19</integer>
+    <integer name="skill_acrob_rankDEF">21</integer>
     <integer name="skill_myst_rankDEF">6</integer>
     <integer name="skill_religion_rankDEF">6</integer>
-    <integer name="skill_stealth_rankDEF">20</integer>
+    <integer name="skill_stealth_rankDEF">22</integer>
     <integer name="skill_ride_rankDEF">0</integer>
     <integer name="skill_climb_rankDEF">18</integer>
     <integer name="skill_escape_rankDEF">20</integer>
     <integer name="skill_intimidate_rankDEF">0</integer>
     <integer name="skill_swim_rankDEF">0</integer>
     <integer name="skill_percept_rankDEF">19</integer>
-    <integer name="skill_heal_rankDEF">22</integer>
+    <integer name="skill_heal_rankDEF">23</integer>
     <integer name="skill_psycho_rankDEF">0</integer>
-    <integer name="skill_survival_rankDEF">22</integer>
+    <integer name="skill_survival_rankDEF">23</integer>
 
     <!--  Bonus des compétences  -->
     <integer name="skill_acrob_bonusDEF">13</integer>
@@ -58,7 +58,7 @@
 
     <integer name="translationFragDuration">500</integer>
     <integer name="attack_range_DEF">3</integer>
-    <integer name="attack_att_epic_DEF">1</integer>
+    <integer name="attack_att_epic_DEF">2</integer>
     <integer name="attack_dmg_epic_DEF">1</integer>
     <integer name="attack_prouesse_epic_DEF">1</integer>
 
@@ -72,11 +72,10 @@
     <integer name="bonus_temp_save_DEF">0</integer>
     <integer name="bonus_temp_ca_DEF">0</integer>
 
-
-    <integer name="ability_lvl_def">22</integer>
-    <integer name="current_xp_def">6625294</integer>
-    <integer name="previous_level_def">4800000</integer>
-    <integer name="next_level_def">6830000</integer>
+    <integer name="ability_lvl_def">23</integer>
+    <integer name="current_xp_def">9418294</integer>
+    <integer name="previous_level_def">6830000</integer>
+    <integer name="next_level_def">9570000</integer>
     <integer name="add_current_xp_def">0</integer>
     <integer name="add_gold_def">0</integer>
     <integer name="money_plat_def">0</integer>
