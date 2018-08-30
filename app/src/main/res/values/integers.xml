@@ -58,8 +58,8 @@
 
     <integer name="translationFragDuration">500</integer>
     <integer name="attack_range_DEF">3</integer>
-    <integer name="attack_att_epic_DEF">2</integer>
-    <integer name="attack_dmg_epic_DEF">1</integer>
+    <integer name="attack_att_epic_DEF">1</integer>
+    <integer name="attack_dmg_epic_DEF">2</integer>
     <integer name="attack_prouesse_epic_DEF">1</integer>
 
     <integer name="percent_fullscreen_combat_launcher_dialog">95</integer>
