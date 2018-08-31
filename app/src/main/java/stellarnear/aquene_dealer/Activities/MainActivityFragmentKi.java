@@ -92,6 +92,7 @@ public class MainActivityFragmentKi extends Fragment {
             TextView nameTitle = returnFragView.findViewById(R.id.kiNameTitle);
             nameTxt.setLayoutParams(nameTitle.getLayoutParams());
             nameTxt.setText(kiCapa.getName());
+
             int imgId = getResources().getIdentifier(kiCapa.getId(), "drawable", getContext().getPackageName());
             nameTxt.setCompoundDrawablesWithIntrinsicBounds(tools.resize(getContext(),getContext().getDrawable(imgId),(int) (getResources().getDimensionPixelSize(R.dimen.icon_kicapacities_list))),null,null,null);
             nameTxt.setPadding(getResources().getDimensionPixelSize(R.dimen.general_margin),0,0,0);
@@ -166,6 +167,10 @@ public class MainActivityFragmentKi extends Fragment {
                         aquene.getAllResources().getResource("resource_hp").earn(heal);
                         txt+=" (+"+heal+"pv)";
                     }
+
+                    if(kiCapaSelected.getId().equalsIgnoreCase("kicapacity_ki_armor")){
+                        setTempArmor();
+                    }
                     Snackbar snackbar = Snackbar.make(view, txt, Snackbar.LENGTH_LONG);
                     snackbar.show();
                     backToMain();
@@ -184,7 +189,9 @@ public class MainActivityFragmentKi extends Fragment {
 
     }
 
-
+    private void setTempArmor() {
+        //TODO demander combien de lancement et ajotuer à l'armure temp (check le cap)
+    }
 
 
     private void unlockOrient() {

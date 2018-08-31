@@ -33,7 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/skillTitleLine"
-                android:weightSum="6"
+                android:weightSum="9"
                 android:orientation="horizontal"
                 android:background="@color/title_skill_color_background">
 
@@ -41,12 +41,24 @@
                      android:id="@+id/skillNameTitle"
                      android:layout_width="0dp"
                      android:layout_height="wrap_content"
-                     android:layout_weight="3"
+                     android:layout_weight="4"
                      android:gravity="center"
                      android:textColor="@color/title_skill_color_text"
                      android:textSize="15sp"
                      android:textStyle="bold"
                      android:text="Compétence" />
+
+                <TextView
+                    android:id="@+id/skillTotalTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/title_skill_color_text"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:text="Total" />
+
                  <TextView
                      android:textColor="@color/title_skill_color_text"
                      android:id="@+id/skillAbiTitle"
@@ -54,7 +66,7 @@
                      android:layout_height="wrap_content"
                      android:gravity="center"
                      android:textStyle="bold"
-                     android:layout_weight="1"
+                     android:layout_weight="2"
                      android:textSize="15sp"
                      android:text="Stat" />
                  <TextView

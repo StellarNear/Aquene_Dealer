@@ -3,13 +3,13 @@
     <kicapacity>
         <name>Désertion de l'âme</name>
         <cost>3</cost>
-        <descr>Devient éthéré pendant une minute comme s’il utilisait le sort passage dans l’éther. Cette capacité s’active par une action de mouvement.</descr>
+        <descr>Devient éthéré pendant 1 minute comme avec le sort passage dans l’éther. Nécessite une action de mouvement.</descr>
         <id>kicapacity_ethereal</id>
     </kicapacity>
     <kicapacity>
         <name>Pas chassé</name>
         <cost>2</cost>
-        <descr>Déplacement instantané d’un endroit à un autre comme à l’aide du sort porte dimensionnelle. Nécessite une action de mouvement.</descr>
+        <descr>Déplacement instantané comme avec le sort porte dimensionnelle. Nécessite une action de mouvement.</descr>
         <id>kicapacity_step</id>
     </kicapacity>
     <kicapacity>
@@ -17,6 +17,12 @@
         <cost>2</cost>
         <descr>Le moine se soigne par une action simple d'un nombre de points de vie égal à son niveau de moine.</descr>
         <id>kicapacity_heal</id>
+    </kicapacity>
+    <kicapacity>
+        <name>Armure Ki</name>
+        <cost>1</cost>
+        <descr>Le moine gagne un bonus d’esquive de +2 à sa CA pendant 1 minute.</descr>
+        <id>kicapacity_ki_armor</id>
     </kicapacity>
     <kicapacity>
         <name>Armure améliorée</name>

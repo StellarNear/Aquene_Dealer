@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.pm.ActivityInfo;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Gravity;
@@ -88,6 +89,14 @@ public class MainActivityFragmentSkill extends Fragment {
         nameTxt.setPadding(getResources().getDimensionPixelSize(R.dimen.general_margin),0,0,0);
         nameTxt.setGravity(Gravity.CENTER);
 
+        TextView totalTxt = new TextView(getContext());
+        TextView totalTitle = returnFragView.findViewById(R.id.skillTotalTitle);
+        totalTxt.setLayoutParams(totalTitle.getLayoutParams());
+        int total = aquene.getAbilityMod(getContext(),skill.getAbilityDependence())+skill.getRank()+aquene.getSkillBonus(getContext(),skill.getId());
+        totalTxt.setText(String.valueOf(total));
+        totalTxt.setTypeface(null, Typeface.BOLD);
+        totalTxt.setGravity(Gravity.CENTER);
+
         TextView abiTxt = new TextView(getContext());
         TextView abiTitle = returnFragView.findViewById(R.id.skillAbiTitle);
         abiTxt.setLayoutParams(abiTitle.getLayoutParams());
@@ -113,6 +122,7 @@ public class MainActivityFragmentSkill extends Fragment {
         bonusTxt.setGravity(Gravity.CENTER);
 
         line.addView(nameTxt);
+        line.addView(totalTxt);
         line.addView(abiTxt);
         line.addView(rankTxt);
         line.addView(bonusTxt);
