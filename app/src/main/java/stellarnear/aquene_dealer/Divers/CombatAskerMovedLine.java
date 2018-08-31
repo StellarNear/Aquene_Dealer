@@ -16,47 +16,66 @@ import stellarnear.aquene_dealer.R;
 public class CombatAskerMovedLine {
     private Context mC;
     private LinearLayout lineStep;
-    private RadioButton yes;
+    private RadioButton charge;
+    private RadioButton walk;
     private RadioButton no;
 
-    public CombatAskerMovedLine(Context mC) {
+    public CombatAskerMovedLine(Context mC, Boolean chargerange) {
         this.mC = mC;
         lineStep = new LinearLayout(mC);
         lineStep.setOrientation(LinearLayout.VERTICAL);
 
-        TextView question = questionLayout("Es-ce que tu peux encore te déplacer ?");
+        TextView question = questionLayout("Es-ce que tu peux te déplacer ?");
         lineStep.addView(question);
 
         LinearLayout answers = new LinearLayout(mC);
         answers.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         answers.setOrientation(LinearLayout.HORIZONTAL);
 
-        LinearLayout yesBox = box();
+
+        LinearLayout walkBox = box();
         LinearLayout noBox = box();
 
-        yes = answerIcon(mC.getDrawable(R.drawable.moving_selector));
+        walk = answerIcon(mC.getDrawable(R.drawable.moving_selector));
         no = answerIcon(mC.getDrawable(R.drawable.notmoving_selector));
 
-        yesBox.addView(yes);
+        walkBox.addView(walk);
         noBox.addView(no);
 
-        answers.addView(yesBox);
+        LinearLayout chargeBox = box();
+        charge = answerIcon(mC.getDrawable(R.drawable.mire_test));
+        if (chargerange) {
+            chargeBox.addView(charge);
+            answers.addView(chargeBox);
+        }
+
+        answers.addView(walkBox);
         answers.addView(noBox);
 
         LinearLayout buttonTxt = new LinearLayout(mC);
         buttonTxt.setOrientation(LinearLayout.HORIZONTAL);
         buttonTxt.setPadding(0, 0, 0, (int) mC.getResources().getDimension(R.dimen.margin_combat_asker));
 
-        TextView yesTxt = summaryText("Oui je peux !");
-        TextView noTxt = summaryText("Non je peux plus ...");
+        TextView walkTxt = summaryText("Je peux marcher");
+        TextView noTxt = summaryText("Je peux plus...");
 
-        LinearLayout yesBoxTxt = box();
+
+        LinearLayout walkBoxTxt = box();
         LinearLayout noBoxTxt = box();
 
-        yesBoxTxt.addView(yesTxt);
+
+        walkBoxTxt.addView(walkTxt);
         noBoxTxt.addView(noTxt);
 
-        buttonTxt.addView(yesBoxTxt);
+
+        TextView chargeTxt = summaryText("Je peux charger !");
+        LinearLayout chargeBoxTxt = box();
+        if (chargerange) {
+            chargeBoxTxt.addView(chargeTxt);
+            buttonTxt.addView(chargeBoxTxt);
+        }
+
+        buttonTxt.addView(walkBoxTxt);
         buttonTxt.addView(noBoxTxt);
 
         lineStep.addView(answers);
@@ -101,8 +120,12 @@ public class CombatAskerMovedLine {
         return question;
     }
 
-    public RadioButton getYesButton() {
-        return yes;
+    public RadioButton getChargeButton() {
+        return charge;
+    }
+
+    public RadioButton getWalkButton() {
+        return walk;
     }
 
     public RadioButton getNoButton() {

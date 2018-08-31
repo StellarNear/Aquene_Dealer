@@ -254,6 +254,9 @@ public class CombatLauncher {
             String[] list_att_base_string = att_base.split(delim);
             atksRolls.add(new Roll(mA,mC, tools.toInt(list_att_base_string[0]) +tools.toInt(bonus_epic_att)));
         }
+        if(attack.isFromCharge()){
+            for (Roll roll : atksRolls){ roll.setFromCharge();}
+        }
         combatLauncherHitCritLines =new CombatLauncherHitCritLines(mA,mC,dialogView,atksRolls);
     }
 

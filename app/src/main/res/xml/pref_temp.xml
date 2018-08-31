@@ -56,5 +56,11 @@
         android:title="Bonus à la résisitance magique"
         />
 
+    <PreferenceScreen
+        android:key="reset_temp"
+        android:summary="Réinitialise à zéro les valeurs temporaires"
+        android:icon="@drawable/ic_undo_black_24dp"
+        android:title="Reset des bonus" />
+
 
 </PreferenceScreen>

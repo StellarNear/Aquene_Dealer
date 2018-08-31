@@ -141,7 +141,6 @@ public class SettingsFragment extends PreferenceFragment {
                     preference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                         @Override
                         public boolean onPreferenceChange(Preference preference, Object o) {
-                            SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
                             int gold = tools.toInt(settings.getString("money_gold", String.valueOf(getContext().getResources().getInteger(R.integer.money_gold_def))));
                             settings.edit().putString("money_gold", String.valueOf(gold + tools.toInt(o.toString()))).apply();
                             settings.edit().putString("add_gold", String.valueOf(0)).apply();
@@ -155,7 +154,6 @@ public class SettingsFragment extends PreferenceFragment {
                     preference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                         @Override
                         public boolean onPreferenceChange(Preference preference, Object o) {
-                            SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
                             BigInteger xp = tools.toBigInt(settings.getString("current_xp", String.valueOf(getContext().getResources().getInteger(R.integer.current_xp_def))));
                             BigInteger addXp = tools.toBigInt(o.toString());
                             settings.edit().putString("current_xp", xp.add(addXp).toString()).apply();
@@ -187,6 +185,11 @@ public class SettingsFragment extends PreferenceFragment {
                     break;
                 case "create_equipment":
                     createEquipment();
+                    break;
+                case "reset_temp":
+                    resetTemp();
+                    getPreferenceScreen().removeAll();
+                    addPreferencesFromResource(R.xml.pref_temp); //pour refresh le current
                     break;
             }
         }
@@ -232,12 +235,21 @@ public class SettingsFragment extends PreferenceFragment {
             @Override
             public void run() {
                 MainActivity.aquene.getAllResources().sleepReset();
+                resetTemp();
                 tools.customToast(getContext(), "Une nouvelle journée pleine de mandales et d'acrobaties t'attends.", "center");
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
             }
         }, time);
+    }
+
+    private void resetTemp() {
+        List<String> allTempList = Arrays.asList("bonus_temp_jet_att","bonus_temp_jet_dmg","bonus_temp_ca","bonus_temp_save","bonus_temp_rm");
+        for (String temp : allTempList){
+            settings.edit().putString(temp, "0").apply();
+        }
+        settings.edit().putBoolean("switch_temp_rapid", false).apply();
     }
 
     private void addResetScreen() {

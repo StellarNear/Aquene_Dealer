@@ -12,7 +12,7 @@ public class Roll {
     private DmgRoll dmgRoll;
     private Activity mA;
     private Context mC;
-    public Roll(Activity mA, Context mC,int atkBase) {
+    public Roll(Activity mA, Context mC,Integer atkBase) {
         this.mA=mA;
         this.mC=mC;
         this.atkRoll=new AtkRoll(mA,mC,atkBase);
@@ -101,5 +101,9 @@ public class Roll {
 
     public int getNDmgDice(int dice) {
         return dmgRoll.getNDmgDice(dice);
+    }
+
+    public void setFromCharge() {
+        atkRoll.setFromCharge();
     }
 }

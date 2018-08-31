@@ -26,14 +26,17 @@ import stellarnear.aquene_dealer.R;
  */
 
 public class CombatAskerResultLine {
-    Perso aquene= MainActivity.aquene;
-    List<RadioButton> listRadioAtk;
-    List<Attack> possibleAttacks;
-    LinearLayout lineStep;
-    Context mC;
+    private Perso aquene = MainActivity.aquene;
+    private List<RadioButton> listRadioAtk;
+    private List<Attack> possibleAttacks;
+    private LinearLayout lineStep;
+    private Context mC;
     private Map<RadioButton, Attack> mapRadioAtkAtk = new HashMap<>();
-    public CombatAskerResultLine(Activity mA, Context mC, Boolean moved, Boolean range, Boolean outrange,Boolean kistep) {
-        this.mC=mC;
+    private boolean kistep;
+
+    public CombatAskerResultLine(Activity mA, Context mC, Boolean moved, Boolean range, Boolean farRange, Boolean chargeRange, Boolean canCharge, Boolean outrange) {
+        this.mC = mC;
+        this.kistep = false;
         lineStep = new LinearLayout(mC);
         lineStep.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         lineStep.setOrientation(LinearLayout.VERTICAL);
@@ -46,30 +49,83 @@ public class CombatAskerResultLine {
         String resultTxt = "";
 
         possibleAttacks = new ArrayList<>();
-        int ms = aquene.getAbilityScore(mC,"ability_ms");
+        int ms = aquene.getAbilityScore(mC, "ability_ms");
         if (aquene.getAllAttacks().getCombatMode().equalsIgnoreCase("mode_totaldef")) {
             resultTxt = "Tu es en mode défénse total.\nIl ne te reste qu'une action de mouvement par round.\nTu peux te deplacer en marchant (" + ms + "m).";
-        } else if (outrange && moved) {
-            resultTxt = "Il est trop loin, il va falloir attendre le prochain round.";
-        } else if (outrange && !moved) {
-            resultTxt = "Il est trop loin, tu peux te deplacer en marchant (" + ms + "m).\n Puis faire autre chose qu'une attaque.\nOu bien courir (" + ms * 4 + "m) vers lui.";
-        } else if (!moved && range && !outrange) {
-            if(aquene.getAllStances().getCurrentStance()!=null && (aquene.getAllStances().isActive("stance_bear")||aquene.getAllStances().isActive("stance_phenix"))){
+        } else if (outrange) {
+            if (moved) {
+                resultTxt = "Il est trop loin, il va falloir attendre le prochain round.";
+            } else {
+                resultTxt = "Il est trop loin, tu peux te deplacer en marchant (" + ms + "m).\n Puis faire autre chose qu'une attaque.\nOu bien courir (" + ms * 4 + "m) vers lui.";
+            }
+        } else if (farRange) {
+            if (moved) {
+                resultTxt = "Il est trop loin, il va falloir attendre le prochain round.";
+            } else {
+                if (chargeRange) {
+                    if (canCharge) {
+                        if (aquene.getAllStances().getCurrentStance() != null && (aquene.getAllStances().isActive("stance_bear") || aquene.getAllStances().isActive("stance_phenix"))) {
+                            resultTxt = "Ta posture ne te permet qu'une attaque simple.";
+                            possibleAttacks = aquene.getAttacksForType("simple");
+                        } else {
+                            resultTxt = "Charge ! puis :";
+                            if (aquene.featIsActive("feat_dire_charge")) {
+                                possibleAttacks = aquene.getAttacksForType("complex");
+                            } else {
+                                possibleAttacks = aquene.getAttacksForType("simple");
+                            }
+                        }
+                    } else {
+                        resultTxt = "Déplace toi avec pas chassé (2 points de Ki), puis :";
+                        kistep = true;
+                        possibleAttacks = aquene.getAttacksForType("simple");
+                    }
+                } else {
+                    resultTxt = "Déplace toi avec pas chassé (2 points de Ki), puis :";
+                    kistep = true;
+                    possibleAttacks = aquene.getAttacksForType("simple");
+                }
+            }
+        } else if (!range) {
+            if (moved) {
+                resultTxt = "Prochain round tu peux le toucher.\nEn attendant fais autre chose qu'une attaque.";
+            } else {
+                if (canCharge) {
+                    if (aquene.getAllStances().getCurrentStance() != null && (aquene.getAllStances().isActive("stance_bear") || aquene.getAllStances().isActive("stance_phenix"))) {
+                        resultTxt = "Ta posture ne te permet qu'une attaque simple.";
+                        possibleAttacks = aquene.getAttacksForType("simple");
+                    } else {
+                        resultTxt = "Charge ! puis :";
+                        if (aquene.featIsActive("feat_dire_charge")) {
+                            possibleAttacks = aquene.getAttacksForType("complex");
+                        } else {
+                            possibleAttacks = aquene.getAttacksForType("simple");
+                        }
+                    }
+                } else {
+                    resultTxt = "Déplace toi puis :";
+                    possibleAttacks = aquene.getAttacksForType("simple");
+                }
+            }
+        } else {
+            if (moved) {
+                possibleAttacks = aquene.getAttacksForType("simple");
+            } else if (aquene.getAllStances().getCurrentStance() != null && (aquene.getAllStances().isActive("stance_bear") || aquene.getAllStances().isActive("stance_phenix"))) {
                 resultTxt = "Ta posture ne te permet qu'une attaque simple.";
                 possibleAttacks = aquene.getAttacksForType("simple");
             } else {
                 possibleAttacks = aquene.getAttacksForType("complex");
             }
-        } else if (!moved && kistep && !range && !outrange) {
-            resultTxt = "Déplace toi avec pas chassé (2 points de Ki), puis :";
-            possibleAttacks = aquene.getAttacksForType("simple");
-        } else if (!moved && !range && !outrange) {
-            resultTxt = "Déplace toi puis :";
-            possibleAttacks = aquene.getAttacksForType("simple");
-        } else if (moved && range && !outrange) {
-            possibleAttacks = aquene.getAttacksForType("simple");
-        } else if (moved && !range && !outrange) {
-            resultTxt = "Prochain round tu peux le toucher.\nEn attendant fais autre chose qu'une attaque.";
+        }
+
+        if (canCharge) {
+            for (Attack atk : possibleAttacks) {
+                atk.setFromCharge(true);
+            }
+        } else {
+            for (Attack atk : possibleAttacks) {
+                atk.setFromCharge(false);
+            }
         }
 
         result.setText(resultTxt);
@@ -87,7 +143,7 @@ public class CombatAskerResultLine {
             scrollAtkLinTxt.setOrientation(LinearLayout.HORIZONTAL);
             scrollAtkLinTxt.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
 
-            listRadioAtk  = new ArrayList<RadioButton>();
+            listRadioAtk = new ArrayList<RadioButton>();
             for (Attack atk : possibleAttacks) {
                 LinearLayout box = box();
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -116,6 +172,7 @@ public class CombatAskerResultLine {
             lineStep.addView(scrollAtkLinTxt);
         }
     }
+
     private LinearLayout box() {
         LinearLayout box = new LinearLayout(mC);
         box.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
@@ -141,6 +198,7 @@ public class CombatAskerResultLine {
         return question;
 
     }
+
     protected Drawable convertToGrayscale(Drawable inputDraw) {
         ColorMatrix matrix = new ColorMatrix();
         matrix.setSaturation(0);
@@ -150,17 +208,19 @@ public class CombatAskerResultLine {
         return newDraw;
     }
 
-    public Map<RadioButton,Attack> getMapRadioAtkAtk() {
+    public Map<RadioButton, Attack> getMapRadioAtkAtk() {
         return mapRadioAtkAtk;
     }
 
-    public List<RadioButton> getListRadioAtk(){
+    public List<RadioButton> getListRadioAtk() {
         return listRadioAtk;
     }
 
     public boolean attackToLaunch() {
-        boolean value=false;
-        if (possibleAttacks != null && possibleAttacks.size() > 0){value=true;}
+        boolean value = false;
+        if (possibleAttacks != null && possibleAttacks.size() > 0) {
+            value = true;
+        }
         return value;
     }
 
@@ -168,5 +228,7 @@ public class CombatAskerResultLine {
         return lineStep;
     }
 
-
+    public Boolean getKistep() {
+        return this.kistep;
+    }
 }

@@ -14,6 +14,7 @@ public class Attack {
     private String type;
     private String descr;
     private Boolean save;
+    private Boolean fromCharge;
     private String id;
     private Context mC;
 
@@ -24,6 +25,7 @@ public class Attack {
         this.type=type;
         this.descr=descr;
         this.save=save;
+        this.fromCharge=false;
         this.id=id;
         this.mC=mC;
     }
@@ -50,6 +52,14 @@ public class Attack {
 
     public Boolean hasSave(){
         return this.save;
+    }
+
+    public Boolean isFromCharge() {
+        return fromCharge;
+    }
+
+    public void setFromCharge(Boolean bool){
+        this.fromCharge=bool;
     }
 
     public boolean isHighscore(int sum) {

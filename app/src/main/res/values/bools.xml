@@ -21,6 +21,8 @@
     <bool name="feat_robustness">true</bool>
     <bool name="feat_bonus_ki">true</bool>
     <bool name="feat_init">true</bool>
+    <bool name="feat_dire_charge">true</bool>
+
     <!-- Switch des dons stance DEF -->
     <bool name="feat_dex_atk">false</bool>
     <bool name="feat_quick_atk">false</bool>

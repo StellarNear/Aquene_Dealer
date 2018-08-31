@@ -31,6 +31,7 @@ public class AtkRoll {
     private Boolean manualDice;
     private Boolean amulette;
     private Boolean aldrassil;
+    private Boolean fromCharge=false;
     private SharedPreferences settings;
     private Perso aquene = MainActivity.aquene;
     private CheckBox hitCheckbox;
@@ -49,7 +50,6 @@ public class AtkRoll {
         amulette = settings.getBoolean("switch_amulette", mC.getResources().getBoolean(R.bool.switch_amulette_DEF));
         this.preRandValue = base + getBonusAtk();
 
-        setAtkRand();
         constructCheckboxes();
     }
 
@@ -71,6 +71,10 @@ public class AtkRoll {
         setAtkDiceImg();
         calculAtk();
         mListener.onEvent();
+    }
+
+    public void setFromCharge() {
+        this.fromCharge=true;
     }
 
 
@@ -122,7 +126,7 @@ public class AtkRoll {
     }
 
     private void calculAtk() {
-        this.atk = base + getBonusAtk() + randAtk;
+        this.atk = this.preRandValue + this.randAtk;
         if (randAtk == 1) {
             this.fail = true;
         }
@@ -170,6 +174,8 @@ public class AtkRoll {
     }
 
     public Integer getPreRandValue() {
+        if(fromCharge){this.preRandValue+=2;}
+        setAtkRand();
         return preRandValue;
     }
 

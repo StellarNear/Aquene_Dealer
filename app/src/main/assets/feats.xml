@@ -135,6 +135,12 @@
         <descr>Les réflexes du personnage lui permettent de réagir rapidement en cas de danger. Le personnage bénéficie d’un bonus de +4 au test d’initiative.</descr>
         <id>feat_init</id>
     </feat>
+    <feat>
+        <name>Charge terrible</name>
+        <type>feat_other</type>
+        <descr>Le personnage peut après une action de charge faire une attaque à outrance à la place d'une attaque simple.</descr>
+        <id>feat_dire_charge</id>
+    </feat>
 
     <!-- DONS DES feat_stanceS -->
     <feat>

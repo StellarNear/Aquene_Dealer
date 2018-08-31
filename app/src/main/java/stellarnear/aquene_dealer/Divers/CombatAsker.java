@@ -32,10 +32,16 @@ public class CombatAsker {
     private Map<RadioButton, Attack> mapRadioAtkAtk = new HashMap<>();
     private Attack selectedAttack = null;
     private boolean moved;
+    private boolean canCharge;
+    private boolean chargeRange;
+
     private boolean range;
-    private boolean kistep;
+    private boolean farRange;
     private boolean outrange;
-    View.OnClickListener backToMainListner;
+
+    private boolean kistep; //pour la dépense à la fin en confirmation
+    private View.OnClickListener backToMainListner;
+    private Tools tools= new Tools();
 
     public CombatAsker(Activity mA,Context mC, LinearLayout layout, View.OnClickListener backToMainListner) {
         this.mA=mA;
@@ -75,36 +81,33 @@ public class CombatAsker {
                         }
                         if (check.equals(contact)) {
                             range = true;
-                            kistep=false;
+                            farRange = false;
                             outrange = false;
+
+                            chargeRange=false;
                             buildMovedLine();
                         } else if (check.equals(mid)) {
                             range = false;
-                            kistep=false;
+                            farRange = false;
                             outrange = false;
+
+                            chargeRange = true;
                             buildMovedLine();
                         } else {
-                            if (aquene.getAllResources().getResource("resource_ki").getCurrent()>=aquene.getAllKiCapacities().getKicapacity("kicapacity_step").getCost()) {
-                                range = false;
-                                askForKiMovement();
-                            } else {
-                                range = false;
-                                kistep=false;
-                                outrange = true;
-                                buildMovedLine();
+                                farRange = true;
+                                askForMovementFar();
                             }
                         }
                     }
-                }
-            });
+                });
         }
     }
 
-    private void askForKiMovement() {
+    private void askForMovementFar() {
         clearStep(1);
-        final CombatAskerKiMovment lineKiMovement = new CombatAskerKiMovment(mC);
+        final CombatAskerMovementFar lineMovementFar = new CombatAskerMovementFar(mC);
 
-        setRadioButtonListnerKiRange(lineKiMovement.getContactButton(),lineKiMovement.getOutButton());
+        setRadioButtonListnerFarRange(lineMovementFar.getChargeButton(),lineMovementFar.getKiRangeButton(),lineMovementFar.getOutrangeButton());
 
         Animation outLeft = AnimationUtils.loadAnimation(mC,R.anim.outtoleft);
         final Animation inRight = AnimationUtils.loadAnimation(mC,R.anim.infromright);
@@ -124,8 +127,8 @@ public class CombatAsker {
                 handler.postDelayed(new Runnable() {
                     public void run() {
                         clearStep(0);
-                        stepsView.add(lineKiMovement.getKiMovementLine());
-                        lineKiMovement.getKiMovementLine().startAnimation(inRight);
+                        stepsView.add(lineMovementFar.getKiMovementLine());
+                        lineMovementFar.getKiMovementLine().startAnimation(inRight);
                         getLayout();
                     }
                 }, 50);
@@ -134,8 +137,8 @@ public class CombatAsker {
         stepsView.get(0).startAnimation(outLeft);
     }
 
-    private void setRadioButtonListnerKiRange(final RadioButton contact, final RadioButton out) {
-        final List<RadioButton> listRadio = Arrays.asList(contact, out);
+    private void setRadioButtonListnerFarRange(final RadioButton chargeRangeButton,final RadioButton kiRangeButton, final RadioButton outrangeButton) {
+        final List<RadioButton> listRadio = Arrays.asList(chargeRangeButton,kiRangeButton, outrangeButton);
         for (final RadioButton check : listRadio) {
             check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
@@ -146,11 +149,21 @@ public class CombatAsker {
                                 checkToUnselect.setChecked(false);
                             }
                         }
-                        if (check.equals(contact)) {
-                            kistep=true;
-                            outrange=false;
-                        } else {
-                            kistep=false;
+                        if (check.equals(chargeRangeButton)) {
+                            range = true;
+                            outrange = false;
+                            chargeRange = true;
+                        }
+                        if (check.equals(kiRangeButton)) {
+                            if (aquene.getAllResources().getResource("resource_ki").getCurrent()>=aquene.getAllKiCapacities().getKicapacity("kicapacity_step").getCost()) {
+                                outrange = false;
+                            } else { outrange = true; }
+                            range = false;
+                            chargeRange = false;
+                        }
+                        if (check.equals(outrangeButton)) {
+                            range = false;
+                            chargeRange = false;
                             outrange=true;
                         }
                         buildMovedLine();
@@ -162,14 +175,14 @@ public class CombatAsker {
 
     private void buildMovedLine() {
         clearStep(1);
-        CombatAskerMovedLine lineMoved = new CombatAskerMovedLine(mC);
-        setRadioButtonListnerMoved(lineMoved.getYesButton(), lineMoved.getNoButton());
+        CombatAskerMovedLine lineMoved = new CombatAskerMovedLine(mC,chargeRange);
+        setRadioButtonListnerMoved(lineMoved.getChargeButton(),lineMoved.getWalkButton(), lineMoved.getNoButton());
         stepsView.add(lineMoved.getMovedLine());
         getLayout();
     }
 
-    private void setRadioButtonListnerMoved(final RadioButton yes, final RadioButton no) {
-        final List<RadioButton> listRadio = Arrays.asList(yes, no);
+    private void setRadioButtonListnerMoved(final RadioButton charge,final RadioButton walk, final RadioButton no) {
+        final List<RadioButton> listRadio = Arrays.asList(charge,walk, no);
         for (final RadioButton check : listRadio) {
             check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
@@ -180,10 +193,18 @@ public class CombatAsker {
                                 checkToUnselect.setChecked(false);
                             }
                         }
-                        if (check.equals(yes)) {
+                        if (check.equals(charge)) {
+                            moved = false;  //j'ai pas encore bougé et je charge
+                            canCharge =true;
+                            tools.customToast(mC,"Tu auras -2 CA pendant un round.","center");
+                        }
+                        if (check.equals(walk)) {
                             moved = false;  //j'ai pas encore bougé
-                        } else {
+                            canCharge =false;
+                        }
+                        if (check.equals(no)) {
                             moved = true;   //je peux plus bouger
+                            canCharge =false;
                         }
                         buildResultLine();
                     }
@@ -203,8 +224,8 @@ public class CombatAsker {
     private void buildResultLine() {
         clearStep(2);
         selectedAttack = null;
-        CombatAskerResultLine lineResult = new CombatAskerResultLine(mA,mC,moved,range,outrange,kistep);
-
+        CombatAskerResultLine lineResult = new CombatAskerResultLine(mA,mC,moved,range,farRange, chargeRange, canCharge,outrange);
+        kistep=lineResult.getKistep();
         mapRadioAtkAtk=lineResult.getMapRadioAtkAtk();
         if( lineResult.attackToLaunch()){
             setRadioButtonListnerResult(lineResult.getListRadioAtk());
