@@ -37,7 +37,7 @@ public class CombatAskerMovementFar {
         LinearLayout kiRangeBox = box();
         LinearLayout outrangeBox = box();
 
-        chargeRange = answerIcon(mC.getDrawable(R.drawable.mire_test));
+        chargeRange = answerIcon(mC.getDrawable(R.drawable.chargerange_selector));
         kiRange = answerIcon(mC.getDrawable(R.drawable.kirange_selector));
         out = answerIcon(mC.getDrawable(R.drawable.kioutrange_selector));
 

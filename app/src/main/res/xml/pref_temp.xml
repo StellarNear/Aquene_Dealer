@@ -35,6 +35,21 @@
         android:inputType="number"
         android:title="Bonus à la CA"
         />
+    <Preference  android:layout="@layout/divider_pref" android:selectable="false"/>
+
+    <stellarnear.aquene_dealer.Divers.EditTextPreference
+        android:defaultValue="@integer/bonus_ki_armor_DEF"
+        android:key="bonus_ki_armor"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:summary="Valeurs : +%s CA"
+        android:inputType="number"
+        android:selectable="false"
+        android:title="Armure Ki actuelle"
+        />
+
+    <Preference  android:layout="@layout/divider_pref" android:selectable="false"/>
+
 
     <stellarnear.aquene_dealer.Divers.EditTextPreference
         android:defaultValue="@integer/bonus_temp_save_DEF"

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:id="@+id/toast_RelativeLayout_asker"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_border_creation_item"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="@dimen/general_margin">
+
+    <FrameLayout
+        android:id="@+id/toast_asker_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/toast_asker_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Armure Ki"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@android:color/black" />
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/toast_asker_linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipChildren="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="@dimen/general_margin">
+
+
+
+    </LinearLayout>
+</LinearLayout>

@@ -36,14 +36,14 @@ public class CombatAskerMovedLine {
         LinearLayout walkBox = box();
         LinearLayout noBox = box();
 
-        walk = answerIcon(mC.getDrawable(R.drawable.moving_selector));
+        walk = answerIcon(mC.getDrawable(R.drawable.walking_selector));
         no = answerIcon(mC.getDrawable(R.drawable.notmoving_selector));
 
         walkBox.addView(walk);
         noBox.addView(no);
 
         LinearLayout chargeBox = box();
-        charge = answerIcon(mC.getDrawable(R.drawable.mire_test));
+        charge = answerIcon(mC.getDrawable(R.drawable.charging_selector));
         if (chargerange) {
             chargeBox.addView(charge);
             answers.addView(chargeBox);

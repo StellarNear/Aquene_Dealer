@@ -245,7 +245,7 @@ public class SettingsFragment extends PreferenceFragment {
     }
 
     private void resetTemp() {
-        List<String> allTempList = Arrays.asList("bonus_temp_jet_att","bonus_temp_jet_dmg","bonus_temp_ca","bonus_temp_save","bonus_temp_rm");
+        List<String> allTempList = Arrays.asList("bonus_temp_jet_att","bonus_temp_jet_dmg","bonus_temp_ca","bonus_temp_save","bonus_temp_rm","bonus_ki_armor");
         for (String temp : allTempList){
             settings.edit().putString(temp, "0").apply();
         }

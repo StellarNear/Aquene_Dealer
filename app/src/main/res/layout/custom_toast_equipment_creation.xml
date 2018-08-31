@@ -10,7 +10,7 @@
     android:padding="@dimen/general_margin">
 
     <FrameLayout
-        android:id="@+id/toast__equipment_creation_frame"
+        android:id="@+id/toast_equipment_creation_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

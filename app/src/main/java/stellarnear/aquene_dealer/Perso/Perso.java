@@ -92,6 +92,7 @@ public class Perso {
 
             if (abiId.equalsIgnoreCase("ability_ca")) {
                 abiScore += tools.toInt(settings.getString("bonus_temp_ca",String.valueOf(mC.getResources().getInteger(R.integer.bonus_temp_ca_DEF))));
+                abiScore += tools.toInt(settings.getString("bonus_ki_armor",String.valueOf(mC.getResources().getInteger(R.integer.bonus_ki_armor_DEF))));
                 if (allAttacks.getCombatMode().equals("mode_def")) {
                     abiScore += getCaBonusCombatMode("mode_def");
                 } else if (allAttacks.getCombatMode().equals("mode_totaldef")) {
