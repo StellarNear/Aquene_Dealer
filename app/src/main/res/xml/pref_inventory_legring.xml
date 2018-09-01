@@ -13,7 +13,7 @@
         android:dependency="first_step_leg_ring"
         android:title="Gain d'experience"
         android:selectable="false"
-        android:summary="+10 % points d'experience"/>
+        android:summary="+5 % points d'experience"/>
 
     <EditTextPreference
         android:dependency="first_step_leg_ring"
@@ -27,6 +27,19 @@
         android:selectAllOnFocus="true"
         android:singleLine="true"
         android:title="Second éveil d'âme"
+        />
+
+    <EditTextPreference
+        android:dependency="second_step_leg_ring"
+        android:title="Ascension Mythique"
+        android:selectable="false"
+        android:summary="Débloque le premier rang Mythique"/>
+    <SwitchPreference
+        android:defaultValue="@bool/third_step_leg_ring_def"
+        android:key="third_step_leg_ring"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="Troisième éveil d'âme"
         />
 
 </PreferenceScreen>

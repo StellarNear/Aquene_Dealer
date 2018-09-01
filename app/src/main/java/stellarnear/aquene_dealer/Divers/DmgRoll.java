@@ -182,10 +182,12 @@ public class DmgRoll {
 
     public int getSumPhy() {
         int sumPhy=0;
+        int critMutliplier=2;
+        if (aquene.mythicFeatIsActive("mythicfeat_crit_sup")){  critMutliplier+=1;  }
         for(int i : randD10){
-            if(critConfirmed){sumPhy+=i*2;}else{sumPhy+=i;}
+            if(critConfirmed){sumPhy+=i*critMutliplier;}else{sumPhy+=i;}
         }
-        if(critConfirmed){sumPhy+=bonusDmg*2;}else{sumPhy+=bonusDmg;}
+        if(critConfirmed){sumPhy+=bonusDmg*critMutliplier;}else{sumPhy+=bonusDmg;}
         for(int i : randD8){sumPhy+=i;}
         return sumPhy;
     }

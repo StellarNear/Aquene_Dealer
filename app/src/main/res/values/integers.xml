@@ -77,11 +77,13 @@
     <integer name="next_level_def">9570000</integer>
     <integer name="add_current_xp_def">0</integer>
     <integer name="add_gold_def">0</integer>
-    <integer name="money_plat_def">0</integer>
-    <integer name="money_gold_def">0</integer>
-    <integer name="money_silver_def">0</integer>
-    <integer name="money_copper_def">0</integer>
 
+    <integer name="money_plat_def">22</integer>
+    <integer name="money_gold_def">36200</integer>
+    <integer name="money_silver_def">7</integer>
+    <integer name="money_copper_def">3</integer>
+
+    <integer name="mythic_tier_def">1</integer>
 
 
 </resources>

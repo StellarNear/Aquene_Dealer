@@ -18,6 +18,7 @@ public class Perso {
     private AllAbilities allAbilities;
     private AllStances allStances;
     private AllFeats allFeats;
+    private AllMythicFeats allMythicFeats;
     private AllSkills allSkills;
     private AllAttacks allAttacks;
     private AllKiCapacities allKiCapacities;
@@ -28,6 +29,7 @@ public class Perso {
     public Perso(Context mC) {
         allStances = new AllStances(mC);
         allFeats = new AllFeats(mC);
+        allMythicFeats = new AllMythicFeats(mC);
         allAbilities = new AllAbilities(mC);
         allSkills = new AllSkills(mC);
         allAttacks = new AllAttacks(mC);
@@ -38,6 +40,7 @@ public class Perso {
 
     public void refresh() {
         allFeats.refreshAllSwitch();
+        allMythicFeats.refreshAllSwitch();
         allSkills.refreshAllVals();
         allAbilities.refreshAllAbilities();
         allAttacks.refreshAllAttacks();
@@ -209,8 +212,16 @@ public class Perso {
                 active = true;
             }
         }
-
         return active;
+    }
+
+    public AllMythicFeats getAllMythicFeats() {
+        return allMythicFeats;
+    }
+
+    public boolean mythicFeatIsActive(String mythicFeatId) {
+        MythicFeat feat = allMythicFeats.getMythicFeat(mythicFeatId);
+        return feat.isActive();
     }
 
 

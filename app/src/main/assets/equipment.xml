@@ -27,7 +27,9 @@
     </equipment>
     <equipment>
         <name>Anneau Aaleilis (l’exaltée)</name>
-        <descr>Premier éveil: +10%xp , Posture faucon en permanence</descr>
+        <descr>Premier éveil: +5%xp , Posture faucon en permanence
+
+Deuxième éveil: Ascension mythique - 1er rang</descr>
         <imgId>equipment_aaleilis</imgId>
         <slotId>ring1_slot</slotId>
         <equipped>true</equipped>

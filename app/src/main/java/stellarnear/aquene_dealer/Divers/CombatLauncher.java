@@ -105,7 +105,7 @@ public class CombatLauncher {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     startAttack();
-                                    combatLauncherDamageLines.hideStatLine();
+                                    if (combatLauncherDamageLines!=null){combatLauncherDamageLines.hideStatLine();}
                                 }
 
                             })

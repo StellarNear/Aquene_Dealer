@@ -10,6 +10,8 @@ import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.util.List;
 
+import stellarnear.aquene_dealer.Activities.MainActivity;
+import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.R;
 
 /**
@@ -32,8 +34,10 @@ public class ProbaFromDiceRand {
     private int probaNd8=0;
     private int probaNd6=0;
     private List<Roll> selectedRolls;
+    Perso aquene = MainActivity.aquene;
     public ProbaFromDiceRand(List<Roll> selectedRolls) {
         this.selectedRolls=selectedRolls;
+        if(aquene.mythicFeatIsActive("mythicfeat_crit_sup")){ critFactor+=1; }
         buildParameters();
     }
 

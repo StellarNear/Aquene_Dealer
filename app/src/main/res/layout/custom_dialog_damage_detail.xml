@@ -1,5 +1,6 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clipChildren="false"
@@ -40,4 +41,14 @@
 
     </LinearLayout>
 
+
+    <ImageButton
+        android:id="@+id/fab_damage_detail_info_summary"
+        android:layout_width="@dimen/floatin_button_combat_launcher_mini_top"
+        android:layout_height="@dimen/floatin_button_combat_launcher_mini_top"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_margin="@dimen/general_margin"
+        android:background="@color/transparent"
+        app:srcCompat="@drawable/ic_info_outline_24dp" />
 </RelativeLayout>

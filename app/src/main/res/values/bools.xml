@@ -1,33 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Switch des dons DEF -->
-    <bool name="feat_stun">true</bool>
-    <bool name="feat_inhuman_stamina_sup">true</bool>
-    <bool name="feat_iron_will_sup">true</bool>
-    <bool name="feat_proj_parade">true</bool>
-    <bool name="feat_blind_fight">true</bool>
-    <bool name="feat_scorpio">true</bool>
-    <bool name="feat_gorgon">true</bool>
-    <bool name="feat_medusa">true</bool>
-    <bool name="feat_crit_sup">true</bool>
-    <bool name="feat_crit">true</bool>
-    <bool name="feat_stance_master">true</bool>
-    <bool name="feat_total_evade">true</bool>
-    <bool name="feat_keen_strike">true</bool>
-    <bool name="feat_inhuman_evade">true</bool>
-    <bool name="feat_iron_will">true</bool>
-    <bool name="feat_inhuman_stamina">true</bool>
-    <bool name="feat_snake_dex">true</bool>
-    <bool name="feat_robustness">true</bool>
-    <bool name="feat_bonus_ki">true</bool>
-    <bool name="feat_init">true</bool>
-    <bool name="feat_dire_charge">true</bool>
-    <bool name="feat_ki_armor">true</bool>
+    <!-- Switch des Dons base -->
+    <bool name="feat_stun_DEF">true</bool>
+    <bool name="feat_inhuman_stamina_sup_DEF">true</bool>
+    <bool name="feat_iron_will_sup_DEF">true</bool>
+    <bool name="feat_proj_parade_DEF">true</bool>
+    <bool name="feat_blind_fight_DEF">true</bool>
+    <bool name="feat_scorpio_DEF">true</bool>
+    <bool name="feat_gorgon_DEF">true</bool>
+    <bool name="feat_medusa_DEF">true</bool>
+    <bool name="feat_crit_sup_DEF">true</bool>
+    <bool name="feat_crit_DEF">true</bool>
+    <bool name="feat_stance_master_DEF">true</bool>
+    <bool name="feat_total_evade_DEF">true</bool>
+    <bool name="feat_keen_strike_DEF">true</bool>
+    <bool name="feat_inhuman_evade_DEF">true</bool>
+    <bool name="feat_iron_will_DEF">true</bool>
+    <bool name="feat_inhuman_stamina_DEF">true</bool>
+    <bool name="feat_snake_dex_DEF">true</bool>
+    <bool name="feat_robustness_DEF">true</bool>
+    <bool name="feat_bonus_ki_DEF">true</bool>
+    <bool name="feat_init_DEF">true</bool>
+    <bool name="feat_dire_charge_DEF">true</bool>
+    <bool name="feat_ki_armor_DEF">true</bool>
 
     <!-- Switch des dons stance DEF -->
-    <bool name="feat_dex_atk">false</bool>
-    <bool name="feat_quick_atk">false</bool>
+    <bool name="feat_dex_atk_DEF">false</bool>
+    <bool name="feat_quick_atk_DEF">false</bool>
 
+    <!-- Switch des Dons Mythique -->
+    <bool name="mythicfeat_crit_sup_DEF">true</bool>
 
     <!-- Jet de save -->
     <bool name="switch_perma_resi_DEF">true</bool>
@@ -45,7 +47,9 @@
 
     <!-- autres -->
     <bool name="first_step_leg_ring_def">true</bool>
-    <bool name="second_step_leg_ring_def">false</bool>
+    <bool name="second_step_leg_ring_def">true</bool>
+    <bool name="third_step_leg_ring_def">false</bool>
     <bool name="switch_autoclose_dialog_DEF">true</bool>
+
 
 </resources>

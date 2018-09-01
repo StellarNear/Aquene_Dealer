@@ -36,6 +36,7 @@ import java.util.List;
 import stellarnear.aquene_dealer.Activities.MainActivity;
 import stellarnear.aquene_dealer.Perso.Equipment;
 import stellarnear.aquene_dealer.Perso.Feat;
+import stellarnear.aquene_dealer.Perso.MythicFeat;
 import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.Perso.Skill;
 import stellarnear.aquene_dealer.R;
@@ -100,6 +101,9 @@ public class SettingsFragment extends PreferenceFragment {
                 case "pref_character_feat":
                     addFeatsList();
                     break;
+                case "pref_mythic_feat":
+                    addMythicFeatsList();
+                    break;
                 case "pref_character_skill":
                     addSkillsList();
                     break;
@@ -113,6 +117,9 @@ public class SettingsFragment extends PreferenceFragment {
                     BigInteger xp = tools.toBigInt(settings.getString("current_xp", String.valueOf(getContext().getResources().getInteger(R.integer.current_xp_def))));
                     checkLevel(xp);
                     refreshXpBar();
+                    break;
+                case "pref_mythic_tier":
+                    refreshMythicTierBar();
                     break;
             }
         } else {
@@ -201,6 +208,7 @@ public class SettingsFragment extends PreferenceFragment {
         if (key.equals("second_level_key_0")) {        // do something...    }       */
         return true;
     }
+
 
     private void addSleepScreen() {
         View window = getActivity().findViewById(android.R.id.content);
@@ -369,6 +377,42 @@ public class SettingsFragment extends PreferenceFragment {
                 other.addPreference(switch_feat);
             } else if (feat.getType().contains("feat_stance")) {
                 stance.addPreference(switch_feat);
+            } else {
+                screen.addPreference(switch_feat);
+            }
+        }
+        setHasOptionsMenu(true);
+    }
+
+    private void addMythicFeatsList() {
+        PreferenceScreen screen = this.getPreferenceScreen();
+        PreferenceCategory active = (PreferenceCategory) findPreference(getString(R.string.feat_active));
+        active.setTitle(getString(R.string.feat_active));
+        screen.addPreference(active);
+        PreferenceCategory def = (PreferenceCategory) findPreference(getString(R.string.feat_def));
+        def.setTitle(getString(R.string.feat_def));
+        screen.addPreference(def);
+        PreferenceCategory atk = (PreferenceCategory) findPreference(getString(R.string.feat_atk));
+        atk.setTitle(getString(R.string.feat_atk));
+        screen.addPreference(atk);
+        PreferenceCategory other = (PreferenceCategory) findPreference(getString(R.string.feat_other));
+        other.setTitle(getString(R.string.feat_other));
+        screen.addPreference(other);
+
+        for (MythicFeat feat : aquene.getAllMythicFeats().getMythicFeatsList()) {
+            SwitchPreference switch_feat = new SwitchPreference(getContext());
+            switch_feat.setKey(feat.getId());
+            switch_feat.setTitle(feat.getName());
+            switch_feat.setSummary(feat.getDescr());
+            switch_feat.setDefaultValue(feat.isActive());
+            if (feat.getType().contains("feat_active")) {
+                active.addPreference(switch_feat);
+            } else if (feat.getType().equals("feat_def")) {
+                def.addPreference(switch_feat);
+            } else if (feat.getType().contains("feat_atk")) {
+                atk.addPreference(switch_feat);
+            } else if (feat.getType().contains("feat_other")) {
+                other.addPreference(switch_feat);
             } else {
                 screen.addPreference(switch_feat);
             }
@@ -668,6 +712,38 @@ public class SettingsFragment extends PreferenceFragment {
             }
         }, 50); //pour attendre le changement de preference visiblement ce n'est pas instantané
     }
+
+    private void refreshMythicTierBar() {
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                final View mainView = ((ContentFrameLayout) getActivity().findViewById(android.R.id.content));
+                mainView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        TextView percent = mainView.findViewById(R.id.mythic_bar_percent);
+                        ImageView backgroundBar = mainView.findViewById(R.id.mythic_bar_background);
+                        ViewGroup.LayoutParams para= (ViewGroup.LayoutParams) backgroundBar.getLayoutParams();
+                        ImageView overlayBar = mainView.findViewById(R.id.mythic_bar_overlay);
+                        int oriWidth=overlayBar.getMeasuredWidth();
+                        int oriHeight=overlayBar.getMeasuredHeight();
+                        int currentTier = tools.toInt(settings.getString("mythic_tier",String.valueOf(getContext().getResources().getInteger(R.integer.mythic_tier_def))));
+
+                        Double coef = (double) currentTier/10;
+                        if(coef<0d){coef=0d;}
+                        if(coef>1d){coef=1d;}
+                        percent.setText(String.valueOf((int) (100*coef))+"%");
+                        para.width=(int) (coef*oriWidth);
+                        para.height=oriHeight;
+                        backgroundBar.setLayoutParams(para);
+                    }
+                });
+
+            }
+        }, 50); //pour attendre le changement de preference visiblement ce n'est pas instantané
+    }
+
 
     private void checkLevel(BigInteger currentXp, BigInteger... addXpInput) {
         BigInteger addXp = addXpInput.length > 0 ? addXpInput[0] : BigInteger.ZERO;
