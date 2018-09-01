@@ -21,7 +21,8 @@
     <kicapacity>
         <name>Armure Ki</name>
         <cost>1</cost>
-        <descr>Le moine gagne un bonus d’esquive de +2 à sa CA pendant 1 minute.</descr>
+        <descr>Le moine gagne un bonus d’esquive de +2 à sa CA (max:niveau/2) pendant 1 minute.</descr>
+        <feat>feat_ki_armor</feat>
         <id>kicapacity_ki_armor</id>
     </kicapacity>
     <kicapacity>

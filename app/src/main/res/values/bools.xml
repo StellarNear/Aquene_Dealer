@@ -22,6 +22,7 @@
     <bool name="feat_bonus_ki">true</bool>
     <bool name="feat_init">true</bool>
     <bool name="feat_dire_charge">true</bool>
+    <bool name="feat_ki_armor">true</bool>
 
     <!-- Switch des dons stance DEF -->
     <bool name="feat_dex_atk">false</bool>

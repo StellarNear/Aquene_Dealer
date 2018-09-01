@@ -142,6 +142,13 @@
         <id>feat_dire_charge</id>
     </feat>
 
+    <feat>
+        <name>Armure Ki</name>
+        <type>feat_other</type>
+        <descr>En dépensant un point de Ki le moine gagne un bonus d’esquive de +2 à sa CA pendant 1 minute (accumulable jusqu'à un maximum de CA égal à la moitié du niveau du moine).</descr>
+        <id>feat_ki_armor</id>
+    </feat>
+
     <!-- DONS DES feat_stanceS -->
     <feat>
         <name>Attaque éclair</name>

@@ -87,7 +87,7 @@ public class MainActivityFragmentKi extends Fragment {
 
     private void addContent(LinearLayout contentLinear) {
 
-        for (KiCapacity kiCapa : aquene.getAllKiCapacities().getAllKiCapacitiesList()){
+        for (KiCapacity kiCapa : aquene.getAllKiCapacitiesList()){
             LinearLayout lineCapa = new LinearLayout(getContext());
             lineCapa.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT,1));
             lineCapa.setOrientation(LinearLayout.HORIZONTAL);
@@ -198,8 +198,6 @@ public class MainActivityFragmentKi extends Fragment {
     }
 
     private void setTempArmor() {
-        //TODO demander combien de lancement et ajotuer à l'armure temp (check le cap)
-
         LayoutInflater inflater = getActivity().getLayoutInflater();
         final View askSpendKi = inflater.inflate(R.layout.custom_toast_asker, null);
         LinearLayout mainLin = askSpendKi.findViewById(R.id.toast_asker_linear);

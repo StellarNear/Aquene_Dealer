@@ -54,6 +54,7 @@ public class AllKiCapacities {
                     KiCapacity kiCapacity=new KiCapacity(
                             readValue("name", element2),
                             tools.toInt(readValue("cost", element2)),
+                            readValue("feat", element2),
                             readValue("descr", element2),
                             readValue("id", element2),
                             mC);

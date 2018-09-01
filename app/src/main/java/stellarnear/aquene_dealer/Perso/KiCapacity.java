@@ -10,13 +10,15 @@ public class KiCapacity {
     private Context mC;
     private String name;
     private int cost;
+    private String feat;
     private String descr;
     private String id;
-    public KiCapacity(String name, int cost,String descr,String id,Context mC)
+    public KiCapacity(String name, int cost,String feat,String descr,String id,Context mC)
     {
         this.mC = mC;
         this.name=name;
         this.cost=cost;
+        this.feat=feat;
         this.descr=descr;
         this.id=id;
     }
@@ -27,6 +29,10 @@ public class KiCapacity {
 
     public int getCost() {
         return cost;
+    }
+
+    public String getFeat() {
+        return feat;
     }
 
     public String getDescr() {

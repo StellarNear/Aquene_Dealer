@@ -281,4 +281,15 @@ public class Perso {
     public Inventory getInventory() {
         return inventory;
     }
+
+    public List<KiCapacity> getAllKiCapacitiesList() {
+        List<KiCapacity> allList = getAllKiCapacities().getAllKiCapacitiesList();
+        List<KiCapacity> availableList = new ArrayList<>();
+        for (KiCapacity kiCap : allList){
+            if (kiCap.getFeat().equalsIgnoreCase("") || (featIsActive(kiCap.getFeat()))){
+                availableList.add(kiCap);
+            }
+        }
+        return availableList;
+    }
 }
