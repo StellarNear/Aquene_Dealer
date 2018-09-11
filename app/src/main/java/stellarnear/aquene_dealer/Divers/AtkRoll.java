@@ -16,18 +16,18 @@ import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.R;
 
 public class AtkRoll {
-    private Integer base = 0;
+    private Dice atkDice;
+
     private Integer preRandValue = 0;
-    private Integer randAtk = 0;
     private Integer atk = 0;
-    private ImageView imgAtk = null;
+
     private Boolean hitConfirmed = false;
     private Boolean crit = false;
     private Boolean critConfirmed = false;
     private Boolean fail = false;
     private Boolean invalid = false;
     private Context mC;
-    private Activity mA;
+
     private Boolean manualDice;
     private Boolean amulette;
     private Boolean aldrassil;
@@ -39,11 +39,11 @@ public class AtkRoll {
     private OnRefreshEventListener mListener;
     private Tools tools=new Tools();
 
-    public AtkRoll(Activity mA, Context mC, Integer base) {
-        this.mA = mA;
+    public AtkRoll(Context mC, Integer base) {
+
         this.mC = mC;
-        this.base = base;
-        this.imgAtk = new ImageView(mC);
+        this.atkDice = new Dice(mC,20);
+
         settings = PreferenceManager.getDefaultSharedPreferences(mC);
         manualDice = settings.getBoolean("switch_manual_diceroll", mC.getResources().getBoolean(R.bool.switch_manual_diceroll_DEF));
         aldrassil = settings.getBoolean("switch_aldrassil", mC.getResources().getBoolean(R.bool.switch_aldrassil_DEF));
@@ -54,23 +54,18 @@ public class AtkRoll {
     }
 
     public void setAtkRand() {
+        atkDice.rand(manualDice);
         if (manualDice) {
-            this.imgAtk.setImageDrawable(tools.resize(mC,R.drawable.d20_main, mC.getResources().getDimensionPixelSize(R.dimen.icon_main_dices_combat_launcher_size)));
-            setDiceImgListner(this.imgAtk, 20);
+            atkDice.setRefreshEventListener(new Dice.OnRefreshEventListener() {
+                @Override
+                public void onEvent() {
+                    calculAtk();
+                    mListener.onEvent();
+                }
+            });
         } else {
-            Random rand = new Random();
-            int val_dice = 1 + rand.nextInt(20);
-            this.randAtk = val_dice;
-            setAtkDiceImg();
             calculAtk();
         }
-    }
-
-    public void setAtkRand(int randFromWheel) { //surcharge pour le retour depuis wheelpicker
-        this.randAtk = randFromWheel;
-        setAtkDiceImg();
-        calculAtk();
-        mListener.onEvent();
     }
 
     public void setFromCharge() {
@@ -84,21 +79,6 @@ public class AtkRoll {
 
     public void setRefreshEventListener(OnRefreshEventListener eventListener) {
         mListener = eventListener;
-    }
-
-    private void setDiceImgListner(ImageView imgDice, final int dice) {
-        imgDice.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new DiceDealerDialog(mA, mC, AtkRoll.this, dice);
-            }
-        });
-    }
-
-    private void setAtkDiceImg() {
-        int drawableId = mC.getResources().getIdentifier("d20_" + String.valueOf(this.randAtk), "drawable", mC.getPackageName());
-        this.imgAtk.setImageDrawable(tools.resize(mC,drawableId, mC.getResources().getDimensionPixelSize(R.dimen.icon_main_dices_combat_launcher_size)));
-        this.imgAtk.setOnClickListener(null);
     }
 
     private void constructCheckboxes() {
@@ -126,8 +106,8 @@ public class AtkRoll {
     }
 
     private void calculAtk() {
-        this.atk = this.preRandValue + this.randAtk;
-        if (randAtk == 1) {
+        this.atk = this.preRandValue + atkDice.getRandValue();
+        if (atkDice.getRandValue() == 1) {
             this.fail = true;
         }
         int critSup = (aquene.featIsActive("feat_crit_sup")) ? 1 : 0;
@@ -140,7 +120,7 @@ public class AtkRoll {
         } else {
             critMin = 20;
         }
-        if (randAtk >= critMin) {
+        if (atkDice.getRandValue() >= critMin) {
             this.crit = true;
         }
     }
@@ -170,7 +150,7 @@ public class AtkRoll {
     //getters
 
     public ImageView getImgAtk() {
-        return this.imgAtk;
+        return atkDice.getImg();
     }
 
     public Integer getPreRandValue() {
@@ -189,8 +169,8 @@ public class AtkRoll {
 
     public void invalidated() {
         this.invalid = true;
-        this.imgAtk.setImageDrawable(tools.resize(mC,R.drawable.d20_fail, mC.getResources().getDimensionPixelSize(R.dimen.icon_main_dices_combat_launcher_size)));
-        this.imgAtk.setOnClickListener(null);
+        atkDice.getImg().setImageDrawable(tools.resize(mC,R.drawable.d20_fail, mC.getResources().getDimensionPixelSize(R.dimen.icon_main_dices_combat_launcher_size)));
+        atkDice.getImg().setOnClickListener(null);
     }
 
     public boolean isFailed() {

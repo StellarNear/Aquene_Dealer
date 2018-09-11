@@ -27,13 +27,11 @@ import stellarnear.aquene_dealer.R;
 public class CombatLauncherHitCritLines {
     private List<Roll> allRolls;
     private Context mC;
-    private Activity mA;
     private View mainView;
     private Boolean manualDice;
     private Boolean megaFail=false;
     private Perso aquene= MainActivity.aquene;
-    public CombatLauncherHitCritLines(Activity mA, Context mC, View mainView, List<Roll> allRolls) {
-        this.mA=mA;
+    public CombatLauncherHitCritLines(Context mC, View mainView, List<Roll> allRolls) {
         this.mC=mC;
         this.mainView =mainView;
         this.allRolls = allRolls;
@@ -89,7 +87,7 @@ public class CombatLauncherHitCritLines {
         getPostRandValues();
     }
 
-    public void getPostRandValues(){
+    private void getPostRandValues(){
         LinearLayout line = mainView.findViewById(R.id.combat_dialog_atk_value);
         line.removeAllViews();
         line.setVisibility(View.VISIBLE);
@@ -102,7 +100,7 @@ public class CombatLauncherHitCritLines {
                 allRollSet+=1;
             } else {
                 if ((roll.getAtkValue() != 0)) {
-                    atkTxt.setText("+"+String.valueOf(roll.getAtkValue()));
+                    atkTxt.setText(String.valueOf(roll.getAtkValue()));
                     allRollSet+=1;
                 }
             }

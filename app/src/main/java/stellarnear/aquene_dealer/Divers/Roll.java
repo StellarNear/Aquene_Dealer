@@ -1,21 +1,19 @@
 package stellarnear.aquene_dealer.Divers;
 
-import android.app.Activity;
 import android.content.Context;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Roll {
     private AtkRoll atkRoll;
     private DmgRoll dmgRoll;
-    private Activity mA;
     private Context mC;
-    public Roll(Activity mA, Context mC,Integer atkBase) {
-        this.mA=mA;
+    public Roll(Context mC,Integer atkBase) {
         this.mC=mC;
-        this.atkRoll=new AtkRoll(mA,mC,atkBase);
+        this.atkRoll=new AtkRoll(mC,atkBase);
     }
 
     public AtkRoll getAtkRoll(){
@@ -24,7 +22,7 @@ public class Roll {
 
     public void setDmgRand() {
         if (this.dmgRoll==null){
-            this.dmgRoll=new DmgRoll(mA,mC,atkRoll.isCritConfirmed());
+            this.dmgRoll=new DmgRoll(mC,atkRoll.isCritConfirmed());
         }
         this.dmgRoll.setDmgRand();
     }
@@ -78,18 +76,24 @@ public class Roll {
 
     //partie dégat
 
-    public List<ImageView> getDmgDiceImgList(int dice) {
-        return dmgRoll.getDmgDiceImgList(dice);
+
+    public List<Dice> getDmgDiceList(int nFace) {
+        List<Dice> list = new ArrayList<>();
+        for (Dice dice : dmgRoll.getDmgDiceList()){
+            if (dice.getnFace()==nFace){
+                list.add(dice);
+            }
+        }
+        return list;
     }
 
-    public List<Integer> getDmgDiceValue(int dice) {
-        return dmgRoll.getDmgDiceValue(dice);
+    public List<Dice> getDmgDiceList() {
+        return dmgRoll.getDmgDiceList();
     }
 
     public int getDmgBonus() {
         return dmgRoll.getDmgBonus();
     }
-
 
     public int getDmgSumPhy() {
         return dmgRoll.getSumPhy();
@@ -97,10 +101,6 @@ public class Roll {
 
     public int getDmgSumFire() {
         return dmgRoll.getSumFire();
-    }
-
-    public int getNDmgDice(int dice) {
-        return dmgRoll.getNDmgDice(dice);
     }
 
     public void setFromCharge() {

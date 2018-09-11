@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.VideoView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import stellarnear.aquene_dealer.R;
@@ -26,27 +27,26 @@ import stellarnear.aquene_dealer.R;
 public class CombatLauncherDamageLines {
     private List<Roll> allRolls;
     private Context mC;
-    private Activity mA;
+
     private View mainView;
     private Boolean manualDiceDmg;
-    private AlertDialog diceList;
+
     private SharedPreferences settings;
-    private int nD10;
-    private int nD8;
-    private int nD6;
+
     private int sumPhy;
     private int sumFire;
+
     private boolean inputDone = false;
     private List<Roll> selectedRolls;
     private boolean detailAvailable = false;
-    private int nDicesSet = 0;
+    private int nDicesDone = 0;
+    private int nDicesSet;
     private CombatLauncherDamageDetailDialog combatLauncherDamageDetailDialog;
     private boolean statsDisplayed = false;
     private LinearLayout statPanelLinear;
     private Tools tools = new Tools();
 
-    public CombatLauncherDamageLines(Activity mA, Context mC, View mainView, List<Roll> allRolls) {
-        this.mA = mA;
+    public CombatLauncherDamageLines(Context mC, View mainView, List<Roll> allRolls) {
         this.mC = mC;
         this.mainView = mainView;
         this.allRolls = allRolls;
@@ -59,14 +59,16 @@ public class CombatLauncherDamageLines {
                 switchStats();
             }
         });
+
+        for(Roll roll:allRolls) {
+            nDicesSet += roll.getDmgDiceList().size();
+        }
     }
 
     public void getDamageLine() {
-        nD10 = 0;
-        nD8 = 0;
-        nD6 = 0;
         sumPhy = 0;
         sumFire = 0;
+
         selectedRolls = new ArrayList<>();
         for (Roll roll : allRolls) {
             if (!roll.isHitConfirmed() || roll.isInvalid()) {
@@ -75,9 +77,7 @@ public class CombatLauncherDamageLines {
             selectedRolls.add(roll);
             roll.setDmgRand();
             roll.isDelt();
-            nD10 += roll.getNDmgDice(10);
-            nD8 += roll.getNDmgDice(8);
-            nD6 += roll.getNDmgDice(6);
+
             sumPhy += roll.getDmgSumPhy();
             sumFire += roll.getDmgSumFire();
         }
@@ -86,7 +86,7 @@ public class CombatLauncherDamageLines {
         } else {
             printResult();
         }
-        combatLauncherDamageDetailDialog = new CombatLauncherDamageDetailDialog(mA, mC, selectedRolls);
+        combatLauncherDamageDetailDialog = new CombatLauncherDamageDetailDialog( mC, selectedRolls);
         onChangeDiceListner();
     }
 
@@ -106,9 +106,8 @@ public class CombatLauncherDamageLines {
     }
 
     private void checkAllRollSet() {
-        int nDices = nD6 + nD8 + nD10;
-        nDicesSet += 1;
-        if (nDices == nDicesSet) {
+        nDicesDone += 1;
+        if (nDicesDone == nDicesSet) {
             tools.customToast(mC, "Tu as fini la saisie !", "center");
             inputDone();
             combatLauncherDamageDetailDialog.changeCancelButtonToOk();
@@ -116,7 +115,7 @@ public class CombatLauncherDamageLines {
         }
     }
 
-    public void printResult() {
+    private void printResult() {
         TextView damageLineTitle = mainView.findViewById(R.id.combat_dialog_dmg_title);
         damageLineTitle.setVisibility(View.VISIBLE);
         LinearLayout damageLine = mainView.findViewById(R.id.combat_dialog_dmg);
@@ -161,37 +160,27 @@ public class CombatLauncherDamageLines {
         TextView damageLineTitle = mainView.findViewById(R.id.combat_dialog_dmg_title);
         LinearLayout damageLine = mainView.findViewById(R.id.combat_dialog_dmg);
         damageLine.removeAllViews();
-        if (nD10 + nD8 + nD6 > 0) {
+        if (nDicesSet > 0) {
             damageLine.setVisibility(View.VISIBLE);
             damageLineTitle.setVisibility(View.VISIBLE);
             LinearLayout summary = getFrameSummary();
 
-            if (nD10 > 0) {
-                TextView nd10Text = new TextView(mC);
-                nd10Text.setGravity(Gravity.CENTER);
-                nd10Text.setText(nD10 + "d10");
-                nd10Text.setTextSize(18);
-                nd10Text.setTypeface(null, Typeface.BOLD);
-                nd10Text.setCompoundDrawablesWithIntrinsicBounds(tools.resize(mC, R.drawable.d10_main, mC.getResources().getDimensionPixelSize(R.dimen.icon_main_dices_combat_launcher_size)), null, null, null);
-                summary.addView(nd10Text);
-            }
-            if (nD8 > 0) {
-                TextView nd8Text = new TextView(mC);
-                nd8Text.setGravity(Gravity.CENTER);
-                nd8Text.setText(nD8 + "d8");
-                nd8Text.setTextSize(18);
-                nd8Text.setTypeface(null, Typeface.BOLD);
-                nd8Text.setCompoundDrawablesWithIntrinsicBounds(tools.resize(mC, R.drawable.d8_main, mC.getResources().getDimensionPixelSize(R.dimen.icon_main_dices_combat_launcher_size)), null, null, null);
-                summary.addView(nd8Text);
-            }
-            if (nD6 > 0) {
-                TextView nd6Text = new TextView(mC);
-                nd6Text.setGravity(Gravity.CENTER);
-                nd6Text.setText(nD6 + "d6");
-                nd6Text.setTextSize(18);
-                nd6Text.setTypeface(null, Typeface.BOLD);
-                nd6Text.setCompoundDrawablesWithIntrinsicBounds(tools.resize(mC, R.drawable.d6_main, mC.getResources().getDimensionPixelSize(R.dimen.icon_main_dices_combat_launcher_size)), null, null, null);
-                summary.addView(nd6Text);
+            List<Integer> diceTypeList = Arrays.asList(10,8,6);
+            for (Integer diceType : diceTypeList){
+                int nDices=0;
+                for (Roll roll : allRolls){
+                    nDices+=roll.getDmgDiceList(diceType).size();
+                }
+                if (nDices>0){
+                    TextView nd8Text = new TextView(mC);
+                    nd8Text.setGravity(Gravity.CENTER);
+                    nd8Text.setText(nDices + "d"+diceType);
+                    nd8Text.setTextSize(18);
+                    nd8Text.setTypeface(null, Typeface.BOLD);
+                    int drawableId = mC.getResources().getIdentifier("d" + diceType + "_main", "drawable", mC.getPackageName());
+                    nd8Text.setCompoundDrawablesWithIntrinsicBounds(tools.resize(mC, drawableId, mC.getResources().getDimensionPixelSize(R.dimen.icon_main_dices_combat_launcher_size)), null, null, null);
+                    summary.addView(nd8Text);
+                }
             }
             setSummaryListnerToInputManualDmg(summary);
             damageLine.addView(summary);
@@ -220,8 +209,8 @@ public class CombatLauncherDamageLines {
             @Override
             public void onClick(View view) {
                 if (!statsDisplayed) {
-                    ProbaFromDiceRand proba = new ProbaFromDiceRand(selectedRolls);
-                    proba.giveLinearToFill(statPanelLinear);
+                    //ProbaFromDiceRand proba = new ProbaFromDiceRand(selectedRolls);
+                    //proba.giveLinearToFill(statPanelLinear);
                     switchStats();
                 } else {
                     switchStats();
@@ -256,15 +245,9 @@ public class CombatLauncherDamageLines {
 
     private void inputDone() {
         this.inputDone = true;
-        nD10 = 0;
-        nD8 = 0;
-        nD6 = 0;
         sumPhy = 0;
         sumFire = 0;
         for (Roll roll : selectedRolls) {
-            nD10 += roll.getNDmgDice(10);
-            nD8 += roll.getNDmgDice(8);
-            nD6 += roll.getNDmgDice(6);
             sumPhy += roll.getDmgSumPhy();
             sumFire += roll.getDmgSumFire();
         }

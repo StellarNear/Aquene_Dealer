@@ -9,6 +9,7 @@ import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -22,44 +23,20 @@ import stellarnear.aquene_dealer.R;
 
 public class DiceDealerDialog {
     private AlertDialog alertDialogWheelPicker;
-    private Activity mA;
+
     private Context mC;
 
-    public DiceDealerDialog(Activity mA, Context mC,final AtkRoll atkRoll,final int dice){
-        this.mA=mA;
+    public DiceDealerDialog(Context mC,final Dice dice){
         this.mC=mC;
-        LayoutInflater inflater = mA.getLayoutInflater();
+        LayoutInflater inflater = LayoutInflater.from(mC);
         View dialogViewWheelPicker = inflater.inflate(R.layout.custom_dialog_wheel_picker, null);
         RelativeLayout relativeCenter = dialogViewWheelPicker.findViewById(R.id.relative_custom_dialog_center);
-        final WheelDicePicker wheelPicker = new WheelDicePicker(relativeCenter, dice, mC);
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(mA, R.style.CustomDialog);
+        final WheelDicePicker wheelPicker = new WheelDicePicker(relativeCenter, dice.getnFace() , mC);
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(mC, R.style.CustomDialog);
         dialogBuilder.setView(dialogViewWheelPicker);
         dialogBuilder.setPositiveButton("Valider", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                atkRoll.setAtkRand(wheelPicker.getValueSelected());
-            }
-        });
-        dialogBuilder.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-            }
-        });
-        alertDialogWheelPicker = dialogBuilder.create();
-
-        showDialog();
-    }
-
-    public DiceDealerDialog(Activity mA, Context mC,final DmgRoll dmgRoll,final ImageView img,final int dice){
-        this.mA=mA;
-        this.mC=mC;
-        LayoutInflater inflater = mA.getLayoutInflater();
-        View dialogViewWheelPicker = inflater.inflate(R.layout.custom_dialog_wheel_picker, null);
-        RelativeLayout relativeCenter = dialogViewWheelPicker.findViewById(R.id.relative_custom_dialog_center);
-        final WheelDicePicker wheelPicker = new WheelDicePicker(relativeCenter, dice, mC);
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(mA, R.style.CustomDialog);
-        dialogBuilder.setView(dialogViewWheelPicker);
-        dialogBuilder.setPositiveButton("Valider", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                dmgRoll.setDmgRand(img,dice,wheelPicker.getValueSelected());
+                dice.setRand(wheelPicker.getValueSelected());
             }
         });
         dialogBuilder.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
@@ -73,7 +50,8 @@ public class DiceDealerDialog {
 
     private void showDialog() {
         alertDialogWheelPicker.show();
-        Display display = mA.getWindowManager().getDefaultDisplay();
+        WindowManager windowManager = (WindowManager) mC.getSystemService(Context.WINDOW_SERVICE);
+        Display display = windowManager.getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
         Float factor = (mC.getResources().getInteger(R.integer.percent_fullscreen_combat_launcher_dialog) - 5) / 100f;

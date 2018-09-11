@@ -62,6 +62,7 @@
 
     <integer name="percent_fullscreen_combat_launcher_dialog">95</integer>
     <integer name="number_main_dice_dmg_DEF">2</integer>
+    <integer name="main_dice_dmg_type_DEF">10</integer>
     <integer name="custom_alert_long_duration_DEF">10000</integer>
 
     <integer name="bonus_temp_jet_att_DEF">0</integer>

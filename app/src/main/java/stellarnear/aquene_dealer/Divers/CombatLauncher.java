@@ -231,6 +231,7 @@ public class CombatLauncher {
     private void buildAtksList() {
         atksRolls = new ArrayList<>();
         String bonus_epic_att = settings.getString("attack_att_epic", String.valueOf(mC.getResources().getInteger(R.integer.attack_att_epic_DEF)));
+
         if (attack.getId().equalsIgnoreCase("attack_flurry")) {
             String att_base = settings.getString("jet_att_flurry", mC.getString(R.string.jet_att_flurry_DEF));
             String delim = ",";
@@ -240,29 +241,31 @@ public class CombatLauncher {
             if(prowess>0){
                 list_att_base.set(list_att_base.size()-1,list_att_base.get(list_att_base.size()-1)+prowess);  //TODO:faire un truc d'assignation inteligent avec les parametre etc
             }
-            if (medusa.isChecked()){  atksRolls.add(new Roll(mA,mC, list_att_base.get(0))); atksRolls.add(new Roll(mA,mC, list_att_base.get(0)));      }
-            if (ki.isChecked()){      atksRolls.add(new Roll(mA,mC, list_att_base.get(0)));     }
-            if (boots.isChecked()){   atksRolls.add(new Roll(mA,mC, list_att_base.get(0)));     }
-            if ( settings.getBoolean("switch_temp_rapid",mC.getResources().getBoolean(R.bool.switch_temp_rapid_DEF))) {  atksRolls.add(new Roll(mA,mC, list_att_base.get(0)));  }
+
+            int primaryAtk = tools.toInt(bonus_epic_att)+list_att_base.get(0);
+            if (medusa.isChecked()){  atksRolls.add(new Roll(mC, primaryAtk)); atksRolls.add(new Roll(mC, primaryAtk));      }
+            if (ki.isChecked()){      atksRolls.add(new Roll(mC, primaryAtk));     }
+            if (boots.isChecked()){   atksRolls.add(new Roll(mC, primaryAtk));     }
+            if ( settings.getBoolean("switch_temp_rapid",mC.getResources().getBoolean(R.bool.switch_temp_rapid_DEF))) {  atksRolls.add(new Roll(mC, primaryAtk));  }
 
             for (Integer each : list_att_base) {
-                    atksRolls.add(new Roll(mA,mC, each+tools.toInt(bonus_epic_att)));
+                    atksRolls.add(new Roll(mC, each+tools.toInt(bonus_epic_att)));
             }
         } else {
             String att_base = settings.getString("jet_att", mC.getString(R.string.jet_att_DEF));
             String delim = ",";
             String[] list_att_base_string = att_base.split(delim);
-            atksRolls.add(new Roll(mA,mC, tools.toInt(list_att_base_string[0]) +tools.toInt(bonus_epic_att)));
+            atksRolls.add(new Roll(mC, tools.toInt(list_att_base_string[0]) +tools.toInt(bonus_epic_att)));
         }
         if(attack.isFromCharge()){
             for (Roll roll : atksRolls){ roll.setFromCharge();}
         }
-        combatLauncherHitCritLines =new CombatLauncherHitCritLines(mA,mC,dialogView,atksRolls);
+        combatLauncherHitCritLines =new CombatLauncherHitCritLines(mC,dialogView,atksRolls);
     }
 
     private void startDamage() {
         if(!combatLauncherHitCritLines.isMegaFail()){
-            combatLauncherDamageLines = new CombatLauncherDamageLines(mA, mC, dialogView, atksRolls);
+            combatLauncherDamageLines = new CombatLauncherDamageLines(mC, dialogView, atksRolls);
             combatLauncherDamageLines.getDamageLine();
             checkHighscore(combatLauncherDamageLines.getSum());
         }
