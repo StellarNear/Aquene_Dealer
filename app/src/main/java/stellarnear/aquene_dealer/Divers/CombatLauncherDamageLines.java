@@ -1,24 +1,17 @@
 package stellarnear.aquene_dealer.Divers;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
-import android.media.MediaPlayer;
-import android.net.Uri;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AlertDialog;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.VideoView;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -31,13 +24,11 @@ public class CombatLauncherDamageLines {
     private View mainView;
     private Boolean manualDiceDmg;
 
-    private SharedPreferences settings;
-
     private int sumPhy;
     private int sumFire;
 
     private boolean inputDone = false;
-    private List<Roll> selectedRolls;
+    private RollList selectedRolls;
     private boolean detailAvailable = false;
     private int nDicesDone = 0;
     private int nDicesSet;
@@ -50,7 +41,8 @@ public class CombatLauncherDamageLines {
         this.mC = mC;
         this.mainView = mainView;
         this.allRolls = allRolls;
-        settings = PreferenceManager.getDefaultSharedPreferences(mC);
+
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mC);
         manualDiceDmg = settings.getBoolean("switch_manual_diceroll_damage", mC.getResources().getBoolean(R.bool.switch_manual_diceroll_damage_DEF));
         statPanelLinear = mainView.findViewById(R.id.stats_linear);
         statPanelLinear.setOnClickListener(new View.OnClickListener() {
@@ -59,17 +51,13 @@ public class CombatLauncherDamageLines {
                 switchStats();
             }
         });
-
-        for(Roll roll:allRolls) {
-            nDicesSet += roll.getDmgDiceList().size();
-        }
     }
 
     public void getDamageLine() {
         sumPhy = 0;
         sumFire = 0;
 
-        selectedRolls = new ArrayList<>();
+        selectedRolls = new RollList();
         for (Roll roll : allRolls) {
             if (!roll.isHitConfirmed() || roll.isInvalid()) {
                 continue;
@@ -78,8 +66,8 @@ public class CombatLauncherDamageLines {
             roll.setDmgRand();
             roll.isDelt();
 
-            sumPhy += roll.getDmgSumPhy();
-            sumFire += roll.getDmgSumFire();
+            sumPhy += roll.getDmgSum();
+            sumFire += roll.getDmgSum("fire");
         }
         if (manualDiceDmg && !inputDone) {
             putDicesSummary();
@@ -91,8 +79,10 @@ public class CombatLauncherDamageLines {
     }
 
     private void onChangeDiceListner() {
-        for (Roll roll : selectedRolls) {
+        nDicesSet=0;
+        for (Roll roll : selectedRolls.getList()) {
             if (manualDiceDmg) {
+                nDicesSet += roll.getDmgDiceList().size();
                 roll.getDmgRoll().setRefreshEventListener(new DmgRoll.OnRefreshEventListener() {
                     public void onEvent() {
                         checkAllRollSet();
@@ -169,7 +159,7 @@ public class CombatLauncherDamageLines {
             for (Integer diceType : diceTypeList){
                 int nDices=0;
                 for (Roll roll : allRolls){
-                    nDices+=roll.getDmgDiceList(diceType).size();
+                    nDices+=roll.getDmgDiceListFromNface(diceType).size();
                 }
                 if (nDices>0){
                     TextView nd8Text = new TextView(mC);
@@ -209,8 +199,8 @@ public class CombatLauncherDamageLines {
             @Override
             public void onClick(View view) {
                 if (!statsDisplayed) {
-                    //ProbaFromDiceRand proba = new ProbaFromDiceRand(selectedRolls);
-                    //proba.giveLinearToFill(statPanelLinear);
+                    ProbaFromDiceRand proba = new ProbaFromDiceRand(selectedRolls);
+                    proba.giveLinearToFill(statPanelLinear);
                     switchStats();
                 } else {
                     switchStats();
@@ -245,12 +235,8 @@ public class CombatLauncherDamageLines {
 
     private void inputDone() {
         this.inputDone = true;
-        sumPhy = 0;
-        sumFire = 0;
-        for (Roll roll : selectedRolls) {
-            sumPhy += roll.getDmgSumPhy();
-            sumFire += roll.getDmgSumFire();
-        }
+        sumPhy = selectedRolls.getDmgSumFromType();
+        sumFire = selectedRolls.getDmgSumFromType("fire");
         printResult();
     }
 

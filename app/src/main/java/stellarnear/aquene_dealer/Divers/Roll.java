@@ -4,9 +4,6 @@ import android.content.Context;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Roll {
     private AtkRoll atkRoll;
     private DmgRoll dmgRoll;
@@ -77,17 +74,11 @@ public class Roll {
     //partie dégat
 
 
-    public List<Dice> getDmgDiceList(int nFace) {
-        List<Dice> list = new ArrayList<>();
-        for (Dice dice : dmgRoll.getDmgDiceList()){
-            if (dice.getnFace()==nFace){
-                list.add(dice);
-            }
-        }
-        return list;
+    public DiceList getDmgDiceListFromNface(int nFace) {
+        return dmgRoll.getDmgDiceList().filterWithNface(nFace);
     }
 
-    public List<Dice> getDmgDiceList() {
+    public DiceList getDmgDiceList() {
         return dmgRoll.getDmgDiceList();
     }
 
@@ -95,15 +86,26 @@ public class Roll {
         return dmgRoll.getDmgBonus();
     }
 
-    public int getDmgSumPhy() {
-        return dmgRoll.getSumPhy();
+    public int getDmgSum(String... elementArg) {
+        String element = elementArg.length > 0 ? elementArg[0] : "";
+        return dmgRoll.getSumDmg(element);
     }
 
-    public int getDmgSumFire() {
-        return dmgRoll.getSumFire();
+    public int getMaxDmg(String... elementArg) {
+        String element = elementArg.length > 0 ? elementArg[0] : "";
+        return dmgRoll.getMaxDmg(element);
+    }
+
+    public int getMinDmg(String... elementArg) {
+        String element = elementArg.length > 0 ? elementArg[0] : "";
+        return dmgRoll.getMinDmg(element);
     }
 
     public void setFromCharge() {
         atkRoll.setFromCharge();
+    }
+
+    public Integer getCritMultiplier(){
+        return dmgRoll.getCritMultiplier();
     }
 }

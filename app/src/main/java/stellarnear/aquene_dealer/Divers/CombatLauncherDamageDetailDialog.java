@@ -1,9 +1,10 @@
 package stellarnear.aquene_dealer.Divers;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.Point;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.view.Display;
 import android.view.Gravity;
@@ -12,12 +13,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.List;
-
+import stellarnear.aquene_dealer.Activities.MainActivity;
+import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.R;
 
 /**
@@ -25,12 +26,14 @@ import stellarnear.aquene_dealer.R;
  */
 
 public class CombatLauncherDamageDetailDialog {
-    private List<Roll> rollsToDisplay;
+    private RollList rollsToDisplay;
     private AlertDialog dialog;
     private Context mC;
     private View dialogDamageDetail;
+    private Tools tools=new Tools();
+    Perso aquene = MainActivity.aquene;
 
-    public CombatLauncherDamageDetailDialog(Context mC, List<Roll> rollsToDisplay) {
+    public CombatLauncherDamageDetailDialog(Context mC, RollList rollsToDisplay) {
         this.rollsToDisplay = rollsToDisplay;
         this.mC = mC;
         buildDialog();
@@ -46,6 +49,21 @@ public class CombatLauncherDamageDetailDialog {
             }
         });
 
+        ImageButton summary = dialogDamageDetail.findViewById(R.id.fab_damage_detail_info_summary);
+        summary.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int critMultiplier=2;
+                if (aquene.mythicFeatIsActive("mythicfeat_crit_sup")){  critMultiplier+=1;  }
+                SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mC);
+                String nDice = settings.getString("number_main_dice_dmg", String.valueOf(mC.getResources().getInteger(R.integer.number_main_dice_dmg_DEF)));
+                String typeDice = settings.getString("main_dice_dmg_type", String.valueOf(mC.getResources().getInteger(R.integer.main_dice_dmg_type_DEF)));
+                int bonusDamage=0;
+                if (!rollsToDisplay.isEmpty()){ bonusDamage=rollsToDisplay.get(0).getDmgBonus(); }
+                tools.customToast(mC, "Les lancées surlignés en rouge correpondent à des coups critiques.\nLes dégats des coups critiques voient leurs dégats physique de base (dégats des poings["+String.valueOf(nDice)+"d"+typeDice+"] + bonus dégats["+String.valueOf(bonusDamage)+"]) multiplié par "+String.valueOf(critMultiplier)+".", "center");
+            }
+        });
+
         dialog = dialogBuilder.create();
         putDicesImgs();
     }
@@ -53,12 +71,12 @@ public class CombatLauncherDamageDetailDialog {
     private void putDicesImgs() {
         LinearLayout linear = dialogDamageDetail.findViewById(R.id.custom_dialog_damage_detail_ScrollLinear);
         linear.removeAllViews();
-        for (Roll roll : rollsToDisplay) {
+        for (Roll roll : rollsToDisplay.getList()) {
             LinearLayout atkLine = new LinearLayout(mC);
             atkLine.setGravity(Gravity.CENTER);
             if(roll.isCritConfirmed()){atkLine.setBackground(mC.getDrawable(R.drawable.dice_detail_crit_gradient));}
             atkLine.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT,1));
-            for (Dice dice : roll.getDmgDiceList(10)) {
+            for (Dice dice : roll.getDmgDiceList().filterWithNface(10).getList()) {
                 LinearLayout box = box();
                 box.addView(dice.getImg());
                 atkLine.addView(box);
@@ -72,13 +90,13 @@ public class CombatLauncherDamageDetailDialog {
             boxBonus.addView(bonus);
             atkLine.addView(boxBonus);
 
-            for (Dice dice : roll.getDmgDiceList(8)) {
+            for (Dice dice : roll.getDmgDiceList().filterWithNface(8).getList()) {
                 LinearLayout box = box();
                 box.addView(dice.getImg());
                 atkLine.addView(box);
             }
 
-            for (Dice dice : roll.getDmgDiceList(6)) {
+            for (Dice dice : roll.getDmgDiceList().filterWithNface(6).getList()) {
                 LinearLayout box = box();
                 box.addView(dice.getImg());
                 atkLine.addView(box);

@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="version">"v1.11"</string>
-    <string name="time_spend">"195h"</string>
+    <string name="version">"v2.0"</string>
+    <string name="time_spend">"205h"</string>
     <string name="basic_infos">"Cette application est développée par player 1 pour son player 2. Développée avec amour par Jérémie Chatron en fin 2017-2018." </string>
     <string name="patch_list">"----------------------------------------------------------------------------------
+v2.0
+-refactoring complet des jets d'attaque et dégats dans des objets intelligents
+----------------------------------------------------------------------------------
 v1.11
 -Début des feature Mythiques !
 -Ajout d'un menu mythique avec Don et Rang

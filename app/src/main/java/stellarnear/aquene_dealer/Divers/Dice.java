@@ -17,6 +17,7 @@ public class Dice {
     private Context mC;
     private OnRefreshEventListener mListener;
     private boolean rolled=false;
+    private boolean canCrit=false;
     private Tools tools=new Tools();
 
     public Dice(Context mC, Integer nFace,String... elementArg) {
@@ -84,5 +85,13 @@ public class Dice {
 
     public String getElement() {
         return this.element;
+    }
+
+    public void makeCritable(){
+        this.canCrit=true;
+    }
+
+    public boolean canCrit(){
+        return this.canCrit;
     }
 }
