@@ -73,7 +73,6 @@ public class Roll {
 
     //partie dégat
 
-
     public DiceList getDmgDiceListFromNface(int nFace) {
         return dmgRoll.getDmgDiceList().filterWithNface(nFace);
     }

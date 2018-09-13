@@ -14,20 +14,20 @@ import stellarnear.aquene_dealer.R;
 public class WheelDicePicker extends AppCompatActivity {
     private Context mC;
     private int valueSelected;
-    private int dice;
+    private Dice dice;
     private Tools tools=new Tools();
-    public WheelDicePicker(RelativeLayout relativeCenter, int dice, Context mC) {
+    public WheelDicePicker(RelativeLayout relativeCenter, Dice dice, Context mC) {
         this.mC = mC;
         this.dice=dice;
-        double angle_part = 360.0/dice;
-        double time_delay_anim=1000/dice;
+        double angle_part = 360.0/dice.getnFace();
+        double time_delay_anim=1000/dice.getnFace();
         int dist=mC.getResources().getDimensionPixelSize(R.dimen.distance_dice_wheel);
         final ImageButton mainDice = new ImageButton(mC);
 
-        for (int i = 0; i < dice; i++) {
+        for (int i = 0; i < dice.getnFace(); i++) {
 
             ImageButton imgButton = new ImageButton(mC);
-            int drawableId=mC.getResources().getIdentifier("d"+dice+"_"+String.valueOf(i+1), "drawable", mC.getPackageName());
+            int drawableId=mC.getResources().getIdentifier("d"+dice.getnFace()+"_"+String.valueOf(i+1)+dice.getElement(), "drawable", mC.getPackageName());
             imgButton.setImageDrawable( tools.resize(mC,drawableId,mC.getResources().getDimensionPixelSize(R.dimen.icon_dices_wheel_size)));
 
             setPara(imgButton);
@@ -50,7 +50,7 @@ public class WheelDicePicker extends AppCompatActivity {
             imgButton.animate().setDuration(1000).setInterpolator(new OvershootInterpolator(3.0f)).translationX(distX).translationY(distY).setStartDelay((int) (i*time_delay_anim)).start();
         }
 
-        int drawableIdMain=mC.getResources().getIdentifier("d"+dice+"_main", "drawable", mC.getPackageName());
+        int drawableIdMain=mC.getResources().getIdentifier("d"+dice.getnFace()+"_main", "drawable", mC.getPackageName());
         mainDice.setImageDrawable( tools.resize(mC,drawableIdMain,mC.getResources().getDimensionPixelSize(R.dimen.icon_main_dices_wheel_size)));
         setPara(mainDice);
         relativeCenter.addView(mainDice);
@@ -64,7 +64,7 @@ public class WheelDicePicker extends AppCompatActivity {
     }
 
     private void changeMainDice(int val_dice,ImageButton mainDice) {
-        int drawableId=mC.getResources().getIdentifier("d"+dice+"_"+String.valueOf(val_dice), "drawable", mC.getPackageName());
+        int drawableId=mC.getResources().getIdentifier("d"+dice.getnFace()+"_"+String.valueOf(val_dice)+dice.getElement(), "drawable", mC.getPackageName());
         mainDice.setImageDrawable( tools.resize(mC,drawableId,mC.getResources().getDimensionPixelSize(R.dimen.icon_main_dices_wheel_size)));
     }
 

@@ -70,6 +70,7 @@ public class CombatLauncherDamageLines {
             sumFire += roll.getDmgSum("fire");
         }
         if (manualDiceDmg && !inputDone) {
+            nDicesSet += selectedRolls.getDmgDiceList().size();
             putDicesSummary();
         } else {
             printResult();
@@ -79,10 +80,8 @@ public class CombatLauncherDamageLines {
     }
 
     private void onChangeDiceListner() {
-        nDicesSet=0;
         for (Roll roll : selectedRolls.getList()) {
             if (manualDiceDmg) {
-                nDicesSet += roll.getDmgDiceList().size();
                 roll.getDmgRoll().setRefreshEventListener(new DmgRoll.OnRefreshEventListener() {
                     public void onEvent() {
                         checkAllRollSet();
@@ -157,10 +156,7 @@ public class CombatLauncherDamageLines {
 
             List<Integer> diceTypeList = Arrays.asList(10,8,6);
             for (Integer diceType : diceTypeList){
-                int nDices=0;
-                for (Roll roll : allRolls){
-                    nDices+=roll.getDmgDiceListFromNface(diceType).size();
-                }
+                int nDices=selectedRolls.getDmgDiceList().filterWithNface(diceType).size();
                 if (nDices>0){
                     TextView nd8Text = new TextView(mC);
                     nd8Text.setGravity(Gravity.CENTER);

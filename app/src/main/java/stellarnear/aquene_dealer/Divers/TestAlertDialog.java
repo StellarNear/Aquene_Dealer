@@ -184,7 +184,7 @@ public class TestAlertDialog {
         LayoutInflater inflater = mA.getLayoutInflater();
         dialogViewWheelPicker = inflater.inflate(R.layout.custom_dialog_wheel_picker, null);
         RelativeLayout relativeCenter =  dialogViewWheelPicker.findViewById(R.id.relative_custom_dialog_center);
-        wheelPicker = new WheelDicePicker(relativeCenter,20,mC);
+        wheelPicker = new WheelDicePicker(relativeCenter,new Dice(mC,20),mC);
         AlertDialog.Builder dialogBuilder  = new AlertDialog.Builder(mA, R.style.CustomDialog);
         dialogBuilder.setView(dialogViewWheelPicker);
         dialogBuilder.setPositiveButton("Valider", new DialogInterface.OnClickListener() {
