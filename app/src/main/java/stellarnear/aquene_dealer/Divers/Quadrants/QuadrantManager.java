@@ -1,4 +1,4 @@
-package stellarnear.aquene_dealer.Divers;
+package stellarnear.aquene_dealer.Divers.Quadrants;
 
 import android.app.Activity;
 import android.content.Context;

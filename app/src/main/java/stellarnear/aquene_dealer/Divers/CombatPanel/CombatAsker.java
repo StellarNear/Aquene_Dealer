@@ -1,4 +1,4 @@
-package stellarnear.aquene_dealer.Divers;
+package stellarnear.aquene_dealer.Divers.CombatPanel;
 
 import android.app.Activity;
 import android.content.Context;
@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 import stellarnear.aquene_dealer.Activities.MainActivity;
+import stellarnear.aquene_dealer.Divers.Tools;
 import stellarnear.aquene_dealer.Perso.Attack;
 import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.R;

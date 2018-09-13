@@ -1,4 +1,4 @@
-package stellarnear.aquene_dealer.Divers;
+package stellarnear.aquene_dealer.Divers.Quadrants;
 
 import android.app.Activity;
 import android.content.Context;
@@ -21,6 +21,9 @@ import java.util.List;
 import java.util.Map;
 
 import stellarnear.aquene_dealer.Activities.MainActivity;
+import stellarnear.aquene_dealer.Divers.HealthDialog;
+import stellarnear.aquene_dealer.Divers.TestAlertDialog;
+import stellarnear.aquene_dealer.Divers.Tools;
 import stellarnear.aquene_dealer.Perso.Ability;
 import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.Perso.Resource;

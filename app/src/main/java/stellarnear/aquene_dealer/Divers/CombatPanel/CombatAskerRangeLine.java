@@ -1,4 +1,4 @@
-package stellarnear.aquene_dealer.Divers;
+package stellarnear.aquene_dealer.Divers.CombatPanel;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -15,38 +15,39 @@ import stellarnear.aquene_dealer.R;
  * Created by jchatron on 07/02/2018.
  */
 
-public class CombatAskerMovementFar {
-    Perso aquene= MainActivity.aquene;
+public class CombatAskerRangeLine  {
     private LinearLayout lineStep;
-    private RadioButton chargeRange,kiRange,out;
     private Context mC;
-    public CombatAskerMovementFar(Context mC){
+    private RadioButton contact;
+    private RadioButton mid;
+    private RadioButton out;
+    Perso aquene = MainActivity.aquene;
+    public CombatAskerRangeLine(Context mC){
         this.mC=mC;
         lineStep= new LinearLayout(mC);
         lineStep.setOrientation(LinearLayout.VERTICAL);
 
-
-        TextView question = questionLayout("Précision de distance :");
+        TextView question = questionLayout("À quelle distance est l'ennemi ?");
         lineStep.addView(question);
 
         LinearLayout answers = new LinearLayout(mC);
         answers.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         answers.setOrientation(LinearLayout.HORIZONTAL);
 
-        LinearLayout chargeRangeBox = box();
-        LinearLayout kiRangeBox = box();
+        LinearLayout contactBox = box();
+        LinearLayout midBox = box();
         LinearLayout outrangeBox = box();
 
-        chargeRange = answerIcon(mC.getDrawable(R.drawable.chargerange_selector));
-        kiRange = answerIcon(mC.getDrawable(R.drawable.kirange_selector));
-        out = answerIcon(mC.getDrawable(R.drawable.kioutrange_selector));
+        contact = answerIcon(mC.getDrawable(R.drawable.contact_selector));
+        mid = answerIcon(mC.getDrawable(R.drawable.mid_range_selector));
+        out = answerIcon(mC.getDrawable(R.drawable.out_range_selector));
 
-        chargeRangeBox.addView(chargeRange);
-        kiRangeBox.addView(kiRange);
+        contactBox.addView(contact);
+        midBox.addView(mid);
         outrangeBox.addView(out);
 
-        answers.addView(chargeRangeBox);
-        answers.addView(kiRangeBox);
+        answers.addView(contactBox);
+        answers.addView(midBox);
         answers.addView(outrangeBox);
 
         LinearLayout buttonTxt = new LinearLayout(mC);
@@ -54,29 +55,28 @@ public class CombatAskerMovementFar {
         buttonTxt.setPadding(0, 0, 0, (int) mC.getResources().getDimension(R.dimen.margin_combat_asker));
 
         int atkRange = aquene.getAllAttacks().getAtkRange();
-        int chargeRangeMeter = aquene.getAbilityScore(mC,"ability_ms")*2 + atkRange;
-        int tpKi = 120 + 12*aquene.getAbilityScore(mC,"ability_lvl");
-        int sum =  atkRange + tpKi;
-
-        TextView chargeRangeTxt = summaryText("Moins de " + chargeRangeMeter + "m");
-        TextView kiRangeTxt = summaryText("Entre "+ chargeRangeMeter +"m et "+ sum + "m");
+        TextView contactTxt = summaryText("Moins de " + atkRange + "m");
+        int ms = aquene.getAbilityScore(mC,"ability_ms");
+        int sum = ms + atkRange;
+        TextView midTxt = summaryText("Entre " + atkRange + "m et " + sum + "m");
         TextView outTxt = summaryText("Plus de " + sum + "m");
 
-        LinearLayout chargeRangeBoxTxt = box();
-        LinearLayout kiRangeBoxTxt = box();
+        LinearLayout contactBoxTxt = box();
+        LinearLayout midBoxTxt = box();
         LinearLayout outrangeBoxTxt = box();
 
-        chargeRangeBoxTxt.addView(chargeRangeTxt);
-        kiRangeBoxTxt.addView(kiRangeTxt);
+        contactBoxTxt.addView(contactTxt);
+        midBoxTxt.addView(midTxt);
         outrangeBoxTxt.addView(outTxt);
 
-        buttonTxt.addView(chargeRangeBoxTxt);
-        buttonTxt.addView(kiRangeBoxTxt);
+        buttonTxt.addView(contactBoxTxt);
+        buttonTxt.addView(midBoxTxt);
         buttonTxt.addView(outrangeBoxTxt);
 
         lineStep.addView(answers);
         lineStep.addView(buttonTxt);
     }
+
     private TextView summaryText(String s) {
         TextView sumamrTxt = new TextView(mC);
         sumamrTxt.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -115,19 +115,19 @@ public class CombatAskerMovementFar {
         return question;
     }
 
-    public RadioButton getChargeButton(){
-        return chargeRange;
-    }
-
-    public RadioButton getKiRangeButton(){
-        return kiRange;
-    }
-
-    public RadioButton getOutrangeButton(){
-        return out;
-    }
-
-    public LinearLayout getKiMovementLine() {
+    public LinearLayout getRangeLine() {
         return lineStep;
+    }
+
+    public RadioButton getContactButton() {
+        return contact;
+    }
+
+    public RadioButton getMidButton() {
+        return mid;
+    }
+
+    public RadioButton getOutButton() {
+        return out;
     }
 }

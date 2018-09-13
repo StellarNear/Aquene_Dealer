@@ -18,7 +18,7 @@ import android.widget.RadioButton;
 import java.util.HashMap;
 import java.util.Map;
 
-import stellarnear.aquene_dealer.Divers.CombatAsker;
+import stellarnear.aquene_dealer.Divers.CombatPanel.CombatAsker;
 import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.R;
 

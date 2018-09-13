@@ -1,4 +1,4 @@
-package stellarnear.aquene_dealer.Divers;
+package stellarnear.aquene_dealer.Divers.CombatPanel;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -18,6 +18,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import stellarnear.aquene_dealer.Activities.MainActivity;
+import stellarnear.aquene_dealer.Divers.Rolls.Dice;
+import stellarnear.aquene_dealer.Divers.Rolls.Roll;
+import stellarnear.aquene_dealer.Divers.Rolls.RollList;
+import stellarnear.aquene_dealer.Divers.Tools;
 import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.R;
 

@@ -1,12 +1,12 @@
-package stellarnear.aquene_dealer.Divers;
+package stellarnear.aquene_dealer.Divers.Rolls;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.view.View;
 import android.widget.ImageView;
 
 import java.util.Random;
 
+import stellarnear.aquene_dealer.Divers.Tools;
 import stellarnear.aquene_dealer.R;
 
 public class Dice {

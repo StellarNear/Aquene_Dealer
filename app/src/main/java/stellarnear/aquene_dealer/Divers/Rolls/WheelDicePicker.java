@@ -1,4 +1,4 @@
-package stellarnear.aquene_dealer.Divers;
+package stellarnear.aquene_dealer.Divers.Rolls;
 
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +8,8 @@ import android.view.animation.OvershootInterpolator;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
+import stellarnear.aquene_dealer.Divers.Rolls.Dice;
+import stellarnear.aquene_dealer.Divers.Tools;
 import stellarnear.aquene_dealer.R;
 
 

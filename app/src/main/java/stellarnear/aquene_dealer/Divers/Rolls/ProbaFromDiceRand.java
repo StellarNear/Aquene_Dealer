@@ -1,4 +1,4 @@
-package stellarnear.aquene_dealer.Divers;
+package stellarnear.aquene_dealer.Divers.Rolls;
 
 import android.util.Log;
 import android.view.View;
@@ -11,6 +11,8 @@ import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.Map;
 
+import stellarnear.aquene_dealer.Divers.Rolls.DiceList;
+import stellarnear.aquene_dealer.Divers.Rolls.RollList;
 import stellarnear.aquene_dealer.R;
 
 /**

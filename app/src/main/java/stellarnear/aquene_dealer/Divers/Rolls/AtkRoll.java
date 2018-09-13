@@ -1,17 +1,14 @@
-package stellarnear.aquene_dealer.Divers;
+package stellarnear.aquene_dealer.Divers.Rolls;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 
-import java.util.Random;
-
 import stellarnear.aquene_dealer.Activities.MainActivity;
+import stellarnear.aquene_dealer.Divers.Tools;
 import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.R;
 
@@ -53,34 +50,6 @@ public class AtkRoll {
         constructCheckboxes();
     }
 
-    public void setAtkRand() {
-        atkDice.rand(manualDice);
-        if (manualDice) {
-            atkDice.setRefreshEventListener(new Dice.OnRefreshEventListener() {
-                @Override
-                public void onEvent() {
-                    calculAtk();
-                    mListener.onEvent();
-                }
-            });
-        } else {
-            calculAtk();
-        }
-    }
-
-    public void setFromCharge() {
-        this.fromCharge=true;
-    }
-
-
-    public interface OnRefreshEventListener {
-        void onEvent();
-    }
-
-    public void setRefreshEventListener(OnRefreshEventListener eventListener) {
-        mListener = eventListener;
-    }
-
     private void constructCheckboxes() {
         hitCheckbox = new CheckBox(mC);
         hitCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -105,26 +74,6 @@ public class AtkRoll {
         });
     }
 
-    private void calculAtk() {
-        this.atk = this.preRandValue + atkDice.getRandValue();
-        if (atkDice.getRandValue() == 1) {
-            this.fail = true;
-        }
-        int critSup = (aquene.featIsActive("feat_crit_sup")) ? 1 : 0;
-        int critKeen = (aquene.featIsActive("feat_keen_strike")) ? 1 : 0;
-        int critMin;
-        if (aquene.featIsActive("feat_crit_sup") && aquene.featIsActive("feat_keen_strike")) {
-            critMin = 21 - critSup * 2 * critKeen * 3;
-        } else if (aquene.featIsActive("feat_crit_sup") || aquene.featIsActive("feat_keen_strike")) {
-            critMin = 21 - critSup * 2 - critKeen * 3;
-        } else {
-            critMin = 20;
-        }
-        if (atkDice.getRandValue() >= critMin) {
-            this.crit = true;
-        }
-    }
-
     private int getBonusAtk() {
         int bonusAtk = 0;
         bonusAtk += tools.toInt(settings.getString("bonus_temp_jet_att", String.valueOf(mC.getResources().getInteger(R.integer.bonus_temp_jet_att_DEF))));
@@ -147,6 +96,7 @@ public class AtkRoll {
 
         return bonusAtk;
     }
+
     //getters
 
     public ImageView getImgAtk() {
@@ -158,6 +108,57 @@ public class AtkRoll {
         setAtkRand();
         return preRandValue;
     }
+
+    private void setAtkRand() {
+        atkDice.rand(manualDice);
+        if (manualDice) {
+            atkDice.setRefreshEventListener(new Dice.OnRefreshEventListener() {
+                @Override
+                public void onEvent() {
+                    calculAtk();
+                    mListener.onEvent();
+                }
+            });
+        } else {
+            calculAtk();
+        }
+    }
+
+    private void calculAtk() {
+        this.atk = this.preRandValue + atkDice.getRandValue();
+        if (atkDice.getRandValue() == 1) {
+            this.fail = true;
+        }
+        int critSup = (aquene.featIsActive("feat_crit_sup")) ? 1 : 0;
+        int critKeen = (aquene.featIsActive("feat_keen_strike")) ? 1 : 0;
+        int critMin;
+        if (aquene.featIsActive("feat_crit_sup") && aquene.featIsActive("feat_keen_strike")) {
+            critMin = 21 - critSup * 2 * critKeen * 3;
+        } else if (aquene.featIsActive("feat_crit_sup") || aquene.featIsActive("feat_keen_strike")) {
+            critMin = 21 - critSup * 2 - critKeen * 3;
+        } else {
+            critMin = 20;
+        }
+        if (atkDice.getRandValue() >= critMin) {
+            this.crit = true;
+        }
+    }
+
+    public void setFromCharge() {
+        this.fromCharge=true;
+    }
+
+
+    public interface OnRefreshEventListener {
+        void onEvent();
+    }
+
+    public void setRefreshEventListener(OnRefreshEventListener eventListener) {
+        mListener = eventListener;
+    }
+
+
+    // straigth getters
 
     public Integer getValue() {
         return atk;

@@ -24,6 +24,8 @@ import android.widget.TextView;
 import java.util.Random;
 
 import stellarnear.aquene_dealer.Activities.MainActivity;
+import stellarnear.aquene_dealer.Divers.Rolls.Dice;
+import stellarnear.aquene_dealer.Divers.Rolls.WheelDicePicker;
 import stellarnear.aquene_dealer.Perso.Ability;
 import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.Perso.Skill;

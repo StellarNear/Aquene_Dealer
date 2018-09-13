@@ -1,4 +1,4 @@
-package stellarnear.aquene_dealer.Divers;
+package stellarnear.aquene_dealer.Divers.CombatPanel;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -7,71 +7,76 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-import stellarnear.aquene_dealer.Activities.MainActivity;
-import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.R;
 
 /**
  * Created by jchatron on 07/02/2018.
  */
 
-public class CombatAskerRangeLine  {
-    private LinearLayout lineStep;
+public class CombatAskerMovedLine {
     private Context mC;
-    private RadioButton contact;
-    private RadioButton mid;
-    private RadioButton out;
-    Perso aquene = MainActivity.aquene;
-    public CombatAskerRangeLine(Context mC){
-        this.mC=mC;
-        lineStep= new LinearLayout(mC);
+    private LinearLayout lineStep;
+    private RadioButton charge;
+    private RadioButton walk;
+    private RadioButton no;
+
+    public CombatAskerMovedLine(Context mC, Boolean chargerange) {
+        this.mC = mC;
+        lineStep = new LinearLayout(mC);
         lineStep.setOrientation(LinearLayout.VERTICAL);
 
-        TextView question = questionLayout("À quelle distance est l'ennemi ?");
+        TextView question = questionLayout("Es-ce que tu peux te déplacer ?");
         lineStep.addView(question);
 
         LinearLayout answers = new LinearLayout(mC);
         answers.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         answers.setOrientation(LinearLayout.HORIZONTAL);
 
-        LinearLayout contactBox = box();
-        LinearLayout midBox = box();
-        LinearLayout outrangeBox = box();
 
-        contact = answerIcon(mC.getDrawable(R.drawable.contact_selector));
-        mid = answerIcon(mC.getDrawable(R.drawable.mid_range_selector));
-        out = answerIcon(mC.getDrawable(R.drawable.out_range_selector));
+        LinearLayout walkBox = box();
+        LinearLayout noBox = box();
 
-        contactBox.addView(contact);
-        midBox.addView(mid);
-        outrangeBox.addView(out);
+        walk = answerIcon(mC.getDrawable(R.drawable.walking_selector));
+        no = answerIcon(mC.getDrawable(R.drawable.notmoving_selector));
 
-        answers.addView(contactBox);
-        answers.addView(midBox);
-        answers.addView(outrangeBox);
+        walkBox.addView(walk);
+        noBox.addView(no);
+
+        LinearLayout chargeBox = box();
+        charge = answerIcon(mC.getDrawable(R.drawable.charging_selector));
+        if (chargerange) {
+            chargeBox.addView(charge);
+            answers.addView(chargeBox);
+        }
+
+        answers.addView(walkBox);
+        answers.addView(noBox);
 
         LinearLayout buttonTxt = new LinearLayout(mC);
         buttonTxt.setOrientation(LinearLayout.HORIZONTAL);
         buttonTxt.setPadding(0, 0, 0, (int) mC.getResources().getDimension(R.dimen.margin_combat_asker));
 
-        int atkRange = aquene.getAllAttacks().getAtkRange();
-        TextView contactTxt = summaryText("Moins de " + atkRange + "m");
-        int ms = aquene.getAbilityScore(mC,"ability_ms");
-        int sum = ms + atkRange;
-        TextView midTxt = summaryText("Entre " + atkRange + "m et " + sum + "m");
-        TextView outTxt = summaryText("Plus de " + sum + "m");
+        TextView walkTxt = summaryText("Je peux marcher");
+        TextView noTxt = summaryText("Je peux plus...");
 
-        LinearLayout contactBoxTxt = box();
-        LinearLayout midBoxTxt = box();
-        LinearLayout outrangeBoxTxt = box();
 
-        contactBoxTxt.addView(contactTxt);
-        midBoxTxt.addView(midTxt);
-        outrangeBoxTxt.addView(outTxt);
+        LinearLayout walkBoxTxt = box();
+        LinearLayout noBoxTxt = box();
 
-        buttonTxt.addView(contactBoxTxt);
-        buttonTxt.addView(midBoxTxt);
-        buttonTxt.addView(outrangeBoxTxt);
+
+        walkBoxTxt.addView(walkTxt);
+        noBoxTxt.addView(noTxt);
+
+
+        TextView chargeTxt = summaryText("Je peux charger !");
+        LinearLayout chargeBoxTxt = box();
+        if (chargerange) {
+            chargeBoxTxt.addView(chargeTxt);
+            buttonTxt.addView(chargeBoxTxt);
+        }
+
+        buttonTxt.addView(walkBoxTxt);
+        buttonTxt.addView(noBoxTxt);
 
         lineStep.addView(answers);
         lineStep.addView(buttonTxt);
@@ -115,19 +120,19 @@ public class CombatAskerRangeLine  {
         return question;
     }
 
-    public LinearLayout getRangeLine() {
+    public RadioButton getChargeButton() {
+        return charge;
+    }
+
+    public RadioButton getWalkButton() {
+        return walk;
+    }
+
+    public RadioButton getNoButton() {
+        return no;
+    }
+
+    public LinearLayout getMovedLine() {
         return lineStep;
-    }
-
-    public RadioButton getContactButton() {
-        return contact;
-    }
-
-    public RadioButton getMidButton() {
-        return mid;
-    }
-
-    public RadioButton getOutButton() {
-        return out;
     }
 }
