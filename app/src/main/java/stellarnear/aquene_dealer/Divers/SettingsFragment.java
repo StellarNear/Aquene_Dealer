@@ -56,6 +56,8 @@ public class SettingsFragment extends PreferenceFragment {
         addPreferencesFromResource(R.xml.pref);
         histoXML.add(R.xml.pref);
         histoTitle.add(getResources().getString(R.string.setting_activity));
+        BigInteger xp = tools.toBigInt(settings.getString("current_xp", String.valueOf(getContext().getResources().getInteger(R.integer.current_xp_def))));
+        checkLevel(xp);
     }
 
     public void changePrefScreen(int xmlId, String title) {
@@ -253,8 +255,8 @@ public class SettingsFragment extends PreferenceFragment {
     }
 
     private void resetTemp() {
-        List<String> allTempList = Arrays.asList("bonus_temp_jet_att","bonus_temp_jet_dmg","bonus_temp_ca","bonus_temp_save","bonus_temp_rm","bonus_ki_armor");
-        for (String temp : allTempList){
+        List<String> allTempList = Arrays.asList("bonus_temp_jet_att", "bonus_temp_jet_dmg", "bonus_temp_ca", "bonus_temp_save", "bonus_temp_rm", "bonus_ki_armor");
+        for (String temp : allTempList) {
             settings.edit().putString(temp, "0").apply();
         }
         settings.edit().putBoolean("switch_temp_rapid", false).apply();
@@ -499,7 +501,7 @@ public class SettingsFragment extends PreferenceFragment {
             @Override
             public void onEvent() {
                 String name = ((EditText) creationView.findViewById(R.id.name_item_creation)).getText().toString();
-                String value = ((EditText) creationView.findViewById(R.id.value_item_creation)).getText().toString()+ " po";
+                String value = ((EditText) creationView.findViewById(R.id.value_item_creation)).getText().toString() + " po";
                 String tag = ((EditText) creationView.findViewById(R.id.tag_item_creation)).getText().toString();
                 String descr = ((EditText) creationView.findViewById(R.id.descr_item_creation)).getText().toString();
                 Equipment equi = new Equipment(name, descr, value, "", tag, false);
@@ -516,12 +518,13 @@ public class SettingsFragment extends PreferenceFragment {
             public void run() {
                 editName.setFocusableInTouchMode(true);
                 editName.requestFocusFromTouch();
-                InputMethodManager lManager = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                InputMethodManager lManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 lManager.showSoftInput(editName, InputMethodManager.SHOW_IMPLICIT);
             }
         });
     }
-    private void addEditableEquipment(){
+
+    private void addEditableEquipment() {
         addOtherSlotEquipment();
         addSpareEquipmentList();
     }
@@ -613,12 +616,15 @@ public class SettingsFragment extends PreferenceFragment {
     }
 
     private String translateSlotName(String slotId) {
-        String val="";
-        String[] vals= getContext().getResources().getStringArray(R.array.slot_choice_val);
-        String[] name= getContext().getResources().getStringArray(R.array.slot_choice_name);
+        String val = "";
+        String[] vals = getContext().getResources().getStringArray(R.array.slot_choice_val);
+        String[] name = getContext().getResources().getStringArray(R.array.slot_choice_name);
 
-        for (int i=0; i < vals.length;i++){
-            if(vals[i].equalsIgnoreCase(slotId)){val=name[i]; break;}
+        for (int i = 0; i < vals.length; i++) {
+            if (vals[i].equalsIgnoreCase(slotId)) {
+                val = name[i];
+                break;
+            }
         }
         return val;
     }
@@ -626,13 +632,13 @@ public class SettingsFragment extends PreferenceFragment {
     private void createEquipment() {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View selectItem = inflater.inflate(R.layout.equipment_dialog, null);
-        ((TextView)selectItem.findViewById(R.id.equipment_dialog_main_title)).setText("Selectionnes l'emplacement");
+        ((TextView) selectItem.findViewById(R.id.equipment_dialog_main_title)).setText("Selectionnes l'emplacement");
         selectItem.findViewById(R.id.bag).setVisibility(View.GONE);
         selectItem.findViewById(R.id.equipment_dialog_back_arrow).setVisibility(View.GONE);
         final CustomAlertDialog selectItemAlert = new CustomAlertDialog(getActivity(), getContext(), selectItem);
         selectItemAlert.setPermanent(true);
         selectItemAlert.addCancelButton("Annuler");
-        for (final String slot : getContext().getResources().getStringArray(R.array.slot_choice_val)){
+        for (final String slot : getContext().getResources().getStringArray(R.array.slot_choice_val)) {
             int resID = getContext().getResources().getIdentifier(slot, "id", getContext().getPackageName());
             ImageView img = (ImageView) selectItem.findViewById(resID);
             img.setOnClickListener(new View.OnClickListener() {
@@ -645,7 +651,8 @@ public class SettingsFragment extends PreferenceFragment {
         }
         selectItemAlert.showAlert();
     }
-    private void createEquipment(final String slot){
+
+    private void createEquipment(final String slot) {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         final View creationView = inflater.inflate(R.layout.custom_toast_equipment_creation, null);
         CustomAlertDialog creationEquipmentAlert = new CustomAlertDialog(getActivity(), getContext(), creationView);
@@ -656,11 +663,13 @@ public class SettingsFragment extends PreferenceFragment {
             @Override
             public void onEvent() {
                 Boolean equiped = false;
-                if (slot.equalsIgnoreCase("other_slot")){ equiped=true;}
+                if (slot.equalsIgnoreCase("other_slot")) {
+                    equiped = true;
+                }
                 String name = ((EditText) creationView.findViewById(R.id.name_equipment_creation)).getText().toString();
-                String value = ((EditText) creationView.findViewById(R.id.value_equipment_creation)).getText().toString()+ " po";
+                String value = ((EditText) creationView.findViewById(R.id.value_equipment_creation)).getText().toString() + " po";
                 String descr = ((EditText) creationView.findViewById(R.id.descr_equipment_creation)).getText().toString();
-                Equipment equi = new Equipment(name, descr, value, "equipment_"+slot+"_def", slot, equiped);
+                Equipment equi = new Equipment(name, descr, value, "equipment_" + slot + "_def", slot, equiped);
                 aquene.getInventory().getAllEquipments().createEquipment(equi);
                 getPreferenceScreen().removeAll();
                 addPreferencesFromResource(R.xml.pref_inventory_equipment);
@@ -674,7 +683,7 @@ public class SettingsFragment extends PreferenceFragment {
             public void run() {
                 editName.setFocusableInTouchMode(true);
                 editName.requestFocusFromTouch();
-                InputMethodManager lManager = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                InputMethodManager lManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 lManager.showSoftInput(editName, InputMethodManager.SHOW_IMPLICIT);
             }
         });
@@ -692,19 +701,23 @@ public class SettingsFragment extends PreferenceFragment {
                     public void run() {
                         TextView percent = mainView.findViewById(R.id.xp_bar_percent);
                         ImageView backgroundBar = mainView.findViewById(R.id.xp_bar_background);
-                        ViewGroup.LayoutParams para= (ViewGroup.LayoutParams) backgroundBar.getLayoutParams();
+                        ViewGroup.LayoutParams para = (ViewGroup.LayoutParams) backgroundBar.getLayoutParams();
                         ImageView overlayBar = mainView.findViewById(R.id.xp_bar_overlay);
-                        int oriWidth=overlayBar.getMeasuredWidth();
-                        int oriHeight=overlayBar.getMeasuredHeight();
-                        int currentXp = tools.toInt(settings.getString("current_xp",String.valueOf(getContext().getResources().getInteger(R.integer.current_xp_def))));
-                        int nextLvlXp = tools.toInt(settings.getString("next_level",String.valueOf(getContext().getResources().getInteger(R.integer.next_level_def))));
-                        int previousLvlXp = tools.toInt(settings.getString("previous_level",String.valueOf(getContext().getResources().getInteger(R.integer.previous_level_def))));
-                        Double coef = (double) (currentXp-previousLvlXp)/(nextLvlXp-previousLvlXp);
-                        if(coef<0d){coef=0d;}
-                        if(coef>1d){coef=1d;}
-                        percent.setText(String.valueOf((int) (100*coef))+"%");
-                        para.width=(int) (coef*oriWidth);
-                        para.height=oriHeight;
+                        int oriWidth = overlayBar.getMeasuredWidth();
+                        int oriHeight = overlayBar.getMeasuredHeight();
+                        int currentXp = tools.toInt(settings.getString("current_xp", String.valueOf(getContext().getResources().getInteger(R.integer.current_xp_def))));
+                        int nextLvlXp = tools.toInt(settings.getString("next_level", ""));
+                        int previousLvlXp = tools.toInt(settings.getString("previous_level", ""));
+                        Double coef = (double) (currentXp - previousLvlXp) / (nextLvlXp - previousLvlXp);
+                        if (coef < 0d) {
+                            coef = 0d;
+                        }
+                        if (coef > 1d) {
+                            coef = 1d;
+                        }
+                        percent.setText(String.valueOf((int) (100 * coef)) + "%");
+                        para.width = (int) (coef * oriWidth);
+                        para.height = oriHeight;
                         backgroundBar.setLayoutParams(para);
                     }
                 });
@@ -724,18 +737,22 @@ public class SettingsFragment extends PreferenceFragment {
                     public void run() {
                         TextView percent = mainView.findViewById(R.id.mythic_bar_percent);
                         ImageView backgroundBar = mainView.findViewById(R.id.mythic_bar_background);
-                        ViewGroup.LayoutParams para= (ViewGroup.LayoutParams) backgroundBar.getLayoutParams();
+                        ViewGroup.LayoutParams para = (ViewGroup.LayoutParams) backgroundBar.getLayoutParams();
                         ImageView overlayBar = mainView.findViewById(R.id.mythic_bar_overlay);
-                        int oriWidth=overlayBar.getMeasuredWidth();
-                        int oriHeight=overlayBar.getMeasuredHeight();
-                        int currentTier = tools.toInt(settings.getString("mythic_tier",String.valueOf(getContext().getResources().getInteger(R.integer.mythic_tier_def))));
+                        int oriWidth = overlayBar.getMeasuredWidth();
+                        int oriHeight = overlayBar.getMeasuredHeight();
+                        int currentTier = tools.toInt(settings.getString("mythic_tier", String.valueOf(getContext().getResources().getInteger(R.integer.mythic_tier_def))));
 
-                        Double coef = (double) currentTier/10;
-                        if(coef<0d){coef=0d;}
-                        if(coef>1d){coef=1d;}
-                        percent.setText(String.valueOf((int) (100*coef))+"%");
-                        para.width=(int) (coef*oriWidth);
-                        para.height=oriHeight;
+                        Double coef = (double) currentTier / 10;
+                        if (coef < 0d) {
+                            coef = 0d;
+                        }
+                        if (coef > 1d) {
+                            coef = 1d;
+                        }
+                        percent.setText(String.valueOf((int) (100 * coef)) + "%");
+                        para.width = (int) (coef * oriWidth);
+                        para.height = oriHeight;
                         backgroundBar.setLayoutParams(para);
                     }
                 });
@@ -763,16 +780,15 @@ public class SettingsFragment extends PreferenceFragment {
         }
 
         Integer currentLvl = tools.toInt(settings.getString("ability_lvl", String.valueOf(getContext().getResources().getInteger(R.integer.ability_lvl_def))));
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
+        BigInteger previousLvlXp = listXp.get(listLvl.indexOf(newLvl));
+        BigInteger nextLvlXp = listXp.get(listLvl.indexOf(newLvl + 1));
+        settings.edit().putString("previous_level", previousLvlXp.toString()).apply();
+        settings.edit().putString("next_level", nextLvlXp.toString()).apply();
+        settings.edit().putString("ability_lvl", String.valueOf(newLvl)).apply();
         if (currentLvl != newLvl) {
-            SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
-            BigInteger previousLvlXp = listXp.get(listLvl.indexOf(newLvl));
-            BigInteger nextLvlXp = listXp.get(listLvl.indexOf(newLvl+1));
-
-            settings.edit().putString("previous_level", previousLvlXp.toString()).apply();
-            settings.edit().putString("next_level", nextLvlXp.toString()).apply();
-            settings.edit().putString("ability_lvl", String.valueOf(newLvl)).apply();
-            tools.playVideo(getActivity(),getContext(),"/raw/saiyan");
-            tools.customToast(getContext(), "Bravo tu as atteint le niveau "+String.valueOf(newLvl));
+            tools.playVideo(getActivity(), getContext(), "/raw/saiyan");
+            tools.customToast(getContext(), "Bravo tu as atteint le niveau " + String.valueOf(newLvl));
         }
     }
 
