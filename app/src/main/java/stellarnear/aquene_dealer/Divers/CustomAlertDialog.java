@@ -31,7 +31,7 @@ public class CustomAlertDialog {
     }
 
     public void showAlert() {
-        alert = dialogBuilder.create();
+        if(alert==null){alert = dialogBuilder.create();}
         alert.show();
         if(positiveButton){applyStyleToOkButton();}
         if(cancelButton){applyStyleToCancelButton();}
