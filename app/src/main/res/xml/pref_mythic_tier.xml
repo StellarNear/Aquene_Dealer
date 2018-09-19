@@ -1,8 +1,6 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <Preference
-        android:key="xp_bar"
-        android:layout="@layout/mythic_bar"
+    <stellarnear.aquene_dealer.Divers.MythicBarPreference
         android:selectable="false"
         />
 

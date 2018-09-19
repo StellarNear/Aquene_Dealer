@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="version">"v2.0"</string>
-    <string name="time_spend">"209h"</string>
+    <string name="time_spend">"214h"</string>
     <string name="basic_infos">"Cette application est développée par player 1 pour son player 2. Développée avec amour par Jérémie Chatron en fin 2017-2018." </string>
     <string name="patch_list">"----------------------------------------------------------------------------------
 v2.0
 -refactoring complet des jets d'attaque et dégats dans des objets intelligents
+-refactoring complet des paramètres dans des modules séparés
+-la patchnote est désormais une popup
+-la barre d'xp et la barre de tier mystique se mettent à jour toutes seules
 ----------------------------------------------------------------------------------
 v1.11
 -Début des feature Mythiques !
