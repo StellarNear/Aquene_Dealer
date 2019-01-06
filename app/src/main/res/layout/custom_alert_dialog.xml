@@ -81,9 +81,9 @@
         android:layout_alignParentBottom="true"
         android:gravity="center_horizontal">
 
-        <ImageView
-            android:layout_width="@dimen/icon_dices_wheel_size"
-            android:layout_height="@dimen/icon_dices_wheel_size"
+        <FrameLayout
+            android:layout_width="@dimen/icon_dices_testalertdialog"
+            android:layout_height="@dimen/icon_dices_testalertdialog"
             android:id="@+id/customDialogTestResultDice"
             android:layout_marginBottom="@dimen/margin_customDialog_text" />
 

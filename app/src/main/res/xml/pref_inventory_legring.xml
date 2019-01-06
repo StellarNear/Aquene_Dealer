@@ -42,4 +42,23 @@
         android:title="Troisième éveil d'âme"
         />
 
+    <PreferenceCategory android:title="Objet légendaire"/>
+    <Preference  android:layout="@layout/divider_pref" android:selectable="false"/>
+
+    <stellarnear.aquene_dealer.Divers.EditTextPreference
+        android:defaultValue="@integer/legendary_points_def"
+        android:key="legendary_points"
+        android:title="Points légendaires"
+        android:singleLine="true"
+        android:inputType="number"
+        android:summary="Valeur : %s"/>
+
+    <stellarnear.aquene_dealer.Divers.EditTextPreference
+        android:defaultValue="@integer/legendary_dice_def"
+        android:key="legendary_dice"
+        android:title="Dès de montée en puissance"
+        android:singleLine="true"
+        android:inputType="number"
+        android:summary="Valeur : d%s"/>
+
 </PreferenceScreen>

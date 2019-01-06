@@ -100,7 +100,12 @@ public class ProbaFromDiceRand {
         BigDecimal temp_sum = new BigDecimal(sum_combi);
         BigDecimal temp_sum_tot = new BigDecimal(sum_combi_tot);
         BigDecimal result_percent;
-        result_percent = temp_sum.divide(temp_sum_tot, 4, RoundingMode.HALF_UP);
+        try {
+            result_percent = temp_sum.divide(temp_sum_tot, 4, RoundingMode.HALF_UP);
+        } catch (Exception e) {
+            e.printStackTrace();
+            result_percent=BigDecimal.ZERO;
+        }
         return result_percent.doubleValue();
     }
 

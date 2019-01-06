@@ -53,4 +53,8 @@
     <dimen name="general_margin_help_infos">8dp</dimen>
     <dimen name="size_button_healthDialog">100dp</dimen>
 
+    <dimen name="icon_main_dices_combat_launcher_size_double_dice_split">15dp</dimen>
+    <dimen name="icon_main_dices_combat_launcher_size_double_dice_sub">35dp</dimen>
+    <dimen name="icon_dices_testalertdialog">60dp</dimen>
+
 </resources>

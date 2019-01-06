@@ -54,8 +54,8 @@ public class Roll {
     public Integer getPreRandValue() {
         return atkRoll.getPreRandValue();
     }
-    public ImageView getImgAtk() {
-        return atkRoll.getImgAtk();
+    public Dice getAtkDice() {
+        return atkRoll.getDice();
     }
     public int getAtkValue() {
         return atkRoll.getValue();

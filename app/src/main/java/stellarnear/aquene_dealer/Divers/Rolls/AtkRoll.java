@@ -1,5 +1,6 @@
 package stellarnear.aquene_dealer.Divers.Rolls;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -37,7 +38,6 @@ public class AtkRoll {
     private Tools tools=new Tools();
 
     public AtkRoll(Context mC, Integer base) {
-
         this.mC = mC;
         this.atkDice = new Dice(mC,20);
 
@@ -99,8 +99,8 @@ public class AtkRoll {
 
     //getters
 
-    public ImageView getImgAtk() {
-        return atkDice.getImg();
+    public Dice getDice() {
+        return this.atkDice;
     }
 
     public Integer getPreRandValue() {

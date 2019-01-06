@@ -1,66 +1,50 @@
 package stellarnear.aquene_dealer.Divers.Rolls;
 
+import android.app.Activity;
 import android.content.Context;
-import android.view.View;
 import android.widget.ImageView;
 
 import java.util.Random;
 
 import stellarnear.aquene_dealer.Divers.Tools;
-import stellarnear.aquene_dealer.R;
 
 public class Dice {
     private int nFace;
     private int randValue;
     private String element;
-    private ImageView img = null;
+    private ImgForDice imgForDice;
     private Context mC;
-    private OnRefreshEventListener mListener;
+    private Activity mA;
     private boolean rolled=false;
+    private boolean delt=false;
     private boolean canCrit=false;
-    private Tools tools=new Tools();
+    private Tools tools= new Tools();
 
-    public Dice(Context mC, Integer nFace,String... elementArg) {
+    private Dice mythicDice; //si c'est un d20 il a un dés mythic attaché
+
+    private OnMythicEventListener mListenerMythic;
+    private OnRefreshEventListener mListenerRefresh;
+
+    public Dice(Context mC, Integer nFace, String... elementArg) {
         this.nFace=nFace;
         this.element = elementArg.length > 0 ? elementArg[0] : "";
         this.mC=mC;
-        int drawableId = mC.getResources().getIdentifier("d" + nFace + "_main", "drawable", mC.getPackageName());
-        this.img=new ImageView(mC);
-        this.img.setImageDrawable( tools.resize(mC,drawableId, mC.getResources().getDimensionPixelSize(R.dimen.icon_main_dices_combat_launcher_size)));
     }
 
     public void rand(Boolean manual){
         if (manual){
-            setDiceImgListner();
+            new DiceDealerDialog(mC, Dice.this);
         } else {
             Random rand = new Random();
             this.randValue = 1 + rand.nextInt(nFace);
-            int drawableId = mC.getResources().getIdentifier("d" + nFace + "_" + String.valueOf(this.randValue) + this.element, "drawable", mC.getPackageName());
-            this.img.setImageDrawable(tools.resize(mC, drawableId, mC.getResources().getDimensionPixelSize(R.dimen.icon_main_dices_combat_launcher_size)));
             this.rolled=true;
         }
     }
 
-    private void setDiceImgListner() {
-        this.img.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new DiceDealerDialog(mC, Dice.this);
-            }
-        });
-    }
-
     public void setRand(int randFromWheel) { // le retour depuis wheelpicker
         this.randValue = randFromWheel;
-        int drawableId = mC.getResources().getIdentifier("d" + nFace + "_" + String.valueOf(this.randValue) + this.element, "drawable", mC.getPackageName());
-        this.img.setImageDrawable(tools.resize(mC, drawableId, mC.getResources().getDimensionPixelSize(R.dimen.icon_main_dices_combat_launcher_size)));
-        this.img.setOnClickListener(null);
         this.rolled=true;
-        mListener.onEvent();
-    }
-
-    public boolean isRolled() {
-        return rolled;
+        if(mListenerRefresh!=null){mListenerRefresh.onEvent();}
     }
 
     public interface OnRefreshEventListener {
@@ -68,7 +52,11 @@ public class Dice {
     }
 
     public void setRefreshEventListener(OnRefreshEventListener eventListener) {
-        mListener = eventListener;
+        mListenerRefresh = eventListener;
+    }
+
+    public boolean isRolled() {
+        return rolled;
     }
 
     public int getnFace() {
@@ -76,7 +64,8 @@ public class Dice {
     }
 
     public ImageView getImg() {
-        return this.img;
+        if(imgForDice==null){imgForDice = new ImgForDice(this,mA,mC);}
+        return imgForDice.getImg();
     }
 
     public int getRandValue() {
@@ -93,5 +82,32 @@ public class Dice {
 
     public boolean canCrit(){
         return this.canCrit;
+    }
+
+    public void delt(){
+        this.delt=true;
+        imgForDice.getImg().setOnClickListener(null);
+    }
+
+    public boolean isDelt(){
+        return this.delt;
+    }
+
+    public interface OnMythicEventListener {
+        void onEvent();
+    }
+
+    public void setMythicEventListener(OnMythicEventListener eventListener) {
+        mListenerMythic = eventListener;
+    }
+
+    public void setMythicDice(Dice mythicDice){
+        this.mythicDice=mythicDice;
+        if(mListenerMythic !=null){
+            if(mListenerMythic!=null){mListenerMythic.onEvent();}}
+    }
+
+    public Dice getMythicDice(){
+        return this.mythicDice;
     }
 }

@@ -70,7 +70,7 @@ public class CombatLauncherHitCritLines {
         line.setVisibility(View.VISIBLE);
         Boolean fail=false;
         for (Roll roll : allRolls) {
-            ImageView diceImg = roll.getImgAtk();
+            //ImageView diceImg = roll.getImgAtk();
             if (fail) {
                 roll.invalidated();
             } else {
@@ -79,10 +79,12 @@ public class CombatLauncherHitCritLines {
             LinearLayout diceBox=new LinearLayout(mC);
             diceBox.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT,1));
             diceBox.setGravity(Gravity.CENTER);
-            if (diceImg.getParent()!=null){
-                ((ViewGroup)diceImg.getParent()).removeView(diceImg);
+
+            if (roll.getAtkDice().getImg().getParent()!=null){
+                ((ViewGroup)roll.getAtkDice().getImg().getParent()).removeView(roll.getAtkDice().getImg());
             }
-            diceBox.addView(diceImg);
+
+            diceBox.addView(roll.getAtkDice().getImg());
             line.addView(diceBox);
         }
         getPostRandValues();

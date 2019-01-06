@@ -5,18 +5,24 @@
         />
 
     <PreferenceCategory android:title="Informations sur le grade mythique"/>
-    <Preference  android:layout="@layout/divider_pref" android:selectable="false"/>
+
 
     <stellarnear.aquene_dealer.Divers.EditTextPreference
-        android:defaultValue="@integer/mythic_tier_def"
-        android:key="mythic_tier"
-        android:selectable="false"
-        android:title="Grade Mythique"
+    android:defaultValue="@integer/mythic_tier_def"
+    android:key="mythic_tier"
+    android:title="Grade Mythique"
+    android:singleLine="true"
+    android:inputType="number"
+    android:summary="Valeur : %s"/>
+
+    <stellarnear.aquene_dealer.Divers.EditTextPreference
+        android:defaultValue="@integer/mythic_dice_def"
+        android:key="mythic_dice"
+        android:title="Dès de montée en puissance"
         android:singleLine="true"
         android:inputType="number"
-        android:summary="Valeur : %s"/>
+        android:summary="Valeur : d%s"/>
 
-    <Preference  android:layout="@layout/divider_pref" android:selectable="false"/>
 
 
 </PreferenceScreen>

@@ -147,6 +147,9 @@ public class AllResources {
         if (settings.getBoolean("feat_iron_will_sup", mC.getResources().getBoolean(R.bool.feat_iron_will_sup_DEF))) {
             getResource("resource_iron_will_sup").setMax(1);
         }
+
+        getResource("mythic_points").setMax(3+2*readResource("mythic_tier"));
+        getResource("legendary_points").setMax(readResource("legendary_points"));
     }
 
     private void loadCurrent() {

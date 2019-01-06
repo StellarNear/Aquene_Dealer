@@ -10,8 +10,19 @@
         <id>resource_regen</id>
     </resource>
     <resource>
-        <name>Point héroique</name>
+        <name>Points mythiques</name>
+        <id>mythic_points</id>
+        <hide>true</hide>
+    </resource>
+    <resource>
+        <name>Points légendaires</name>
+        <id>legendary_points</id>
+        <hide>true</hide>
+    </resource>
+    <resource>
+        <name>Points héroique</name>
         <id>resource_heroic</id>
+
     </resource>
     <resource>
         <name>Réserve de Ki</name>
