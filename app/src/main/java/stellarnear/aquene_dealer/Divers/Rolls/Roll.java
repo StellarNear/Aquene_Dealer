@@ -1,5 +1,6 @@
 package stellarnear.aquene_dealer.Divers.Rolls;
 
+import android.app.Activity;
 import android.content.Context;
 import android.widget.CheckBox;
 import android.widget.ImageView;
@@ -7,10 +8,12 @@ import android.widget.ImageView;
 public class Roll {
     private AtkRoll atkRoll;
     private DmgRoll dmgRoll;
+    private Activity mA;
     private Context mC;
-    public Roll(Context mC,Integer atkBase) {
+    public Roll(Activity mA, Context mC, Integer atkBase) {
+        this.mA=mA;
         this.mC=mC;
-        this.atkRoll=new AtkRoll(mC,atkBase);
+        this.atkRoll=new AtkRoll(mA,mC,atkBase);
     }
 
     public AtkRoll getAtkRoll(){
@@ -19,7 +22,7 @@ public class Roll {
 
     public void setDmgRand() {
         if (this.dmgRoll==null){
-            this.dmgRoll=new DmgRoll(mC,atkRoll.isCritConfirmed());
+            this.dmgRoll=new DmgRoll(mA,mC,atkRoll.isCritConfirmed());
         }
         this.dmgRoll.setDmgRand();
     }

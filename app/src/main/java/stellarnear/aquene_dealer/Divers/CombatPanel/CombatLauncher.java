@@ -242,19 +242,19 @@ public class CombatLauncher {
             }
 
             int primaryAtk = tools.toInt(bonus_epic_att)+list_att_base.get(0);
-            if (medusa.isChecked()){  atksRolls.add(new Roll(mC, primaryAtk)); atksRolls.add(new Roll(mC, primaryAtk));      }
-            if (ki.isChecked()){      atksRolls.add(new Roll(mC, primaryAtk));     }
-            if (boots.isChecked()){   atksRolls.add(new Roll(mC, primaryAtk));     }
-            if ( settings.getBoolean("switch_temp_rapid",mC.getResources().getBoolean(R.bool.switch_temp_rapid_DEF))) {  atksRolls.add(new Roll(mC, primaryAtk));  }
+            if (medusa.isChecked()){  atksRolls.add(new Roll(mA,mC, primaryAtk)); atksRolls.add(new Roll(mA,mC, primaryAtk));      }
+            if (ki.isChecked()){      atksRolls.add(new Roll(mA,mC, primaryAtk));     }
+            if (boots.isChecked()){   atksRolls.add(new Roll(mA,mC, primaryAtk));     }
+            if ( settings.getBoolean("switch_temp_rapid",mC.getResources().getBoolean(R.bool.switch_temp_rapid_DEF))) {  atksRolls.add(new Roll(mA,mC, primaryAtk));  }
 
             for (Integer each : list_att_base) {
-                    atksRolls.add(new Roll(mC, each+tools.toInt(bonus_epic_att)));
+                    atksRolls.add(new Roll(mA,mC, each+tools.toInt(bonus_epic_att)));
             }
         } else {
             String att_base = settings.getString("jet_att", mC.getString(R.string.jet_att_DEF));
             String delim = ",";
             String[] list_att_base_string = att_base.split(delim);
-            atksRolls.add(new Roll(mC, tools.toInt(list_att_base_string[0]) +tools.toInt(bonus_epic_att)));
+            atksRolls.add(new Roll(mA,mC, tools.toInt(list_att_base_string[0]) +tools.toInt(bonus_epic_att)));
         }
         if(attack.isFromCharge()){
             for (Roll roll : atksRolls){ roll.setFromCharge();}

@@ -109,7 +109,6 @@ public class SettingsFragment extends PreferenceFragment {
         } else {
             action(preference);
         }
-
         /*
         // Top level PreferenceScreen
         if (key.equals("top_key_0")) {         changePrefScreen(R.xml.pref_general, preference.getTitle().toString()); // descend into second level    }

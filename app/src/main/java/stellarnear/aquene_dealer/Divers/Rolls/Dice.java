@@ -25,15 +25,16 @@ public class Dice {
     private OnMythicEventListener mListenerMythic;
     private OnRefreshEventListener mListenerRefresh;
 
-    public Dice(Context mC, Integer nFace, String... elementArg) {
+    public Dice(Activity mA, Context mC, Integer nFace, String... elementArg) {
         this.nFace=nFace;
         this.element = elementArg.length > 0 ? elementArg[0] : "";
         this.mC=mC;
+        this.mA=mA;
     }
 
     public void rand(Boolean manual){
         if (manual){
-            new DiceDealerDialog(mC, Dice.this);
+            new DiceDealerDialog(mA, Dice.this);
         } else {
             Random rand = new Random();
             this.randValue = 1 + rand.nextInt(nFace);
@@ -44,7 +45,14 @@ public class Dice {
     public void setRand(int randFromWheel) { // le retour depuis wheelpicker
         this.randValue = randFromWheel;
         this.rolled=true;
-        if(mListenerRefresh!=null){mListenerRefresh.onEvent();}
+        refreshDiceImg();
+        mListenerRefresh.onEvent();
+    }
+
+    private void refreshDiceImg() {
+        if(imgForDice!=null) {
+            imgForDice.refreshImg();
+        }
     }
 
     public interface OnRefreshEventListener {
@@ -104,7 +112,7 @@ public class Dice {
     public void setMythicDice(Dice mythicDice){
         this.mythicDice=mythicDice;
         if(mListenerMythic !=null){
-            if(mListenerMythic!=null){mListenerMythic.onEvent();}}
+            mListenerMythic.onEvent();}
     }
 
     public Dice getMythicDice(){

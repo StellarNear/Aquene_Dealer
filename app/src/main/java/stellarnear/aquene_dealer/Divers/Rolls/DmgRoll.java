@@ -1,5 +1,6 @@
 package stellarnear.aquene_dealer.Divers.Rolls;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -27,7 +28,7 @@ public class DmgRoll {
 
     private Tools tools = new Tools();
 
-    public DmgRoll(Context mC, Boolean critConfirmed) {
+    public DmgRoll(Activity mA,Context mC, Boolean critConfirmed) {
         this.mC = mC;
         this.critConfirmed = critConfirmed;
         settings = PreferenceManager.getDefaultSharedPreferences(mC);
@@ -37,16 +38,16 @@ public class DmgRoll {
         manualDiceDmg = settings.getBoolean("switch_manual_diceroll_damage", mC.getResources().getBoolean(R.bool.switch_manual_diceroll_damage_DEF));
         aldrassil = settings.getBoolean("switch_aldrassil", mC.getResources().getBoolean(R.bool.switch_aldrassil_DEF));
         if (aldrassil) {
-            allDiceList.add(new Dice(mC, 8));
+            allDiceList.add(new Dice(mA,mC, 8));
         }
         amulette = settings.getBoolean("switch_amulette", mC.getResources().getBoolean(R.bool.switch_amulette_DEF));
         if (amulette) {
-            allDiceList.add(new Dice(mC, 6,"fire"));
+            allDiceList.add(new Dice(mA,mC, 6,"fire"));
         }
         int nHandDices = tools.toInt(settings.getString("number_main_dice_dmg", String.valueOf(mC.getResources().getInteger(R.integer.number_main_dice_dmg_DEF))));
         int handDiceType = tools.toInt(settings.getString("main_dice_dmg_type", String.valueOf(mC.getResources().getInteger(R.integer.main_dice_dmg_type_DEF))));
         for (int i = 1; i <= nHandDices; i++) {
-            Dice hand = new Dice(mC, handDiceType);
+            Dice hand = new Dice(mA,mC, handDiceType);
             hand.makeCritable();
             allDiceList.add(hand);
         }

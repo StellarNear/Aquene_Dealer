@@ -39,7 +39,7 @@ public class ImgForDice {
         if (this.img == null) {
             int drawableId;
             if (dice.getRandValue() > 0) {
-                drawableId = mC.getResources().getIdentifier("d" + dice.getnFace() + "_" + String.valueOf(dice.getRandValue()) + dice.getElement(), "drawable", mC.getPackageName());
+                drawableId = mC.getResources().getIdentifier("d" + dice.getnFace() + "_" + String.valueOf(dice.getRandValue()) + (dice.getElement().equalsIgnoreCase("aucun")?"":dice.getElement()), "drawable", mC.getPackageName());
             } else {
                 drawableId = mC.getResources().getIdentifier("d" + dice.getnFace() + "_main", "drawable", mC.getPackageName());
             }
@@ -63,7 +63,7 @@ public class ImgForDice {
         this.img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new AlertDialog.Builder(mC)
+                new AlertDialog.Builder(mA)
                         .setIcon(R.drawable.ic_warning_black_24dp)
                         .setTitle("Montée en puissance")
                         .setMessage("Ressources :\n\n" +
@@ -101,11 +101,11 @@ public class ImgForDice {
         if (points > 0 && dice.getMythicDice()==null) {
             SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mC);
             if(mode.equalsIgnoreCase("légendaire")){
-                surgeDice=new Dice(mC, tools.toInt(settings.getString("legendary_dice",String.valueOf(mC.getResources().getInteger(R.integer.legendary_dice_def)))));
+                surgeDice=new Dice(mA, mC, tools.toInt(settings.getString("legendary_dice",String.valueOf(mC.getResources().getInteger(R.integer.legendary_dice_def)))));
                 MainActivity.aquene.getAllResources().getResource("legendary_points").spend(1);
             } else {
-                surgeDice=new Dice(mC, tools.toInt(settings.getString("mythic_dice",String.valueOf(mC.getResources().getInteger(R.integer.mythic_dice_def)))));
-                MainActivity.aquene.getAllResources().getResource("mythic_points").spend(1);
+            surgeDice=new Dice(mA, mC, tools.toInt(settings.getString("mythic_dice",String.valueOf(mC.getResources().getInteger(R.integer.mythic_dice_def)))));
+            MainActivity.aquene.getAllResources().getResource("mythic_points").spend(1);
             }
 
             if (settings.getBoolean("switch_manual_diceroll",mC.getResources().getBoolean(R.bool.switch_manual_diceroll_DEF))){
@@ -159,5 +159,15 @@ public class ImgForDice {
         toast.setView(linear);
         toast.setGravity(Gravity.CENTER, 0, 0);
         toast.show();
+    }
+
+    public void refreshImg() {
+        int drawableId;
+        if (dice.getRandValue() > 0) {
+            drawableId = mC.getResources().getIdentifier("d" + dice.getnFace() + "_" + String.valueOf(dice.getRandValue()) + (dice.getElement().equalsIgnoreCase("aucun")?"":dice.getElement()), "drawable", mC.getPackageName());
+        } else {
+            drawableId = mC.getResources().getIdentifier("d" + dice.getnFace() + "_main", "drawable", mC.getPackageName());
+        }
+        this.img.setImageDrawable(tools.resize(mC, drawableId, mC.getResources().getDimensionPixelSize(R.dimen.icon_main_dices_wheel_size)));
     }
 }

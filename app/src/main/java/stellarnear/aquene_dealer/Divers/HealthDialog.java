@@ -196,18 +196,6 @@ public class HealthDialog {
 
     private void refreshHpPanel() {
         mListener.onEvent();
-        /*int hpShield= aquene.getAllResources().getResource("resource_hp").getShield();
-        String hpInfo = String.valueOf(aquene.getResourceValue("resource_hp"));
-        String hpInfoMini = String.valueOf(aquene.getResourceValue("resource_hp"));
-        String hpTitle =String.valueOf(aquene.getAllResources().getResource("resource_hp").getName())+ " : ";
-        if (hpShield>0){
-            hpInfoMini= String.valueOf(aquene.getResourceValue("resource_hp")+hpShield);
-            hpInfo+= " ("+hpShield+")";
-            hpTitle =String.valueOf(aquene.getAllResources().getResource("resource_hp").getName())+ " (temp) : ";
-        }
-        miniHealth.setText(hpInfoMini);
-        fullHealthTitle.setText(hpTitle);
-        fullHealth.setText(hpInfo);*/
     }
 
     private void makeShield(final int over) {

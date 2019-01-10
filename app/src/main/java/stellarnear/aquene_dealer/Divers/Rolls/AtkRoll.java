@@ -37,9 +37,9 @@ public class AtkRoll {
     private OnRefreshEventListener mListener;
     private Tools tools=new Tools();
 
-    public AtkRoll(Context mC, Integer base) {
+    public AtkRoll(Activity mA,Context mC, Integer base) {
         this.mC = mC;
-        this.atkDice = new Dice(mC,20);
+        this.atkDice = new Dice(mA,mC,20);
 
         settings = PreferenceManager.getDefaultSharedPreferences(mC);
         manualDice = settings.getBoolean("switch_manual_diceroll", mC.getResources().getBoolean(R.bool.switch_manual_diceroll_DEF));
@@ -161,6 +161,7 @@ public class AtkRoll {
     // straigth getters
 
     public Integer getValue() {
+        calculAtk();
         return atk;
     }
 

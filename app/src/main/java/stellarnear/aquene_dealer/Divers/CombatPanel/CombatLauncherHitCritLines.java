@@ -17,6 +17,7 @@ import java.util.List;
 
 import stellarnear.aquene_dealer.Activities.MainActivity;
 import stellarnear.aquene_dealer.Divers.Rolls.AtkRoll;
+import stellarnear.aquene_dealer.Divers.Rolls.Dice;
 import stellarnear.aquene_dealer.Divers.Rolls.Roll;
 import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.R;
@@ -84,6 +85,20 @@ public class CombatLauncherHitCritLines {
                 ((ViewGroup)roll.getAtkDice().getImg().getParent()).removeView(roll.getAtkDice().getImg());
             }
 
+            roll.getAtkDice().setRefreshEventListener(new Dice.OnRefreshEventListener() {
+                @Override
+                public void onEvent() {
+                    getRandValues();
+                }
+
+            });
+            roll.getAtkDice().setMythicEventListener(new Dice.OnMythicEventListener() {
+                @Override
+                public void onEvent() {
+                    getRandValues();
+                }
+            });
+
             diceBox.addView(roll.getAtkDice().getImg());
             line.addView(diceBox);
         }
@@ -103,7 +118,11 @@ public class CombatLauncherHitCritLines {
                 allRollSet+=1;
             } else {
                 if ((roll.getAtkValue() != 0)) {
-                    atkTxt.setText(String.valueOf(roll.getAtkValue()));
+                    int val = roll.getAtkValue();
+                    if(roll.getAtkDice().getMythicDice()!=null){
+                        val+=roll.getAtkDice().getMythicDice().getRandValue();
+                    }
+                    atkTxt.setText(String.valueOf(val));
                     allRollSet+=1;
                 }
             }
@@ -137,12 +156,15 @@ public class CombatLauncherHitCritLines {
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1);
                 frame.setLayoutParams(params);
                 if (!roll.isInvalid() && !roll.isFailed()) {
+                    if (roll.getHitCheckbox().getParent()!=null){
+                        ((ViewGroup)roll.getHitCheckbox().getParent()).removeView(roll.getHitCheckbox());
+                    }
                     frame.addView(roll.getHitCheckbox());
                 }
                 line.addView(frame);
             }
         } else { megaFail=true;}
-      
+
         TextView titleCrit = mainView.findViewById(R.id.combat_dialog_crit_box_title);
         LinearLayout lineCrit = mainView.findViewById(R.id.combat_dialog_crit_box);
         titleCrit.setVisibility(View.GONE);

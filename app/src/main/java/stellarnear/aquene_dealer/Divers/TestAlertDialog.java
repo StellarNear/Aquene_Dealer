@@ -153,7 +153,7 @@ public class TestAlertDialog {
         passive.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Dice dice = new Dice(mC,20);
+                Dice dice = new Dice(mA,mC,20);
                 dice.setRand(10);
                 endSkillCalculation(dice);
             }
@@ -163,7 +163,7 @@ public class TestAlertDialog {
         focus.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Dice dice = new Dice(mC,20);
+                Dice dice = new Dice(mA,mC,20);
                 dice.setRand(20);
                 endSkillCalculation(dice);
             }
@@ -186,7 +186,7 @@ public class TestAlertDialog {
 
     private void startRoll() {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mC);
-        final Dice dice = new Dice(mC,20);
+        final Dice dice = new Dice(mA,mC,20);
         if (settings.getBoolean("switch_manual_diceroll",mC.getResources().getBoolean(R.bool.switch_manual_diceroll_DEF))){
             dice.rand(true);
             dice.setRefreshEventListener(new Dice.OnRefreshEventListener() {
