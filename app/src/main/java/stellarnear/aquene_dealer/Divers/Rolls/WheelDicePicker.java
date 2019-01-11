@@ -8,7 +8,6 @@ import android.view.animation.OvershootInterpolator;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
-import stellarnear.aquene_dealer.Divers.Rolls.Dice;
 import stellarnear.aquene_dealer.Divers.Tools;
 import stellarnear.aquene_dealer.R;
 

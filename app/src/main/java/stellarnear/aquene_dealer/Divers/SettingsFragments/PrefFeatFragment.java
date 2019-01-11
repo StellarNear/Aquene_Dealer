@@ -3,14 +3,12 @@ package stellarnear.aquene_dealer.Divers.SettingsFragments;
 import android.app.Activity;
 import android.content.Context;
 import android.preference.PreferenceCategory;
-import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
 
 import stellarnear.aquene_dealer.Activities.MainActivity;
 import stellarnear.aquene_dealer.Divers.Tools;
 import stellarnear.aquene_dealer.Perso.Feat;
 import stellarnear.aquene_dealer.Perso.Perso;
-import stellarnear.aquene_dealer.R;
 
 public class PrefFeatFragment {
     private Perso aquene= MainActivity.aquene;

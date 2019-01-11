@@ -1,7 +1,5 @@
 package stellarnear.aquene_dealer.Perso;
 
-import android.content.Context;
-
 /**
  * Created by jchatron on 26/12/2017.
  */

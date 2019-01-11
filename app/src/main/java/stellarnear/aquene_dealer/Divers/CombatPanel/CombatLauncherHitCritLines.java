@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.CheckBox;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -186,6 +185,9 @@ public class CombatLauncherHitCritLines {
                 frame.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
                 if (!roll.isInvalid() && !roll.isFailed() && roll.isCrit()) {
                     CheckBox check = roll.getCritCheckbox();
+                    if (check.getParent()!=null){
+                        ((ViewGroup)check.getParent()).removeView(check);
+                    }
                     frame.addView(check);
                     Animation animCheck = AnimationUtils.loadAnimation(mC,R.anim.zoomin);
                     check.startAnimation(animCheck);

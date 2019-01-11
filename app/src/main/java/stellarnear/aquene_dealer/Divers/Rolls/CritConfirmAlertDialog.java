@@ -7,8 +7,6 @@ import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
-import android.text.SpannableString;
-import android.text.style.RelativeSizeSpan;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;

@@ -150,11 +150,11 @@ public class AllResources {
             getResource("resource_iron_will_sup").setMax(1);
         }
 
-        getResource("mythic_points").setMax(3+2*readResource("mythic_tier"));
-        getResource("legendary_points").setMax(readResource("legendary_points"));
+        getResource("resource_mythic_points").setMax(3+2*readResource("mythic_tier"));
+        getResource("resource_legendary_points").setMax(readResource("resource_legendary_points"));
 
         if (settings.getBoolean("feat_blinding_speed", mC.getResources().getBoolean(R.bool.feat_blinding_speed_DEF))) {
-            getResource("blinding_speed").setMax(5);
+            getResource("resource_blinding_speed").setMax(5);
         }
     }
 

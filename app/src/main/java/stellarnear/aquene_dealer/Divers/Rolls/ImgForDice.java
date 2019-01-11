@@ -16,9 +16,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import stellarnear.aquene_dealer.Activities.MainActivity;
+import stellarnear.aquene_dealer.Divers.Tools;
 import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.R;
-import stellarnear.aquene_dealer.Divers.Tools;
 
 public class ImgForDice {
     private Activity mA;
@@ -78,9 +78,9 @@ public class ImgForDice {
                             }
                         });
 
-                String message="Ressources :\n\nPoint(s) mythique restant(s) : "+aquene.getResourceValue(mC,"mythic_points");
+                String message="Ressources :\n\nPoint(s) mythique restant(s) : "+aquene.getResourceValue(mC,"resource_mythic_points");
                 if(dice.hasLegendarySurge()){
-                    message+="\n" +  "Point(s) légendaire restant(s) : "+aquene.getResourceValue(mC,"legendary_points");
+                    message+="\n" +  "Point(s) légendaire restant(s) : "+aquene.getResourceValue(mC,"resource_legendary_points");
                     alertBuild.setNegativeButton("Legendaire", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -97,19 +97,19 @@ public class ImgForDice {
     private void launchingMythicDice(String mode) {
         int points=0;
         if(mode.equalsIgnoreCase("légendaire")){
-            points = MainActivity.aquene.getResourceValue(mC,"legendary_points");
+            points = MainActivity.aquene.getResourceValue(mC,"resource_legendary_points");
         } else {
-            points = MainActivity.aquene.getResourceValue(mC,"mythic_points");
+            points = MainActivity.aquene.getResourceValue(mC,"resource_mythic_points");
         }
 
         if (points > 0 && dice.getMythicDice()==null) {
             SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mC);
             if(mode.equalsIgnoreCase("légendaire")){
                 surgeDice=new Dice(mA, mC, tools.toInt(settings.getString("legendary_dice",String.valueOf(mC.getResources().getInteger(R.integer.legendary_dice_def)))));
-                MainActivity.aquene.getAllResources().getResource("legendary_points").spend(1);
+                MainActivity.aquene.getAllResources().getResource("resource_legendary_points").spend(1);
             } else {
                 surgeDice=new Dice(mA, mC, tools.toInt(settings.getString("mythic_dice",String.valueOf(mC.getResources().getInteger(R.integer.mythic_dice_def)))));
-                MainActivity.aquene.getAllResources().getResource("mythic_points").spend(1);
+                MainActivity.aquene.getAllResources().getResource("resource_mythic_points").spend(1);
             }
 
             if (settings.getBoolean("switch_manual_diceroll",mC.getResources().getBoolean(R.bool.switch_manual_diceroll_DEF))){

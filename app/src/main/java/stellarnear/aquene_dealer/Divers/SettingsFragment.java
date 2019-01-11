@@ -251,15 +251,15 @@ public class SettingsFragment extends PreferenceFragment {
                 prefInfoScreenFragment.showInfo();
                 break;
             case "spend_myth_point":
-                if( aquene.getResourceValue(mC,"mythic_points")>0) {
+                if( aquene.getResourceValue(mC,"resource_mythic_points")>0) {
                     new AlertDialog.Builder(mC)
                             .setTitle("Demande de confirmation")
                             .setMessage("Confirmes-tu la dépense d'un point mythique ?")
                             .setIcon(android.R.drawable.ic_menu_help)
                             .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int whichButton) {
-                                    aquene.getAllResources().getResource("mythic_points").spend(1);
-                                    tools.customToast(mC,"Il te reste "+aquene.getResourceValue(mC,"mythic_points")+" point(s) mythique(s)","center");
+                                    aquene.getAllResources().getResource("resource_mythic_points").spend(1);
+                                    tools.customToast(mC,"Il te reste "+aquene.getResourceValue(mC,"resource_mythic_points")+" point(s) mythique(s)","center");
                                 }
                             })
                             .setNegativeButton(android.R.string.no, null).show();
@@ -268,15 +268,15 @@ public class SettingsFragment extends PreferenceFragment {
                 }
                 break;
             case "spend_leg_point":
-                if( aquene.getResourceValue(mC,"legendary_points")>0) {
+                if( aquene.getResourceValue(mC,"resource_legendary_points")>0) {
                     new AlertDialog.Builder(mC)
                             .setTitle("Demande de confirmation")
                             .setMessage("Confirmes-tu la dépense d'un point légendaire ?")
                             .setIcon(android.R.drawable.ic_menu_help)
                             .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int whichButton) {
-                                    aquene.getAllResources().getResource("legendary_points").spend(1);
-                                    tools.customToast(mC,"Il te reste "+aquene.getResourceValue(mC,"legendary_points")+" point(s) légendaire(s)","center");
+                                    aquene.getAllResources().getResource("resource_legendary_points").spend(1);
+                                    tools.customToast(mC,"Il te reste "+aquene.getResourceValue(mC,"resource_legendary_points")+" point(s) légendaire(s)","center");
                                 }
                             })
                             .setNegativeButton(android.R.string.no, null).show();

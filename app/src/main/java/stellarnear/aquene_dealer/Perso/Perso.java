@@ -339,9 +339,9 @@ public class Perso {
 
     public void endRound() {
         if( preferences.getBoolean("switch_blinding_speed",mC.getResources().getBoolean(R.bool.switch_blinding_speed_DEF))) {
-            getAllResources().getResource("blinding_speed").spend(1);
+            getAllResources().getResource("resource_blinding_speed").spend(1);
             preferences.edit().putBoolean("switch_blinding_speed", false).apply();
-            preferences.edit().putString("blinding_speed_current_temp", String.valueOf(getResourceValue(mC,"blinding_speed"))).apply();
+            preferences.edit().putString("blinding_speed_current_temp", String.valueOf(getResourceValue(mC,"resource_blinding_speed"))).apply();
             tools.customToast(mC,"Vitesse aveuglante désactivée","center");
         }
     }

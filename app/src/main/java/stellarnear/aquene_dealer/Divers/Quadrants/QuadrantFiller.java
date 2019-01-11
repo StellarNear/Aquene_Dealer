@@ -218,7 +218,13 @@ public class QuadrantFiller {
         text.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                 new TestAlertDialog(mA, mC, abi);
+                TestAlertDialog testAlertDialog = new TestAlertDialog(mA, mC, abi);
+                testAlertDialog.setRefreshEventListener(new TestAlertDialog.OnRefreshEventListener() {
+                    @Override
+                    public void onEvent() {
+                        buildAllMini();
+                    }
+                });
             }
         });
     }

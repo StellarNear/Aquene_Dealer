@@ -12,11 +12,11 @@
     </resource>
     <resource>
         <name>Points mythiques</name>
-        <id>mythic_points</id>
+        <id>resource_mythic_points</id>
     </resource>
     <resource>
         <name>Points légendaires</name>
-        <id>legendary_points</id>
+        <id>resource_legendary_points</id>
     </resource>
     <resource>
         <name>Points héroique</name>
@@ -55,6 +55,6 @@
     </resource>
     <resource>
         <name>Vitesse aveuglante</name>
-        <id>blinding_speed</id>
+        <id>resource_blinding_speed</id>
     </resource>
 </records>

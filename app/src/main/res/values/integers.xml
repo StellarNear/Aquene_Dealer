@@ -22,7 +22,7 @@
     <integer name="resource_hp_shield_def">0</integer>
     <integer name="resource_regen_def">0</integer>
     <integer name="resource_heroic_def">2</integer>
-    <integer name="legendary_points_def">4</integer>
+    <integer name="resource_legendary_points_def">4</integer>
 
     <!-- objet legendaire  -->
     <integer name="legendary_dice_def">8</integer>

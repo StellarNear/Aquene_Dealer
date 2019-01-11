@@ -3,7 +3,6 @@ package stellarnear.aquene_dealer.Divers.Rolls;
 import android.app.Activity;
 import android.content.Context;
 import android.widget.CheckBox;
-import android.widget.ImageView;
 
 public class Roll {
     private AtkRoll atkRoll;

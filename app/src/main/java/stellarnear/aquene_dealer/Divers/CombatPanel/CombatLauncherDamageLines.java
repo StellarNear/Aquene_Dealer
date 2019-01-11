@@ -15,8 +15,8 @@ import android.widget.TextView;
 import java.util.Arrays;
 import java.util.List;
 
-import stellarnear.aquene_dealer.Divers.Rolls.ProbaFromDiceRand;
 import stellarnear.aquene_dealer.Divers.Rolls.DmgRoll;
+import stellarnear.aquene_dealer.Divers.Rolls.ProbaFromDiceRand;
 import stellarnear.aquene_dealer.Divers.Rolls.Roll;
 import stellarnear.aquene_dealer.Divers.Rolls.RollList;
 import stellarnear.aquene_dealer.Divers.Tools;

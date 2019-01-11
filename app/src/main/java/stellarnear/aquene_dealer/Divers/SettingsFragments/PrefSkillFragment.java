@@ -10,7 +10,6 @@ import stellarnear.aquene_dealer.Divers.EditTextPreference;
 import stellarnear.aquene_dealer.Divers.Tools;
 import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.Perso.Skill;
-import stellarnear.aquene_dealer.R;
 
 
 public class PrefSkillFragment {

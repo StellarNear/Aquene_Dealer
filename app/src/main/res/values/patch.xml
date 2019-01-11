@@ -5,14 +5,17 @@
     <string name="basic_infos">"Cette application est développée par player 1 pour son player 2. Développée avec amour par Jérémie Chatron en fin 2017-2019." </string>
     <string name="patch_list">"----------------------------------------------------------------------------------
 v2.0
-TODO : niveau 25 vals +   images des different dons et capa ressources added
+TODO : niveau 25 vals
+-Création de toutes les images associées (dons, capacité, ressources, etc)
 -Fixes de diverses bugs (affichage des probabilité, images de dès en lancement manuel, etc)
+-Optimisation de la prise de mémoire par l'application lors du changement d'activité
 -Ajout d'une popup pour la confiramtion des critiques !
--Mise à jour des valeurs par defaut pour niveau 25
 -Ajout du don Vitesse aveuglante et comptage des rounds restant disponible !
 -Ajout des montées en puissance Mythique et Légendaire !
 -Ajout des deux ressources Mythique et Légendaire
+-Posibilité de dépenser des points légendaires pour la capacité Défense parfaite de l'anneau
 -Ajout des oreilles de lapin et de ses effet quand équipé
+-Mise à jour des valeurs par defaut pour niveau 25
 -Ajout de la clairvoyance épique niveau 25 (+4 BMO)
 -Masquage des ressources : Paume vibratoire (retrouvable dans le menu combat), Points héroique (parametre, personage, ressource), Regeneration (panneau de vie)
 -Prise en compte des capacités Mythiques (Excellente initiative, Bonus points de vie, etc)

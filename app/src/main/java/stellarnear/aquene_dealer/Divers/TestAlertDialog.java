@@ -19,16 +19,13 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 import stellarnear.aquene_dealer.Activities.MainActivity;
 import stellarnear.aquene_dealer.Divers.Rolls.Dice;
-import stellarnear.aquene_dealer.Divers.Rolls.WheelDicePicker;
 import stellarnear.aquene_dealer.Perso.Ability;
 import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.Perso.Skill;
@@ -40,12 +37,10 @@ public class TestAlertDialog {
     private Activity mA;
     private Context mC;
     private AlertDialog alertDialog;
-    private AlertDialog alertDialogWheelPicker;
-    private WheelDicePicker wheelPicker;
     private Skill skill;
     private Ability abi;
     private View dialogView;
-    private View dialogViewWheelPicker;
+    private OnRefreshEventListener mListener;
     private int modBonus;
     String mode;
 
@@ -70,6 +65,14 @@ public class TestAlertDialog {
             buildAlertDialog();
             showAlertDialog();
         }
+    }
+
+    public interface OnRefreshEventListener {
+        void onEvent();
+    }
+
+    public void setRefreshEventListener(OnRefreshEventListener eventListener) {
+        mListener = eventListener;
     }
 
     private void buildAlertDialog() {
@@ -180,7 +183,7 @@ public class TestAlertDialog {
         dialogBuilder.setView(dialogView);
         dialogBuilder.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                // User clicked cancel button
+                if(mListener!=null){mListener.onEvent();}
             }
         });
         alertDialog = dialogBuilder.create();

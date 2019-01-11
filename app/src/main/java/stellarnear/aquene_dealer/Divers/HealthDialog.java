@@ -147,19 +147,19 @@ public class HealthDialog {
                     refreshHpPanel();
                 }
                 if(mode.equalsIgnoreCase("dmg")){
-                    if(aquene.getResourceValue(mC,"mythic_points")>0){
+                    if(aquene.getResourceValue(mC,"resource_mythic_points")>0){
                         final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mC);
                         final int valReduc = 5*tools.toInt(settings.getString("mythic_tier", String.valueOf(mC.getResources().getInteger(R.integer.mythic_tier_def))));
                         new android.app.AlertDialog.Builder(mA)
                                 .setIcon(R.drawable.ic_warning_black_24dp)
                                 .setTitle("Absoprtion des coups")
                                 .setMessage("Veux-tu utiliser un point mythique pour réduire ces dégats de "+valReduc+" ?"
-                                +"\n\nRessources :\nPoint(s) mythique restant(s) : "+aquene.getResourceValue(mC,"mythic_points"))
+                                +"\n\nRessources :\nPoint(s) mythique restant(s) : "+aquene.getResourceValue(mC,"resource_mythic_points"))
                                 .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         aquene.getAllResources().getResource("resource_hp").spend(val-valReduc);
-                                        aquene.getAllResources().getResource("mythic_points").spend(1);
+                                        aquene.getAllResources().getResource("resource_mythic_points").spend(1);
                                         int currentAbsorption = tools.toInt(settings.getString("mythiccapacity_absorption",String.valueOf(mC.getResources().getInteger(R.integer.mythiccapacity_absorption_DEF))));
                                         settings.edit().putString("mythiccapacity_absorption", String.valueOf(valReduc+currentAbsorption)).apply();
                                         animateText(-val+valReduc);
