@@ -162,7 +162,7 @@ public class ProbaFromDiceRand {
             TextView probaFire = linearStats.findViewById(R.id.combat_dialog_fire_proba_result);
             probaFire.setText(getProba("fire"));
         }
-        if (selectedRollList.getDmgDiceList().filterWithElement("").size() <= 0) {
+        if (!selectedRollList.hasCrit()) {
             linearStats.findViewById(R.id.combat_dialog_phy_crit).setVisibility(View.GONE);
         } else {
             linearStats.findViewById(R.id.combat_dialog_phy_crit).setVisibility(View.VISIBLE);

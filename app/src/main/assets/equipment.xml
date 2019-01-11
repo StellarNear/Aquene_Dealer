@@ -74,6 +74,15 @@ Deuxième éveil: Ascension mythique - 1er rang</descr>
         <descr>+4 Sagesse</descr>
         <imgId>equipment_headband</imgId>
         <slotId>face_slot</slotId>
+        <value>8000 po</value>
+        <equipped>true</equipped>
+    </equipment>
+    <equipment>
+        <name>Oreilles de lapin</name>
+        <descr>Tant qu'elles sont équipées le porteur a un bonus de +30 aux jets d'acrobaties et de courir à x8 au lieu de x4.</descr>
+        <imgId>bunny_ears</imgId>
+        <slotId>helm_slot</slotId>
+        <value>912000 po</value>
         <equipped>true</equipped>
     </equipment>
     <equipment>

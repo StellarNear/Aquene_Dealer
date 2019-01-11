@@ -9,6 +9,7 @@
     <integer name="ability_charisme_def">15</integer>
     <integer name="ability_ms_def">33</integer>
     <integer name="ability_reduc_def">12</integer>
+    <integer name="ability_reduc_elem_def">0</integer>
     <integer name="ability_ca_stuff_def">5</integer>
 
     <integer name="epic_save_def">2</integer>
@@ -76,6 +77,7 @@
     <integer name="bonus_temp_save_DEF">0</integer>
     <integer name="bonus_temp_ca_DEF">0</integer>
     <integer name="bonus_ki_armor_DEF">0</integer>
+    <integer name="blinding_speed_DEF">5</integer>
 
     <integer name="ability_lvl_def">23</integer>
     <integer name="current_xp_def">12286214</integer>
@@ -90,7 +92,7 @@
 
     <integer name="mythic_tier_def">2</integer>
     <integer name="mythic_dice_def">6</integer>
-
+    <integer name="mythiccapacity_absorption_DEF">0</integer>
 
 
 </resources>

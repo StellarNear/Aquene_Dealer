@@ -8,21 +8,20 @@
     <resource>
         <name>Régénération</name>
         <id>resource_regen</id>
+        <hide>true</hide>
     </resource>
     <resource>
         <name>Points mythiques</name>
         <id>mythic_points</id>
-        <hide>true</hide>
     </resource>
     <resource>
         <name>Points légendaires</name>
         <id>legendary_points</id>
-        <hide>true</hide>
     </resource>
     <resource>
         <name>Points héroique</name>
         <id>resource_heroic</id>
-
+        <hide>true</hide>
     </resource>
     <resource>
         <name>Réserve de Ki</name>
@@ -37,6 +36,7 @@
         <name>Paume vibratoire</name>
         <shortname>Paume vibr.</shortname>
         <id>resource_palm</id>
+        <hide>true</hide>
     </resource>
     <resource>
         <name>Attaque supplémentaire (Bottes)</name>
@@ -52,5 +52,9 @@
         <name>Science de la volonté de fer</name>
         <hide>true</hide>
         <id>resource_iron_will_sup</id>
+    </resource>
+    <resource>
+        <name>Vitesse aveuglante</name>
+        <id>blinding_speed</id>
     </resource>
 </records>

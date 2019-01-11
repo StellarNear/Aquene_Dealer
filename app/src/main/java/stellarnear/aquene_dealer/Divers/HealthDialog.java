@@ -3,8 +3,10 @@ package stellarnear.aquene_dealer.Divers;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Point;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.text.InputType;
 import android.view.Display;
@@ -61,6 +63,7 @@ public class HealthDialog {
             }
         });
         Button regen = dialogView.findViewById(R.id.button_healthDialog_regen);
+        regen.setText("régén (+"+aquene.getResourceValue(mC,"resource_regen")+")" );
         regen.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -127,7 +130,7 @@ public class HealthDialog {
     }
 
     private void giveEditText(String askText, final String mode) {
-        AlertDialog.Builder alert = new AlertDialog.Builder(mC);
+        final AlertDialog.Builder alert = new AlertDialog.Builder(mC);
         alert.setTitle(askText);
         final EditText inputEdit = new EditText(mC);
         inputEdit.setInputType(InputType.TYPE_CLASS_NUMBER);
@@ -138,16 +141,47 @@ public class HealthDialog {
         alert.setView(inputEdit);
         alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
-                int val =  tools.toInt(inputEdit.getText().toString());
+                final int val =  tools.toInt(inputEdit.getText().toString());
                 if(mode.equalsIgnoreCase("shield")){
                     aquene.getAllResources().getResource("resource_hp").shield(val);
                     refreshHpPanel();
                 }
                 if(mode.equalsIgnoreCase("dmg")){
-                    aquene.getAllResources().getResource("resource_hp").spend(val);
-                    animateText(-val);
-                    summaryText(-val,0);
-                    refreshHpPanel();
+                    if(aquene.getResourceValue(mC,"mythic_points")>0){
+                        final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mC);
+                        final int valReduc = 5*tools.toInt(settings.getString("mythic_tier", String.valueOf(mC.getResources().getInteger(R.integer.mythic_tier_def))));
+                        new android.app.AlertDialog.Builder(mA)
+                                .setIcon(R.drawable.ic_warning_black_24dp)
+                                .setTitle("Absoprtion des coups")
+                                .setMessage("Veux-tu utiliser un point mythique pour réduire ces dégats de "+valReduc+" ?"
+                                +"\n\nRessources :\nPoint(s) mythique restant(s) : "+aquene.getResourceValue(mC,"mythic_points"))
+                                .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        aquene.getAllResources().getResource("resource_hp").spend(val-valReduc);
+                                        aquene.getAllResources().getResource("mythic_points").spend(1);
+                                        int currentAbsorption = tools.toInt(settings.getString("mythiccapacity_absorption",String.valueOf(mC.getResources().getInteger(R.integer.mythiccapacity_absorption_DEF))));
+                                        settings.edit().putString("mythiccapacity_absorption", String.valueOf(valReduc+currentAbsorption)).apply();
+                                        animateText(-val+valReduc);
+                                        summaryText(-val+valReduc,0);
+                                        refreshHpPanel();
+                                    }
+                                })
+                                .setNegativeButton("Non", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        aquene.getAllResources().getResource("resource_hp").spend(val);
+                                        animateText(-val);
+                                        summaryText(-val,0);
+                                        refreshHpPanel();
+                                    }
+                                }).show();
+                    } else {
+                        aquene.getAllResources().getResource("resource_hp").spend(val);
+                        animateText(-val);
+                        summaryText(-val,0);
+                        refreshHpPanel();
+                    }
                 }
                 if(mode.equalsIgnoreCase("heal")){
                     int over = aquene.getAllResources().getResource("resource_hp").getCurrent()+val-aquene.getAllResources().getResource("resource_hp").getMax();
@@ -160,7 +194,7 @@ public class HealthDialog {
                     }
                     refreshHpPanel();
                 }
-                setHealthWidth();
+
                 changeCancelButtonToOk();
                 lManager.hideSoftInputFromWindow(inputEdit.getWindowToken(), 0);
             }
@@ -195,7 +229,8 @@ public class HealthDialog {
     }
 
     private void refreshHpPanel() {
-        mListener.onEvent();
+        setHealthWidth();
+        if(mListener!=null){mListener.onEvent();}
     }
 
     private void makeShield(final int over) {

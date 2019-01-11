@@ -32,6 +32,20 @@
         <id>feat_iron_will_sup</id>
     </feat>
 
+    <feat>
+        <name>Armure Ki</name>
+        <type>feat_active</type>
+        <descr>En dépensant un point de Ki le moine gagne un bonus d’esquive de +2 à sa CA pendant 1 minute (accumulable jusqu'à un maximum de CA égal à la moitié du niveau du moine).</descr>
+        <id>feat_ki_armor</id>
+    </feat>
+
+    <feat>
+        <name>Vitesse aveuglante</name>
+        <type>feat_active</type>
+        <descr>Le personnage peut agir comme si il avait le sort "rapidité" activé 5 rounds par jour. Il peut activer les rounds indépendamment. Activer ce pouvoir est une action libre.</descr>
+        <id>feat_ki_armor</id>
+    </feat>
+
 
 
     <!-- feat_atk -->
@@ -143,10 +157,10 @@
     </feat>
 
     <feat>
-        <name>Armure Ki</name>
+        <name>Pas du vide</name>
         <type>feat_other</type>
-        <descr>En dépensant un point de Ki le moine gagne un bonus d’esquive de +2 à sa CA pendant 1 minute (accumulable jusqu'à un maximum de CA égal à la moitié du niveau du moine).</descr>
-        <id>feat_ki_armor</id>
+        <descr>Une fois par round le personnage peut se deplacer de la vitesse de déplacement en tant qu'action rapide. Ce mouvement ne provoque aucune attaque d'opportunité.</descr>
+        <id>feat_void_step</id>
     </feat>
 
     <!-- DONS DES feat_stanceS -->

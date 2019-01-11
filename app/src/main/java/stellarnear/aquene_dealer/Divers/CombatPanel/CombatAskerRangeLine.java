@@ -55,8 +55,11 @@ public class CombatAskerRangeLine  {
         buttonTxt.setPadding(0, 0, 0, (int) mC.getResources().getDimension(R.dimen.margin_combat_asker));
 
         int atkRange = aquene.getAllAttacks().getAtkRange();
-        TextView contactTxt = summaryText("Moins de " + atkRange + "m");
         int ms = aquene.getAbilityScore(mC,"ability_ms");
+        if(aquene.featIsActive("feat_void_step")){
+            atkRange+=ms;
+        }
+        TextView contactTxt = summaryText("Moins de " + atkRange + "m");
         int sum = ms + atkRange;
         TextView midTxt = summaryText("Entre " + atkRange + "m et " + sum + "m");
         TextView outTxt = summaryText("Plus de " + sum + "m");

@@ -80,7 +80,7 @@ public class CombatLauncherDamageDetailDialog {
             atkLine.setGravity(Gravity.CENTER);
             if(roll.isCritConfirmed()){atkLine.setBackground(mC.getDrawable(R.drawable.dice_detail_crit_gradient));}
             atkLine.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT,1));
-            for (Dice dice : roll.getDmgDiceList().filterWithNface(10).getList()) {
+            for (Dice dice : roll.getDmgDiceList().filterCritable().getList()) {
                 LinearLayout box = box();
                 box.addView(dice.getImg());
                 atkLine.addView(box);
@@ -94,13 +94,13 @@ public class CombatLauncherDamageDetailDialog {
             boxBonus.addView(bonus);
             atkLine.addView(boxBonus);
 
-            for (Dice dice : roll.getDmgDiceList().filterWithNface(8).getList()) {
+            for (Dice dice : roll.getDmgDiceList().filterNotCritable().filterWithNface(8).getList()) {
                 LinearLayout box = box();
                 box.addView(dice.getImg());
                 atkLine.addView(box);
             }
 
-            for (Dice dice : roll.getDmgDiceList().filterWithNface(6).getList()) {
+            for (Dice dice : roll.getDmgDiceList().filterNotCritable().filterWithNface(6).getList()) {
                 LinearLayout box = box();
                 box.addView(dice.getImg());
                 atkLine.addView(box);

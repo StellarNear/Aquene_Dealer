@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
 
 import stellarnear.aquene_dealer.Activities.MainActivity;
 import stellarnear.aquene_dealer.Divers.Tools;
@@ -25,6 +24,7 @@ public class AtkRoll {
     private Boolean fail = false;
     private Boolean invalid = false;
     private Context mC;
+    private Activity mA;
 
     private Boolean manualDice;
     private Boolean amulette;
@@ -38,6 +38,7 @@ public class AtkRoll {
     private Tools tools=new Tools();
 
     public AtkRoll(Activity mA,Context mC, Integer base) {
+        this.mA= mA;
         this.mC = mC;
         this.atkDice = new Dice(mA,mC,20);
 
@@ -67,8 +68,16 @@ public class AtkRoll {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 critConfirmed = false;
                 if (isChecked) {
-                    hitCheckbox.setChecked(true);
-                    critConfirmed = true;
+                    calculAtk();
+                    CritConfirmAlertDialog contactDialog = new CritConfirmAlertDialog(mA,mC,preRandValue);
+                    contactDialog.showAlertDialog();
+                    contactDialog.setSuccessEventListener(new CritConfirmAlertDialog.OnSuccessEventListener() {
+                        @Override
+                        public void onEvent() {
+                            hitCheckbox.setChecked(true);
+                            critConfirmed = true;
+                        }
+                    });
                 }
             }
         });
@@ -90,7 +99,7 @@ public class AtkRoll {
         if (amulette) {
             bonusAtk += 5;
         }
-        if ( settings.getBoolean("switch_temp_rapid",mC.getResources().getBoolean(R.bool.switch_temp_rapid_DEF))) {
+        if ( settings.getBoolean("switch_temp_rapid",mC.getResources().getBoolean(R.bool.switch_temp_rapid_DEF))|| settings.getBoolean("switch_blinding_speed",mC.getResources().getBoolean(R.bool.switch_blinding_speed_DEF))) {
             bonusAtk += 1;
         }
 
@@ -116,7 +125,7 @@ public class AtkRoll {
                 @Override
                 public void onEvent() {
                     calculAtk();
-                    mListener.onEvent();
+                    if(mListener!=null){mListener.onEvent();}
                 }
             });
         } else {

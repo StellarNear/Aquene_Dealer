@@ -239,7 +239,7 @@ public class AllEquipments {
             public void onClick(View view) {
                 new AlertDialog.Builder(mA)
                         .setIcon(R.drawable.ic_warning_black_24dp)
-                        .setTitle("Enlevern")
+                        .setTitle("Enlever")
                         .setMessage("Es-tu sûre de vouloir déséquiper cet objet ?")
                         .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
                             @Override
@@ -247,7 +247,7 @@ public class AllEquipments {
                                 equi.setEquiped(false);
                                 saveLocalAllEquipments();
                                 ct.dismissAlert();
-                                mListener.onEvent();
+                                if(mListener!=null){mListener.onEvent();}
                             }
                         })
                         .setNegativeButton("Non", new DialogInterface.OnClickListener() {
@@ -299,7 +299,7 @@ public class AllEquipments {
                     public void onClick(View view) {
                         equip(equi);
                         ca.dismissAlert();
-                        mListener.onEvent();
+                        if(mListener!=null){mListener.onEvent();}
                     }
                 });
             }

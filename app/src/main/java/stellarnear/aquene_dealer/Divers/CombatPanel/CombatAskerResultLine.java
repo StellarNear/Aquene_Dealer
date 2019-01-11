@@ -18,6 +18,7 @@ import java.util.Map;
 
 import stellarnear.aquene_dealer.Activities.MainActivity;
 import stellarnear.aquene_dealer.Perso.Attack;
+import stellarnear.aquene_dealer.Perso.Equipment;
 import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.R;
 
@@ -50,25 +51,30 @@ public class CombatAskerResultLine {
 
         possibleAttacks = new ArrayList<>();
         int ms = aquene.getAbilityScore(mC, "ability_ms");
+        if(aquene.featIsActive("feat_void_step")){
+            resultTxt+="Pas du vide et ";
+        }
         if (aquene.getAllAttacks().getCombatMode().equalsIgnoreCase("mode_totaldef")) {
-            resultTxt = "Tu es en mode défénse total.\nIl ne te reste qu'une action de mouvement par round.\nTu peux te deplacer en marchant (" + ms + "m).";
+            resultTxt += "tu es en mode défénse total.\nIl ne te reste qu'une action de mouvement par round.\nTu peux te deplacer en marchant (" + ms + "m).";
         } else if (outrange) {
             if (moved) {
-                resultTxt = "Il est trop loin, il va falloir attendre le prochain round.";
+                resultTxt += "il est trop loin, il va falloir attendre le prochain round.";
             } else {
-                resultTxt = "Il est trop loin, tu peux te deplacer en marchant (" + ms + "m).\n Puis faire autre chose qu'une attaque.\nOu bien courir (" + ms * 4 + "m) vers lui.";
+                Equipment head = aquene.getInventory().getAllEquipments().getEquipmentsEquiped("helm_slot");
+                int runMultiplier = (head!= null && head.getName().equalsIgnoreCase("oreilles de lapin") ? 8:4);
+                resultTxt += "il est trop loin, tu peux te deplacer en marchant (" + ms + "m).\n Puis faire autre chose qu'une attaque.\nOu bien courir (" + ms * runMultiplier + "m) vers lui.";
             }
         } else if (farRange) {
             if (moved) {
-                resultTxt = "Il est trop loin, il va falloir attendre le prochain round.";
+                resultTxt += "il est trop loin, il va falloir attendre le prochain round.";
             } else {
                 if (chargeRange) {
                     if (canCharge) {
                         if (aquene.getAllStances().getCurrentStance() != null && (aquene.getAllStances().isActive("stance_bear") || aquene.getAllStances().isActive("stance_phenix"))) {
-                            resultTxt = "Ta posture ne te permet qu'une attaque simple.";
+                            resultTxt += "ta posture ne te permet qu'une attaque simple.";
                             possibleAttacks = aquene.getAttacksForType("simple");
                         } else {
-                            resultTxt = "Charge ! puis :";
+                            resultTxt += "Charge ! et :";
                             if (aquene.featIsActive("feat_dire_charge")) {
                                 possibleAttacks = aquene.getAttacksForType("complex");
                             } else {
@@ -76,26 +82,26 @@ public class CombatAskerResultLine {
                             }
                         }
                     } else {
-                        resultTxt = "Déplace toi avec pas chassé (2 points de Ki), puis :";
+                        resultTxt += "déplace toi avec pas chassé (2 points de Ki), et :";
                         kistep = true;
                         possibleAttacks = aquene.getAttacksForType("simple");
                     }
                 } else {
-                    resultTxt = "Déplace toi avec pas chassé (2 points de Ki), puis :";
+                    resultTxt += "déplace toi avec pas chassé (2 points de Ki), et :";
                     kistep = true;
                     possibleAttacks = aquene.getAttacksForType("simple");
                 }
             }
         } else if (!range) {
             if (moved) {
-                resultTxt = "Prochain round tu peux le toucher.\nEn attendant fais autre chose qu'une attaque.";
+                resultTxt += "prochain round tu peux le toucher.\nEn attendant fais autre chose qu'une attaque.";
             } else {
                 if (canCharge) {
                     if (aquene.getAllStances().getCurrentStance() != null && (aquene.getAllStances().isActive("stance_bear") || aquene.getAllStances().isActive("stance_phenix"))) {
-                        resultTxt = "Ta posture ne te permet qu'une attaque simple.";
+                        resultTxt += "ta posture ne te permet qu'une attaque simple.";
                         possibleAttacks = aquene.getAttacksForType("simple");
                     } else {
-                        resultTxt = "Charge ! puis :";
+                        resultTxt += "charge ! et :";
                         if (aquene.featIsActive("feat_dire_charge")) {
                             possibleAttacks = aquene.getAttacksForType("complex");
                         } else {
@@ -103,7 +109,7 @@ public class CombatAskerResultLine {
                         }
                     }
                 } else {
-                    resultTxt = "Déplace toi puis :";
+                    resultTxt += "déplace toi et :";
                     possibleAttacks = aquene.getAttacksForType("simple");
                 }
             }
@@ -111,7 +117,7 @@ public class CombatAskerResultLine {
             if (moved) {
                 possibleAttacks = aquene.getAttacksForType("simple");
             } else if (aquene.getAllStances().getCurrentStance() != null && (aquene.getAllStances().isActive("stance_bear") || aquene.getAllStances().isActive("stance_phenix"))) {
-                resultTxt = "Ta posture ne te permet qu'une attaque simple.";
+                resultTxt += "ta posture ne te permet qu'une attaque simple.";
                 possibleAttacks = aquene.getAttacksForType("simple");
             } else {
                 possibleAttacks = aquene.getAttacksForType("complex");

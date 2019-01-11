@@ -124,6 +124,8 @@ public class AllResources {
         if (allFeats.getFeat("feat_robustness").isActive()) {
             hpPool += allAbilities.getAbi("ability_lvl").getValue();
         }
+        hpPool += 5*readResource("mythic_tier");
+
         getResource("resource_hp").setMax(hpPool);
         getResource("resource_regen").setMax(readResource("resource_regen"));
         getResource("resource_heroic").setMax(readResource("resource_heroic"));
@@ -150,6 +152,10 @@ public class AllResources {
 
         getResource("mythic_points").setMax(3+2*readResource("mythic_tier"));
         getResource("legendary_points").setMax(readResource("legendary_points"));
+
+        if (settings.getBoolean("feat_blinding_speed", mC.getResources().getBoolean(R.bool.feat_blinding_speed_DEF))) {
+            getResource("blinding_speed").setMax(5);
+        }
     }
 
     private void loadCurrent() {

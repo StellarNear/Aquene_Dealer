@@ -63,7 +63,7 @@ public class PrefAllInventoryFragment {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     aquene.getInventory().getAllEquipments().remove(equi);
-                                    mListener.onEvent();
+                                    if(mListener!=null){mListener.onEvent();}
                                 }
                             })
                             .setNegativeButton("Non", new DialogInterface.OnClickListener() {
@@ -103,7 +103,7 @@ public class PrefAllInventoryFragment {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     aquene.getInventory().getAllEquipments().remove(equi);
-                                    mListener.onEvent();
+                                    if(mListener!=null){mListener.onEvent();}
                                 }
                             })
                             .setNegativeButton("Non", new DialogInterface.OnClickListener() {
@@ -157,7 +157,7 @@ public class PrefAllInventoryFragment {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     aquene.getInventory().getBag().remove(equi);
-                                    mListener.onEvent();
+                                    if(mListener!=null){mListener.onEvent();}
                                 }
                             })
                             .setNegativeButton("Non", new DialogInterface.OnClickListener() {
@@ -190,7 +190,7 @@ public class PrefAllInventoryFragment {
                 String descr = ((EditText) creationView.findViewById(R.id.descr_item_creation)).getText().toString();
                 Equipment equi = new Equipment(name, descr, value, "", tag, false);
                 aquene.getInventory().getBag().createItem(equi);
-                mListener.onEvent();
+                if(mListener!=null){mListener.onEvent();}
                 tools.customToast(mC, equi.getName() + " ajouté !");
             }
         });
@@ -248,7 +248,7 @@ public class PrefAllInventoryFragment {
                 String descr = ((EditText) creationView.findViewById(R.id.descr_equipment_creation)).getText().toString();
                 Equipment equi = new Equipment(name, descr, value, "equipment_" + slot + "_def", slot, equiped);
                 aquene.getInventory().getAllEquipments().createEquipment(equi);
-                mListener.onEvent();
+                if(mListener!=null){mListener.onEvent();}
                 tools.customToast(mC, equi.getName() + " ajouté !");
             }
         });

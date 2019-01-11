@@ -54,6 +54,17 @@ public class RollList {
         return this.rollList.get(i);
     }
 
+    public boolean hasCrit(){
+        Boolean bool=false;
+        for (Roll roll : rollList){
+            if (roll.isCritConfirmed()){
+                bool=true;
+                break;
+            }
+        }
+        return bool;
+    }
+
     /* Concernant uniquement les dès */
 
     public DiceList getDmgDiceList(){

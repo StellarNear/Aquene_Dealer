@@ -93,7 +93,7 @@ public class CustomAlertDialog {
     public void addConfirmButton(String txt) {
         dialogBuilder.setPositiveButton(txt, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                mListener.onEvent();
+                if(mListener!=null){mListener.onEvent();}
             }
         });
         positiveButton=true;

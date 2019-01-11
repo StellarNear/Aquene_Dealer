@@ -18,6 +18,7 @@ public class Dice {
     private boolean rolled=false;
     private boolean delt=false;
     private boolean canCrit=false;
+    private boolean legendarySurge=false;
     private Tools tools= new Tools();
 
     private Dice mythicDice; //si c'est un d20 il a un dés mythic attaché
@@ -46,7 +47,7 @@ public class Dice {
         this.randValue = randFromWheel;
         this.rolled=true;
         refreshDiceImg();
-        mListenerRefresh.onEvent();
+        if(mListenerRefresh!=null){mListenerRefresh.onEvent();}
     }
 
     private void refreshDiceImg() {
@@ -112,7 +113,16 @@ public class Dice {
     public void setMythicDice(Dice mythicDice){
         this.mythicDice=mythicDice;
         if(mListenerMythic !=null){
-            mListenerMythic.onEvent();}
+            mListenerMythic.onEvent();
+        }
+    }
+
+    public void setLegendarySurge(boolean legendarySurge) {
+        this.legendarySurge = legendarySurge;
+    }
+
+    public boolean hasLegendarySurge() {
+        return legendarySurge;
     }
 
     public Dice getMythicDice(){

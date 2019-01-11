@@ -87,8 +87,15 @@
         <id>ability_rm</id>
     </ability>
     <ability>
+        <name>Résistance aux énergies</name>
+        <shortname>Réduction (magique)</shortname>
+        <type>def</type>
+        <descr>Cette résistance offre une protection limitée contre les formes d’énergie suivante : acide, électricité, feu, froid ou son. Le sujet bénéficie d’une résistance ces types d’énergie, ce qui signifie que chaque fois qu’il subit des dégâts (que leur source soit d’origine naturelle ou magique), ils sont réduits.</descr>
+        <id>ability_reduc_elem</id>
+    </ability>
+    <ability>
         <name>Réduction de dégats</name>
-        <shortname>Réduction</shortname>
+        <shortname>Réduction (phy)</shortname>
         <type>def</type>
         <descr>Certaines créatures possèdent un pouvoir surnaturel leur permettant d’ignorer les coups ou grâce auquel les blessures infligées par la plupart des armes se referment instantanément. Quand la réduction des dégâts annule en totalité les dégâts infligés par une attaque, les éventuels effets secondaires de l’attaque disparaissent aussi (poison, étourdissement si le coup a été porté par un moine, maladie, etc.).</descr>
         <id>ability_reduc</id>

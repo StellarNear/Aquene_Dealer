@@ -128,27 +128,27 @@ public class CombatLauncher {
                     fabDamage.animate().translationX(mC.getResources().getDimension(R.dimen.comabt_launcher_fab_mouvement)).start();
                     startDamage();
                 }else {
-                        new android.app.AlertDialog.Builder(mC)
-                                .setIcon(R.drawable.ic_warning_black_24dp)
-                                .setTitle("Nouveau jet de dégats")
-                                .setMessage("Veux-tu lancer d'autres dégats ?")
-                                .setPositiveButton("Oui", new DialogInterface.OnClickListener()
-                                {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        startDamage();
-                                        combatLauncherDamageLines.hideStatLine();
-                                    }
+                    new android.app.AlertDialog.Builder(mC)
+                            .setIcon(R.drawable.ic_warning_black_24dp)
+                            .setTitle("Nouveau jet de dégats")
+                            .setMessage("Veux-tu lancer d'autres dégats ?")
+                            .setPositiveButton("Oui", new DialogInterface.OnClickListener()
+                            {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    startDamage();
+                                    combatLauncherDamageLines.hideStatLine();
+                                }
 
-                                })
-                                .setNegativeButton("Non", new DialogInterface.OnClickListener()
-                                {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                    }
-                                })
-                                .show();
-                    }
+                            })
+                            .setNegativeButton("Non", new DialogInterface.OnClickListener()
+                            {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            })
+                            .show();
+                }
                 dmgMoved = true;
                 fabDetail.setVisibility(View.VISIBLE);
             }
@@ -169,7 +169,7 @@ public class CombatLauncher {
         dialogBuilder.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 unlockOrient();
-                mListener.onEvent();
+                if(mListener!=null){mListener.onEvent();}
             }
         });
         alertDialog = dialogBuilder.create();
@@ -245,10 +245,12 @@ public class CombatLauncher {
             if (medusa.isChecked()){  atksRolls.add(new Roll(mA,mC, primaryAtk)); atksRolls.add(new Roll(mA,mC, primaryAtk));      }
             if (ki.isChecked()){      atksRolls.add(new Roll(mA,mC, primaryAtk));     }
             if (boots.isChecked()){   atksRolls.add(new Roll(mA,mC, primaryAtk));     }
-            if ( settings.getBoolean("switch_temp_rapid",mC.getResources().getBoolean(R.bool.switch_temp_rapid_DEF))) {  atksRolls.add(new Roll(mA,mC, primaryAtk));  }
+            if ( (settings.getBoolean("switch_temp_rapid",mC.getResources().getBoolean(R.bool.switch_temp_rapid_DEF))|| settings.getBoolean("switch_blinding_speed",mC.getResources().getBoolean(R.bool.switch_blinding_speed_DEF)))) {
+                atksRolls.add(new Roll(mA,mC, primaryAtk));
+            }
 
             for (Integer each : list_att_base) {
-                    atksRolls.add(new Roll(mA,mC, each+tools.toInt(bonus_epic_att)));
+                atksRolls.add(new Roll(mA,mC, each+tools.toInt(bonus_epic_att)));
             }
         } else {
             String att_base = settings.getString("jet_att", mC.getString(R.string.jet_att_DEF));
@@ -274,10 +276,10 @@ public class CombatLauncher {
     private void checkHighscore(int sum) {
         TextView highscore = dialogView.findViewById(R.id.combat_dialog_highscore);
         highscore.setText("Précédent Record : "+String.valueOf(attack.getHighscore()));
-            if(attack.isHighscore(sum)){
-                tools.playVideo(mA,mC,"/raw/explosion");
-                tools.customToast(mC, String.valueOf(sum) + " dégats !\nC'est un nouveau record !", "center");
-            }
+        if(attack.isHighscore(sum)){
+            tools.playVideo(mA,mC,"/raw/explosion");
+            tools.customToast(mC, String.valueOf(sum) + " dégats !\nC'est un nouveau record !", "center");
+        }
     }
 
     private void displayDetail() {

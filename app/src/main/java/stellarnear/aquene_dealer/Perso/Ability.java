@@ -3,6 +3,8 @@ package stellarnear.aquene_dealer.Perso;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 
+import stellarnear.aquene_dealer.R;
+
 /**
  * Created by jchatron on 04/01/2018.
  */
@@ -28,8 +30,13 @@ public class Ability {
         this.id = id;
         this.shortname = shortname;
         this.mC = mC;
-        int imgId=mC.getResources().getIdentifier(id, "drawable", mC.getPackageName());
-        this.img = mC.getDrawable(imgId);
+        try {
+            int imgId=mC.getResources().getIdentifier(id, "drawable", mC.getPackageName());
+            this.img = mC.getDrawable(imgId);
+        } catch (Exception e) {
+            this.img = mC.getDrawable(R.drawable.mire_test);
+            e.printStackTrace();
+        }
     }
 
     public String getName() {

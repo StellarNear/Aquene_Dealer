@@ -63,6 +63,16 @@ public class DiceList {
         return list;
     }
 
+    public DiceList filterNotCritable() {
+        DiceList list = new DiceList();
+        for (Dice dice : diceList) {
+            if (!dice.canCrit()) {
+                list.add(dice);
+            }
+        }
+        return list;
+    }
+
     public List<Dice> getList() {
         return diceList;
     }
@@ -90,4 +100,6 @@ public class DiceList {
     public Integer size(){
         return diceList.size();
     }
+
+
 }

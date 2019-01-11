@@ -8,6 +8,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import stellarnear.aquene_dealer.Activities.MainActivity;
+import stellarnear.aquene_dealer.Perso.Equipment;
 import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.R;
 
@@ -54,7 +55,14 @@ public class CombatAskerMovementFar {
         buttonTxt.setPadding(0, 0, 0, (int) mC.getResources().getDimension(R.dimen.margin_combat_asker));
 
         int atkRange = aquene.getAllAttacks().getAtkRange();
-        int chargeRangeMeter = aquene.getAbilityScore(mC,"ability_ms")*2 + atkRange;
+        Equipment head = aquene.getInventory().getAllEquipments().getEquipmentsEquiped("helm_slot");
+        int runMultiplier = (head!= null && head.getName().equalsIgnoreCase("oreilles de lapin") ? 8:4);
+        int chargeRangeMeter = aquene.getAbilityScore(mC,"ability_ms")*runMultiplier + atkRange;
+        int ms = aquene.getAbilityScore(mC,"ability_ms");
+        if(aquene.featIsActive("feat_void_step")){
+            chargeRangeMeter+=ms;
+        }
+
         int tpKi = 120 + 12*aquene.getAbilityScore(mC,"ability_lvl");
         int sum =  atkRange + tpKi;
 

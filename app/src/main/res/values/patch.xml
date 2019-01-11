@@ -1,15 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="version">"v2.0"</string>
-    <string name="time_spend">"216h"</string>
-    <string name="basic_infos">"Cette application est développée par player 1 pour son player 2. Développée avec amour par Jérémie Chatron en fin 2017-2018." </string>
+    <string name="time_spend">"229h"</string>
+    <string name="basic_infos">"Cette application est développée par player 1 pour son player 2. Développée avec amour par Jérémie Chatron en fin 2017-2019." </string>
     <string name="patch_list">"----------------------------------------------------------------------------------
 v2.0
--mise à jour des valeurs par defaut pour niveau 23
--refactoring complet des jets d'attaque et dégats dans des objets intelligents
--refactoring complet des paramètres dans des modules séparés
--la patchnote est désormais une popup
--la barre d'xp et la barre de tier mystique se mettent à jour toutes seules
+TODO : niveau 25 vals +   images des different dons et capa ressources added
+-Fixes de diverses bugs (affichage des probabilité, images de dès en lancement manuel, etc)
+-Ajout d'une popup pour la confiramtion des critiques !
+-Mise à jour des valeurs par defaut pour niveau 25
+-Ajout du don Vitesse aveuglante et comptage des rounds restant disponible !
+-Ajout des montées en puissance Mythique et Légendaire !
+-Ajout des deux ressources Mythique et Légendaire
+-Ajout des oreilles de lapin et de ses effet quand équipé
+-Ajout de la clairvoyance épique niveau 25 (+4 BMO)
+-Masquage des ressources : Paume vibratoire (retrouvable dans le menu combat), Points héroique (parametre, personage, ressource), Regeneration (panneau de vie)
+-Prise en compte des capacités Mythiques (Excellente initiative, Bonus points de vie, etc)
+-Prise en compte de la possibilité de reduire les degats contre un point mythique (aptitude de voie mythique Protecteur : Absorption des coups)
+-Refactoring complet des jets d'attaque et dégats dans des objets intelligents
+-Refactoring complet des paramètres dans des modules séparés
+-Le patchnote est désormais une popup
+-La barre d'xp et la barre de tier mystique se mettent à jour toutes seules
+-Ajout de la possibilité de changer les dès de dégats de base (pour anneau d'impact)
+-Ajout de deux catégories d'aide (écran incliné droite)
 ----------------------------------------------------------------------------------
 v1.11
 -Début des feature Mythiques !

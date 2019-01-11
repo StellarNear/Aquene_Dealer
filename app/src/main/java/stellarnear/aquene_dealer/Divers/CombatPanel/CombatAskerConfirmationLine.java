@@ -61,6 +61,7 @@ public class CombatAskerConfirmationLine {
                             View toMain = new View(mC);
                             toMain.setOnClickListener(backToMainListner);
                             toMain.performClick();
+                            aquene.endRound();
                             Snackbar snackbar = Snackbar.make(view, "Retour au menu principal", Snackbar.LENGTH_LONG);
                             snackbar.show();
                         }

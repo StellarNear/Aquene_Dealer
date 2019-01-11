@@ -2,6 +2,7 @@ package stellarnear.aquene_dealer.Divers;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ContentFrameLayout;
 
@@ -248,15 +250,33 @@ public class SettingsFragment extends PreferenceFragment {
             case "infos":
                 prefInfoScreenFragment.showInfo();
                 break;
+            case "spend_myth_point":
+                if( aquene.getResourceValue(mC,"mythic_points")>0) {
+                    new AlertDialog.Builder(mC)
+                            .setTitle("Demande de confirmation")
+                            .setMessage("Confirmes-tu la dépense d'un point mythique ?")
+                            .setIcon(android.R.drawable.ic_menu_help)
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int whichButton) {
+                                    aquene.getAllResources().getResource("mythic_points").spend(1);
+                                    tools.customToast(mC,"Il te reste "+aquene.getResourceValue(mC,"mythic_points")+" point(s) mythique(s)","center");
+                                }
+                            })
+                            .setNegativeButton(android.R.string.no, null).show();
+                } else {
+                    tools.customToast(mC,"Tu n'as plus de point mythique","center");
+                }
+                break;
         }
     }
 
 
     private void resetTemp() {
-        List<String> allTempList = Arrays.asList("bonus_temp_jet_att", "bonus_temp_jet_dmg", "bonus_temp_ca", "bonus_temp_save", "bonus_temp_rm", "bonus_ki_armor");
+        List<String> allTempList = Arrays.asList("bonus_temp_jet_att", "bonus_temp_jet_dmg", "bonus_temp_ca", "bonus_temp_save", "bonus_temp_rm", "bonus_ki_armor","mythiccapacity_absorption");
         for (String temp : allTempList) {
             settings.edit().putString(temp, "0").apply();
         }
         settings.edit().putBoolean("switch_temp_rapid", false).apply();
+        settings.edit().putBoolean("switch_blinding_speed", false).apply();
     }
 }

@@ -73,11 +73,13 @@ public class PrefSleepScreenFragment {
 
     private void resetTemp() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mC);
-        List<String> allTempList = Arrays.asList("bonus_temp_jet_att", "bonus_temp_jet_dmg", "bonus_temp_ca", "bonus_temp_save", "bonus_temp_rm", "bonus_ki_armor");
+        List<String> allTempList = Arrays.asList("bonus_temp_jet_att", "bonus_temp_jet_dmg", "bonus_temp_ca", "bonus_temp_save", "bonus_temp_rm", "bonus_ki_armor","mythiccapacity_absorption");
         for (String temp : allTempList) {
             prefs.edit().putString(temp, "0").apply();
         }
         prefs.edit().putBoolean("switch_temp_rapid", false).apply();
+        prefs.edit().putBoolean("switch_blinding_speed", false).apply();
+
     }
 
 }

@@ -62,7 +62,7 @@ public class DmgRoll {
                 dice.setRefreshEventListener(new Dice.OnRefreshEventListener() {
                     @Override
                     public void onEvent() {
-                        mListener.onEvent();
+                        if(mListener!=null){mListener.onEvent();}
                     }
                 });
             }

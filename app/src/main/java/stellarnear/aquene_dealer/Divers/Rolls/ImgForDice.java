@@ -63,12 +63,9 @@ public class ImgForDice {
         this.img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new AlertDialog.Builder(mA)
+                AlertDialog.Builder alertBuild = new AlertDialog.Builder(mA)
                         .setIcon(R.drawable.ic_warning_black_24dp)
                         .setTitle("Montée en puissance")
-                        .setMessage("Ressources :\n\n" +
-                                "Point(s) mythique restant(s) : "+aquene.getResourceValue(mC,"mythic_points")+"\n" +
-                                "Point(s) légendaire restant(s) : "+aquene.getResourceValue(mC,"legendary_points"))
                         .setNeutralButton("Aucune", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -79,13 +76,20 @@ public class ImgForDice {
                             public void onClick(DialogInterface dialog, int which) {
                                 launchingMythicDice("mythique");
                             }
-                        })
-                        .setNegativeButton("Legendaire", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                launchingMythicDice("légendaire");
-                            }
-                        }).show();
+                        });
+
+                String message="Ressources :\n\nPoint(s) mythique restant(s) : "+aquene.getResourceValue(mC,"mythic_points");
+                if(dice.hasLegendarySurge()){
+                    message+="\n" +  "Point(s) légendaire restant(s) : "+aquene.getResourceValue(mC,"legendary_points");
+                    alertBuild.setNegativeButton("Legendaire", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            launchingMythicDice("légendaire");
+                        }
+                    });
+                }
+                alertBuild.setMessage(message);
+                alertBuild.show();
             }
         });
     }
@@ -104,8 +108,8 @@ public class ImgForDice {
                 surgeDice=new Dice(mA, mC, tools.toInt(settings.getString("legendary_dice",String.valueOf(mC.getResources().getInteger(R.integer.legendary_dice_def)))));
                 MainActivity.aquene.getAllResources().getResource("legendary_points").spend(1);
             } else {
-            surgeDice=new Dice(mA, mC, tools.toInt(settings.getString("mythic_dice",String.valueOf(mC.getResources().getInteger(R.integer.mythic_dice_def)))));
-            MainActivity.aquene.getAllResources().getResource("mythic_points").spend(1);
+                surgeDice=new Dice(mA, mC, tools.toInt(settings.getString("mythic_dice",String.valueOf(mC.getResources().getInteger(R.integer.mythic_dice_def)))));
+                MainActivity.aquene.getAllResources().getResource("mythic_points").spend(1);
             }
 
             if (settings.getBoolean("switch_manual_diceroll",mC.getResources().getBoolean(R.bool.switch_manual_diceroll_DEF))){
