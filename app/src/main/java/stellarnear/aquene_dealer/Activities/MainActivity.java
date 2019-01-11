@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     public static Perso aquene;
     private boolean loading = false;
     private boolean touched = false;
-    private boolean campaignShow = true;
+    private static boolean campaignShow = true;
     private FrameLayout mainFrameFrag;
     private SharedPreferences settings;
 
@@ -210,6 +210,7 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             unlockOrient();
             startActivity(new Intent(this, SettingsActivity.class));
+            finish();
             return true;
         }
 
@@ -230,11 +231,13 @@ public class MainActivity extends AppCompatActivity {
             case Surface.ROTATION_90:
                 Intent intent_stance = new Intent(MainActivity.this, StanceActivity.class);
                 startActivity(intent_stance);
+                finish();
                 break;
 
             case Surface.ROTATION_270:
                 Intent intent_help = new Intent(MainActivity.this, HelpActivity.class);
                 startActivity(intent_help);
+                finish();
                 break;
         }
     }

@@ -9,11 +9,13 @@ import android.content.Context;
 public class MythicCapacity {
     private String name;
     private String descr;
+    private String type;
     private String id;
-    public MythicCapacity(String name, String descr, String id)
+    public MythicCapacity(String name, String descr,String type, String id)
     {
         this.name=name;
         this.descr=descr;
+        this.type=type;
         this.id=id;
     }
 
@@ -23,6 +25,10 @@ public class MythicCapacity {
 
     public String getDescr() {
         return descr;
+    }
+
+    public String getType() {
+        return type;
     }
 
     public String getId(){return id;}

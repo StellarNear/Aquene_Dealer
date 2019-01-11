@@ -239,11 +239,13 @@ public class StanceActivity extends AppCompatActivity {
             Intent intent = new Intent(mA, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             startActivity(intent);
+            finish();
         }
         if (display.getRotation()==Surface.ROTATION_180) {
             Intent intent = new Intent(mA, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             startActivity(intent);
+            finish();
         }
     }
 

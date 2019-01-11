@@ -1,7 +1,14 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory android:title="Buff personnels"/>
+    <PreferenceScreen
+        android:key="reset_temp"
+        android:summary="Réinitialise à zéro les valeurs temporaires"
+        android:icon="@drawable/ic_undo_black_24dp"
+        android:title="Reset des bonus" />
+    <Preference  android:layout="@layout/divider_pref" android:selectable="false"/>
 
+    <PreferenceCategory android:title="Buff personnels"/>
+    <Preference  android:layout="@layout/divider_pref" android:selectable="false"/>
     <SwitchPreference
         android:defaultValue="@bool/switch_blinding_speed_DEF"
         android:key="switch_blinding_speed"
@@ -111,11 +118,6 @@
         android:title="Bonus à la résisitance magique"
         />
 
-    <PreferenceScreen
-        android:key="reset_temp"
-        android:summary="Réinitialise à zéro les valeurs temporaires"
-        android:icon="@drawable/ic_undo_black_24dp"
-        android:title="Reset des bonus" />
 
 
 </PreferenceScreen>

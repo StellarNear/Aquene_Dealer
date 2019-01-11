@@ -267,6 +267,23 @@ public class SettingsFragment extends PreferenceFragment {
                     tools.customToast(mC,"Tu n'as plus de point mythique","center");
                 }
                 break;
+            case "spend_leg_point":
+                if( aquene.getResourceValue(mC,"legendary_points")>0) {
+                    new AlertDialog.Builder(mC)
+                            .setTitle("Demande de confirmation")
+                            .setMessage("Confirmes-tu la dépense d'un point légendaire ?")
+                            .setIcon(android.R.drawable.ic_menu_help)
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int whichButton) {
+                                    aquene.getAllResources().getResource("legendary_points").spend(1);
+                                    tools.customToast(mC,"Il te reste "+aquene.getResourceValue(mC,"legendary_points")+" point(s) légendaire(s)","center");
+                                }
+                            })
+                            .setNegativeButton(android.R.string.no, null).show();
+                } else {
+                    tools.customToast(mC,"Tu n'as plus de point légendaire","center");
+                }
+                break;
         }
     }
 

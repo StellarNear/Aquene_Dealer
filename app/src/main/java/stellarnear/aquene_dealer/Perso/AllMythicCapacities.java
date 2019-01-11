@@ -54,6 +54,7 @@ public class AllMythicCapacities {
                     MythicCapacity MythicCapacity=new MythicCapacity(
                             readValue("name", element2),
                             readValue("descr", element2),
+                            readValue("type", element2),
                             readValue("id", element2));
                     allMythicCapacities.add(MythicCapacity);
                     mapIdMythiccapacity.put(MythicCapacity.getId(),MythicCapacity);

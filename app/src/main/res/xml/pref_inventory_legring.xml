@@ -1,5 +1,35 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <PreferenceScreen
+        android:key="spend_leg_point"
+        android:icon="@drawable/ic_exposure_neg_1_black_24dp"
+        android:title="Dépense point légendaire"
+        android:summary="Défense légendaire pour annuler un crit ou une attaque sournoise"
+        />
+    <Preference  android:layout="@layout/divider_pref" android:selectable="false"/>
+    <PreferenceCategory android:title="Objet légendaire"/>
+    <Preference  android:layout="@layout/divider_pref" android:selectable="false"/>
+
+    <stellarnear.aquene_dealer.Divers.EditTextPreference
+        android:defaultValue="@integer/legendary_points_def"
+        android:key="legendary_points"
+        android:title="Points légendaires"
+        android:singleLine="true"
+        android:inputType="number"
+        android:summary="Valeur : %s"/>
+
+    <stellarnear.aquene_dealer.Divers.EditTextPreference
+        android:defaultValue="@integer/legendary_dice_def"
+        android:key="legendary_dice"
+        android:title="Dès de montée en puissance"
+        android:singleLine="true"
+        android:inputType="number"
+        android:summary="Valeur : d%s"/>
+
+
+    <Preference  android:layout="@layout/divider_pref" android:selectable="false"/>
+    <PreferenceCategory android:title="Eveils"/>
+    <Preference  android:layout="@layout/divider_pref" android:selectable="false"/>
     <SwitchPreference
         android:defaultValue="@bool/first_step_leg_ring_def"
         android:key="first_step_leg_ring"
@@ -8,7 +38,6 @@
         android:title="Premier éveil d'âme"
         />
     <Preference  android:layout="@layout/divider_pref" android:selectable="false"/>
-
     <EditTextPreference
         android:dependency="first_step_leg_ring"
         android:title="Gain d'experience"
@@ -45,24 +74,5 @@
         android:title="Troisième éveil d'âme"
         />
 
-    <Preference  android:layout="@layout/divider_pref" android:selectable="false"/>
-    <PreferenceCategory android:title="Objet légendaire"/>
-    <Preference  android:layout="@layout/divider_pref" android:selectable="false"/>
-
-    <stellarnear.aquene_dealer.Divers.EditTextPreference
-        android:defaultValue="@integer/legendary_points_def"
-        android:key="legendary_points"
-        android:title="Points légendaires"
-        android:singleLine="true"
-        android:inputType="number"
-        android:summary="Valeur : %s"/>
-
-    <stellarnear.aquene_dealer.Divers.EditTextPreference
-        android:defaultValue="@integer/legendary_dice_def"
-        android:key="legendary_dice"
-        android:title="Dès de montée en puissance"
-        android:singleLine="true"
-        android:inputType="number"
-        android:summary="Valeur : d%s"/>
 
 </PreferenceScreen>

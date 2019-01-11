@@ -252,7 +252,7 @@ public class HelpActivity extends AppCompatActivity {
         if(mapButtonCat.get(button).equalsIgnoreCase("Pouvoirs Mythiques")){
             for (MythicCapacity mythicCapacity : aquene.getAllMythicCapacities().getAllMythicCapacitiesList()){
                 View view = getLayoutInflater().inflate(R.layout.custom_help_info_flipper,vg,false);
-                changeFields(view,mythicCapacity.getId(),mythicCapacity.getName(),"",mythicCapacity.getDescr());
+                changeFields(view,mythicCapacity.getId(),mythicCapacity.getName(),"Catégorie : "+mythicCapacity.getType(),mythicCapacity.getDescr());
                 flipper.addView(view);
             }
         }
@@ -335,11 +335,13 @@ public class HelpActivity extends AppCompatActivity {
             Intent intent = new Intent(mA, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             startActivity(intent);
+            finish();
         }
         if (display.getRotation()==Surface.ROTATION_180) {
             Intent intent = new Intent(mA, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             startActivity(intent);
+            finish();
         }
     }
 
