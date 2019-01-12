@@ -18,7 +18,7 @@ import android.widget.LinearLayout;
 
 import java.util.List;
 
-import stellarnear.aquene_dealer.Divers.QuadrantManager;
+import stellarnear.aquene_dealer.Divers.Quadrants.QuadrantManager;
 import stellarnear.aquene_dealer.R;
 
 /**

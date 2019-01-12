@@ -136,7 +136,6 @@ public class MainActivityFragmentSkill extends Fragment {
             @Override
             public void onClick(View view) {
                 new TestAlertDialog(getActivity(),getContext(),skill,aquene.getAbilityMod(getContext(),skill.getAbilityDependence()));
-
             }
         });
     }

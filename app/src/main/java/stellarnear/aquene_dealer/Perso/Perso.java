@@ -22,20 +22,26 @@ public class Perso {
     private AllSkills allSkills;
     private AllAttacks allAttacks;
     private AllKiCapacities allKiCapacities;
+    private AllMythicCapacities allMythicCapacities;
     private Inventory inventory;
     private AllResources allResources;
+    private SharedPreferences preferences;
     private Tools tools =new Tools();
+    private Context mC;
 
     public Perso(Context mC) {
-        allStances = new AllStances(mC);
-        allFeats = new AllFeats(mC);
-        allMythicFeats = new AllMythicFeats(mC);
-        allAbilities = new AllAbilities(mC);
-        allSkills = new AllSkills(mC);
-        allAttacks = new AllAttacks(mC);
-        allKiCapacities = new AllKiCapacities(mC);
-        inventory = new Inventory(mC);
-        allResources = new AllResources(mC,allFeats,allAbilities);
+        this.allStances = new AllStances(mC);
+        this.allFeats = new AllFeats(mC);
+        this.allMythicFeats = new AllMythicFeats(mC);
+        this.allAbilities = new AllAbilities(mC);
+        this.allSkills = new AllSkills(mC);
+        this.allAttacks = new AllAttacks(mC);
+        this.allKiCapacities = new AllKiCapacities(mC);
+        this.allMythicCapacities = new AllMythicCapacities(mC);
+        this.inventory = new Inventory(mC);
+        this.allResources = new AllResources(mC,allFeats,allAbilities);
+        this.preferences=PreferenceManager.getDefaultSharedPreferences(mC);
+        this.mC=mC;
     }
 
     public void refresh() {
@@ -78,19 +84,37 @@ public class Perso {
                 int bonusRm = tools.toInt(settings.getString("bonus_temp_rm", String.valueOf(mC.getResources().getInteger(R.integer.bonus_temp_rm_DEF))));
                 if (bonusRm>abiScore) { abiScore = bonusRm; }
             }
+
+            if (abiId.equalsIgnoreCase("ability_reduc")) {
+                int bonusReduc = tools.toInt(settings.getString("mythiccapacity_absorption", String.valueOf(mC.getResources().getInteger(R.integer.mythiccapacity_absorption_DEF))));
+                abiScore += (int)(bonusReduc/10);
+            }
+            if (abiId.equalsIgnoreCase("ability_reduc_elem") ) {
+                int bonusReduc = tools.toInt(settings.getString("mythiccapacity_absorption", String.valueOf(mC.getResources().getInteger(R.integer.mythiccapacity_absorption_DEF))));
+                abiScore += 5*((int)(bonusReduc/10));
+            }
+
+
             if (abiId.equalsIgnoreCase("ability_ms") && allStances.isActive("stance_unicorn")) {
                 abiScore += 6;
             }
-            if (abiId.equalsIgnoreCase("ability_ms") && settings.getBoolean("switch_temp_rapid",mC.getResources().getBoolean(R.bool.switch_temp_rapid_DEF))) {
+            if (abiId.equalsIgnoreCase("ability_ms") && (settings.getBoolean("switch_temp_rapid",mC.getResources().getBoolean(R.bool.switch_temp_rapid_DEF))|| settings.getBoolean("switch_blinding_speed",mC.getResources().getBoolean(R.bool.switch_blinding_speed_DEF)))) {
                 abiScore += 9;
             }
 
-            if (abiId.equalsIgnoreCase("ability_init") && featIsActive("feat_init")) {
-                abiScore += 4;
+            if (abiId.equalsIgnoreCase("ability_init")) {
+                int currentTier = tools.toInt(settings.getString("mythic_tier", String.valueOf(mC.getResources().getInteger(R.integer.mythic_tier_def))));
+                abiScore += currentTier;
+                if ( featIsActive("feat_init")) {
+                    abiScore += 4;
+                }
             }
 
-            if (abiId.equalsIgnoreCase("ability_bmo") && allStances.isActive("stance_octopus")) {
-                abiScore += getAbilityMod(mC,"ability_sagesse");
+            if (abiId.equalsIgnoreCase("ability_bmo") ) {
+                abiScore+=4;  //epic insight niveau 25
+                if(allStances.isActive("stance_octopus")){
+                    abiScore += getAbilityMod(mC, "ability_sagesse");
+                }
             }
 
             if (abiId.equalsIgnoreCase("ability_ca")) {
@@ -104,7 +128,7 @@ public class Perso {
                 if(allStances.isActive("stance_bear")) {
                     abiScore += (int) (getAbilityScore(mC,"ability_lvl")/2.0);
                 }
-                if (settings.getBoolean("switch_temp_rapid",mC.getResources().getBoolean(R.bool.switch_temp_rapid_DEF))) {
+                if (settings.getBoolean("switch_temp_rapid",mC.getResources().getBoolean(R.bool.switch_temp_rapid_DEF))|| settings.getBoolean("switch_blinding_speed",mC.getResources().getBoolean(R.bool.switch_blinding_speed_DEF))) {
                     abiScore += 1;
                 }
             }
@@ -127,7 +151,7 @@ public class Perso {
                 if (abiId.equalsIgnoreCase("ability_ref") && settings.getBoolean("switch_save_ref_boot",mC.getResources().getBoolean(R.bool.switch_save_ref_boot_DEF))) {
                     abiScore+=1;
                 }
-                if (abiId.equalsIgnoreCase("ability_ref") && settings.getBoolean("switch_temp_rapid",mC.getResources().getBoolean(R.bool.switch_temp_rapid_DEF))) {
+                if (abiId.equalsIgnoreCase("ability_ref") && (settings.getBoolean("switch_temp_rapid",mC.getResources().getBoolean(R.bool.switch_temp_rapid_DEF))|| settings.getBoolean("switch_blinding_speed",mC.getResources().getBoolean(R.bool.switch_blinding_speed_DEF)))) {
                     abiScore+=1;
                 }
                 if (abiId.equalsIgnoreCase("ability_vol") && featIsActive("feat_iron_will")) {
@@ -187,8 +211,13 @@ public class Perso {
     public Integer getSkillBonus(Context mC,String skillId) {
         int bonusTemp = allSkills.getSkill(skillId).getBonus();
         if (skillId.equalsIgnoreCase("skill_acrob")) {
-            bonusTemp += getAbilityScore(mC,"ability_lvl");
-        }   //on ajoute le niveau de moine au jet d'acrob
+            bonusTemp += getAbilityScore(mC,"ability_lvl");//on ajoute le niveau de moine au jet d'acrob
+
+            Equipment head = this.inventory.getAllEquipments().getEquipmentsEquiped("helm_slot");
+            if(head!= null && head.getName().equalsIgnoreCase("oreilles de lapin")){
+                bonusTemp+=30;
+            }
+        }
 
         if (skillId.equalsIgnoreCase("skill_stealth") && allStances.isActive("stance_bat")) {
             bonusTemp += getAbilityMod(mC,"ability_sagesse");
@@ -269,6 +298,10 @@ public class Perso {
         return this.allKiCapacities;
     }
 
+    public AllMythicCapacities getAllMythicCapacities(){
+        return allMythicCapacities;
+    }
+
     public AllResources getAllResources() {
         return this.allResources;
     }
@@ -302,5 +335,14 @@ public class Perso {
             }
         }
         return availableList;
+    }
+
+    public void endRound() {
+        if( preferences.getBoolean("switch_blinding_speed",mC.getResources().getBoolean(R.bool.switch_blinding_speed_DEF))) {
+            getAllResources().getResource("resource_blinding_speed").spend(1);
+            preferences.edit().putBoolean("switch_blinding_speed", false).apply();
+            preferences.edit().putString("blinding_speed_current_temp", String.valueOf(getResourceValue(mC,"resource_blinding_speed"))).apply();
+            tools.customToast(mC,"Vitesse aveuglante désactivée","center");
+        }
     }
 }

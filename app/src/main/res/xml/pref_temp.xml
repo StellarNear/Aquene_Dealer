@@ -1,5 +1,65 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <PreferenceScreen
+        android:key="reset_temp"
+        android:summary="Réinitialise à zéro les valeurs temporaires"
+        android:icon="@drawable/ic_undo_black_24dp"
+        android:title="Reset des bonus" />
+    <Preference  android:layout="@layout/divider_pref" android:selectable="false"/>
+
+    <PreferenceCategory android:title="Buff personnels"/>
+    <Preference  android:layout="@layout/divider_pref" android:selectable="false"/>
+    <SwitchPreference
+        android:defaultValue="@bool/switch_blinding_speed_DEF"
+        android:key="switch_blinding_speed"
+        android:title="Rapidité (don:vitesse aveuglante)"
+        android:summary="+1 attaque, +1 jet  d'attaque, +1 CA, +1 reflexe, +9m déplacement"/>
+
+    <Preference  android:layout="@layout/divider_pref" android:selectable="false"/>
+
+
+    <stellarnear.aquene_dealer.Divers.EditTextPreference
+        android:defaultValue="@integer/blinding_speed_DEF"
+        android:key="blinding_speed_current_temp"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:summary="Utilisations journalières restantes : %s"
+        android:selectable="false"
+        android:inputType="number"
+        android:title="Nombre d'utilisations restantes"
+        />
+
+    <Preference  android:layout="@layout/divider_pref" android:selectable="false"/>
+
+    <stellarnear.aquene_dealer.Divers.EditTextPreference
+        android:defaultValue="@integer/mythiccapacity_absorption_DEF"
+        android:key="mythiccapacity_absorption"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:summary="Dégâts absobés : %s"
+        android:inputType="number"
+        android:selectable="false"
+        android:title="Absorption des coups"
+        />
+
+    <Preference  android:layout="@layout/divider_pref" android:selectable="false"/>
+
+
+    <stellarnear.aquene_dealer.Divers.EditTextPreference
+        android:defaultValue="@integer/bonus_ki_armor_DEF"
+        android:key="bonus_ki_armor"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:summary="Valeurs : +%s CA"
+        android:inputType="number"
+        android:selectable="false"
+        android:title="Armure Ki actuelle"
+        />
+
+    <Preference  android:layout="@layout/divider_pref" android:selectable="false"/>
+
+    <PreferenceCategory android:title="Autres buffs"/>
+    <Preference  android:layout="@layout/divider_pref" android:selectable="false"/>
     <stellarnear.aquene_dealer.Divers.EditTextPreference
         android:defaultValue="@integer/bonus_temp_jet_att_DEF"
         android:key="bonus_temp_jet_att"
@@ -35,20 +95,7 @@
         android:inputType="number"
         android:title="Bonus à la CA"
         />
-    <Preference  android:layout="@layout/divider_pref" android:selectable="false"/>
 
-    <stellarnear.aquene_dealer.Divers.EditTextPreference
-        android:defaultValue="@integer/bonus_ki_armor_DEF"
-        android:key="bonus_ki_armor"
-        android:selectAllOnFocus="true"
-        android:singleLine="true"
-        android:summary="Valeurs : +%s CA"
-        android:inputType="number"
-        android:selectable="false"
-        android:title="Armure Ki actuelle"
-        />
-
-    <Preference  android:layout="@layout/divider_pref" android:selectable="false"/>
 
 
     <stellarnear.aquene_dealer.Divers.EditTextPreference
@@ -71,11 +118,6 @@
         android:title="Bonus à la résisitance magique"
         />
 
-    <PreferenceScreen
-        android:key="reset_temp"
-        android:summary="Réinitialise à zéro les valeurs temporaires"
-        android:icon="@drawable/ic_undo_black_24dp"
-        android:title="Reset des bonus" />
 
 
 </PreferenceScreen>

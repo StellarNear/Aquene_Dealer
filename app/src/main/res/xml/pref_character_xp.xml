@@ -1,8 +1,6 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <Preference
-        android:key="xp_bar"
-        android:layout="@layout/xp_bar"
+    <stellarnear.aquene_dealer.Divers.XpBarPreference
         android:selectable="false"
         />
 
@@ -41,7 +39,6 @@
     <Preference  android:layout="@layout/divider_pref" android:selectable="false"/>
 
     <stellarnear.aquene_dealer.Divers.EditTextPreference
-        android:defaultValue="@integer/previous_level_def"
         android:key="previous_level"
         android:selectable="false"
         android:title="Points pour le niveau précédant"
@@ -52,7 +49,6 @@
     <Preference  android:layout="@layout/divider_pref" android:selectable="false"/>
 
     <stellarnear.aquene_dealer.Divers.EditTextPreference
-        android:defaultValue="@integer/next_level_def"
         android:key="next_level"
         android:selectable="false"
         android:title="Points pour le prochain niveau"

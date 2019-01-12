@@ -16,14 +16,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.Random;
+import java.util.Arrays;
+import java.util.List;
 
 import stellarnear.aquene_dealer.Activities.MainActivity;
+import stellarnear.aquene_dealer.Divers.Rolls.Dice;
 import stellarnear.aquene_dealer.Perso.Ability;
 import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.Perso.Skill;
@@ -35,12 +37,10 @@ public class TestAlertDialog {
     private Activity mA;
     private Context mC;
     private AlertDialog alertDialog;
-    private AlertDialog alertDialogWheelPicker;
-    private WheelDicePicker wheelPicker;
     private Skill skill;
     private Ability abi;
     private View dialogView;
-    private View dialogViewWheelPicker;
+    private OnRefreshEventListener mListener;
     private int modBonus;
     String mode;
 
@@ -65,6 +65,14 @@ public class TestAlertDialog {
             buildAlertDialog();
             showAlertDialog();
         }
+    }
+
+    public interface OnRefreshEventListener {
+        void onEvent();
+    }
+
+    public void setRefreshEventListener(OnRefreshEventListener eventListener) {
+        mListener = eventListener;
     }
 
     private void buildAlertDialog() {
@@ -123,13 +131,25 @@ public class TestAlertDialog {
             @Override
             public void onClick(View v) {
 
-                SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mC);
-                if (settings.getBoolean("switch_manual_diceroll",mC.getResources().getBoolean(R.bool.switch_manual_diceroll_DEF))) {
-                    buildAlertDialogWheelPicker();
-                    showAlertDialogWheelPicker();
+                if(((TextView)dialogView.findViewById(R.id.customDialogTestResult)).getText().equals("")){
+                    startRoll();
                 } else {
-                    Random rand = new Random();
-                    endSkillCalculation(1+rand.nextInt(20));
+                    new AlertDialog.Builder(mA)
+                            .setIcon(R.drawable.ic_warning_black_24dp)
+                            .setTitle("Demande de confirmation")
+                            .setMessage("Es-tu sûre de vouloir te relancer ce jet ?")
+                            .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    startRoll();
+                                }
+                            })
+                            .setNegativeButton("Non", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            })
+                            .show();
                 }
             }
         });
@@ -138,7 +158,9 @@ public class TestAlertDialog {
         passive.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                endSkillCalculation(10);
+                Dice dice = new Dice(mA,mC,20);
+                dice.setRand(10);
+                endSkillCalculation(dice);
             }
         });
 
@@ -146,7 +168,9 @@ public class TestAlertDialog {
         focus.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                endSkillCalculation(20);
+                Dice dice = new Dice(mA,mC,20);
+                dice.setRand(20);
+                endSkillCalculation(dice);
             }
         });
 
@@ -159,10 +183,27 @@ public class TestAlertDialog {
         dialogBuilder.setView(dialogView);
         dialogBuilder.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                // User clicked cancel button
+                if(mListener!=null){mListener.onEvent();}
             }
         });
         alertDialog = dialogBuilder.create();
+    }
+
+    private void startRoll() {
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mC);
+        final Dice dice = new Dice(mA,mC,20);
+        if (settings.getBoolean("switch_manual_diceroll",mC.getResources().getBoolean(R.bool.switch_manual_diceroll_DEF))){
+            dice.rand(true);
+            dice.setRefreshEventListener(new Dice.OnRefreshEventListener() {
+                @Override
+                public void onEvent() {
+                    endSkillCalculation(dice);
+                }
+            });
+        } else {
+            dice.rand(false);
+            endSkillCalculation(dice);
+        }
     }
 
     public void showAlertDialog(){
@@ -180,69 +221,37 @@ public class TestAlertDialog {
         onlyButton.setBackground(mC.getDrawable(R.drawable.button_cancel_gradient));
     }
 
-    private void buildAlertDialogWheelPicker() {
-        LayoutInflater inflater = mA.getLayoutInflater();
-        dialogViewWheelPicker = inflater.inflate(R.layout.custom_dialog_wheel_picker, null);
-        RelativeLayout relativeCenter =  dialogViewWheelPicker.findViewById(R.id.relative_custom_dialog_center);
-        wheelPicker = new WheelDicePicker(relativeCenter,20,mC);
-        AlertDialog.Builder dialogBuilder  = new AlertDialog.Builder(mA, R.style.CustomDialog);
-        dialogBuilder.setView(dialogViewWheelPicker);
-        dialogBuilder.setPositiveButton("Valider", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                alertDialog.show();
-                endSkillCalculation(wheelPicker.getValueSelected());
-            }
-        });
-        dialogBuilder.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                alertDialog.show();
-            }
-        });
-        alertDialogWheelPicker = dialogBuilder.create();
-    }
+    private void endSkillCalculation(final Dice dice) {
+        List<String> listSave = Arrays.asList("ability_ref","ability_vig","ability_vol");
+        if(abi!=null && listSave.contains(abi.getId())){
+            dice.setLegendarySurge(true); //la bague permet d'avoir un jet legendaire de montée en pusisance sur les jets de sauv
+        }
 
-    private void showAlertDialogWheelPicker(){
-        alertDialog.hide();
-        alertDialogWheelPicker.show();
-        Display display = mA.getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        Float factor = mC.getResources().getInteger(R.integer.percent_fullscreen_customdialog)/100f;
-        alertDialogWheelPicker.getWindow().setLayout((int) (factor*size.x), (int)(factor*size.y));
-
-        Button positiveButton = alertDialogWheelPicker.getButton(AlertDialog.BUTTON_POSITIVE);
-        LinearLayout.LayoutParams positiveButtonLL = (LinearLayout.LayoutParams) positiveButton.getLayoutParams();
-        positiveButtonLL.width=ViewGroup.LayoutParams.WRAP_CONTENT;
-        positiveButtonLL.setMargins(mC.getResources().getDimensionPixelSize(R.dimen.general_margin),0,0,0);
-        positiveButton.setLayoutParams(positiveButtonLL);
-        positiveButton.setTextColor(mC.getColor(R.color.colorBackground));
-        positiveButton.setBackground(mC.getDrawable(R.drawable.button_ok_gradient));
-
-        Button negativeButton = alertDialogWheelPicker.getButton(AlertDialog.BUTTON_NEGATIVE);
-        LinearLayout.LayoutParams negativeButtonLL = (LinearLayout.LayoutParams) negativeButton.getLayoutParams();
-        negativeButtonLL.width=ViewGroup.LayoutParams.WRAP_CONTENT;
-        negativeButton.setLayoutParams(negativeButtonLL);
-        negativeButton.setTextColor(mC.getColor(R.color.colorBackground));
-        negativeButton.setBackground(mC.getDrawable(R.drawable.button_cancel_gradient));
-
-    }
-
-    private void endSkillCalculation(int value_selected) {
-        ImageView resultDice= dialogView.findViewById(R.id.customDialogTestResultDice);
-        int idResultDice = mC.getResources().getIdentifier("d20_"+value_selected, "drawable", mC.getPackageName());
-        resultDice.setImageDrawable(mC.getDrawable(idResultDice));
-        TextView resultTitle = dialogView.findViewById(R.id.customDialogTitleResult);
-        TextView callToAction = dialogView.findViewById(R.id.customDialogTestCallToAction);
-        callToAction.setTextColor(mC.getColor(R.color.secondaryTextCustomDialog));
+        FrameLayout resultDice= dialogView.findViewById(R.id.customDialogTestResultDice);
+        resultDice.removeAllViews();
+        resultDice.addView(dice.getImg());
 
         Button onlyButton = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
         onlyButton.setText("Ok");
         onlyButton.setBackground(mC.getDrawable(R.drawable.button_ok_gradient));
+        displayResult(dice);
+        dice.setMythicEventListener(new Dice.OnMythicEventListener() {
+            @Override
+            public void onEvent() {
+                displayResult(dice);
+            }
+        });
+    }
 
+    private void displayResult(Dice dice) {
+
+        TextView resultTitle = dialogView.findViewById(R.id.customDialogTitleResult);
+        TextView callToAction = dialogView.findViewById(R.id.customDialogTestCallToAction);
+        callToAction.setTextColor(mC.getColor(R.color.secondaryTextCustomDialog));
         if (mode.equalsIgnoreCase("skill")){
             resultTitle.setText("Résultat du test de compétence :");
-            int sumResult=value_selected+skill.getRank()+aquene.getSkillBonus(mC,skill.getId())+ modBonus;
-
+            int sumResult=dice.getRandValue()+skill.getRank()+aquene.getSkillBonus(mC,skill.getId())+ modBonus;
+            if(dice.getMythicDice()!=null){sumResult+=dice.getMythicDice().getRandValue();}
             TextView result = dialogView.findViewById(R.id.customDialogTestResult);
             result.setText(String.valueOf(sumResult));
             callToAction.setText("Fin du test de compétence");
@@ -250,11 +259,11 @@ public class TestAlertDialog {
             resultTitle.setText("Résultat du test de caractéristique :");
             int sumResult;
             if (abi.getType().equalsIgnoreCase("base")){
-                sumResult=value_selected+aquene.getAbilityMod(mC,abi.getId());
+                sumResult=dice.getRandValue()+aquene.getAbilityMod(mC,abi.getId());
             } else {
-                sumResult=value_selected+aquene.getAbilityScore(mC,abi.getId());
+                sumResult=dice.getRandValue()+aquene.getAbilityScore(mC,abi.getId());
             }
-
+            if(dice.getMythicDice()!=null){sumResult+=dice.getMythicDice().getRandValue();}
             TextView result = dialogView.findViewById(R.id.customDialogTestResult);
             result.setText(String.valueOf(sumResult));
 

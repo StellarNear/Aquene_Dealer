@@ -44,8 +44,18 @@
         android:selectAllOnFocus="true"
         android:singleLine="true"
         android:inputType="number"
-        android:summary="Valeurs : %sD10"
-        android:title="Nombre de dès de 10 pour les dégats à main nues"
+        android:summary="Valeurs : %s"
+        android:title="Nombre de dès pour les dégats à main nues"
+        />
+
+    <stellarnear.aquene_dealer.Divers.EditTextPreference
+        android:defaultValue="@integer/main_dice_dmg_type_DEF"
+        android:key="main_dice_dmg_type"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:inputType="number"
+        android:summary="Valeurs : d%s"
+        android:title="Type de dès pour les dégats à main nues"
         />
 
     <stellarnear.aquene_dealer.Divers.EditTextPreference

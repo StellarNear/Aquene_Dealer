@@ -44,6 +44,8 @@ import stellarnear.aquene_dealer.Perso.Ability;
 import stellarnear.aquene_dealer.Perso.Attack;
 import stellarnear.aquene_dealer.Perso.Feat;
 import stellarnear.aquene_dealer.Perso.KiCapacity;
+import stellarnear.aquene_dealer.Perso.MythicCapacity;
+import stellarnear.aquene_dealer.Perso.MythicFeat;
 import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.Perso.Skill;
 import stellarnear.aquene_dealer.Perso.Stance;
@@ -105,7 +107,7 @@ public class HelpActivity extends AppCompatActivity {
     }
 
     private void buildCategories() {
-        List<String> categories = Arrays.asList("Général","Caractéristiques","Compétences","Pouvoirs de Moine","Capacités de Ki","Postures","Dons","Attaques");
+        List<String> categories = Arrays.asList("Général","Caractéristiques","Compétences","Pouvoirs de Moine","Capacités de Ki","Postures","Attaques","Dons","Dons Mythiques","Pouvoirs Mythiques");
         LinearLayout buttons = findViewById(R.id.help_activity_button_linear);
         buttons.removeAllViews();
         LinearLayout line1Buttons = new LinearLayout(mC);
@@ -240,6 +242,20 @@ public class HelpActivity extends AppCompatActivity {
                 flipper.addView(view);
             }
         }
+        if(mapButtonCat.get(button).equalsIgnoreCase("Dons Mythiques")){
+            for (MythicFeat mythicFeat : aquene.getAllMythicFeats().getMythicFeatsList()){
+                View view = getLayoutInflater().inflate(R.layout.custom_help_info_flipper,vg,false);
+                changeFields(view,mythicFeat.getId(),mythicFeat.getName(),"",mythicFeat.getDescr());
+                flipper.addView(view);
+            }
+        }
+        if(mapButtonCat.get(button).equalsIgnoreCase("Pouvoirs Mythiques")){
+            for (MythicCapacity mythicCapacity : aquene.getAllMythicCapacities().getAllMythicCapacitiesList()){
+                View view = getLayoutInflater().inflate(R.layout.custom_help_info_flipper,vg,false);
+                changeFields(view,mythicCapacity.getId(),mythicCapacity.getName(),"Catégorie : "+mythicCapacity.getType(),mythicCapacity.getDescr());
+                flipper.addView(view);
+            }
+        }
     }
 
     private void changeFields(View view,String id,String titleTxt,String typeTxt,String descrTxt) {
@@ -319,11 +335,13 @@ public class HelpActivity extends AppCompatActivity {
             Intent intent = new Intent(mA, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             startActivity(intent);
+            finish();
         }
         if (display.getRotation()==Surface.ROTATION_180) {
             Intent intent = new Intent(mA, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             startActivity(intent);
+            finish();
         }
     }
 
