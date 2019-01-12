@@ -2,7 +2,7 @@
 <resources>
     <!--  Stat de base du perso  -->
     <integer name="ability_force_def">23</integer>
-    <integer name="ability_dexterite_def">26</integer>
+    <integer name="ability_dexterite_def">27</integer>
     <integer name="ability_constitution_def">18</integer>
     <integer name="ability_intelligence_def">14</integer>
     <integer name="ability_sagesse_def">24</integer>
@@ -18,17 +18,23 @@
     <integer name="ability_vol_def">12</integer>
 
     <!-- Resources  -->
-    <integer name="resource_hp_def">291</integer>
+    <integer name="resource_hp_def">293</integer>
     <integer name="resource_hp_shield_def">0</integer>
     <integer name="resource_regen_def">0</integer>
     <integer name="resource_heroic_def">2</integer>
     <integer name="resource_legendary_points_def">4</integer>
 
+    <!-- mythique  -->
+    <integer name="mythic_tier_def">2</integer>
+    <integer name="mythic_dice_def">6</integer>
+    <integer name="mythiccapacity_absorption_DEF">0</integer>
+
     <!-- objet legendaire  -->
     <integer name="legendary_dice_def">8</integer>
 
+
     <!--  Rank de maitrise des compétences  -->
-    <integer name="skill_acrob_rankDEF">21</integer>
+    <integer name="skill_acrob_rankDEF">24</integer>
     <integer name="skill_myst_rankDEF">6</integer>
     <integer name="skill_religion_rankDEF">6</integer>
     <integer name="skill_stealth_rankDEF">22</integer>
@@ -37,10 +43,10 @@
     <integer name="skill_escape_rankDEF">20</integer>
     <integer name="skill_intimidate_rankDEF">0</integer>
     <integer name="skill_swim_rankDEF">0</integer>
-    <integer name="skill_percept_rankDEF">19</integer>
-    <integer name="skill_heal_rankDEF">24</integer>
-    <integer name="skill_psycho_rankDEF">3</integer>
-    <integer name="skill_survival_rankDEF">24</integer>
+    <integer name="skill_percept_rankDEF">20</integer>
+    <integer name="skill_heal_rankDEF">25</integer>
+    <integer name="skill_psycho_rankDEF">4</integer>
+    <integer name="skill_survival_rankDEF">25</integer>
 
     <!--  Bonus des compétences  -->
     <integer name="skill_acrob_bonusDEF">13</integer>
@@ -63,7 +69,7 @@
     <integer name="translationFragDuration">500</integer>
     <integer name="attack_range_DEF">3</integer>
     <integer name="attack_att_epic_DEF">1</integer>
-    <integer name="attack_dmg_epic_DEF">2</integer>
+    <integer name="attack_dmg_epic_DEF">3</integer>
     <integer name="attack_prouesse_epic_DEF">2</integer>
 
     <integer name="percent_fullscreen_combat_launcher_dialog">95</integer>
@@ -79,8 +85,8 @@
     <integer name="bonus_ki_armor_DEF">0</integer>
     <integer name="blinding_speed_DEF">5</integer>
 
-    <integer name="ability_lvl_def">23</integer>
-    <integer name="current_xp_def">12286214</integer>
+    <integer name="ability_lvl_def">25</integer>
+    <integer name="current_xp_def">13866464</integer>
 
     <integer name="add_current_xp_def">0</integer>
     <integer name="add_gold_def">0</integer>
@@ -90,9 +96,7 @@
     <integer name="money_silver_def">7</integer>
     <integer name="money_copper_def">3</integer>
 
-    <integer name="mythic_tier_def">2</integer>
-    <integer name="mythic_dice_def">6</integer>
-    <integer name="mythiccapacity_absorption_DEF">0</integer>
+
 
 
 </resources>

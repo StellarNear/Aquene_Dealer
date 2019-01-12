@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="version">"v2.0"</string>
-    <string name="time_spend">"229h"</string>
+    <string name="time_spend">"231h"</string>
     <string name="basic_infos">"Cette application est développée par player 1 pour son player 2. Développée avec amour par Jérémie Chatron en fin 2017-2019." </string>
     <string name="patch_list">"----------------------------------------------------------------------------------
 v2.0
-TODO : niveau 25 vals
 -Création de toutes les images associées (dons, capacité, ressources, etc)
 -Fixes de diverses bugs (affichage des probabilité, images de dès en lancement manuel, etc)
 -Optimisation de la prise de mémoire par l'application lors du changement d'activité

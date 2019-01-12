@@ -21,7 +21,7 @@
         <name>Anneau d'impact</name>
         <descr>Les poings du porteur infligent des dégats comme si il était supérieur d'une taille</descr>
         <value>340000 po</value>
-        <imgId>equipment_regen_ring</imgId>
+        <imgId>equipment_impact_ring</imgId>
         <slotId>ring2_slot</slotId>
         <equipped>true</equipped>
     </equipment>
