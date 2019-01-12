@@ -11,10 +11,12 @@
         <hide>true</hide>
     </resource>
     <resource>
+        <shortname>Pts. myth</shortname>
         <name>Points mythiques</name>
         <id>resource_mythic_points</id>
     </resource>
     <resource>
+        <shortname>Pts. leg</shortname>
         <name>Points légendaires</name>
         <id>resource_legendary_points</id>
     </resource>
@@ -54,6 +56,7 @@
         <id>resource_iron_will_sup</id>
     </resource>
     <resource>
+        <shortname>Vit. aveugl.</shortname>
         <name>Vitesse aveuglante</name>
         <id>resource_blinding_speed</id>
     </resource>

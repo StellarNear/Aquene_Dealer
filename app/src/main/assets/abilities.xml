@@ -82,20 +82,21 @@
     </ability>
     <ability>
         <name>Résistance magie</name>
+        <shortname>Rési. mag.</shortname>
         <type>def</type>
         <descr>La résistance à la magie (ou RM) est un pouvoir permettant de ne pas être affecté par la magie. La résistance à la magie ne fait effet que contre les sorts et les pouvoirs magiques, pas contre les pouvoirs extraordinaires ou surnaturels. Une créature peut de son plein gré réduire sa résistance à la magie par une action simple ne provoquant pas d’attaque d’opportunité. Dans ce cas, la résistance à la magie garde la valeur choisie jusqu’au prochain tour de jeu de la créature.</descr>
         <id>ability_rm</id>
     </ability>
     <ability>
         <name>Résistance aux énergies</name>
-        <shortname>Réduction (magique)</shortname>
+        <shortname>Réduc. mag</shortname>
         <type>def</type>
         <descr>Cette résistance offre une protection limitée contre les formes d’énergie suivante : acide, électricité, feu, froid ou son. Le sujet bénéficie d’une résistance ces types d’énergie, ce qui signifie que chaque fois qu’il subit des dégâts (que leur source soit d’origine naturelle ou magique), ils sont réduits.</descr>
         <id>ability_reduc_elem</id>
     </ability>
     <ability>
         <name>Réduction de dégats</name>
-        <shortname>Réduction (phy)</shortname>
+        <shortname>Réduc. phy</shortname>
         <type>def</type>
         <descr>Certaines créatures possèdent un pouvoir surnaturel leur permettant d’ignorer les coups ou grâce auquel les blessures infligées par la plupart des armes se referment instantanément. Quand la réduction des dégâts annule en totalité les dégâts infligés par une attaque, les éventuels effets secondaires de l’attaque disparaissent aussi (poison, étourdissement si le coup a été porté par un moine, maladie, etc.).</descr>
         <id>ability_reduc</id>
