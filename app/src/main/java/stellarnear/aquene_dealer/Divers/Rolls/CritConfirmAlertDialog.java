@@ -37,7 +37,8 @@ public class CritConfirmAlertDialog {
 
     private Perso aquene = MainActivity.aquene;
 
-    private OnSuccessEventListener mListener;
+    private OnSuccessEventListener mListenerSuccess;
+    private OnFailEventListener mListenerFail;
 
     private Tools tools = new Tools();
 
@@ -120,7 +121,8 @@ public class CritConfirmAlertDialog {
 
         dialogBuilder.setPositiveButton("Succès", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                if(mListener!=null){mListener.onEvent();}
+                if(mListenerSuccess !=null){
+                    mListenerSuccess.onSuccessEvent();}
                 tools.customToast(mC,"Bravo ! il va prendre cher");
             }
         });
@@ -203,6 +205,7 @@ public class CritConfirmAlertDialog {
             @Override
             public void onClick(View view) {
                 tools.customToast(mC,"Bon c'est pas un crit pas grave...\nla prochaine fois ca confirme !");
+                mListenerFail.onFailEvent();
                 alertDialog.dismiss();
             }
         });
@@ -212,11 +215,19 @@ public class CritConfirmAlertDialog {
     }
 
     public interface OnSuccessEventListener {
-        void onEvent();
+        void onSuccessEvent();
     }
 
     public void setSuccessEventListener(OnSuccessEventListener eventListener) {
-        mListener = eventListener;
+        mListenerSuccess = eventListener;
+    }
+
+    public interface OnFailEventListener {
+        void onFailEvent();
+    }
+
+    public void setFailEventListener(OnFailEventListener eventListener) {
+        mListenerFail = eventListener;
     }
 }
 

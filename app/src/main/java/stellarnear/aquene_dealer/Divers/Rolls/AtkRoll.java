@@ -73,9 +73,16 @@ public class AtkRoll {
                     contactDialog.showAlertDialog();
                     contactDialog.setSuccessEventListener(new CritConfirmAlertDialog.OnSuccessEventListener() {
                         @Override
-                        public void onEvent() {
+                        public void onSuccessEvent() {
                             hitCheckbox.setChecked(true);
                             critConfirmed = true;
+                        }
+                    });
+                    contactDialog.setFailEventListener(new CritConfirmAlertDialog.OnFailEventListener() {
+                        @Override
+                        public void onFailEvent() {
+                            critCheckbox.setChecked(false);
+                            critConfirmed = false;
                         }
                     });
                 }
