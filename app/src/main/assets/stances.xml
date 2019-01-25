@@ -70,7 +70,7 @@
     <stance>
         <name>Ours</name>
         <type>Défense</type>
-        <descr>Le moine adopte une posture défensive, il ne peut plus faire d'attaque à outrance mais gagne un bonus à la CA égal à la moitié de son niveau de moine.</descr>
+        <descr>Le moine adopte une posture défensive, il ne peut plus faire d'attaque à outrance mais gagne un bonus à la CA (armure naturelle) égal à la moitié de son niveau de moine.</descr>
         <id>stance_bear</id>
     </stance>
 
