@@ -86,7 +86,7 @@
     <integer name="blinding_speed_DEF">5</integer>
 
     <integer name="ability_lvl_def">25</integer>
-    <integer name="current_xp_def">13866464</integer>
+    <integer name="current_xp_def">15647507</integer>
 
     <integer name="add_current_xp_def">0</integer>
     <integer name="add_gold_def">0</integer>

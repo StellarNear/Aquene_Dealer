@@ -74,7 +74,11 @@ public class CustomAlertDialog {
     }
 
     public void dismissAlert() {
-        alert.dismiss();
+        try { //si on change d'activité l'alert n'existe plus
+            alert.dismiss();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void clickToHide(View view) {

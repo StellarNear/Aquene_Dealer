@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="version">"v2.0a"</string>
+    <string name="version">"v2.0b"</string>
     <string name="time_spend">"231h"</string>
     <string name="basic_infos">"Cette application est développée par player 1 pour son player 2. Développée avec amour par Jérémie Chatron en fin 2017-2019." </string>
     <string name="patch_list">"----------------------------------------------------------------------------------
+v2.0b
+-Correction d'un bug lors de l'affichage d'un message en popup et de changement d'ecran
+-Petite amélioration pour l'ajout d'xp
+----------------------------------------------------------------------------------
 v2.0a
 -En cas de jet d'attaque pour confirmation d'un critique, si il échoue, la checkbox de crit se décoche toute seule
 ----------------------------------------------------------------------------------
