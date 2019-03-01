@@ -7,6 +7,7 @@
 v2.0b
 -Correction d'un bug lors de l'affichage d'un message en popup et de changement d'ecran
 -Petite amélioration pour l'ajout d'xp
+-Correction d'un bug l'ajout d'experience conservait l'affichage du précédent
 ----------------------------------------------------------------------------------
 v2.0a
 -En cas de jet d'attaque pour confirmation d'un critique, si il échoue, la checkbox de crit se décoche toute seule
