@@ -14,6 +14,7 @@
     <bool name="feat_stance_master_DEF">true</bool>
     <bool name="feat_total_evade_DEF">true</bool>
     <bool name="feat_keen_strike_DEF">true</bool>
+    <bool name="feat_improved_ki_strike_DEF">true</bool>
     <bool name="feat_inhuman_evade_DEF">true</bool>
     <bool name="feat_iron_will_DEF">true</bool>
     <bool name="feat_inhuman_stamina_DEF">true</bool>

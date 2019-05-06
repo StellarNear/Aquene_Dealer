@@ -67,7 +67,12 @@
         <descr>Le personnage frappe son adversaire de ses poings nus et entrave considérablement ses mouvements. Pour utiliser ce don, le personnage doit faire une unique attaque à mains nues par une action simple. S’il touche, il inflige des dégâts normaux et réduit la vitesse de déplacement de base de sa cible à 1,5 m pendant un nombre de rounds égal à son modificateur de Sagesse, à moins que la victime réussisse un jet de Vigueur (DD 10 + 1/2 niveau du personnage + modificateur de Sagesse).</descr>
         <id>feat_scorpio</id>
     </feat>
-
+    <feat>
+        <name>Frappe de Ki améliorée</name>
+        <type>feat_atk</type>
+        <descr>Les coups du moine sont considérés comme étant portés avec des armes épiques du point de vue de la réduction de dégats.</descr>
+        <id>feat_improved_ki_strike</id>
+    </feat>
     <feat>
         <name>Fureur de la méduse</name>
         <type>feat_atk</type>
