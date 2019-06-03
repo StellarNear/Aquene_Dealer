@@ -12,14 +12,21 @@ public class KiCapacity {
     private int cost;
     private String feat;
     private String descr;
+    private String shortdescr;
     private String id;
-    public KiCapacity(String name, int cost,String feat,String descr,String id,Context mC)
+
+    public KiCapacity(String name, int cost,String feat,String descr,String shortdescr,String id,Context mC)
     {
         this.mC = mC;
         this.name=name;
         this.cost=cost;
         this.feat=feat;
         this.descr=descr;
+        if(shortdescr.equalsIgnoreCase("")){
+            this.shortdescr=descr;
+        } else {
+            this.shortdescr=shortdescr;
+        }
         this.id=id;
     }
 
@@ -37,6 +44,10 @@ public class KiCapacity {
 
     public String getDescr() {
         return descr;
+    }
+
+    public String getShortdescr() {
+        return shortdescr;
     }
 
     public String getId(){return id;}

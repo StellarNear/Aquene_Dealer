@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="version">"v2.1"</string>
-    <string name="time_spend">"232h"</string>
+    <string name="version">"v2.2"</string>
+    <string name="time_spend">"233h"</string>
     <string name="basic_infos">"Cette application est développée par player 1 pour son player 2. Développée avec amour par Jérémie Chatron en fin 2017-2019." </string>
     <string name="patch_list">"----------------------------------------------------------------------------------
+v2.2
+-Ajout de la distance de téléportation avec Pas chassé
+-Affichage du nombre de points de ki restants dans le menu capacités de ki
+-Ecriture compacte des description des capacités de ki pour alléger l'affichage
+----------------------------------------------------------------------------------
 v2.1
 -Ajout du don Frappe de Ki améliorée
 -Mise à jour des valeurs pour niveau 26

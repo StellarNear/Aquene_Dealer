@@ -4,43 +4,50 @@
         <name>Désertion de l'âme</name>
         <cost>3</cost>
         <descr>Devient éthéré pendant 1 minute comme avec le sort passage dans l’éther. Nécessite une action de mouvement.</descr>
+        <shortdescr>Action de mouvement : éthéré pendant 1 min (cf sort passage dans l’éther)</shortdescr>
         <id>kicapacity_ethereal</id>
     </kicapacity>
     <kicapacity>
         <name>Pas chassé</name>
         <cost>2</cost>
         <descr>Déplacement instantané comme avec le sort porte dimensionnelle. Nécessite une action de mouvement.</descr>
+        <shortdescr>Action de mouvement : Déplacement instantané (cf sort porte dimensionnelle)</shortdescr>
         <id>kicapacity_step</id>
     </kicapacity>
     <kicapacity>
         <name>Plénitude physique</name>
         <cost>2</cost>
         <descr>Le moine se soigne par une action simple d'un nombre de points de vie égal à son niveau de moine.</descr>
+        <shortdescr>Action simple : Soigne d'un montant égal au niveau de moine</shortdescr>
         <id>kicapacity_heal</id>
     </kicapacity>
     <kicapacity>
         <name>Armure Ki</name>
         <cost>1</cost>
-        <descr>Le moine gagne un bonus d’esquive de +2 à sa CA (max:niveau/2) pendant 1 minute.</descr>
+        <descr>Le moine gagne un bonus d’esquive de +2 à sa CA (max:niveau/2) pendant 1 minute. Ceci prend un action rapide.</descr>
+        <shortdescr>Action Rapide : bonus d'esquive de +2 à sa CA par pt de ki (max:niveau/2) pendant 1 minute</shortdescr>
         <feat>feat_ki_armor</feat>
         <id>kicapacity_ki_armor</id>
     </kicapacity>
     <kicapacity>
         <name>Armure améliorée</name>
         <cost>1</cost>
-        <descr>Le moine gagne un bonus d’esquive de +4 à sa CA pendant 1 round.</descr>
+        <descr>Le moine gagne un bonus d’esquive de +4 à sa CA pendant 1 round. Ceci prend un action rapide.</descr>
+        <shortdescr>Action Rapide : bonus d’esquive de +4 à sa CA pendant 1 round</shortdescr>
         <id>kicapacity_ca</id>
     </kicapacity>
     <kicapacity>
         <name>Acrobatie améliorée</name>
         <cost>1</cost>
-        <descr>Le moine gagne un bonus d’acrobatie de +20 à son prochain jet.</descr>
+        <descr>Le moine gagne un bonus d’acrobatie de +20 à son prochain jet. Ceci prend un action rapide.</descr>
+        <shortdescr>Action Rapide : bonus d’acrobatie de +20 au prochain jet</shortdescr>
         <id>kicapacity_acrob</id>
     </kicapacity>
     <kicapacity>
         <name>Déplacement amélioré</name>
         <cost>1</cost>
-        <descr>Le moine gagne un bonus de +6m à sa vitesse de déplacement pendant 1 round.</descr>
+        <descr>Le moine gagne un bonus de +6m à sa vitesse de déplacement pendant 1 round. Ceci prend un action rapide.</descr>
+        <shortdescr>Action Rapide : bonus de +6m au déplacement pendant 1 round</shortdescr>
         <id>kicapacity_ms</id>
     </kicapacity>
 </records>

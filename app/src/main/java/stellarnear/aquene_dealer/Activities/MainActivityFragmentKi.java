@@ -51,13 +51,10 @@ public class MainActivityFragmentKi extends Fragment {
         if (container != null) {
             container.removeAllViews();
         }
-
         returnFragView= inflater.inflate(R.layout.fragment_main_ki, container, false);
-
         ImageButton buttonMain = (ImageButton) returnFragView.findViewById(R.id.button_frag_ki_to_main);
 
         animate(buttonMain);
-
         buttonMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -65,10 +62,19 @@ public class MainActivityFragmentKi extends Fragment {
             }
         });
 
+        TextView mainTitleKicount = returnFragView.findViewById(R.id.mainPanelKicount);
+        String kiCount = "(";
+        int currentKi=aquene.getResourceValue(getContext(),"resource_ki");
+        if(currentKi>0){
+            kiCount+="points restants : "+currentKi;
+        } else {
+            kiCount+="aucun points restants";
+        }
+        kiCount+=")";
+        mainTitleKicount.setText(kiCount);
+
         LinearLayout contentLinear = returnFragView.findViewById(R.id.kiFragmentContentLinear);
         addContent(contentLinear);
-
-
         return returnFragView;
     }
 
@@ -110,7 +116,12 @@ public class MainActivityFragmentKi extends Fragment {
             summary.setGravity(Gravity.CENTER);
             summary.setTextSize(12);
             summary.setPadding(getResources().getDimensionPixelSize(R.dimen.general_margin),0,0,0);
-            summary.setText(kiCapa.getDescr());
+            String descr = kiCapa.getShortdescr();
+            if(kiCapa.getId().equalsIgnoreCase("kicapacity_step")){
+                int dist = 120+12*aquene.getAbilityScore(getContext(),"ability_lvl");
+                descr+="\nDistance : "+dist+"m";
+            }
+            summary.setText(descr);
             lineCapa.addView(summary);
 
             TextView cost = new TextView(getContext());

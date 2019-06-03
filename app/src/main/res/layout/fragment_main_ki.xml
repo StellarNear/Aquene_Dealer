@@ -15,10 +15,11 @@
          <LinearLayout
              android:layout_width="match_parent"
              android:layout_height="@dimen/size_icon_main_actions075"
-             android:orientation="horizontal"
+             android:orientation="vertical"
              android:background="@drawable/bar_gradient_main_ki"
              android:gravity="center">
              <TextView
+                 android:id="@+id/mainPanelTitle"
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"
                  android:gravity="center"
@@ -26,6 +27,15 @@
                  android:textColor="@color/colorBackground"
                  android:textSize="19sp"
                  android:text="Contrôle du Ki" />
+
+             <TextView
+                 android:id="@+id/mainPanelKicount"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:gravity="center"
+                 android:textColor="@color/colorBackground"
+                 android:textSize="16sp"
+                 android:text="(xx points restants)" />
 
          </LinearLayout>
         <LinearLayout
