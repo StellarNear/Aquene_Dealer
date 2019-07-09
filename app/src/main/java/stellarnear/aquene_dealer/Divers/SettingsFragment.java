@@ -64,7 +64,7 @@ public class SettingsFragment extends PreferenceFragment {
         this.mA=getActivity();
         this.mC=getContext();
         addPreferencesFromResource(R.xml.pref);
-        findPreference("pref_stats").setSummary("Record actuel : "+settings.getString("highscore", "0"));
+        findPreference("pref_stats").setSummary("Record actuel : "+aquene.getAllAttacks().getAttack("attack_flurry").getHighscore());
         this.histoPrefKeys.add("pref");
         this.histoTitle.add(getResources().getString(R.string.setting_activity));
         this.prefAllInventoryFragment =new PrefAllInventoryFragment(mA,mC);
@@ -128,7 +128,7 @@ public class SettingsFragment extends PreferenceFragment {
             getPreferenceScreen().removeAll();
             addPreferencesFromResource(R.xml.pref);
             ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(currentPageTitle);
-            findPreference("pref_stats").setSummary("Record actuel : "+settings.getString("highscore", "0"));
+            findPreference("pref_stats").setSummary("Record actuel : "+aquene.getAllAttacks().getAttack("attack_flurry").getHighscore());
         } else if (currentPageKey.contains("pref_")) {
             loadPage();
             switch (currentPageKey) {
