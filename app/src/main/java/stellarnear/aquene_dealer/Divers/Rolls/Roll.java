@@ -123,4 +123,8 @@ public class Roll {
     public boolean isMissed() {
         return atkRoll.isMissed();
     }
+
+    public void setMissed() {
+        this.atkRoll.setMiss();
+    }
 }

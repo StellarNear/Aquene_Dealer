@@ -264,39 +264,6 @@
                             android:src="@drawable/fire_logo"/>
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:layout_height="wrap_content">
-                        <CheckBox android:id="@+id/line_type_shock"
-                            android:checked="true"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:buttonTint="@color/shock"
-                            />
-                        <ImageView
-                            android:layout_width="@dimen/logo_element_stats"
-                            android:layout_height="@dimen/logo_element_stats"
-                            android:src="@drawable/shock_logo"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:gravity="center">
-                        <CheckBox android:id="@+id/line_type_frost"
-                            android:checked="true"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:buttonTint="@color/frost"
-                            />
-                        <ImageView
-                            android:layout_width="@dimen/logo_element_stats"
-                            android:layout_height="@dimen/logo_element_stats"
-                            android:src="@drawable/frost_logo"/>
-                    </LinearLayout>
                 </LinearLayout>
 
 
@@ -450,39 +417,6 @@
                             android:src="@drawable/fire_logo"/>
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:layout_height="wrap_content">
-                        <CheckBox android:id="@+id/line_type_time_shock"
-                            android:checked="true"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:buttonTint="@color/shock"
-                            />
-                        <ImageView
-                            android:layout_width="@dimen/logo_element_stats"
-                            android:layout_height="@dimen/logo_element_stats"
-                            android:src="@drawable/shock_logo"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:gravity="center">
-                        <CheckBox android:id="@+id/line_type_time_frost"
-                            android:checked="true"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:buttonTint="@color/frost"
-                            />
-                        <ImageView
-                            android:layout_width="@dimen/logo_element_stats"
-                            android:layout_height="@dimen/logo_element_stats"
-                            android:src="@drawable/frost_logo"/>
-                    </LinearLayout>
                 </LinearLayout>
 
 
@@ -589,39 +523,6 @@
                             android:src="@drawable/fire_logo"/>
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:layout_height="wrap_content">
-                        <CheckBox android:id="@+id/dmg_type_shock"
-                            android:checked="true"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:buttonTint="@color/shock"
-                            />
-                        <ImageView
-                            android:layout_width="@dimen/logo_element_stats"
-                            android:layout_height="@dimen/logo_element_stats"
-                            android:src="@drawable/shock_logo"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:gravity="center">
-                        <CheckBox android:id="@+id/dmg_type_frost"
-                            android:checked="true"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:buttonTint="@color/frost"
-                            />
-                        <ImageView
-                            android:layout_width="@dimen/logo_element_stats"
-                            android:layout_height="@dimen/logo_element_stats"
-                            android:src="@drawable/frost_logo"/>
-                    </LinearLayout>
                 </LinearLayout>
 
             </LinearLayout>

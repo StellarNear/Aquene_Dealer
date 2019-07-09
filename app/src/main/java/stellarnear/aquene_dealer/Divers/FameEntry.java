@@ -41,4 +41,8 @@ public class FameEntry {
         this.location=location;
         this.details=details;
     }
+
+    public String getAttackID() {
+        return this.stat.getAttackID();
+    }
 }

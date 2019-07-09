@@ -10,8 +10,10 @@ import java.util.UUID;
 
 import stellarnear.aquene_dealer.Divers.Rolls.Roll;
 import stellarnear.aquene_dealer.Divers.Rolls.RollList;
+import stellarnear.aquene_dealer.Perso.Attack;
 
 public class Stat {
+    private String attackID;
     private Map<String,Integer> elemSumDmg=new HashMap<>();
     private List<Integer> nthAtksHit =new ArrayList<>();
     private List<Integer> nthAtksMiss =new ArrayList<>();
@@ -23,7 +25,8 @@ public class Stat {
 
     public Stat(){  }
 
-    public void feedStat(RollList rolls){
+    public void feedStat(Attack attack,RollList rolls){
+        this.attackID=attack.getId();
         List<String> elems = Arrays.asList("", "fire");
         for (String elem : elems){
             elemSumDmg.put(elem,rolls.getDmgSumFromType(elem));
@@ -111,5 +114,9 @@ public class Stat {
     @Override
     public int hashCode() {
         return this.uuid != null ? this.uuid.hashCode() : 0;
+    }
+
+    public String getAttackID() {
+        return this.attackID;
     }
 }

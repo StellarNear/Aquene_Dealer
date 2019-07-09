@@ -92,13 +92,13 @@ public class DSSFDmgChartMaker {
                 elemsSelected.add(elem);
             }
         }
-        barGroupMode=(elemsSelected.size()>1 && elemsSelected.size()!=4);
+        barGroupMode=(elemsSelected.size()>1 && elemsSelected.size()!=2);
         if(barGroupMode){chart.setFocusable(false);}else{chart.setFocusable(true);}
     }
 
     private void calculateMinMaxRound() {
         int minDmg,maxDmg;
-        if(elemsSelected.size()==4) {
+        if(elemsSelected.size()==2) {
             minDmg = aquene.getStats().getStatsList().getMinDmgTot();
             maxDmg = aquene.getStats().getStatsList().getMaxDmgTot();
         } else {
@@ -138,7 +138,7 @@ public class DSSFDmgChartMaker {
         }
         data.setBarWidth(barWidth);
 
-        if(elemsSelected.size()==4){
+        if(elemsSelected.size()==2){
             data.addDataSet(computeBarDataSet("all"));
         } else {
             for(String elem:elemsSelected) {
@@ -154,7 +154,7 @@ public class DSSFDmgChartMaker {
         } else {
             chart.getXAxis().setAxisMaximum(nSteps-1+(barWidth/2));
         }
-        if(elemsSelected.size()!=4){chart.getBarData().setHighlightEnabled(false);}
+        if(elemsSelected.size()!=2){chart.getBarData().setHighlightEnabled(false);}
     }
 
     private BarDataSet computeBarDataSet(String elemsSelected){
@@ -224,7 +224,7 @@ public class DSSFDmgChartMaker {
     }
 
     private void addLimitsChart() {
-        if(elemsSelected.size()==4){
+        if(elemsSelected.size()==2){
             addLimitLine("all");
         } else {
             for (String elem : elemsSelected){

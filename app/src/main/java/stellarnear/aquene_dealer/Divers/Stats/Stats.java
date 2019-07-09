@@ -35,8 +35,7 @@ public class Stats {
 
     public void storeStatsFromRolls(Attack attack,RollList selectedRolls) {
         Stat stat = new Stat();
-        //TODO attack stuff pour avoir l'image à la fin
-        stat.feedStat(selectedRolls);
+        stat.feedStat(attack,selectedRolls);
         statsList.add(stat);
         saveLocalStats();
     }

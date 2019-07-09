@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -86,6 +87,7 @@ public class PrefHallOfFameFragment extends Preference {
             statLine.setMinimumHeight(150);
             statLine.setBackground(mC.getDrawable(R.drawable.background_border_fame));
 
+            statLine.addView(iconAttack(fame.getAttackID()));
             statLine.addView(newTextInfo(fame.getSumDmg()+" dégâts"));
             statLine.addView(newTextInfo(fame.getFoeName()));
             statLine.addView(newTextInfo(fame.getLocation()));
@@ -110,9 +112,25 @@ public class PrefHallOfFameFragment extends Preference {
         }
     }
 
+    private View iconAttack(String attackID) {
+        LinearLayout iconLine = new LinearLayout(mC);
+        iconLine.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT,1));
+        iconLine.setPadding(10,10,10,10);
+        iconLine.setGravity(Gravity.CENTER);
+        ImageView img = new ImageView(mC);
+        try {
+            int imgId = mC.getResources().getIdentifier(attackID, "drawable", mC.getPackageName());
+            img.setImageDrawable(tools.resize(mC,imgId,120));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        iconLine.addView(img);
+        return iconLine;
+    }
+
     private TextView newTextInfo(String txt) {
         TextView text = new TextView(mC);
-        text.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT,1));
+        text.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT,2));
         text.setGravity(Gravity.CENTER);
         text.setText(txt);
         text.setTextColor(Color.DKGRAY);
@@ -153,6 +171,7 @@ public class PrefHallOfFameFragment extends Preference {
                 String details = ((EditText) addHallEntry.findViewById(R.id.hall_of_fame_details)).getText().toString();
                 aquene.getHallOfFame().addToHallOfFame(new FameEntry(lastStat,foeName,location,details));
                 tools.customToast(mC,  "Entrée ajoutée !");
+                refreshHall();
             }
         });
         creationItemAlert.showAlert();
@@ -189,7 +208,7 @@ public class PrefHallOfFameFragment extends Preference {
                 fame.updateInfos(foeName,location,details);
                 aquene.getHallOfFame().refreshSave();
                 tools.customToast(mC,  "Entrée changée !");
-
+                refreshHall();
             }
         });
         creationItemAlert.showAlert();

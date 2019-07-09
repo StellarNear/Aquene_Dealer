@@ -65,6 +65,7 @@ public class CombatLauncherDamageLines {
         selectedRolls = new RollList();
         for (Roll roll : allRolls.getList()) {
             if (!roll.isHitConfirmed() || roll.isInvalid()) {
+                roll.setMissed();
                 continue;
             }
             selectedRolls.add(roll);

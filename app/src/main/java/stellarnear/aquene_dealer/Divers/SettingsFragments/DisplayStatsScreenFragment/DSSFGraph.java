@@ -51,8 +51,7 @@ public class DSSFGraph {
         this.elems= ElemsManager.getInstance(mC);
         CheckBox checkPhy = mainView.findViewById(R.id.line_type_phy);
         CheckBox checkFire = mainView.findViewById(R.id.line_type_fire);
-        CheckBox checkShock = mainView.findViewById(R.id.line_type_shock);
-        CheckBox checkFrost = mainView.findViewById(R.id.line_type_frost);
+
         mapElemCheckbox.put("",checkPhy); mapElemCheckbox.put("fire",checkFire);
         setCheckboxListeners();
         initLineCharts();

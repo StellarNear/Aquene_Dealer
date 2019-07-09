@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="version">"v2.2"</string>
-    <string name="time_spend">"233h"</string>
+    <string name="version">"v3.0"</string>
+    <string name="time_spend">"241h"</string>
     <string name="basic_infos">"Cette application est développée par player 1 pour son player 2. Développée avec amour par Jérémie Chatron en fin 2017-2019." </string>
     <string name="patch_list">"----------------------------------------------------------------------------------
+v3.0
+-Ajout du système d'affichage de stats !
+-Ajout du hall of fame !
+----------------------------------------------------------------------------------
 v2.2
 -Ajout de la distance de téléportation avec Pas chassé
 -Affichage du nombre de points de ki restants dans le menu capacités de ki
