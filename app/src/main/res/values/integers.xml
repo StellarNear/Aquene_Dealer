@@ -95,8 +95,7 @@
     <integer name="money_gold_def">36200</integer>
     <integer name="money_silver_def">7</integer>
     <integer name="money_copper_def">3</integer>
-
-
+    <integer name="display_stats_bin_def">50</integer>
 
 
 </resources>

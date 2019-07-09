@@ -64,6 +64,7 @@ public class SettingsFragment extends PreferenceFragment {
         this.mA=getActivity();
         this.mC=getContext();
         addPreferencesFromResource(R.xml.pref);
+        findPreference("pref_stats").setSummary("Record actuel : "+settings.getString("highscore", "0"));
         this.histoPrefKeys.add("pref");
         this.histoTitle.add(getResources().getString(R.string.setting_activity));
         this.prefAllInventoryFragment =new PrefAllInventoryFragment(mA,mC);
@@ -78,8 +79,6 @@ public class SettingsFragment extends PreferenceFragment {
         this.prefXpFragment.checkLevel(tools.toBigInt(settings.getString("current_xp", String.valueOf(getContext().getResources().getInteger(R.integer.current_xp_def)))));
         this.prefFeatFragment=new PrefFeatFragment(mA,mC);
         this.prefSkillFragment=new PrefSkillFragment(mA,mC);
-        this.prefResetScreenFragment = new PrefResetScreenFragment(mA,mC);
-        this.prefSleepScreenFragment = new PrefSleepScreenFragment(mA,mC);
         this.prefInfoScreenFragment=new PrefInfoScreenFragment(mA,mC);
     }
 
@@ -129,6 +128,7 @@ public class SettingsFragment extends PreferenceFragment {
             getPreferenceScreen().removeAll();
             addPreferencesFromResource(R.xml.pref);
             ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(currentPageTitle);
+            findPreference("pref_stats").setSummary("Record actuel : "+settings.getString("highscore", "0"));
         } else if (currentPageKey.contains("pref_")) {
             loadPage();
             switch (currentPageKey) {

@@ -22,12 +22,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import stellarnear.aquene_dealer.Activities.MainActivity;
 import stellarnear.aquene_dealer.Divers.Rolls.Roll;
+import stellarnear.aquene_dealer.Divers.Rolls.RollList;
 import stellarnear.aquene_dealer.Divers.Tools;
 import stellarnear.aquene_dealer.Perso.Attack;
 import stellarnear.aquene_dealer.Perso.Perso;
@@ -47,7 +47,7 @@ public class CombatLauncher {
     private boolean dmgMoved = false;
     private boolean addAtkPanelIsVisible;
     private SharedPreferences settings;
-    private List<Roll> atksRolls;
+    private RollList atksRolls;
     private CombatLauncherHitCritLines combatLauncherHitCritLines;
     private CombatLauncherDamageLines combatLauncherDamageLines;
     private ImageButton addAtkButton;
@@ -228,7 +228,7 @@ public class CombatLauncher {
         }
     }
     private void buildAtksList() {
-        atksRolls = new ArrayList<>();
+        atksRolls = new RollList();
         String bonus_epic_att = settings.getString("attack_att_epic", String.valueOf(mC.getResources().getInteger(R.integer.attack_att_epic_DEF)));
 
         if (attack.getId().equalsIgnoreCase("attack_flurry")) {
@@ -259,7 +259,12 @@ public class CombatLauncher {
             atksRolls.add(new Roll(mA,mC, tools.toInt(list_att_base_string[0]) +tools.toInt(bonus_epic_att)));
         }
         if(attack.isFromCharge()){
-            for (Roll roll : atksRolls){ roll.setFromCharge();}
+            for (Roll roll : atksRolls.getList()){ roll.setFromCharge();}
+        }
+        int nCount=1;
+        for (Roll roll : this.atksRolls.getList()){
+            roll.setNthAtkRoll(nCount);
+            nCount++;
         }
         combatLauncherHitCritLines =new CombatLauncherHitCritLines(mC,dialogView,atksRolls);
     }
@@ -306,6 +311,16 @@ public class CombatLauncher {
         Button onlyButton = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
         onlyButton.setText("Ok");
         onlyButton.setBackground(mC.getDrawable(R.drawable.button_ok_gradient));
+        onlyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                unlockOrient();
+                aquene.getStats().storeStatsFromRolls(attack,atksRolls); // TODO nth atk
+                alertDialog.dismiss();
+                if(mListener!=null){mListener.onEvent();}
+            }
+        });
+
     }
     private void lockOrient() {
         mA.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);

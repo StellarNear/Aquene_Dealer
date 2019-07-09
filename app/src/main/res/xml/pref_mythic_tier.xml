@@ -6,6 +6,7 @@
 
     <PreferenceCategory android:title="Informations sur le grade mythique"/>
 
+    <Preference  android:layout="@layout/divider_pref" android:selectable="false"/>
 
     <stellarnear.aquene_dealer.Divers.EditTextPreference
     android:defaultValue="@integer/mythic_tier_def"

@@ -18,6 +18,7 @@ public class AtkRoll {
     private Integer preRandValue = 0;
     private Integer atk = 0;
 
+    private Boolean miss = false;
     private Boolean hitConfirmed = false;
     private Boolean crit = false;
     private Boolean critConfirmed = false;
@@ -162,6 +163,18 @@ public class AtkRoll {
 
     public void setFromCharge() {
         this.fromCharge=true;
+    }
+
+    public void setMiss(){
+        this.miss=true;
+    }
+
+    public boolean isMissed(){
+        return this.miss;
+    }
+
+    public Dice getAtkDice() {
+        return this.atkDice;
     }
 
 

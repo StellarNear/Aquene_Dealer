@@ -7,6 +7,8 @@ import android.preference.PreferenceManager;
 import java.util.ArrayList;
 import java.util.List;
 
+import stellarnear.aquene_dealer.Divers.HallOfFame;
+import stellarnear.aquene_dealer.Divers.Stats.Stats;
 import stellarnear.aquene_dealer.Divers.Tools;
 import stellarnear.aquene_dealer.R;
 
@@ -25,6 +27,8 @@ public class Perso {
     private AllMythicCapacities allMythicCapacities;
     private Inventory inventory;
     private AllResources allResources;
+    private Stats stats;
+    private HallOfFame hallOfFame;
     private SharedPreferences preferences;
     private Tools tools =new Tools();
     private Context mC;
@@ -40,6 +44,8 @@ public class Perso {
         this.allMythicCapacities = new AllMythicCapacities(mC);
         this.inventory = new Inventory(mC);
         this.allResources = new AllResources(mC,allFeats,allAbilities);
+        this.stats = new Stats(mC);
+        this.hallOfFame=new HallOfFame(mC);
         this.preferences=PreferenceManager.getDefaultSharedPreferences(mC);
         this.mC=mC;
     }
@@ -344,5 +350,13 @@ public class Perso {
             preferences.edit().putString("blinding_speed_current_temp", String.valueOf(getResourceValue(mC,"resource_blinding_speed"))).apply();
             tools.customToast(mC,"Vitesse aveuglante désactivée","center");
         }
+    }
+
+    public Stats getStats() {
+        return stats;
+    }
+
+    public HallOfFame getHallOfFame() {
+        return hallOfFame;
     }
 }

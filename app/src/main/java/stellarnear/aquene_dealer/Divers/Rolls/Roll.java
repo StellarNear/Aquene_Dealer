@@ -9,6 +9,8 @@ public class Roll {
     private DmgRoll dmgRoll;
     private Activity mA;
     private Context mC;
+    private int nthAtkRoll;
+
     public Roll(Activity mA, Context mC, Integer atkBase) {
         this.mA=mA;
         this.mC=mC;
@@ -76,30 +78,30 @@ public class Roll {
     //partie dégat
 
     public DiceList getDmgDiceListFromNface(int nFace) {
-        return dmgRoll.getDmgDiceList().filterWithNface(nFace);
+        return dmgRoll==null?null:dmgRoll.getDmgDiceList().filterWithNface(nFace);
     }
 
     public DiceList getDmgDiceList() {
-        return dmgRoll.getDmgDiceList();
+        return dmgRoll==null?null:dmgRoll.getDmgDiceList();
     }
 
     public int getDmgBonus() {
-        return dmgRoll.getDmgBonus();
+        return dmgRoll==null?0:dmgRoll.getDmgBonus();
     }
 
     public int getDmgSum(String... elementArg) {
         String element = elementArg.length > 0 ? elementArg[0] : "";
-        return dmgRoll.getSumDmg(element);
+        return dmgRoll==null?0:dmgRoll.getSumDmg(element);
     }
 
     public int getMaxDmg(String... elementArg) {
         String element = elementArg.length > 0 ? elementArg[0] : "";
-        return dmgRoll.getMaxDmg(element);
+        return dmgRoll==null?0:dmgRoll.getMaxDmg(element);
     }
 
     public int getMinDmg(String... elementArg) {
         String element = elementArg.length > 0 ? elementArg[0] : "";
-        return dmgRoll.getMinDmg(element);
+        return dmgRoll==null?0:dmgRoll.getMinDmg(element);
     }
 
     public void setFromCharge() {
@@ -107,6 +109,18 @@ public class Roll {
     }
 
     public Integer getCritMultiplier(){
-        return dmgRoll.getCritMultiplier();
+        return dmgRoll==null?0:dmgRoll.getCritMultiplier();
+    }
+
+    public void setNthAtkRoll(int nthAtkRoll) {
+        this.nthAtkRoll = nthAtkRoll;
+    }
+
+    public int getNthAtkRoll() {
+        return nthAtkRoll;
+    }
+
+    public boolean isMissed() {
+        return atkRoll.isMissed();
     }
 }

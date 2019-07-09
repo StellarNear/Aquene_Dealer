@@ -40,6 +40,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import stellarnear.aquene_dealer.Divers.Stats.Stat;
+import stellarnear.aquene_dealer.Divers.Stats.StatsList;
 import stellarnear.aquene_dealer.Perso.Equipment;
 
 
@@ -606,5 +608,51 @@ public class TinyDB {
         if (value == null) {
             throw new NullPointerException();
         }
+    }
+
+    public StatsList getStats(String key) {
+        Gson gson = new Gson();
+
+        ArrayList<String> objStrings = getListString(key);
+        StatsList objects = new StatsList();
+
+        for (String jObjString : objStrings) {
+            Stat value = gson.fromJson(jObjString, Stat.class);
+            objects.add(value);
+        }
+        return objects;
+    }
+
+    public void putStats(String key, StatsList objArray) {
+        checkForNullKey(key);
+        Gson gson = new Gson();
+        ArrayList<String> objStrings = new ArrayList<String>();
+        for (Stat obj : objArray.asList()) {
+            objStrings.add(gson.toJson(obj));
+        }
+        putListString(key, objStrings);
+    }
+
+    public List<FameEntry> getHallOfFame(String key) {
+        Gson gson = new Gson();
+
+        ArrayList<String> objStrings = getListString(key);
+        List<FameEntry> objects = new ArrayList<>();
+
+        for (String jObjString : objStrings) {
+            FameEntry value = gson.fromJson(jObjString, FameEntry.class);
+            objects.add(value);
+        }
+        return objects;
+    }
+
+    public void putHallOfFame(String key, List<FameEntry> objArray) {
+        checkForNullKey(key);
+        Gson gson = new Gson();
+        ArrayList<String> objStrings = new ArrayList<String>();
+        for (FameEntry obj : objArray) {
+            objStrings.add(gson.toJson(obj));
+        }
+        putListString(key, objStrings);
     }
 }

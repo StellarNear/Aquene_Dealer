@@ -12,12 +12,11 @@ import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.List;
-
 import stellarnear.aquene_dealer.Activities.MainActivity;
 import stellarnear.aquene_dealer.Divers.Rolls.AtkRoll;
 import stellarnear.aquene_dealer.Divers.Rolls.Dice;
 import stellarnear.aquene_dealer.Divers.Rolls.Roll;
+import stellarnear.aquene_dealer.Divers.Rolls.RollList;
 import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.R;
 
@@ -26,13 +25,13 @@ import stellarnear.aquene_dealer.R;
  */
 
 public class CombatLauncherHitCritLines {
-    private List<Roll> allRolls;
+    private RollList allRolls;
     private Context mC;
     private View mainView;
     private Boolean manualDice;
     private Boolean megaFail=false;
     private Perso aquene= MainActivity.aquene;
-    public CombatLauncherHitCritLines(Context mC, View mainView, List<Roll> allRolls) {
+    public CombatLauncherHitCritLines(Context mC, View mainView, RollList allRolls) {
         this.mC=mC;
         this.mainView =mainView;
         this.allRolls = allRolls;
@@ -45,7 +44,7 @@ public class CombatLauncherHitCritLines {
         LinearLayout line = mainView.findViewById(R.id.combat_dialog_prerand_value);
         line.removeAllViews();
         line.setVisibility(View.VISIBLE);
-        for (Roll roll : allRolls) {
+        for (Roll roll : allRolls.getList()) {
             TextView atkTxt = new TextView(mC);
             atkTxt.setText("+" + roll.getPreRandValue());
             atkTxt.setGravity(Gravity.CENTER);
@@ -55,7 +54,7 @@ public class CombatLauncherHitCritLines {
     }
 
     private void onChangeDiceListner(){
-        for (Roll roll : allRolls){
+        for (Roll roll : allRolls.getList()){
             roll.getAtkRoll().setRefreshEventListener(new AtkRoll.OnRefreshEventListener() {
                 public void onEvent() {
                     getRandValues();
@@ -69,7 +68,7 @@ public class CombatLauncherHitCritLines {
         line.removeAllViews();
         line.setVisibility(View.VISIBLE);
         Boolean fail=false;
-        for (Roll roll : allRolls) {
+        for (Roll roll : allRolls.getList()) {
             //ImageView diceImg = roll.getImgAtk();
             if (fail) {
                 roll.invalidated();
@@ -109,7 +108,7 @@ public class CombatLauncherHitCritLines {
         line.removeAllViews();
         line.setVisibility(View.VISIBLE);
         int allRollSet=0;
-        for (Roll roll : allRolls) {
+        for (Roll roll : allRolls.getList()) {
             TextView atkTxt = new TextView(mC);
             atkTxt.setText("?");
             if (roll.isInvalid()) {
@@ -129,7 +128,7 @@ public class CombatLauncherHitCritLines {
             atkTxt.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
             line.addView(atkTxt);
         }
-        if (allRollSet== allRolls.size()){
+        if (allRollSet== allRolls.getList().size()){
             getHitAndCritLines();
         }
     }
@@ -137,7 +136,7 @@ public class CombatLauncherHitCritLines {
     private void getHitAndCritLines() {
         Boolean anyCrit = false;
         Boolean anyHit = false;
-        for (Roll roll : allRolls){
+        for (Roll roll : allRolls.getList()){
             if(roll.getAtkValue()!=0&&!roll.isInvalid()){anyHit=true;}
             if (roll.isCrit()&&!roll.isInvalid()){anyCrit=true;}
         }
@@ -149,7 +148,7 @@ public class CombatLauncherHitCritLines {
         if(anyHit) {
             title.setVisibility(View.VISIBLE);
             line.setVisibility(View.VISIBLE);
-            for (Roll roll : allRolls) {
+            for (Roll roll : allRolls.getList()) {
                 LinearLayout frame = new LinearLayout(mC);
                 frame.setGravity(Gravity.CENTER);
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1);
@@ -179,7 +178,7 @@ public class CombatLauncherHitCritLines {
             titleCrit.startAnimation(anim);
             lineCrit.setVisibility(View.VISIBLE);
             lineCrit.removeAllViews();
-            for (final Roll roll : allRolls) {
+            for (final Roll roll : allRolls.getList()) {
                 LinearLayout frame = new LinearLayout(mC);
                 frame.setGravity(Gravity.CENTER);
                 frame.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));

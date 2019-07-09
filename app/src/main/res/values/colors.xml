@@ -8,8 +8,9 @@
     <color name="transparent">#00000000</color>
     <color name="start_back_color">#000000</color>
     <color name="divider_pref">#d7d7c1</color>
-    <color name="white">#FFFFFF</color>
     <color name="gray50">#808080</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
 
     <color name="start_gradient_title_bar_help">#1f3b70</color>
     <color name="end_gradient_title_bar_help">#88b3f8</color>
@@ -87,6 +88,24 @@
 
     <color name="end_gradient_xp_bar">#0099cc</color>
     <color name="start_gradient_xp_bar">#33ccff</color>
+
+    <color name="phy">#595959</color>
+    <color name="fire">@android:color/holo_red_light</color>
+    <color name="shock">@android:color/holo_blue_bright</color>
+    <color name="frost">#002db3</color>
+
+    <color name="miss_stat">#ff6666</color>
+    <color name="hit_stat">#66ccff</color>
+    <color name="crit_stat">#00e600</color>
+    <color name="crit_nat_stat">#009900</color>
+
+    <color name="dmg_stat">#13823E</color>
+    <color name="recent_stat">#003A17</color>
+
+    <color name="recent_phy">#1a1a1a</color>
+    <color name="recent_fire">#cc0000</color>
+    <color name="recent_shock">#008599</color>
+    <color name="recent_frost">#001a66</color>
 
 
 </resources>

@@ -23,7 +23,7 @@ import stellarnear.aquene_dealer.Divers.Tools;
 import stellarnear.aquene_dealer.R;
 
 public class CombatLauncherDamageLines {
-    private List<Roll> allRolls;
+    private RollList allRolls;
     private Context mC;
 
     private View mainView;
@@ -42,7 +42,7 @@ public class CombatLauncherDamageLines {
     private LinearLayout statPanelLinear;
     private Tools tools = new Tools();
 
-    public CombatLauncherDamageLines(Context mC, View mainView, List<Roll> allRolls) {
+    public CombatLauncherDamageLines(Context mC, View mainView, RollList allRolls) {
         this.mC = mC;
         this.mainView = mainView;
         this.allRolls = allRolls;
@@ -63,7 +63,7 @@ public class CombatLauncherDamageLines {
         sumFire = 0;
 
         selectedRolls = new RollList();
-        for (Roll roll : allRolls) {
+        for (Roll roll : allRolls.getList()) {
             if (!roll.isHitConfirmed() || roll.isInvalid()) {
                 continue;
             }
