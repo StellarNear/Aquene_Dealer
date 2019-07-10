@@ -238,7 +238,7 @@ public class CombatLauncher {
             List<Integer> list_att_base = tools.toInt(list_att_base_string);
             int prowess=tools.toInt(settings.getString("attack_prouesse_epic",String.valueOf( mC.getResources().getInteger(R.integer.attack_prouesse_epic_DEF))));
             if(prowess>0){
-                list_att_base.set(list_att_base.size()-1,list_att_base.get(list_att_base.size()-1)+prowess);  //TODO:faire un truc d'assignation inteligent avec les parametre etc
+                list_att_base.set(list_att_base.size()-1,list_att_base.get(list_att_base.size()-1)+prowess);  //TODO:faire un truc d'assignation intelligent avec les parametre etc
             }
 
             int primaryAtk = tools.toInt(bonus_epic_att)+list_att_base.get(0);
@@ -315,7 +315,7 @@ public class CombatLauncher {
             @Override
             public void onClick(View view) {
                 unlockOrient();
-                aquene.getStats().storeStatsFromRolls(attack,atksRolls); // TODO nth atk
+                aquene.getStats().storeStatsFromRolls(attack,atksRolls);
                 alertDialog.dismiss();
                 if(mListener!=null){mListener.onEvent();}
             }
