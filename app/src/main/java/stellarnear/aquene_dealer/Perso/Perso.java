@@ -148,7 +148,7 @@ public class Perso {
                 if (settings.getBoolean("switch_save_race",mC.getResources().getBoolean(R.bool.switch_save_race_DEF))) {
                     abiScore+=1;
                 }
-                if (settings.getBoolean("switch_perma_resi",mC.getResources().getBoolean(R.bool.switch_save_race_DEF))) {
+                if (settings.getBoolean("switch_perma_resi",mC.getResources().getBoolean(R.bool.switch_perma_resi_DEF))) {
                     abiScore+=1;
                 }
                 if (settings.getBoolean("switch_save_coat",mC.getResources().getBoolean(R.bool.switch_save_coat_DEF))) {
