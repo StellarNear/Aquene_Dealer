@@ -21,7 +21,6 @@
         <type>Commun</type>
     </mythiccapacity>
 
-
     <mythiccapacity>
         <name>Absorption des coups</name>
         <descr>Par une action immédiate, lorsque le personnage subit une perte de points de vie infligée par une source unique, il peut dépenser un pouvoir mythique pour réduire ces dégâts de 5 points par grade (jusqu’à un minimum de 0). Pour chaque tranche de 10 points de dégâts évités grâce à cette aptitude, le personnage gagne une RD 1/épique et 5 points de résistance contre tout les dégâts élémentaires pendant une minute. La RD et les résistances se cumulent aux autres RD et résistances que possède le personnage.</descr>
@@ -40,6 +39,6 @@
 [Aptitude 1] Puissant +2 pouvoir légendaire
 [Aptitude 2] Défense légendaire : cout 1pt légendaire pour annuler un crit ou une attaque sournoise</descr>
         <id>mythiccapacity_legendaryitem</id>
-        <type>Voie universelle</type>
+        <type>Voie Universelle</type>
     </mythiccapacity>
 </records>

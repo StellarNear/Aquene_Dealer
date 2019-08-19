@@ -10,13 +10,13 @@ import stellarnear.aquene_dealer.Divers.Tools;
 import stellarnear.aquene_dealer.Perso.MythicFeat;
 import stellarnear.aquene_dealer.Perso.Perso;
 
-public class PrefMythicFragment {
+public class PrefMythicFeatFragment {
     private Perso aquene = MainActivity.aquene;
     private Activity mA;
     private Context mC;
     private Tools tools = new Tools();
 
-    public PrefMythicFragment(Activity mA, Context mC) {
+    public PrefMythicFeatFragment(Activity mA, Context mC) {
         this.mA = mA;
         this.mC = mC;
     }
@@ -24,7 +24,7 @@ public class PrefMythicFragment {
     public void addMythicFeatsList(PreferenceCategory active, PreferenceCategory def,PreferenceCategory atk ,PreferenceCategory other ,PreferenceCategory stance) {
            for (MythicFeat feat : aquene.getAllMythicFeats().getMythicFeatsList()) {
             SwitchPreference switch_feat = new SwitchPreference(mC);
-            switch_feat.setKey(feat.getId());
+            switch_feat.setKey("switch_"+feat.getId());
             switch_feat.setTitle(feat.getName());
             switch_feat.setSummary(feat.getDescr());
             switch_feat.setDefaultValue(feat.isActive());
@@ -38,8 +38,5 @@ public class PrefMythicFragment {
                 other.addPreference(switch_feat);
             }
         }
-    }
-
-    public void refreshMythicTierBar() {
     }
 }

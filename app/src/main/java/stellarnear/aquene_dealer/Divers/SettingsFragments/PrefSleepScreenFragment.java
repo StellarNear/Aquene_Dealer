@@ -4,16 +4,11 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Handler;
 import android.preference.Preference;
-import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
-
-import java.util.Arrays;
-import java.util.List;
 
 import stellarnear.aquene_dealer.Activities.MainActivity;
 import stellarnear.aquene_dealer.Divers.Tools;
@@ -82,7 +77,7 @@ public class PrefSleepScreenFragment extends Preference {
             @Override
             public void run() {
                 MainActivity.aquene.getAllResources().sleepReset();
-                resetTemp();
+                aquene.resetTemp();
                 tools.customToast(mC, "Une nouvelle journée pleine de mandales et d'acrobaties t'attends.", "center");
                 Intent intent = new Intent(mC, MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
@@ -91,15 +86,6 @@ public class PrefSleepScreenFragment extends Preference {
         }, time);
     }
 
-    private void resetTemp() {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mC);
-        List<String> allTempList = Arrays.asList("bonus_temp_jet_att", "bonus_temp_jet_dmg", "bonus_temp_ca", "bonus_temp_save", "bonus_temp_rm", "bonus_ki_armor","mythiccapacity_absorption");
-        for (String temp : allTempList) {
-            prefs.edit().putString(temp, "0").apply();
-        }
-        prefs.edit().putBoolean("switch_temp_rapid", false).apply();
-        prefs.edit().putBoolean("switch_blinding_speed", false).apply();
 
-    }
 
 }

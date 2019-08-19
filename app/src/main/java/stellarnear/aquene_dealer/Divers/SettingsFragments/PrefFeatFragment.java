@@ -23,7 +23,7 @@ public class PrefFeatFragment {
     public void addFeatsList(PreferenceCategory active, PreferenceCategory def,PreferenceCategory atk ,PreferenceCategory other ,PreferenceCategory stance) {
         for (Feat feat : aquene.getAllFeats().getFeatsList()) {
             SwitchPreference switch_feat = new SwitchPreference(mC);
-            switch_feat.setKey(feat.getId());
+            switch_feat.setKey("switch_"+feat.getId());
             switch_feat.setTitle(feat.getName());
             switch_feat.setSummary(feat.getDescr());
             switch_feat.setDefaultValue(feat.isActive());

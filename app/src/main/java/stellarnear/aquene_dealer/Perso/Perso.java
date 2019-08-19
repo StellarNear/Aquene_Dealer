@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import stellarnear.aquene_dealer.Divers.HallOfFame;
@@ -92,11 +93,11 @@ public class Perso {
             }
 
             if (abiId.equalsIgnoreCase("ability_reduc")) {
-                int bonusReduc = tools.toInt(settings.getString("mythiccapacity_absorption", String.valueOf(mC.getResources().getInteger(R.integer.mythiccapacity_absorption_DEF))));
+                int bonusReduc = tools.toInt(settings.getString("mythiccapacity_absorption_value", String.valueOf(mC.getResources().getInteger(R.integer.mythiccapacity_absorption_value_DEF))));
                 abiScore += (int)(bonusReduc/10);
             }
             if (abiId.equalsIgnoreCase("ability_reduc_elem") ) {
-                int bonusReduc = tools.toInt(settings.getString("mythiccapacity_absorption", String.valueOf(mC.getResources().getInteger(R.integer.mythiccapacity_absorption_DEF))));
+                int bonusReduc = tools.toInt(settings.getString("mythiccapacity_absorption_value", String.valueOf(mC.getResources().getInteger(R.integer.mythiccapacity_absorption_value_DEF))));
                 abiScore += 5*((int)(bonusReduc/10));
             }
 
@@ -341,6 +342,15 @@ public class Perso {
             }
         }
         return availableList;
+    }
+
+    public void resetTemp() {
+        List<String> allTempList = Arrays.asList("bonus_temp_jet_att", "bonus_temp_jet_dmg", "bonus_temp_ca", "bonus_temp_save", "bonus_temp_rm", "bonus_ki_armor","mythiccapacity_absorption_value");
+        for (String temp : allTempList) {
+            preferences.edit().putString(temp, "0").apply();
+        }
+        preferences.edit().putBoolean("switch_temp_rapid", false).apply();
+        preferences.edit().putBoolean("switch_blinding_speed", false).apply();
     }
 
     public void endRound() {

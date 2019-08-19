@@ -27,7 +27,7 @@
     <!-- mythique  -->
     <integer name="mythic_tier_def">2</integer>
     <integer name="mythic_dice_def">6</integer>
-    <integer name="mythiccapacity_absorption_DEF">0</integer>
+    <integer name="mythiccapacity_absorption_value_DEF">0</integer>
 
     <!-- objet legendaire  -->
     <integer name="legendary_dice_def">8</integer>

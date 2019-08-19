@@ -27,6 +27,13 @@
          />
 
     <PreferenceScreen
+        android:key="pref_character_capa"
+        android:icon="@drawable/ic_flash_on_black_24dp"
+        android:title="Capacités actives"
+        android:summary="Ensemble des des capacités connues et/ou actives"
+        />
+
+    <PreferenceScreen
         android:key="pref_character_xp"
         android:icon="@drawable/ic_upgrade"
         android:title="Experience"

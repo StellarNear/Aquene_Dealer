@@ -13,24 +13,22 @@ import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.ContentFrameLayout;
 import android.text.InputType;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import stellarnear.aquene_dealer.Activities.MainActivity;
 import stellarnear.aquene_dealer.Divers.SettingsFragments.PrefAllInventoryFragment;
+import stellarnear.aquene_dealer.Divers.SettingsFragments.PrefCapaFragment;
 import stellarnear.aquene_dealer.Divers.SettingsFragments.PrefFeatFragment;
 import stellarnear.aquene_dealer.Divers.SettingsFragments.PrefInfoScreenFragment;
-import stellarnear.aquene_dealer.Divers.SettingsFragments.PrefMythicFragment;
-import stellarnear.aquene_dealer.Divers.SettingsFragments.PrefResetScreenFragment;
+import stellarnear.aquene_dealer.Divers.SettingsFragments.PrefMythicCapaFragment;
+import stellarnear.aquene_dealer.Divers.SettingsFragments.PrefMythicFeatFragment;
 import stellarnear.aquene_dealer.Divers.SettingsFragments.PrefSkillFragment;
-import stellarnear.aquene_dealer.Divers.SettingsFragments.PrefSleepScreenFragment;
 import stellarnear.aquene_dealer.Divers.SettingsFragments.PrefXpFragment;
 import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.R;
@@ -49,10 +47,10 @@ public class SettingsFragment extends PreferenceFragment {
     private PrefAllInventoryFragment prefAllInventoryFragment;
     private PrefXpFragment prefXpFragment;
     private PrefFeatFragment prefFeatFragment;
-    private PrefMythicFragment prefMythicFragment;
+    private PrefCapaFragment prefCapaFragment;
+    private PrefMythicFeatFragment prefMythicFeatFragment;
+    private PrefMythicCapaFragment prefMythicCapaFragment;
     private PrefSkillFragment prefSkillFragment;
-    private PrefResetScreenFragment prefResetScreenFragment;
-    private PrefSleepScreenFragment prefSleepScreenFragment;
     private PrefInfoScreenFragment prefInfoScreenFragment;
 
     private Perso aquene = MainActivity.aquene;
@@ -74,10 +72,12 @@ public class SettingsFragment extends PreferenceFragment {
                 navigate();
             }
         });
-        this.prefMythicFragment=new PrefMythicFragment(mA,mC);
         this.prefXpFragment = new PrefXpFragment(mA,mC);
         this.prefXpFragment.checkLevel(tools.toBigInt(settings.getString("current_xp", String.valueOf(getContext().getResources().getInteger(R.integer.current_xp_def)))));
         this.prefFeatFragment=new PrefFeatFragment(mA,mC);
+        this.prefCapaFragment=new PrefCapaFragment(mA,mC);
+        this.prefMythicFeatFragment =new PrefMythicFeatFragment(mA,mC);
+        this.prefMythicCapaFragment =new PrefMythicCapaFragment(mA,mC);
         this.prefSkillFragment=new PrefSkillFragment(mA,mC);
         this.prefInfoScreenFragment=new PrefInfoScreenFragment(mA,mC);
     }
@@ -155,6 +155,13 @@ public class SettingsFragment extends PreferenceFragment {
                     prefFeatFragment.addFeatsList(active,def,atk,other,stance);
                     setHasOptionsMenu(true);
                     break;
+                case "pref_character_capa":
+                    PreferenceCategory monk = (PreferenceCategory) findPreference("Capacité moine");
+                    PreferenceCategory ki = (PreferenceCategory) findPreference("Capacité de Ki");
+
+                    prefCapaFragment.addCapaList(monk,ki);
+                    setHasOptionsMenu(true);
+                    break;
                 case "pref_mythic_feat":
                     PreferenceCategory active_myth = (PreferenceCategory) findPreference(getString(R.string.feat_active));
                     PreferenceCategory def_myth = (PreferenceCategory) findPreference(getString(R.string.feat_def));
@@ -162,7 +169,15 @@ public class SettingsFragment extends PreferenceFragment {
                     PreferenceCategory other_myth = (PreferenceCategory) findPreference(getString(R.string.feat_other));
                     PreferenceCategory stance_myth = (PreferenceCategory) findPreference(getString(R.string.feat_stance));
 
-                    prefMythicFragment.addMythicFeatsList(active_myth,def_myth,atk_myth,other_myth,stance_myth);
+                    prefMythicFeatFragment.addMythicFeatsList(active_myth,def_myth,atk_myth,other_myth,stance_myth);
+                    setHasOptionsMenu(true);
+                    break;
+                case "pref_mythic_capa":
+                    PreferenceCategory common_myth = (PreferenceCategory) findPreference("Commun");
+                    PreferenceCategory protect_myth = (PreferenceCategory) findPreference("Voie du Protecteur");
+                    PreferenceCategory all_myth = (PreferenceCategory) findPreference("Voie Universelle");
+
+                    prefMythicCapaFragment.addMythicCapaList(common_myth,protect_myth,all_myth);
                     setHasOptionsMenu(true);
                     break;
                 case "pref_character_skill":
@@ -170,9 +185,6 @@ public class SettingsFragment extends PreferenceFragment {
                     PreferenceCategory bonus = (PreferenceCategory) findPreference(getString(R.string.skill_bonus));
                     prefSkillFragment.addSkillsList(rank,bonus);
                     setHasOptionsMenu(true);
-                    break;
-                case "pref_mythic_tier":
-                    prefMythicFragment.refreshMythicTierBar();
                     break;
             }
         }
@@ -187,11 +199,6 @@ public class SettingsFragment extends PreferenceFragment {
 
     private void action(Preference preference) {
         switch (preference.getKey()) {
-            case "reset_para":
-                ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(preference.getTitle());
-                ((ContentFrameLayout) getActivity().findViewById(android.R.id.content)).removeAllViews();
-                prefResetScreenFragment.addResetScreen();
-                break;
             case "show_equipment":
                 aquene.getInventory().showEquipment(getActivity(), true);
                 break;
@@ -262,13 +269,8 @@ public class SettingsFragment extends PreferenceFragment {
                 prefAllInventoryFragment.createEquipment();
                 break;
             case "reset_temp":
-                resetTemp();
+                aquene.resetTemp();
                 navigate();
-                break;
-            case "sleep":
-                ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(preference.getTitle().toString());
-                ((ContentFrameLayout) getActivity().findViewById(android.R.id.content)).removeAllViews();
-                prefSleepScreenFragment.addSleepScreen();
                 break;
             case "infos":
                 prefInfoScreenFragment.showInfo();
@@ -308,15 +310,5 @@ public class SettingsFragment extends PreferenceFragment {
                 }
                 break;
         }
-    }
-
-
-    private void resetTemp() {
-        List<String> allTempList = Arrays.asList("bonus_temp_jet_att", "bonus_temp_jet_dmg", "bonus_temp_ca", "bonus_temp_save", "bonus_temp_rm", "bonus_ki_armor","mythiccapacity_absorption");
-        for (String temp : allTempList) {
-            settings.edit().putString(temp, "0").apply();
-        }
-        settings.edit().putBoolean("switch_temp_rapid", false).apply();
-        settings.edit().putBoolean("switch_blinding_speed", false).apply();
     }
 }

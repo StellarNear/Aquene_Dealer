@@ -143,17 +143,17 @@ public class AllResources {
         if (settings.getBoolean("switch_save_ref_boot", mC.getResources().getBoolean(R.bool.switch_save_ref_boot_DEF))) {
             getResource("resource_boot_add_atk").setMax(1);
         }
-        if (settings.getBoolean("feat_inhuman_stamina_sup", mC.getResources().getBoolean(R.bool.feat_inhuman_stamina_sup_DEF))) {
+        if (settings.getBoolean("switch_feat_inhuman_stamina_sup", mC.getResources().getBoolean(R.bool.switch_feat_inhuman_stamina_sup_DEF))) {
             getResource("resource_inhuman_stamina_sup").setMax(1);
         }
-        if (settings.getBoolean("feat_iron_will_sup", mC.getResources().getBoolean(R.bool.feat_iron_will_sup_DEF))) {
+        if (settings.getBoolean("switch_feat_iron_will_sup", mC.getResources().getBoolean(R.bool.switch_feat_iron_will_sup_DEF))) {
             getResource("resource_iron_will_sup").setMax(1);
         }
 
         getResource("resource_mythic_points").setMax(3+2*readResource("mythic_tier"));
         getResource("resource_legendary_points").setMax(readResource("resource_legendary_points"));
 
-        if (settings.getBoolean("feat_blinding_speed", mC.getResources().getBoolean(R.bool.feat_blinding_speed_DEF))) {
+        if (settings.getBoolean("switch_feat_blinding_speed", mC.getResources().getBoolean(R.bool.switch_feat_blinding_speed_DEF))) {
             getResource("resource_blinding_speed").setMax(5);
         }
     }

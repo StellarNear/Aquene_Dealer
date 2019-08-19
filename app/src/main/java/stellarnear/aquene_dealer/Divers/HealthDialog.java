@@ -160,8 +160,8 @@ public class HealthDialog {
                                     public void onClick(DialogInterface dialog, int which) {
                                         aquene.getAllResources().getResource("resource_hp").spend(val-valReduc);
                                         aquene.getAllResources().getResource("resource_mythic_points").spend(1);
-                                        int currentAbsorption = tools.toInt(settings.getString("mythiccapacity_absorption",String.valueOf(mC.getResources().getInteger(R.integer.mythiccapacity_absorption_DEF))));
-                                        settings.edit().putString("mythiccapacity_absorption", String.valueOf(valReduc+currentAbsorption)).apply();
+                                        int currentAbsorption = tools.toInt(settings.getString("mythiccapacity_absorption_value",String.valueOf(mC.getResources().getInteger(R.integer.mythiccapacity_absorption_value_DEF))));
+                                        settings.edit().putString("mythiccapacity_absorption_value", String.valueOf(valReduc+currentAbsorption)).apply();
                                         animateText(-val+valReduc);
                                         summaryText(-val+valReduc,0);
                                         refreshHpPanel();

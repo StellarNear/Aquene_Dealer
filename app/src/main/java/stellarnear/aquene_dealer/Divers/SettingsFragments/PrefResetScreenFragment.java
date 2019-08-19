@@ -79,6 +79,7 @@ public class PrefResetScreenFragment extends Preference {
                 SharedPreferences.Editor editor = prefs.edit();
                 editor.clear();
                 editor.commit();
+
                 aquene.getAllResources().sleepReset();
                 aquene.getInventory().resetInventory();
                 aquene.getStats().resetStats();
