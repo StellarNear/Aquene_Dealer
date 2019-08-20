@@ -58,10 +58,14 @@ public class MainActivity extends AppCompatActivity {
 
             Thread persoCreation = new Thread(new Runnable() {
                 public void run() {
-                    aquene = new Perso(getApplicationContext());
-                    loading = true;
-                }
-            });
+                    MainActivity.this.runOnUiThread(new Runnable()
+                    {
+                        public void run() {
+                            aquene = new Perso(getApplicationContext());
+                            loading = true;
+                        }
+                    });
+                }});
 
             persoCreation.start();
 
