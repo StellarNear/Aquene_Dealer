@@ -264,6 +264,7 @@ public class HelpActivity extends AppCompatActivity {
         try {
             img.setImageDrawable(mC.getDrawable(imgId));
         } catch (Exception e) {
+            img.setVisibility(View.GONE);
             e.printStackTrace();
         }
         TextView title = view.findViewById(R.id.help_info_textName);
