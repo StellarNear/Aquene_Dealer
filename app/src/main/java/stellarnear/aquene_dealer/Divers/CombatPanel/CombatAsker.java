@@ -110,8 +110,8 @@ public class CombatAsker {
 
         setRadioButtonListnerFarRange(lineMovementFar.getChargeButton(),lineMovementFar.getKiRangeButton(),lineMovementFar.getOutrangeButton());
 
-        Animation outLeft = AnimationUtils.loadAnimation(mC,R.anim.outtoleft);
-        final Animation inRight = AnimationUtils.loadAnimation(mC,R.anim.infromright);
+        Animation outLeft = AnimationUtils.loadAnimation(mC,R.anim.outtoleftfilled);
+        final Animation inRight = AnimationUtils.loadAnimation(mC,R.anim.infromrightfilled);
         inRight.setFillAfter(true);
         outLeft.setAnimationListener(new Animation.AnimationListener() {
             @Override

@@ -70,6 +70,10 @@ public class CombatAskerMovementFar {
         TextView kiRangeTxt = summaryText("Entre "+ chargeRangeMeter +"m et "+ sum + "m");
         TextView outTxt = summaryText("Plus de " + sum + "m");
 
+        chargeRangeTxt.setSingleLine(true);
+        kiRangeTxt.setSingleLine(true);
+        outTxt.setSingleLine(true);
+
         LinearLayout chargeRangeBoxTxt = box();
         LinearLayout kiRangeBoxTxt = box();
         LinearLayout outrangeBoxTxt = box();

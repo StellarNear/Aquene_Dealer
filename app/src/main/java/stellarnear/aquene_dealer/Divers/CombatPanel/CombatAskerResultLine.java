@@ -82,12 +82,12 @@ public class CombatAskerResultLine {
                             }
                         }
                     } else {
-                        resultTxt += "déplace toi avec pas chassé (2 points de Ki), et :";
+                        resultTxt += "utilises pas chassé (2 pts Ki), et :";
                         kistep = true;
                         possibleAttacks = aquene.getAttacksForType("simple");
                     }
                 } else {
-                    resultTxt += "déplace toi avec pas chassé (2 points de Ki), et :";
+                    resultTxt += "utilises pas chassé (2 pts Ki), et :";
                     kistep = true;
                     possibleAttacks = aquene.getAttacksForType("simple");
                 }

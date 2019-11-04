@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="version">"v3.1"</string>
-    <string name="time_spend">"246h"</string>
+    <string name="version">"v3.2"</string>
+    <string name="time_spend">"248h"</string>
     <string name="basic_infos">"Cette application est développée par player 1 pour son player 2. Développée avec amour par Jérémie Chatron en fin 2017-2019." </string>
     <string name="patch_list">"----------------------------------------------------------------------------------
+v3.2
+-Correction de bugs d'animation de transition des textes et panneaux dans les menus combats
+----------------------------------------------------------------------------------
 v3.1
 -Affichage des capacités et capacités mythiques dans les menus en plus des dons
 -Nouvelle cinématique de campagne !
