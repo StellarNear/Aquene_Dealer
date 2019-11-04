@@ -15,6 +15,8 @@ import android.widget.TextView;
 import java.util.Arrays;
 import java.util.List;
 
+import stellarnear.aquene_dealer.Divers.PostData;
+import stellarnear.aquene_dealer.Divers.PostDataElement;
 import stellarnear.aquene_dealer.Divers.Rolls.DmgRoll;
 import stellarnear.aquene_dealer.Divers.Rolls.ProbaFromDiceRand;
 import stellarnear.aquene_dealer.Divers.Rolls.Roll;
@@ -70,19 +72,25 @@ public class CombatLauncherDamageLines {
             }
             selectedRolls.add(roll);
             roll.setDmgRand();
-            roll.isDelt();
-
             sumPhy += roll.getDmgSum();
             sumFire += roll.getDmgSum("fire");
         }
+
+
+
         if (manualDiceDmg && !inputDone) {
             nDicesSet += selectedRolls.getDmgDiceList().size();
             putDicesSummary();
         } else {
+            new PostData(mC,new PostDataElement(selectedRolls,"dmg"));
+            for (Roll roll : selectedRolls.getList()){
+                roll.isDelt();
+            }
             printResult();
         }
         combatLauncherDamageDetailDialog = new CombatLauncherDamageDetailDialog( mC, selectedRolls);
         onChangeDiceListner();
+
     }
 
     private void onChangeDiceListner() {
@@ -105,8 +113,11 @@ public class CombatLauncherDamageLines {
         if (nDicesDone == nDicesSet) {
             tools.customToast(mC, "Tu as fini la saisie !", "center");
             inputDone();
-            combatLauncherDamageDetailDialog.changeCancelButtonToOk();
             detailAvailable = true;
+            new PostData(mC,new PostDataElement(selectedRolls,"dmg"));
+            for (Roll roll : selectedRolls.getList()){
+                roll.isDelt();
+            }
         }
     }
 

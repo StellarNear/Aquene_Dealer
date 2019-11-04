@@ -56,7 +56,7 @@
     <bool name="second_step_leg_ring_def">true</bool>
     <bool name="third_step_leg_ring_def">false</bool>
     <bool name="switch_autoclose_dialog_DEF">true</bool>
-
+    <bool name="switch_shadow_link_def">true</bool>
 
 
 </resources>

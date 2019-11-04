@@ -36,6 +36,8 @@ import java.util.List;
 import java.util.Map;
 
 import stellarnear.aquene_dealer.Divers.CustomAlertDialog;
+import stellarnear.aquene_dealer.Divers.PostData;
+import stellarnear.aquene_dealer.Divers.PostDataElement;
 import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.Perso.Stance;
 import stellarnear.aquene_dealer.R;
@@ -185,6 +187,7 @@ public class StanceActivity extends AppCompatActivity {
                         if (compoundButton.isChecked()) {
                             unCheckAllRadio(button);
                             saveStance(button);
+                            new PostData(mC,new PostDataElement(aquene.getAllStances().getStance(mapRadioButtonStance.get(button))));
                             noStance.setChecked(false);
                         }
                     }

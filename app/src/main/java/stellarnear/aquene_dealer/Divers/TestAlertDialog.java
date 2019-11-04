@@ -244,7 +244,7 @@ public class TestAlertDialog {
     }
 
     private void displayResult(Dice dice) {
-
+        String modePostData; int sumResultPostData;
         TextView resultTitle = dialogView.findViewById(R.id.customDialogTitleResult);
         TextView callToAction = dialogView.findViewById(R.id.customDialogTestCallToAction);
         callToAction.setTextColor(mC.getColor(R.color.secondaryTextCustomDialog));
@@ -255,6 +255,7 @@ public class TestAlertDialog {
             TextView result = dialogView.findViewById(R.id.customDialogTestResult);
             result.setText(String.valueOf(sumResult));
             callToAction.setText("Fin du test de compétence");
+            modePostData="Test compétence "+skill.getName();sumResultPostData=sumResult;
         } else {
             resultTitle.setText("Résultat du test de caractéristique :");
             int sumResult;
@@ -294,6 +295,8 @@ public class TestAlertDialog {
             } else {
                 callToAction.setText("Fin du test de caractéristique");
             }
+            modePostData="Test caractéristique "+abi.getName();sumResultPostData=sumResult;
         }
+        new PostData(mC,new PostDataElement(modePostData,dice.getRandValue(),sumResultPostData));
     }
 }

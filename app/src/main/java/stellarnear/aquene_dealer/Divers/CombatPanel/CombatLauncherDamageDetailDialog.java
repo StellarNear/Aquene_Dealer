@@ -82,6 +82,7 @@ public class CombatLauncherDamageDetailDialog {
             atkLine.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT,1));
             for (Dice dice : roll.getDmgDiceList().filterCritable().getList()) {
                 LinearLayout box = box();
+                if(dice.getImg().getParent()!=null){   ((ViewGroup)dice.getImg().getParent()).removeView(dice.getImg());}
                 box.addView(dice.getImg());
                 atkLine.addView(box);
             }
@@ -96,12 +97,14 @@ public class CombatLauncherDamageDetailDialog {
 
             for (Dice dice : roll.getDmgDiceList().filterNotCritable().filterWithNface(8).getList()) {
                 LinearLayout box = box();
+                if(dice.getImg().getParent()!=null){   ((ViewGroup)dice.getImg().getParent()).removeView(dice.getImg());}
                 box.addView(dice.getImg());
                 atkLine.addView(box);
             }
 
             for (Dice dice : roll.getDmgDiceList().filterNotCritable().filterWithNface(6).getList()) {
                 LinearLayout box = box();
+                if(dice.getImg().getParent()!=null){   ((ViewGroup)dice.getImg().getParent()).removeView(dice.getImg());}
                 box.addView(dice.getImg());
                 atkLine.addView(box);
             }

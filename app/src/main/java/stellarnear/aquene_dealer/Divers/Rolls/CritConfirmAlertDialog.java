@@ -18,6 +18,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import stellarnear.aquene_dealer.Activities.MainActivity;
+import stellarnear.aquene_dealer.Divers.PostData;
+import stellarnear.aquene_dealer.Divers.PostDataElement;
 import stellarnear.aquene_dealer.Divers.Tools;
 import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.R;
@@ -58,14 +60,12 @@ public class CritConfirmAlertDialog {
 
         String titleTxt = "Test de confirmation du critique";
 
-
         final TextView title = dialogView.findViewById(R.id.customDialogTestTitle);
         title.setSingleLine(false);
         title.setTextSize(22);
         title.setText(titleTxt);
 
         String summaryDetail="Bonus d'attaque de base (+"+atkVal+")";
-
 
         sumScore= atkVal;
         if(aquene.featIsActive("feat_crit")){
@@ -212,6 +212,8 @@ public class CritConfirmAlertDialog {
 
         Button success = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
         success.setVisibility(View.VISIBLE);
+
+        new PostData(mC,new PostDataElement("Test confirmation de critique",dice.getRandValue(),sumResult));
     }
 
     public interface OnSuccessEventListener {

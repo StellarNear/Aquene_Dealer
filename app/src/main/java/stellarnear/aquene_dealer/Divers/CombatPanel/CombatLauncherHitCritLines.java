@@ -13,6 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import stellarnear.aquene_dealer.Activities.MainActivity;
+import stellarnear.aquene_dealer.Divers.PostData;
+import stellarnear.aquene_dealer.Divers.PostDataElement;
 import stellarnear.aquene_dealer.Divers.Rolls.AtkRoll;
 import stellarnear.aquene_dealer.Divers.Rolls.Dice;
 import stellarnear.aquene_dealer.Divers.Rolls.Roll;
@@ -115,7 +117,7 @@ public class CombatLauncherHitCritLines {
                 atkTxt.setText("-");
                 allRollSet+=1;
             } else {
-                if ((roll.getAtkValue() != 0)) {
+                if ((roll.getAtkDice().getRandValue() != 0)) {
                     int val = roll.getAtkValue();
                     if(roll.getAtkDice().getMythicDice()!=null){
                         val+=roll.getAtkDice().getMythicDice().getRandValue();
@@ -130,6 +132,7 @@ public class CombatLauncherHitCritLines {
         }
         if (allRollSet== allRolls.getList().size()){
             getHitAndCritLines();
+            new PostData(mC,new PostDataElement(allRolls,"atk"));
         }
     }
 

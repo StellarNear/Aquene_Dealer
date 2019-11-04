@@ -26,6 +26,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import stellarnear.aquene_dealer.Activities.MainActivity;
+import stellarnear.aquene_dealer.Divers.PostData;
+import stellarnear.aquene_dealer.Divers.PostDataElement;
 import stellarnear.aquene_dealer.Divers.Rolls.Roll;
 import stellarnear.aquene_dealer.Divers.Rolls.RollList;
 import stellarnear.aquene_dealer.Divers.Tools;
@@ -65,6 +67,7 @@ public class CombatLauncher {
         ki = dialogView.findViewById(R.id.add_atk_ki);
         boots = dialogView.findViewById(R.id.add_atk_boots);
         settings = PreferenceManager.getDefaultSharedPreferences(mC);
+        new PostData(mC,new PostDataElement(attack));
         buildCombatDialog();
     }
 

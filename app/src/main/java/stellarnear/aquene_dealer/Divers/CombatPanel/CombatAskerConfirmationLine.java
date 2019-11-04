@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import stellarnear.aquene_dealer.Activities.MainActivity;
+import stellarnear.aquene_dealer.Divers.PostData;
+import stellarnear.aquene_dealer.Divers.PostDataElement;
 import stellarnear.aquene_dealer.Perso.Attack;
 import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.R;
@@ -53,6 +55,7 @@ public class CombatAskerConfirmationLine {
                     }
                     if (kistep) {
                         aquene.getAllResources().getResource("resource_ki").spend(aquene.getAllKiCapacities().getKicapacity("kicapacity_step").getCost());
+                        new PostData(mC,new PostDataElement(aquene.getAllKiCapacities().getKicapacity("kicapacity_step")));
                     }
                     CombatLauncher combatLauncher = new CombatLauncher(mA, mC, selectedAttack);
                     combatLauncher.showAlertDialog();

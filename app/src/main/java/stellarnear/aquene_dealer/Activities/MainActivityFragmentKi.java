@@ -25,6 +25,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import stellarnear.aquene_dealer.Divers.CustomAlertDialog;
+import stellarnear.aquene_dealer.Divers.PostData;
+import stellarnear.aquene_dealer.Divers.PostDataElement;
 import stellarnear.aquene_dealer.Divers.Tools;
 import stellarnear.aquene_dealer.Perso.KiCapacity;
 import stellarnear.aquene_dealer.Perso.Perso;
@@ -175,11 +177,11 @@ public class MainActivityFragmentKi extends Fragment {
             valid.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
                     if(kiCapaSelected.getId().equalsIgnoreCase("kicapacity_ki_armor")){
                         setTempArmor();
                     } else {
                         aquene.getAllResources().getResource("resource_ki").spend(kiCapaSelected.getCost());
+                        new PostData(getContext(),new PostDataElement(kiCapaSelected));
                         String txt = "Lancement de : " + kiCapaSelected.getName();
                         if (kiCapaSelected.getId().equalsIgnoreCase("kicapacity_heal")) {
                             int heal = aquene.getAbilityScore(getContext(), "ability_lvl");
@@ -260,6 +262,7 @@ public class MainActivityFragmentKi extends Fragment {
                     backToMain();
                 } else {
                     aquene.getAllResources().getResource("resource_ki").spend(numberPicker.getValue());
+                    new PostData(getContext(),new PostDataElement(kiCapaSelected,numberPicker.getValue(),2*numberPicker.getValue()));
                     settings.edit().putString("bonus_ki_armor",String.valueOf(2*numberPicker.getValue())).apply();
                     tools.customToast(getContext(), "Tu as gagné " + String.valueOf(2 * numberPicker.getValue()) + " de CA temporaire !", "center");
                     Snackbar snackbar = Snackbar.make(getView(), txt, Snackbar.LENGTH_LONG);
