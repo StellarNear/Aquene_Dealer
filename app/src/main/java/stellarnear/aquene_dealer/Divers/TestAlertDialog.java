@@ -276,6 +276,7 @@ public class TestAlertDialog {
                     @Override
                     public void onClick(View view) {
                         aquene.getAllResources().getResource("resource_inhuman_stamina_sup").spend(1);
+                        new PostData(mC,new PostDataElement("Dépense de Science de la vigeur surhumaine","-"));
                         alertDialog.cancel();
                         new TestAlertDialog( mA,  mC,  abi);
                     }
@@ -288,6 +289,7 @@ public class TestAlertDialog {
                     @Override
                     public void onClick(View view) {
                         aquene.getAllResources().getResource("resource_iron_will_sup").spend(1);
+                        new PostData(mC,new PostDataElement("Dépense de Science de la volonté de fer","-"));
                         alertDialog.cancel();
                         new TestAlertDialog( mA,  mC,  abi);
                     }
@@ -297,6 +299,6 @@ public class TestAlertDialog {
             }
             modePostData="Test caractéristique "+abi.getName();sumResultPostData=sumResult;
         }
-        new PostData(mC,new PostDataElement(modePostData,dice.getRandValue(),sumResultPostData));
+        new PostData(mC,new PostDataElement(modePostData,dice,sumResultPostData));
     }
 }

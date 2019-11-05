@@ -217,9 +217,15 @@ public class CombatLauncher {
     private void startAttack() {
         clearLinear();
         buildAtksList();
-        if(addAtkPanelIsVisible){addAtkButton.performClick();} //pour le refermer
-        if(ki.isChecked()){aquene.getAllResources().getResource("resource_ki").spend(1);}
-        if(boots.isChecked()){aquene.getAllResources().getResource("resource_boot_add_atk").spend(1);}
+        if(addAtkPanelIsVisible){ addAtkButton.performClick();} //pour le refermer
+        if(ki.isChecked()){
+            aquene.getAllResources().getResource("resource_ki").spend(1);
+            new PostData(mC,new PostDataElement("Dépense de Ki : attaque supplémentaire","-1pt ki, +1 attaque"));
+        }
+        if(boots.isChecked()){
+            aquene.getAllResources().getResource("resource_boot_add_atk").spend(1);
+            new PostData(mC,new PostDataElement("Utilisation des bottes de rapidité","+1 attaque"));
+        }
         combatLauncherHitCritLines.getPreRandValues();
         combatLauncherHitCritLines.getRandValues();
     }

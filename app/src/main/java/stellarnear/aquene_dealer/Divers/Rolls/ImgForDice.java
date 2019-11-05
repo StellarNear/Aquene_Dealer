@@ -16,6 +16,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import stellarnear.aquene_dealer.Activities.MainActivity;
+import stellarnear.aquene_dealer.Divers.PostData;
+import stellarnear.aquene_dealer.Divers.PostDataElement;
 import stellarnear.aquene_dealer.Divers.Tools;
 import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.R;
@@ -107,9 +109,11 @@ public class ImgForDice {
             if(mode.equalsIgnoreCase("légendaire")){
                 surgeDice=new Dice(mA, mC, tools.toInt(settings.getString("legendary_dice",String.valueOf(mC.getResources().getInteger(R.integer.legendary_dice_def)))));
                 MainActivity.aquene.getAllResources().getResource("resource_legendary_points").spend(1);
+                new PostData(mC,new PostDataElement("Surcharge légendaire du d20","-1pt légendaire"));
             } else {
                 surgeDice=new Dice(mA, mC, tools.toInt(settings.getString("mythic_dice",String.valueOf(mC.getResources().getInteger(R.integer.mythic_dice_def)))));
                 MainActivity.aquene.getAllResources().getResource("resource_mythic_points").spend(1);
+                new PostData(mC,new PostDataElement("Surcharge mythique du d20","-1pt mythique"));
             }
 
             if (settings.getBoolean("switch_manual_diceroll",mC.getResources().getBoolean(R.bool.switch_manual_diceroll_DEF))){

@@ -9,6 +9,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import stellarnear.aquene_dealer.Divers.HallOfFame;
+import stellarnear.aquene_dealer.Divers.PostData;
+import stellarnear.aquene_dealer.Divers.PostDataElement;
 import stellarnear.aquene_dealer.Divers.Stats.Stats;
 import stellarnear.aquene_dealer.Divers.Tools;
 import stellarnear.aquene_dealer.R;
@@ -356,6 +358,7 @@ public class Perso {
     public void endRound() {
         if( preferences.getBoolean("switch_blinding_speed",mC.getResources().getBoolean(R.bool.switch_blinding_speed_DEF))) {
             getAllResources().getResource("resource_blinding_speed").spend(1);
+            new PostData(mC,new PostDataElement("Dépense d'un round de Vitesse aveuglante","-"));
             preferences.edit().putBoolean("switch_blinding_speed", false).apply();
             preferences.edit().putString("blinding_speed_current_temp", String.valueOf(getResourceValue(mC,"resource_blinding_speed"))).apply();
             tools.customToast(mC,"Vitesse aveuglante désactivée","center");

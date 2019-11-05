@@ -284,6 +284,7 @@ public class SettingsFragment extends PreferenceFragment {
                             .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int whichButton) {
                                     aquene.getAllResources().getResource("resource_mythic_points").spend(1);
+                                    new PostData(mC,new PostDataElement("Utilisation d'un pouvoir mythique","Dépense d' un point mythique"));
                                     tools.customToast(mC,"Il te reste "+aquene.getResourceValue(mC,"resource_mythic_points")+" point(s) mythique(s)","center");
                                 }
                             })
@@ -301,6 +302,7 @@ public class SettingsFragment extends PreferenceFragment {
                             .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int whichButton) {
                                     aquene.getAllResources().getResource("resource_legendary_points").spend(1);
+                                    new PostData(mC,new PostDataElement("Surcharge légendaire du d20","-1pt légendaire"));
                                     tools.customToast(mC,"Il te reste "+aquene.getResourceValue(mC,"resource_legendary_points")+" point(s) légendaire(s)","center");
                                 }
                             })

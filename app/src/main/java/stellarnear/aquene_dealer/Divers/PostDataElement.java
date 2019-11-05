@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import stellarnear.aquene_dealer.Divers.Rolls.Dice;
 import stellarnear.aquene_dealer.Divers.Rolls.Roll;
 import stellarnear.aquene_dealer.Divers.Rolls.RollList;
 import stellarnear.aquene_dealer.Perso.Attack;
@@ -54,6 +55,11 @@ public class PostDataElement {
                 detailTxt += "fail";
             } else {
                 detailTxt += "normal";
+            }
+            if(!roll.isInvalid()){
+                detailTxt += "("+roll.getAtkDice().getRandValue();
+                if(roll.getAtkDice().getMythicDice()!=null){detailTxt +=","+roll.getAtkDice().getMythicDice().getRandValue();}
+                detailTxt +=")";
             }
         }
 
@@ -128,12 +134,16 @@ public class PostDataElement {
         this.result=resultTxt;
     }
 
-    public PostDataElement(String typeEvent, int detail, int result){
+    public PostDataElement(String typeEvent, Dice oriDice, int result){
         SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yy HH:mm:ss", Locale.FRANCE);
         this.date=formater.format(new Date());
-        this.detail =String.valueOf(detail);
+
         this.typeEvent=typeEvent;
         this.result=String.valueOf(result);
+
+        String detailTxt = String.valueOf(oriDice.getRandValue());
+        if(oriDice.getMythicDice()!=null){detailTxt +=","+oriDice.getMythicDice().getRandValue();}
+        this.detail =detailTxt;
     }
 
     public String getDetail() {

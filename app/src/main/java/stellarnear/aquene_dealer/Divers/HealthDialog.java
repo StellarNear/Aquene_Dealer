@@ -160,6 +160,7 @@ public class HealthDialog {
                                     public void onClick(DialogInterface dialog, int which) {
                                         aquene.getAllResources().getResource("resource_hp").spend(val-valReduc);
                                         aquene.getAllResources().getResource("resource_mythic_points").spend(1);
+                                        new PostData(mC,new PostDataElement("Utilisation d'absoprtion des coups","-1pt mythique, absorbe "+valReduc+"pts de dégats"));
                                         int currentAbsorption = tools.toInt(settings.getString("mythiccapacity_absorption_value",String.valueOf(mC.getResources().getInteger(R.integer.mythiccapacity_absorption_value_DEF))));
                                         settings.edit().putString("mythiccapacity_absorption_value", String.valueOf(valReduc+currentAbsorption)).apply();
                                         animateText(-val+valReduc);

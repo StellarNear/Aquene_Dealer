@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import stellarnear.aquene_dealer.Activities.MainActivity;
+import stellarnear.aquene_dealer.Divers.PostData;
+import stellarnear.aquene_dealer.Divers.PostDataElement;
 import stellarnear.aquene_dealer.Divers.Tools;
 import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.R;
@@ -78,6 +80,7 @@ public class PrefSleepScreenFragment extends Preference {
             public void run() {
                 MainActivity.aquene.getAllResources().sleepReset();
                 aquene.resetTemp();
+                new PostData(mC,new PostDataElement("Nuit de repos","Recharge des ressources journalières"));
                 tools.customToast(mC, "Une nouvelle journée pleine de mandales et d'acrobaties t'attends.", "center");
                 Intent intent = new Intent(mC, MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);

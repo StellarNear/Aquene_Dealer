@@ -213,7 +213,7 @@ public class CritConfirmAlertDialog {
         Button success = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
         success.setVisibility(View.VISIBLE);
 
-        new PostData(mC,new PostDataElement("Test confirmation de critique",dice.getRandValue(),sumResult));
+        new PostData(mC,new PostDataElement("Test confirmation de critique",dice,sumResult));
     }
 
     public interface OnSuccessEventListener {
