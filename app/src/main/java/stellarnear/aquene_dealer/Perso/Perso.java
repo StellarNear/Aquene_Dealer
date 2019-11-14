@@ -46,7 +46,7 @@ public class Perso {
         this.allKiCapacities = new AllKiCapacities(mC);
         this.allMythicCapacities = new AllMythicCapacities(mC);
         this.inventory = new Inventory(mC);
-        this.allResources = new AllResources(mC,allFeats,allAbilities);
+        this.allResources = new AllResources(mC,allFeats,allAbilities,allMythicCapacities);
         this.stats = new Stats(mC);
         this.hallOfFame=new HallOfFame(mC);
         this.preferences=PreferenceManager.getDefaultSharedPreferences(mC);
@@ -112,8 +112,10 @@ public class Perso {
             }
 
             if (abiId.equalsIgnoreCase("ability_init")) {
-                int currentTier = tools.toInt(settings.getString("mythic_tier", String.valueOf(mC.getResources().getInteger(R.integer.mythic_tier_def))));
-                abiScore += currentTier;
+                if(getAllMythicCapacities().getMythiccapacity("mythiccapacity_init").isActive()) {
+                    int currentTier = tools.toInt(settings.getString("mythic_tier", String.valueOf(mC.getResources().getInteger(R.integer.mythic_tier_def))));
+                    abiScore += currentTier;
+                }
                 if ( featIsActive("feat_init")) {
                     abiScore += 4;
                 }

@@ -57,6 +57,7 @@ public class Resource {
 
     public void setMax(int max) {
         this.max = max;
+        if(this.current>this.max){this.current=this.max;}
     }
 
     public Integer getMax() {

@@ -188,8 +188,9 @@ public class PostDataElement {
     public PostDataElement(Stance stance) {
         SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yy HH:mm:ss", Locale.FRANCE);
         this.date=formater.format(new Date());
-        this.detail ="Type "+stance.getType();
-        this.typeEvent="Posture "+stance.getName();
+        if(stance!=null) {
+            this.detail = stance.getId();
+        } else { this.detail = "stance_null"; }
+        this.typeEvent="stance_change"; //on gere cet event directement dans le script google
     }
-
 }

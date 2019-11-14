@@ -72,6 +72,7 @@ public class StanceActivity extends AppCompatActivity {
                     aquene.activateStance("");
                     unCheckAllRadio(null);
                     selectActiveStance();
+
                 }
             }
         });
@@ -107,6 +108,7 @@ public class StanceActivity extends AppCompatActivity {
         } else {
             noStance.setChecked(true);
             unCheckAllRadio(null);
+            new PostData(mC,new PostDataElement((Stance)null));
         }
         SpannableString titleSpan = new SpannableString(title);
         titleSpan.setSpan(new ForegroundColorSpan(getColor(R.color.textColorPrimary)),0,title.length(),0);
@@ -187,8 +189,8 @@ public class StanceActivity extends AppCompatActivity {
                         if (compoundButton.isChecked()) {
                             unCheckAllRadio(button);
                             saveStance(button);
-                            new PostData(mC,new PostDataElement(aquene.getAllStances().getStance(mapRadioButtonStance.get(button))));
                             noStance.setChecked(false);
+                            new PostData(mC,new PostDataElement(aquene.getAllStances().getStance(mapRadioButtonStance.get(button))));
                         }
                     }
                 });

@@ -28,15 +28,17 @@ import stellarnear.aquene_dealer.R;
 public class AllResources {
     private Context mC;
     private AllAbilities allAbilities;
+    private AllMythicCapacities allMythicCapacities;
     private AllFeats allFeats;
     private Map<String, Resource> mapIDRes = new HashMap<>();
     private List<Resource> listResources = new ArrayList<>();
     private SharedPreferences settings;
     private Tools tools = new Tools();
 
-    public AllResources(Context mC, AllFeats allFeats, AllAbilities allAbilities) {
+    public AllResources(Context mC, AllFeats allFeats, AllAbilities allAbilities,AllMythicCapacities allMythicCapacities) {
         this.mC = mC;
         this.allAbilities = allAbilities;
+        this.allMythicCapacities=allMythicCapacities;
         this.allFeats = allFeats;
         settings = PreferenceManager.getDefaultSharedPreferences(mC);
         buildResourcesList();
@@ -120,11 +122,14 @@ public class AllResources {
 
     public void refreshMaxs() {
         //partie from setting
-        int hpPool = readResource("resource_hp");
+        int hpPool = readResource("resource_hp_base");
+        hpPool += allAbilities.getAbi("ability_constitution").getMod()*allAbilities.getAbi("ability_lvl").getValue();
         if (allFeats.getFeat("feat_robustness").isActive()) {
             hpPool += allAbilities.getAbi("ability_lvl").getValue();
         }
-        hpPool += 5*readResource("mythic_tier");
+        if(allMythicCapacities.getMythiccapacity("mythiccapacity_hpboost").isActive()) {
+            hpPool += 5 * readResource("mythic_tier"); //5 pour la voie gardienne
+        }
 
         getResource("resource_hp").setMax(hpPool);
         getResource("resource_regen").setMax(readResource("resource_regen"));
