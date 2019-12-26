@@ -132,7 +132,6 @@
         android:orientation="vertical"
         android:visibility="gone">
 
-
         <CheckBox
             android:id="@+id/add_atk_ki"
             android:layout_width="wrap_content"

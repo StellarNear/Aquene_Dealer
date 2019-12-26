@@ -81,8 +81,6 @@ public class MainActivity extends AppCompatActivity {
             });
             loadListner.start();
 
-        } else {
-            buildMainPage();
         }
     }
 
@@ -99,9 +97,11 @@ public class MainActivity extends AppCompatActivity {
                             image.setOnTouchListener(new View.OnTouchListener() {
                                 @Override
                                 public boolean onTouch(View arg0, MotionEvent arg1) {
-                                    unlockOrient();
-                                    touched = true;
-                                    buildMainPage();
+                                    if(!touched) {
+                                        unlockOrient();
+                                        touched = true;
+                                        buildMainPage();
+                                    }
                                     return true;//always return true to consume event
                                 }
                             });
@@ -180,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         checkOrientStart(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        if (aquene != null && loading && touched) {
+        if (aquene != null) {
             aquene.refresh();
             buildMainPage();
         }
