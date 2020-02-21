@@ -14,7 +14,9 @@ import android.widget.TextView;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
+import stellarnear.aquene_dealer.Activities.MainActivity;
 import stellarnear.aquene_dealer.Divers.PostData;
 import stellarnear.aquene_dealer.Divers.PostDataElement;
 import stellarnear.aquene_dealer.Divers.Rolls.DmgRoll;
@@ -22,6 +24,7 @@ import stellarnear.aquene_dealer.Divers.Rolls.ProbaFromDiceRand;
 import stellarnear.aquene_dealer.Divers.Rolls.Roll;
 import stellarnear.aquene_dealer.Divers.Rolls.RollList;
 import stellarnear.aquene_dealer.Divers.Tools;
+import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.R;
 
 public class CombatLauncherDamageLines {
@@ -43,6 +46,7 @@ public class CombatLauncherDamageLines {
     private boolean statsDisplayed = false;
     private LinearLayout statPanelLinear;
     private Tools tools = new Tools();
+    private Perso aquene= MainActivity.aquene;
 
     public CombatLauncherDamageLines(Context mC, View mainView, RollList allRolls) {
         this.mC = mC;
@@ -76,7 +80,7 @@ public class CombatLauncherDamageLines {
             sumFire += roll.getDmgSum("fire");
         }
 
-
+        testSelfHealVapirism();
 
         if (manualDiceDmg && !inputDone) {
             nDicesSet += selectedRolls.getDmgDiceList().size();
@@ -91,6 +95,46 @@ public class CombatLauncherDamageLines {
         combatLauncherDamageDetailDialog = new CombatLauncherDamageDetailDialog( mC, selectedRolls);
         onChangeDiceListner();
 
+    }
+
+    private void testSelfHealVapirism() {
+        if(aquene.getInventory().getAllEquipments().testIfNameItemIsEquipped("Cestes vampirique (+5)")){
+            int nHit = selectedRolls.getHitsConfirmedCount();
+            int nCrit = selectedRolls.getCritsConfirmedCount();
+            int sumHP=0;
+            String diceTxt="";
+            if(nHit>0) {
+                for (int iHit = 1; iHit <= nHit; iHit++) {
+                    Random rand = new Random();
+                    int randD6 = 1 + rand.nextInt(6);
+                    if (!diceTxt.equalsIgnoreCase("")) {
+                        diceTxt += ",";
+                    }
+                    sumHP += randD6;
+                    diceTxt += randD6;
+                }
+            }
+            if(nCrit>0) {
+                for (int iCrit = 1; iCrit <= nCrit; iCrit++) {
+                    int multiplier = 2;
+                    if (aquene.mythicFeatIsActive("mythicfeat_crit_sup")) {
+                        multiplier += 1;
+                    }
+                    for (int iMultiplier = 1; iMultiplier <= multiplier-1; iMultiplier++) { //le -1 c'est car il y a aussi le hit compté pour le crit
+                        Random rand = new Random();
+                        int randD6 = 1 + rand.nextInt(6);
+                        if (!diceTxt.equalsIgnoreCase("")) {
+                            diceTxt += ",";
+                        }
+                        sumHP += randD6;
+                        diceTxt += String.valueOf(randD6);
+                    }
+                }
+            }
+            aquene.getAllResources().getResource("resource_hp").earn(sumHP);
+            tools.customToast(mC,"Les Cestes vampirique t'ont rendu "+sumHP+ " points de vie !"+"\n\nListe des dès :\n"+diceTxt,"center");
+            new PostData(mC,new PostDataElement("Soin des Cestes vampirique",sumHP+ " points de vie rendu"+"\n\nListe des dès :\n"+diceTxt));
+        }
     }
 
     private void onChangeDiceListner() {

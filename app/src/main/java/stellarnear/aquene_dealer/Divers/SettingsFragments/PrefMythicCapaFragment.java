@@ -3,10 +3,13 @@ package stellarnear.aquene_dealer.Divers.SettingsFragments;
 import android.app.Activity;
 import android.content.Context;
 import android.preference.PreferenceCategory;
+import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import stellarnear.aquene_dealer.Activities.MainActivity;
-import stellarnear.aquene_dealer.Divers.Tools;
 import stellarnear.aquene_dealer.Perso.MythicCapacity;
 import stellarnear.aquene_dealer.Perso.Perso;
 
@@ -14,27 +17,39 @@ public class PrefMythicCapaFragment {
     private Perso aquene = MainActivity.aquene;
     private Activity mA;
     private Context mC;
-    private Tools tools = new Tools();
 
     public PrefMythicCapaFragment(Activity mA, Context mC) {
         this.mA = mA;
         this.mC = mC;
     }
 
-    public void addMythicCapaList(PreferenceCategory common, PreferenceCategory protect ,PreferenceCategory all) {
-           for (MythicCapacity capacity : aquene.getAllMythicCapacities().getAllMythicCapacitiesList()) {
-            SwitchPreference switch_feat = new SwitchPreference(mC);
-            switch_feat.setKey("switch_"+capacity.getId());
-            switch_feat.setTitle(capacity.getName());
-            switch_feat.setSummary(capacity.getDescr());
-            switch_feat.setDefaultValue(true);
-            if (capacity.getType().contains("Commun")) {
-                common.addPreference(switch_feat);
-            } else if (capacity.getType().equals("Voie du Protecteur")) {
-                protect.addPreference(switch_feat);
-            } else if (capacity.getType().contains("Voie Universelle")) {
-                all.addPreference(switch_feat);
+    public void addMythicCapaList(PreferenceScreen screen) {
+        Map<String, PreferenceCategory> map = buildCategoryList(screen);
+        for (MythicCapacity capacity : aquene.getAllMythicCapacities().getAllMythicCapacitiesList()) {
+            addCapa(capacity,map.get(capacity.getType()));
+        }
+    }
+
+    private Map<String, PreferenceCategory> buildCategoryList(PreferenceScreen screen) {
+        Map<String, PreferenceCategory> mapTypeCat=new HashMap<>();
+        for (MythicCapacity capacity : aquene.getAllMythicCapacities().getAllMythicCapacitiesList()) {
+            if(mapTypeCat.get(capacity.getType())==null){
+                PreferenceCategory newType = new PreferenceCategory(mC);
+                newType.setTitle(capacity.getType());
+                newType.setKey(capacity.getType());
+                screen.addPreference(newType);
+                mapTypeCat.put(capacity.getType(),newType);
             }
         }
+        return mapTypeCat;
+    }
+
+    private void addCapa(MythicCapacity capacity, PreferenceCategory category) {
+        SwitchPreference switch_capa = new SwitchPreference(mC);
+        switch_capa.setKey("switch_"+capacity.getId());
+        switch_capa.setTitle(capacity.getName());
+        switch_capa.setSummary(capacity.getDescr());
+        switch_capa.setDefaultValue(true);
+        category.addPreference(switch_capa);
     }
 }

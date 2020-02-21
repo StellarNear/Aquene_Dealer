@@ -76,6 +76,7 @@
 
     <ability>
         <name>Classe d'armure</name>
+        <shortname>C.A.</shortname>
         <type>def</type>
         <descr>La classe d’armure (CA) représente la difficulté que les adversaires ont à toucher le personnage. Elle indique également la valeur que l’ennemi doit atteindre pour porter un coup infligeant des dégâts.</descr>
         <id>ability_ca</id>
@@ -112,7 +113,7 @@
     </ability>
     <ability>
         <name>Vitesse de déplacement (m)</name>
-        <shortname>Déplacement</shortname>
+        <shortname>Déplac.</shortname>
         <type>advanced</type>
         <descr>La vitesse de déplacement indique la distance qu’un personnage peut parcourir en un round tout en réalisant malgré tout une action, comme porter une attaque ou en lancer un sort. Elle dépend de la race et de l’armure du personnage.</descr>
         <id>ability_ms</id>

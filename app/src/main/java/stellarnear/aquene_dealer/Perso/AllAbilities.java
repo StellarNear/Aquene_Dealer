@@ -137,4 +137,9 @@ public class AllAbilities {
         } catch (Exception e){  selecteAbi=null;  }
         return selecteAbi;
     }
+
+    public void reset() {
+        buildAbilitiesList();
+        refreshAllAbilities();
+    }
 }

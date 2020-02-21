@@ -31,10 +31,10 @@ public class AllMythicCapacities {
     public AllMythicCapacities(Context mC)
     {
         this.mC = mC;
-        buildKiCapacitiesList();
+        buildMythicCapacities();
     }
 
-    private void buildKiCapacitiesList() {
+    private void buildMythicCapacities() {
         try {
             InputStream is = mC.getAssets().open("mythiccapacities.xml");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -87,5 +87,19 @@ public class AllMythicCapacities {
         } catch (Exception e){
             return "";
         }
+    }
+
+    public void reset() {
+        buildMythicCapacities();
+    }
+
+    public boolean mythicCapacityIsActive(String id) {
+        boolean val=false;
+        try {
+            val= getMythiccapacity(id).isActive();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return val;
     }
 }

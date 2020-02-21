@@ -90,4 +90,8 @@ public class AllSkills {
             skill.refreshVals();
         }
     }
+
+    public void reset() {
+        buildSkillsList();
+    }
 }

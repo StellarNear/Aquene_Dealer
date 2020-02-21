@@ -57,13 +57,13 @@ public class CombatAskerMovementFar {
         int atkRange = aquene.getAllAttacks().getAtkRange();
         Equipment head = aquene.getInventory().getAllEquipments().getEquipmentsEquiped("helm_slot");
         int runMultiplier = (head!= null && head.getName().equalsIgnoreCase("oreilles de lapin") ? 8:4);
-        int chargeRangeMeter = aquene.getAbilityScore(mC,"ability_ms")*runMultiplier + atkRange;
-        int ms = aquene.getAbilityScore(mC,"ability_ms");
+        int chargeRangeMeter = aquene.getAbilityScore("ability_ms")*runMultiplier + atkRange;
+        int ms = aquene.getAbilityScore("ability_ms");
         if(aquene.featIsActive("feat_void_step")){
             chargeRangeMeter+=ms;
         }
 
-        int tpKi = 120 + 12*aquene.getAbilityScore(mC,"ability_lvl");
+        int tpKi = 120 + 12*aquene.getAbilityScore("ability_lvl");
         int sum =  atkRange + tpKi;
 
         TextView chargeRangeTxt = summaryText("Moins de " + chargeRangeMeter + "m");

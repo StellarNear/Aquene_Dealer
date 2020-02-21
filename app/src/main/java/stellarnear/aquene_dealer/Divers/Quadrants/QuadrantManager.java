@@ -10,6 +10,7 @@ import java.util.List;
 
 import stellarnear.aquene_dealer.R;
 
+
 /**
  * Created by jchatron on 19/01/2018.
  */

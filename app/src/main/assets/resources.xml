@@ -2,6 +2,7 @@
 <records>
     <resource>
         <name>Points de vie</name>
+        <shortname>PVs</shortname>
         <testable>true</testable>
         <id>resource_hp</id>
     </resource>
@@ -26,6 +27,7 @@
         <hide>true</hide>
     </resource>
     <resource>
+        <shortname>Ki</shortname>
         <name>Réserve de Ki</name>
         <id>resource_ki</id>
     </resource>
@@ -33,6 +35,7 @@
         <name>Coup étourdissant</name>
         <shortname>Coup étourd.</shortname>
         <id>resource_stun</id>
+        <hide>true</hide>
     </resource>
     <resource>
         <name>Paume vibratoire</name>
@@ -54,10 +57,5 @@
         <name>Science de la volonté de fer</name>
         <hide>true</hide>
         <id>resource_iron_will_sup</id>
-    </resource>
-    <resource>
-        <shortname>Vit. aveugl.</shortname>
-        <name>Vitesse aveuglante</name>
-        <id>resource_blinding_speed</id>
     </resource>
 </records>

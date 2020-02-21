@@ -3,6 +3,7 @@ package stellarnear.aquene_dealer.Perso;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -28,6 +29,7 @@ import stellarnear.aquene_dealer.R;
 public class AllResources {
     private Context mC;
     private AllAbilities allAbilities;
+    private AllCapacities allCapacities;
     private AllMythicCapacities allMythicCapacities;
     private AllFeats allFeats;
     private Map<String, Resource> mapIDRes = new HashMap<>();
@@ -35,15 +37,22 @@ public class AllResources {
     private SharedPreferences settings;
     private Tools tools = new Tools();
 
-    public AllResources(Context mC, AllFeats allFeats, AllAbilities allAbilities,AllMythicCapacities allMythicCapacities) {
+    public AllResources(Context mC, AllFeats allFeats, AllAbilities allAbilities,AllCapacities allCapacities,AllMythicCapacities allMythicCapacities) {
         this.mC = mC;
         this.allAbilities = allAbilities;
+        this.allCapacities=allCapacities;
         this.allMythicCapacities=allMythicCapacities;
         this.allFeats = allFeats;
         settings = PreferenceManager.getDefaultSharedPreferences(mC);
-        buildResourcesList();
-        refreshMaxs();
-        loadCurrent();
+        try {
+            buildResourcesList();
+            refreshMaxs();
+            loadCurrent();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.d("Load_RES","Error loading resources "+e.getMessage());
+            reset();
+        }
     }
 
     private void buildResourcesList() {
@@ -78,6 +87,28 @@ public class AllResources {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        // Partie from capacities
+        addCapacitiesResources();
+    }
+
+    private void addCapacitiesResources() {
+        for(Capacity cap : allCapacities.getAllCapacitiesList()){
+            if ((cap.getDailyUse()>0|| cap.isInfinite()) && cap.isActive() && getResource(cap.getId().replace("capacity_", "resource_"))==null){
+                //on test si elle est pas deja presente pour la pertie rebuild  de refreshCapaListResources
+                boolean testable = true; boolean hide=false;
+                Resource capaRes = new Resource(cap.getName(),cap.getShortname(),testable,hide,cap.getId().replace("capacity_","resource_"),mC);
+                capaRes.setFromCapacity(cap);
+                listResources.add(capaRes);
+                mapIDRes.put(capaRes.getId(), capaRes);
+            }
+        }
+        //cas particulier une capa lié à une resource ...
+        Capacity defLeg = allCapacities.getCapacity("capacity_legendary_defense");
+        Resource defLegRes = new Resource(defLeg.getName(),defLeg.getShortname(),true,false,"resource_legendary_points",mC);
+        defLegRes.setFromCapacity(defLeg);
+        listResources.add(defLegRes);
+        mapIDRes.put(defLegRes.getId(), defLegRes);
     }
 
     public List<Resource> getResourcesListDisplay() {
@@ -158,8 +189,10 @@ public class AllResources {
         getResource("resource_mythic_points").setMax(3+2*readResource("mythic_tier"));
         getResource("resource_legendary_points").setMax(readResource("resource_legendary_points"));
 
-        if (settings.getBoolean("switch_feat_blinding_speed", mC.getResources().getBoolean(R.bool.switch_feat_blinding_speed_DEF))) {
-            getResource("resource_blinding_speed").setMax(5);
+        for(Resource resource : listResources){
+            if(resource.isFromCapacity()){
+                resource.refreshFromCapacity();
+            }
         }
     }
 
@@ -169,9 +202,32 @@ public class AllResources {
         }
     }
 
-    public void sleepReset() {
+    public void resetCurrent() {
         for (Resource res : listResources) {
             res.resetCurrent();
         }
+    }
+
+    public void reset() {
+        buildResourcesList();
+        refreshMaxs();
+        resetCurrent();
+    }
+
+    public void refresh() {
+        refreshMaxs();
+        loadCurrent();
+    }
+
+    public void refreshCapaListResources() {
+        List<Resource> tempListIterate = new ArrayList<>(listResources);
+
+        for(Resource res : tempListIterate){
+            if(res.isFromCapacity() && !allCapacities.capacityIsActive(res.getId().replace("resource_", "capacity_"))){  //si la capacité n'est plus active on remove la resource
+                listResources.remove(res);
+                mapIDRes.remove(res.getId(),res);
+            }
+        }
+        addCapacitiesResources();
     }
 }

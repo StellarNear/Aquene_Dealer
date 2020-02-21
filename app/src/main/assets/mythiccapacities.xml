@@ -48,8 +48,26 @@
         <name>Objet légendaire</name>
         <descr>Le personnage gagne un objet légendaire. Cet objet confère un nombre d’aptitudes égal au grade du personnage (3 au maximum).
 [Aptitude 1] Puissant +2 pouvoir légendaire
-[Aptitude 2] Défense légendaire : cout 1pt légendaire pour annuler un crit ou une attaque sournoise</descr>
+[Aptitude 2] Défense légendaire : cout 1pt légendaire pour annuler un crit ou une attaque sournoise
+[Aptitude 3] Indétectable : Cette aptitude permet à l’utilisateur lié d’être totalement indétectable lorsqu’il est invisible. Quand il est invisible et en contact physique avec l’objet, il ne peut être détectée ou scrutée en aucune manière.</descr>
         <id>mythiccapacity_legendaryitem</id>
         <type>Voie Universelle</type>
     </mythiccapacity>
+
+
+    <mythiccapacity>
+        <name>Rétablissement</name>
+        <descr>Le personnage récupère la totalité de ses points de vie après huit heures de repos. De plus, en dépensant une utilisation de pouvoir mythique et en se reposant une heure, il récupère un nombre de points de vie égal à la moitié de son montant maximum de points de vie (ce montant ne peut être dépassé) et régénère une utilisation de l’une de ses aptitudes de classe qui a un nombre d’utilisations quotidiennes limité (telle que la rage du barbare, les représentions bardiques, les sorts par jour, etc.). Ce repos compte comme une période de sommeil de huit heures et permet donc de récupérer ce type d’aptitudes. Il ne permet pas de récupérer des utilisations de pouvoir mythique ou d’aptitudes mythiques dont le nombre d’utilisations quotidiennes est limité.</descr>
+        <id>mythiccapacity_recover</id>
+        <type>Commun</type>
+    </mythiccapacity>
+
+
+    <mythiccapacity>
+        <name>Il y a toujours une chance</name>
+        <descr>Le personnage ne rate plus automatiquement lorsqu’il obtient un 1 aux jets d’attaque.</descr>
+        <type>Voie du Champion</type>
+        <id>mythiccapacity_still_a_chance</id>
+    </mythiccapacity>
+
 </records>

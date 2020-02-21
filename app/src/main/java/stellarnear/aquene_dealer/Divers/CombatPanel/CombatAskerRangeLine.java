@@ -55,7 +55,7 @@ public class CombatAskerRangeLine  {
         buttonTxt.setPadding(0, 0, 0, (int) mC.getResources().getDimension(R.dimen.margin_combat_asker));
 
         int atkRange = aquene.getAllAttacks().getAtkRange();
-        int ms = aquene.getAbilityScore(mC,"ability_ms");
+        int ms = aquene.getAbilityScore("ability_ms");
         if(aquene.featIsActive("feat_void_step")){
             atkRange+=ms;
         }

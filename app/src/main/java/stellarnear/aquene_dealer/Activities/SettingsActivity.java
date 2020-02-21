@@ -9,7 +9,7 @@ import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 
-import stellarnear.aquene_dealer.Divers.SettingsFragment;
+import stellarnear.aquene_dealer.Divers.SettingsFragments.SettingsFragment;
 import stellarnear.aquene_dealer.R;
 
 /**

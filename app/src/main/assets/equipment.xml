@@ -3,15 +3,17 @@
 
     <!-- SLOTS Equipped -->
     <equipment>
-        <name>Bandage d’Aldrassil</name>
-        <descr>+ 2 jet d’attaque,+1d8+2 dégats</descr>
-        <imgId>equipment_aldrassil</imgId>
+        <name>Cestes vampirique (+5)</name>
+        <descr>+5 jet d'attaque et dégats, soigne de 1d6 par attaque qui touche. Le soin est porté à 2d6 lors des critique (x2) et 3d6 (si x3)</descr>
+        <imgId>equipment_vampiric_cestus</imgId>
         <slotId>mainhand_slot</slotId>
         <equipped>true</equipped>
+        <value>3900000000 po</value>
     </equipment>
+
     <equipment>
-        <name>Amulette des poings invincibles (+5)</name>
-        <descr>+5 jet d’attaque et dégats</descr>
+        <name>Amulette des poings invincibles d'allonge de feu (+5)</name>
+        <descr>+5 jet d’attaque et dégats, portée 3m, 1d6 de feu</descr>
         <value>100000 po</value>
         <imgId>equipment_neck</imgId>
         <slotId>neck_slot</slotId>
@@ -27,9 +29,11 @@
     </equipment>
     <equipment>
         <name>Anneau Aaleilis (l’exaltée)</name>
-        <descr>Premier éveil: +5%xp , Posture faucon en permanence
+        <descr>Premier éveil: Posture faucon en permanence
 
-Deuxième éveil: Ascension mythique - 1er rang</descr>
+Deuxième éveil: Ascension mythique - 1er rang
+
+Troisièeme éveil: 20 confirmé en attaque génère un point de Ki, Soin d'un allié pour un point de Ki (1d20+Premier secours)</descr>
         <imgId>equipment_aaleilis</imgId>
         <slotId>ring1_slot</slotId>
         <equipped>true</equipped>
@@ -130,7 +134,13 @@ Deuxième éveil: Ascension mythique - 1er rang</descr>
 
     <!-- SPare -->
 
-
+    <equipment>
+        <name>Bandage d’Aldrassil</name>
+        <descr>+ 2 jet d’attaque,+1d8+2 dégats</descr>
+        <imgId>equipment_aldrassil</imgId>
+        <slotId>mainhand_slot</slotId>
+        <equipped>false</equipped>
+    </equipment>
     <equipment>
         <name>Anneau de l'ours</name>
         <descr>+2 force +2 CA</descr>

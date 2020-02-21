@@ -90,4 +90,8 @@ public class AllMythicFeats {
             feat.refreshSwitch();
         }
     }
+
+    public void reset() {
+        buildFeatsList();
+    }
 }

@@ -78,8 +78,7 @@ public class PrefSleepScreenFragment extends Preference {
         h.postDelayed(new Runnable() {
             @Override
             public void run() {
-                MainActivity.aquene.getAllResources().sleepReset();
-                aquene.resetTemp();
+                aquene.sleep();
                 new PostData(mC,new PostDataElement("Nuit de repos","Recharge des ressources journalières"));
                 tools.customToast(mC, "Une nouvelle journée pleine de mandales et d'acrobaties t'attends.", "center");
                 Intent intent = new Intent(mC, MainActivity.class);

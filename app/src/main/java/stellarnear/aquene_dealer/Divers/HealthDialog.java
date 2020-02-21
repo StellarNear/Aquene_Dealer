@@ -63,11 +63,11 @@ public class HealthDialog {
             }
         });
         Button regen = dialogView.findViewById(R.id.button_healthDialog_regen);
-        regen.setText("régén (+"+aquene.getResourceValue(mC,"resource_regen")+")" );
+        regen.setText("régén (+"+aquene.getCurrentResourceValue("resource_regen")+")" );
         regen.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int regen=aquene.getResourceValue(mC,"resource_regen");
+                int regen=aquene.getCurrentResourceValue("resource_regen");
                 aquene.getAllResources().getResource("resource_hp").earn(regen);
                 animateText(regen);
                 setHealthWidth();
@@ -147,14 +147,14 @@ public class HealthDialog {
                     refreshHpPanel();
                 }
                 if(mode.equalsIgnoreCase("dmg")){
-                    if(aquene.getResourceValue(mC,"resource_mythic_points")>0){
+                    if(aquene.getCurrentResourceValue("resource_mythic_points")>0){
                         final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mC);
                         final int valReduc = 5*tools.toInt(settings.getString("mythic_tier", String.valueOf(mC.getResources().getInteger(R.integer.mythic_tier_def))));
                         new android.app.AlertDialog.Builder(mA)
                                 .setIcon(R.drawable.ic_warning_black_24dp)
                                 .setTitle("Absoprtion des coups")
                                 .setMessage("Veux-tu utiliser un point mythique pour réduire ces dégats de "+valReduc+" ?"
-                                +"\n\nRessources :\nPoint(s) mythique restant(s) : "+aquene.getResourceValue(mC,"resource_mythic_points"))
+                                +"\n\nRessources :\nPoint(s) mythique restant(s) : "+aquene.getCurrentResourceValue("resource_mythic_points"))
                                 .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
@@ -260,16 +260,16 @@ public class HealthDialog {
     private void setHealthWidth() {
         TextView textLife = dialogView.findViewById(R.id.healthDialogHealth);
         TextView textLifeTitle = dialogView.findViewById(R.id.healthDialogHealthTitle);
-        //Double percent = 100.0*aquene.getResourceValue("resource_hp")/aquene.getAllResources().getResource("resource_hp").getMax();
+        //Double percent = 100.0*aquene.getCurrentResourceValue("resource_hp")/aquene.getAllResources().getResource("resource_hp").getMax();
         String txt;
         String txtTitle;
         int shield = aquene.getAllResources().getResource("resource_hp").getShield();
         if(shield>0){
-            txt=aquene.getResourceValue(mC,"resource_hp")+"/"+aquene.getAllResources().getResource("resource_hp").getMax();
+            txt=aquene.getCurrentResourceValue("resource_hp")+"/"+aquene.getAllResources().getResource("resource_hp").getMax();
             txt+= " ("+shield+")";
             txtTitle="Vie restante (points de vie temporaires) :";
         } else {
-            txt=aquene.getResourceValue(mC,"resource_hp")+"/"+aquene.getAllResources().getResource("resource_hp").getMax();
+            txt=aquene.getCurrentResourceValue("resource_hp")+"/"+aquene.getAllResources().getResource("resource_hp").getMax();
             txtTitle="Vie restante :";
         }
         textLife.setText(txt);
@@ -284,7 +284,7 @@ public class HealthDialog {
                 int oriWidth=imgHealthBase.getMeasuredWidth();
                 int oriHeight=imgHealthBase.getMeasuredHeight();
                 int height=(int) (oriHeight*0.355); //c'est le rapport entre le haut gargouille et la barre
-                Double coef = (double) aquene.getResourceValue(mC,"resource_hp")/aquene.getAllResources().getResource("resource_hp").getMax();
+                Double coef = (double) aquene.getCurrentResourceValue("resource_hp")/aquene.getAllResources().getResource("resource_hp").getMax();
                 if(coef<0d){coef=0d;} //pour les hp negatif
                 if(coef>1d){coef=1d;}
                 para.width=(int) (coef*oriWidth);

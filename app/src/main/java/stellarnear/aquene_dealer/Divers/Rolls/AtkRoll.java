@@ -28,8 +28,6 @@ public class AtkRoll {
     private Activity mA;
 
     private Boolean manualDice;
-    private Boolean amulette;
-    private Boolean aldrassil;
     private Boolean fromCharge=false;
     private SharedPreferences settings;
     private Perso aquene = MainActivity.aquene;
@@ -45,8 +43,6 @@ public class AtkRoll {
 
         settings = PreferenceManager.getDefaultSharedPreferences(mC);
         manualDice = settings.getBoolean("switch_manual_diceroll", mC.getResources().getBoolean(R.bool.switch_manual_diceroll_DEF));
-        aldrassil = settings.getBoolean("switch_aldrassil", mC.getResources().getBoolean(R.bool.switch_aldrassil_DEF));
-        amulette = settings.getBoolean("switch_amulette", mC.getResources().getBoolean(R.bool.switch_amulette_DEF));
         this.preRandValue = base + getBonusAtk();
 
         constructCheckboxes();
@@ -69,7 +65,6 @@ public class AtkRoll {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 critConfirmed = false;
                 if (isChecked) {
-                    calculAtk();
                     CritConfirmAlertDialog contactDialog = new CritConfirmAlertDialog(mA,mC,preRandValue);
                     contactDialog.showAlertDialog();
                     contactDialog.setSuccessEventListener(new CritConfirmAlertDialog.OnSuccessEventListener() {
@@ -77,6 +72,10 @@ public class AtkRoll {
                         public void onSuccessEvent() {
                             hitCheckbox.setChecked(true);
                             critConfirmed = true;
+                            if(atkDice.getRandValue()==20){
+                                aquene.getAllResources().getResource("resource_ki").earn(1);
+                                tools.customToast(mC,"Grace à Aaleilis tu gagnes un point de Ki !","center");
+                            }
                         }
                     });
                     contactDialog.setFailEventListener(new CritConfirmAlertDialog.OnFailEventListener() {
@@ -94,17 +93,17 @@ public class AtkRoll {
     private int getBonusAtk() {
         int bonusAtk = 0;
         bonusAtk += tools.toInt(settings.getString("bonus_temp_jet_att", String.valueOf(mC.getResources().getInteger(R.integer.bonus_temp_jet_att_DEF))));
-        if (aquene.getAllStances().isActive("stance_rat") && (aquene.getAbilityMod(mC,"ability_dexterite") > aquene.getAbilityMod(mC,"ability_force")) ) {
-            bonusAtk += aquene.getAbilityMod(mC,"ability_dexterite");
-        } else if (aquene.getAllStances().isActive("stance_dragon") && (aquene.getAbilityMod(mC,"ability_sagesse") > aquene.getAbilityMod(mC,"ability_force")) ) {
-            bonusAtk += aquene.getAbilityMod(mC,"ability_sagesse");
+        if (aquene.getAllStances().isActive("stance_rat") && (aquene.getAbilityMod("ability_dexterite") > aquene.getAbilityMod("ability_force")) ) {
+            bonusAtk += aquene.getAbilityMod("ability_dexterite");
+        } else if (aquene.getAllStances().isActive("stance_dragon") && (aquene.getAbilityMod("ability_sagesse") > aquene.getAbilityMod("ability_force")) ) {
+            bonusAtk += aquene.getAbilityMod("ability_sagesse");
         } else {
-            bonusAtk += aquene.getAbilityMod(mC,"ability_force");
+            bonusAtk += aquene.getAbilityMod("ability_force");
         }
-        if (aldrassil) {
-            bonusAtk += 2;
+        if (aquene.getInventory().getAllEquipments().testIfNameItemIsEquipped("Amulette des poings invincibles d'allonge de feu (+5)")) {
+            bonusAtk += 5;
         }
-        if (amulette) {
+        if (aquene.getInventory().getAllEquipments().testIfNameItemIsEquipped("Cestes vampirique (+5)")) {
             bonusAtk += 5;
         }
         if ( settings.getBoolean("switch_temp_rapid",mC.getResources().getBoolean(R.bool.switch_temp_rapid_DEF))|| settings.getBoolean("switch_blinding_speed",mC.getResources().getBoolean(R.bool.switch_blinding_speed_DEF))) {
@@ -143,7 +142,7 @@ public class AtkRoll {
 
     private void calculAtk() {
         this.atk = this.preRandValue + atkDice.getRandValue();
-        if (atkDice.getRandValue() == 1) {
+        if (atkDice.getRandValue() == 1 && !aquene.getAllMythicCapacities().mythicCapacityIsActive("mythiccapacity_still_a_chance")) {
             this.fail = true;
         }
         int critSup = (aquene.featIsActive("feat_crit_sup")) ? 1 : 0;

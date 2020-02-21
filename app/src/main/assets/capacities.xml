@@ -1,161 +1,182 @@
 <?xml version="1.0"?>
 <records>
 
-    <power>
+    <capacity>
         <name>Déluge de coup</name>
         <descr>Le moine peut remplacer une des attaques à mains nues d’un déluge de coups par une manœuvre offensive de désarmement, de destruction ou de croc-en-jambe.</descr>
-        <level>1</level>
-        <id>attack_flurry</id>
-    </power>
+        <id>capacity_attack_flurry</id>
+    </capacity>
 
-    <power>
+    <capacity>
         <name>Coup étourdissant</name>
         <descr>Coup étourdissant oblige tout adversaire frappé par l’attaque à mains nues du personnage à faire un jet de Vigueur. S'il rate ce jet de sauvegarde, le moine choisit un état préjudiciable à lui appliquer : Étourdi, Fatigué, Fiévreux (1min), Chancelante (1d6+1 rounds), Aveuglé/Sourde (permanent), Paralyser (1d6+1 rounds).</descr>
-        <save>true</save>
-        <id>attack_stun</id>
-        <level>1</level>
-    </power>
+        <id>capacity_attack_stun</id>
+    </capacity>
 
-    <power>
+    <capacity>
         <name>Combat à mains nues</name>
         <descr>Les attaques du moine peuvent venir de ses poings, mais aussi de ses pieds, de ses coudes ou de ses genoux. De plus, la notion d’attaque secondaire n’a pas de sens quand il se bat à mains nues. Un moine bénéficie donc toujours de son bonus de Force entier sur les jets de dégâts à mains nues. En règle générale, les attaques à mains nues du moine infligent des dégâts létaux, mais le moine peut choisir d’infliger des dégâts non létaux sans devoir subir un malus au jet d’attaque.</descr>
-        <level>1</level>
-        <id>power_handfight</id>
-    </power>
+        <id>capacity_handfight</id>
+    </capacity>
 
-    <power>
-        <name>Esquive totale</name>
-        <descr>Le moine peut esquiver de nombreuses attaques de zone. S’il réussit son jet de Réflexes contre une attaque dont les dégâts sont normalement réduits de moitié, il ne subit pas le moindre dégât.</descr>
-        <id>feat_total_evade</id>
-        <level>2</level>
-    </power>
-
-    <power>
+    <capacity>
         <name>Déplacement accéléré</name>
         <descr>Un moine obtient un bonus d’altération à sa vitesse de déplacement au sol, comme indiqué dans la Table "Le Moine". Il perd ce bonus s’il porte une armure ou une charge intermédiaire ou lourde.</descr>
-        <level>3</level>
-        <id>power_ms</id>
-    </power>
+        <id>capacity_ms</id>
+    </capacity>
 
-    <power>
+    <capacity>
         <name>Entraînement aux manœuvres offensives</name>
         <descr>Le moine utilise son niveau de moine au lieu de son bonus de base à l’attaque lorsqu’il calcule son bonus de manœuvre offensive. Les bonus de base à l’attaque provenant d’autres classes ne sont pas modifiés et se cumulent normalement.</descr>
-        <level>3</level>
-        <id>power_bmo</id>
-    </power>
+        <id>capacity_bmo</id>
+    </capacity>
 
-    <power>
+    <capacity>
         <name>Sérénité</name>
         <descr>Le moine bénéficie d’un bonus de +2 aux jets de sauvegarde contre les sorts et effets de type enchantement.</descr>
-        <level>3</level>
-        <id>power_serenity</id>
-    </power>
-    <power>
+        <id>capacity_serenity</id>
+    </capacity>
+    <capacity>
         <name>Réserve de ki</name>
         <descr>Le moine dispose d’une réserve de points ki. Cette réserve contient un nombre de points égal à la moitié du niveau du moine + son modificateur de Sagesse. Au niveau 4, les attaques sont considérées comme des armes magiques pour ce qui est d’ignorer la réduction de dégâts des créatures. Au niveau 7 comme des armes en fer froid et en argent, au niveau 10 comme des armes Loyales , au niveau 16 comme des armes en adamantium. Le moine peut utiliser ses points de ki de diverses manières (cf Capacités de Ki). La réserve de ki du moine se renouvelle chaque matin après huit heures de repos ou de méditation (qui ne doivent pas forcément être consécutives).</descr>
-        <level>4</level>
-        <id>resource_ki</id>
-    </power>
+        <id>capacity_resource_ki</id>
+    </capacity>
 
-    <power>
+    <capacity>
         <name>Chute ralentie</name>
         <descr>Lorsque le moine se trouve assez près d’une paroi pour pouvoir la toucher, il peut l’utiliser pour freiner sa chute. Au début, cette aptitude permet de réduire les dégâts résultant de la chute en considérant que celle-ci s’effectuait sur une hauteur de 6 m de moins que sa hauteur réelle. La capacité du moine à ralentir sa chute (c’est-à-dire à en réduire les dégâts en ignorant une partie de la distance parcourue) s’améliore lorsque son niveau augmente et, finalement, au niveau 20, le moine ne subit plus aucun dégât en cas de chute à proximité d’une paroi.</descr>
-        <level>4</level>
-        <id>power_slowfall</id>
-    </power>
+        <id>capacity_slowfall</id>
+    </capacity>
 
 
-    <power>
+    <capacity>
         <name>Sauts puissants</name>
         <descr>Le moine ajoute son niveau à tous les tests d’Acrobaties relatifs à des sauts (verticaux ou horizontaux). De plus, on considère qu’il dispose toujours d’un élan (même si ce n’est pas le cas en pratique). En dépensant 1 point de sa réserve de ki (ce qui nécessite une action rapide) le moine gagne pendant 1 round un bonus de +20 à tous les tests d’Acrobaties relatifs à des sauts.</descr>
-        <level>5</level>
-        <id>kicapacity_acrob</id>
-    </power>
+        <id>capacity_acrob</id>
+    </capacity>
 
 
-    <power>
+    <capacity>
         <name>Pureté physique</name>
         <descr>Le moine développe une immunité à toutes les maladies, même celles qui sont d’origine surnaturelle ou magique.</descr>
-        <level>5</level>
-        <id>power_immun_disease</id>
-    </power>
+        <id>capacity_immun_disease</id>
+    </capacity>
 
 
-    <power>
+    <capacity>
         <name>Plénitude physique</name>
         <descr>Le moine est capable de se soigner par une action simple. Il peut récupérer un nombre de points de vie égal à son niveau de moine en utilisant 2 points de sa réserve de ki.</descr>
-        <level>7</level>
-        <id>kicapacity_heal</id>
-    </power>
+        <id>capacity_heal</id>
+    </capacity>
 
-    <power>
-        <name>Esquive surnaturelle</name>
-        <descr>L'’esquive totale du moine s’améliore. Face aux attaques permettant un jet de Réflexes pour réduire les dégâts de moitié, il continue à ne subir aucun dégât en cas de jet de sauvegarde réussi mais, en plus, il ne subit que la moitié des dégâts en cas d’échec du jet de sauvegarde. Le moine ne bénéficie pas de cette capacité s’il est sans défense.</descr>
-        <level>9</level>
-        <id>feat_inhuman_evade</id>
-    </power>
 
-    <power>
+    <capacity>
         <name>Corps de diamant</name>
         <descr>Le moine développe une immunité à tous les types de poisons.</descr>
-        <level>11</level>
-        <id>power_immun_poison</id>
-    </power>
+        <id>capacity_immun_poison</id>
+    </capacity>
 
-    <power>
+    <capacity>
         <name>Pas chassé</name>
         <descr>Le moine peut se déplacer instantanément d’un endroit à un autre comme à l’aide du sort porte dimensionnelle. Chaque utilisation de cette capacité nécessite une action de mouvement et coûte 2 points de ki. Le niveau de lanceur de sorts du moine pour cet effet est égal à son niveau de moine. Seul le moine peut se déplacer ainsi : il ne peut amener personne avec lui.</descr>
-        <level>12</level>
-        <id>kicapacity_step</id>
-    </power>
+        <id>capacity__step</id>
+    </capacity>
 
-    <power>
+    <capacity>
         <name>Âme de diamant</name>
         <descr>Le moine acquiert une résistance à la magie égale à son niveau de moine actuel + 10. Pour pouvoir l’affecter à l’aide d’un sort, son adversaire doit effectuer un test de niveau de lanceur de sorts (1d20 + son niveau de lanceur de sorts) et obtenir un résultat égal ou supérieur à la RM du moine.</descr>
-        <level>13</level>
-        <id>ability_rm</id>
-    </power>
+        <id>capacity_ability_rm</id>
+    </capacity>
 
-    <power>
+    <capacity>
         <name>Paume vibratoire</name>
         <descr>Le moine peut transmettre des vibrations dangereuses à sa cible, qui peuvent devenir fatales quand il le désire. Le personnage peut se servir de la paume vibratoire une fois par jour. Les créatures immunisées aux coups critiques ne sont pas affectées par ce pouvoir. Si le coup porte et si l’adversaire est blessé, les vibrations sont transmises avec succès. À partir de ce moment, le moine peut décider de la tuer à tout instant (les vibrations persistent pendant un jour par niveau du moine). Dès qu’il prend cette décision (ce qui lui demande une action libre), la cible doit effectuer un jet de Vigueur (DD 10 + la moitié du niveau du moine + le modificateur de Sagesse du moine). En cas d’échec, elle meurt.</descr>
-        <level>15</level>
-        <id>attack_palm</id>
-    </power>
+        <id>capacity_attack_palm</id>
+    </capacity>
 
-    <power>
+    <capacity>
         <name>Éternelle jeunesse</name>
         <descr>Les affaiblissements de caractéristiques dus au vieillissement n’affectent plus le moine, pas plus que les attaques provoquant un vieillissement accéléré. Les affaiblissements qu’il aurait pu subir avant d’atteindre ce niveau ne sont pas annulés pour autant. Le moine continue de vieillir et bénéficie des bonus qui en découlent. Il meurt toujours de vieillesse lorsque son heure est venue.</descr>
-        <level>17</level>
-        <id>power_young</id>
-    </power>
+        <id>capacity_young</id>
+    </capacity>
 
-    <power>
+    <capacity>
         <name>Langues du soleil et de la lune</name>
         <descr>Le moine peut communiquer avec toutes les créatures vivantes.</descr>
-        <level>17</level>
-        <id>power_sun_and_moon</id>
-    </power>
+        <id>capacity_sun_and_moon</id>
+    </capacity>
 
-    <power>
+    <capacity>
         <name>Désertion de l’âme</name>
         <descr>Le personnage peut devenir éthéré pendant une minute comme s’il utilisait le sort passage dans l’éther. Cette capacité s’active par une action de mouvement et coûte 3 points de ki. Seul le moine est affecté : il ne peut pas utiliser désertion de l’âme pour appliquer le même effet à d’autres créatures.</descr>
-        <level>19</level>
-        <id>kicapacity_ethereal</id>
-    </power>
+        <id>capacity_ethereal</id>
+    </capacity>
 
-    <power>
+    <capacity>
         <name>Perfection de l’être</name>
         <descr>Le moine devient une entité magique. À partir de cet instant, il n’est plus considéré comme un humanoïde mais comme un Extérieur pour ce qui est des sorts et des effets magiques. De plus, le moine acquiert une réduction de dégâts de 10/chaotique, ce qui signifie qu’il ignore les 10 premiers points de dégâts infligés par chaque attaque portée avec une arme non-chaotique ou avec une arme naturelle d’une créature qui ne dispose pas d’une réduction de dégâts similaire. Contrairement aux autres Extérieurs, le moine peut être ramené à la vie, comme si son type de créature n’avait pas changé.</descr>
-        <level>20</level>
-        <id>power_perfection</id>
-    </power>
+        <id>capacity_perfection</id>
+    </capacity>
 
-    <power>
-        <name>Clairvoyance épique</name>
-        <descr>Tant qu'un moine épique a encore un point de Ki dans sa réserve, il gagne a un pouvoir surnaturel. [Pouvoir choisi au niveau 21] Bonus de +8 à tout les tests des compétences suivants : Acrobaties, Discretion, Equitation, Escalade, Escamotage, Evasion, Natation, Perception, Premiers secours, Psychologie, Survie, Vol. [Pouvoir choisi au niveau 23] +2 Reduction/Chaos. [Pouvoir choisi au niveau 25] +4 jet de BMO.</descr>
-        <level>21</level>
-        <id>power_insight_skill</id>
-    </power>
+    <capacity>
+        <name>Clairvoyance épique 21</name>
+        <descr>Tant qu'un moine épique a encore un point de Ki dans sa réserve, il gagne a un pouvoir surnaturel. [Pouvoir choisi au niveau 21] Bonus de +8 à tout les tests des compétences suivants : Acrobaties, Discretion, Equitation, Escalade, Escamotage, Evasion, Natation, Perception, Premiers secours, Psychologie, Survie, Vol.</descr>
+        <id>capacity_insight_skill</id>
+    </capacity>
+
+    <capacity>
+        <name>Clairvoyance épique 23</name>
+        <descr>Tant qu'un moine épique a encore un point de Ki dans sa réserve, il gagne a un pouvoir surnaturel. [Pouvoir choisi au niveau 23] +2 Reduction/Chaos.</descr>
+        <id>capacity_insight_rd</id>
+    </capacity>
+
+    <capacity>
+        <name>Défense légendaire</name>
+        <shortname>Def. Leg.</shortname>
+        <descr>Quand une créature qui porte un objet ayant cette aptitude est victime d’un coup critique ou d’une attaque sournoise, elle peut dépenser une utilisation de pouvoir légendaire pour annuler le coup critique ou l’attaque sournoise et recevoir seulement les dégâts normaux. Cette aptitude n’est accessible qu’aux armures, aux boucliers et aux objets que l’on porte sur soi.</descr>
+        <id>capacity_legendary_defense</id>
+    </capacity>
+
+    <capacity>
+        <name>Vitesse aveuglante</name>
+        <shortname>Vitesse</shortname>
+        <type>Don</type>
+        <descr>[Vient du don]Le personnage peut agir comme si il avait le sort "rapidité" activé 5 rounds par jour. Il peut activer les rounds indépendamment. Activer ce pouvoir est une action libre.</descr>
+        <id>capacity_blinding_speed</id>
+        <dailyuse>5</dailyuse>
+    </capacity>
+
+
+    <capacity>
+        <name>Clairvoyance épique 25</name>
+        <descr>Tant qu'un moine épique a encore un point de Ki dans sa réserve, il gagne a un pouvoir surnaturel. [Pouvoir choisi au niveau 25] +4 jet de BMO.</descr>
+        <id>capacity_insight_bmo</id>
+    </capacity>
+
+    <capacity>
+        <name>Pas du vide</name>
+        <type>Don</type>
+        <descr>[Vient du don]Une fois par round le personnage peut se deplacer de la vitesse de déplacement en tant qu'action rapide. Ce mouvement ne provoque aucune attaque d'opportunité.</descr>
+        <id>capacity_void_step</id>
+        <dailyuse>infinite</dailyuse>
+        <value>ms</value>
+    </capacity>
+
+    <capacity>
+        <name>Clairvoyance épique 27</name>
+        <descr>Tant qu'un moine épique a encore un point de Ki dans sa réserve, il gagne a un pouvoir surnaturel. [Pouvoir choisi au niveau 27] +4 jet de BMO.</descr>
+        <id>capacity_insight_bmo2</id>
+    </capacity>
+
+
+    <capacity>
+        <name>Parade exceptionnelle</name>
+        <shortname>Parade</shortname>
+        <type>Don</type>
+        <descr>[Vient du don]Une fois par round, peut dévier n'importe quelle attaque à distance vous ciblant. Flêches, balles, projectiles de siège et meme les sorts avec une composante de touché.</descr>
+        <id>capacity_epic_deflect</id>
+        <dailyuse>infinite</dailyuse>
+    </capacity>
+
 
 </records>

@@ -1,6 +1,5 @@
 package stellarnear.aquene_dealer.Perso;
 
-
 import android.content.Context;
 
 import org.w3c.dom.Document;
@@ -17,22 +16,29 @@ import java.util.Map;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import stellarnear.aquene_dealer.Divers.Tools;
+
 /**
  * Created by jchatron on 26/12/2017.
  */
-public class AllFeats {
+
+public class AllCapacities {
     private Context mC;
-    private List<Feat> allFeatsList = new ArrayList<>();
-    private Map<String,Feat> mapIdFeat=new HashMap<>();
-    public AllFeats(Context mC)
+    private List<Capacity> allCapacities = new ArrayList<>();
+    private Map<String,Capacity> mapIdcapacity =new HashMap<>();
+    private Tools tools=new Tools();
+
+    public AllCapacities(Context mC)
     {
         this.mC = mC;
-        buildFeatsList();
+        buildCapacitiesList();
     }
 
-    private void buildFeatsList() {
+    private void buildCapacitiesList() {
+        allCapacities = new ArrayList<>();
+        mapIdcapacity =new HashMap<>();
         try {
-            InputStream is = mC.getAssets().open("feats.xml");
+            InputStream is = mC.getAssets().open("capacities.xml");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(is);
@@ -40,21 +46,24 @@ public class AllFeats {
             Element element = doc.getDocumentElement();
             element.normalize();
 
-            NodeList nList = doc.getElementsByTagName("feat");
+            NodeList nList = doc.getElementsByTagName("capacity");
 
             for (int i = 0; i < nList.getLength(); i++) {
 
                 Node node = nList.item(i);
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
                     Element element2 = (Element) node;
-                    Feat feat=new Feat(
+                    Capacity capacity=new Capacity(
                             readValue("name", element2),
+                            readValue("shortname", element2),
                             readValue("type", element2),
                             readValue("descr", element2),
                             readValue("id", element2),
+                            readValue("dailyuse", element2),
+                            readValue("value", element2),
                             mC);
-                    allFeatsList.add(feat);
-                    mapIdFeat.put(feat.getId(),feat);
+                    allCapacities.add(capacity);
+                    mapIdcapacity.put(capacity.getId(),capacity);
                 }
             }
             is.close();
@@ -63,16 +72,16 @@ public class AllFeats {
         }
     }
 
-    public List<Feat> getFeatsList(){
-        return allFeatsList;
+    public List<Capacity> getAllCapacitiesList(){
+        return allCapacities;
     }
 
-    public Feat getFeat(String featId) {
-        Feat selectedFeat;
+    public Capacity getcapacity(String capacitytId) {
+        Capacity selectedCapacity;
         try {
-            selectedFeat=mapIdFeat.get(featId);
-        } catch (Exception e){  selectedFeat=null;  }
-        return selectedFeat;
+            selectedCapacity= mapIdcapacity.get(capacitytId);
+        } catch (Exception e){  selectedCapacity=null;  }
+        return selectedCapacity;
     }
 
     public String readValue(String tag, Element element) {
@@ -85,13 +94,25 @@ public class AllFeats {
         }
     }
 
-    public void refreshAllSwitch() {
-        for (Feat feat : allFeatsList){
-            feat.refreshSwitch();
-        }
+    public Capacity getCapacity(String id) {
+        Capacity selectedCapa;
+        try {
+            selectedCapa= mapIdcapacity.get(id);
+        } catch (Exception e){  selectedCapa=null;  }
+        return selectedCapa;
     }
 
     public void reset() {
-        buildFeatsList();
+        buildCapacitiesList();
+    }
+
+    public boolean capacityIsActive(String id) {
+        boolean val=false;
+        try {
+            val= getCapacity(id).isActive();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return val;
     }
 }

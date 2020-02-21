@@ -37,11 +37,10 @@ import java.util.List;
 import java.util.Map;
 
 import stellarnear.aquene_dealer.Divers.AllGeneralHelpInfos;
-import stellarnear.aquene_dealer.Divers.AllMonkPowersInfos;
 import stellarnear.aquene_dealer.Divers.GeneralHelpInfo;
-import stellarnear.aquene_dealer.Divers.MonkPowerInfo;
 import stellarnear.aquene_dealer.Perso.Ability;
 import stellarnear.aquene_dealer.Perso.Attack;
+import stellarnear.aquene_dealer.Perso.Capacity;
 import stellarnear.aquene_dealer.Perso.Feat;
 import stellarnear.aquene_dealer.Perso.KiCapacity;
 import stellarnear.aquene_dealer.Perso.MythicCapacity;
@@ -107,7 +106,7 @@ public class HelpActivity extends AppCompatActivity {
     }
 
     private void buildCategories() {
-        List<String> categories = Arrays.asList("Général","Caractéristiques","Compétences","Pouvoirs de Moine","Capacités de Ki","Postures","Attaques","Dons","Dons Mythiques","Pouvoirs Mythiques");
+        List<String> categories = Arrays.asList("Général","Caractéristiques","Compétences","Capacités","Capacités de Ki","Postures","Attaques","Dons","Dons Mythiques","Capacités Mythiques");
         LinearLayout buttons = findViewById(R.id.help_activity_button_linear);
         buttons.removeAllViews();
         LinearLayout line1Buttons = new LinearLayout(mC);
@@ -205,11 +204,11 @@ public class HelpActivity extends AppCompatActivity {
                 flipper.addView(view);
             }
         }
-        if(mapButtonCat.get(button).equalsIgnoreCase("Pouvoirs de Moine")){
-            List<MonkPowerInfo> listPowers = new AllMonkPowersInfos(mC).getListMonkPowersInfos();
-            for (MonkPowerInfo power : listPowers){
+        if(mapButtonCat.get(button).equalsIgnoreCase("Capacités")){
+            List<Capacity> listCapas = aquene.getAllCapacities().getAllCapacitiesList();
+            for (Capacity capacity : listCapas){
                 View view = getLayoutInflater().inflate(R.layout.custom_help_info_flipper,vg,false);
-                changeFields(view,power.getId(),power.getName(),"Niveau : "+power.getLevel(),power.getDescr());
+                changeFields(view,capacity.getId(),capacity.getName(),"",capacity.getDescr());
                 flipper.addView(view);
             }
         }
@@ -249,7 +248,7 @@ public class HelpActivity extends AppCompatActivity {
                 flipper.addView(view);
             }
         }
-        if(mapButtonCat.get(button).equalsIgnoreCase("Pouvoirs Mythiques")){
+        if(mapButtonCat.get(button).equalsIgnoreCase("Capacités Mythiques")){
             for (MythicCapacity mythicCapacity : aquene.getAllMythicCapacities().getAllMythicCapacitiesList()){
                 View view = getLayoutInflater().inflate(R.layout.custom_help_info_flipper,vg,false);
                 changeFields(view,mythicCapacity.getId(),mythicCapacity.getName(),"Catégorie : "+mythicCapacity.getType(),mythicCapacity.getDescr());

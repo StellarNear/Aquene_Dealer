@@ -155,6 +155,16 @@ public class AllEquipments {
         return equiFind;
     }
 
+    public boolean testIfNameItemIsEquipped(String nameItem) {
+        boolean val=false;
+        for(Equipment equi:getListAllEquipmentsEquiped()){
+            if(equi.getName().equalsIgnoreCase(nameItem)){
+                val=true;
+            }
+        }
+        return val;
+    }
+
     public void equip(Equipment equiToPut) {
         for (Equipment equi: getSlotListEquipment(equiToPut.getSlotId())){
             if(equi!=equiToPut){
@@ -315,6 +325,11 @@ public class AllEquipments {
 
     public void remove(Equipment equi) {
         listEquipments.remove(equi);
+        saveLocalAllEquipments();
+    }
+
+    public void reset() {
+        buildList();
         saveLocalAllEquipments();
     }
 

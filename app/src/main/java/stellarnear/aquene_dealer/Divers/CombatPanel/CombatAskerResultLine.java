@@ -50,7 +50,7 @@ public class CombatAskerResultLine {
         String resultTxt = "";
 
         possibleAttacks = new ArrayList<>();
-        int ms = aquene.getAbilityScore(mC, "ability_ms");
+        int ms = aquene.getAbilityScore( "ability_ms");
         if(aquene.featIsActive("feat_void_step")){
             resultTxt+="Pas du vide et ";
         }

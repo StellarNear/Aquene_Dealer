@@ -43,7 +43,7 @@
         <name>Vitesse aveuglante</name>
         <type>feat_active</type>
         <descr>Le personnage peut agir comme si il avait le sort "rapidité" activé 5 rounds par jour. Il peut activer les rounds indépendamment. Activer ce pouvoir est une action libre.</descr>
-        <id>feat_ki_armor</id>
+        <id>featblinding_speed</id>
     </feat>
 
 

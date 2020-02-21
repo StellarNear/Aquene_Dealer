@@ -14,8 +14,6 @@ public class DmgRoll {
 
     private Context mC;
     private Boolean manualDiceDmg;
-    private Boolean amulette;
-    private Boolean aldrassil;
     private SharedPreferences settings;
     private OnRefreshEventListener mListener;
     private Perso aquene = MainActivity.aquene;
@@ -36,12 +34,7 @@ public class DmgRoll {
             critMultiplier += 1;
         }
         manualDiceDmg = settings.getBoolean("switch_manual_diceroll_damage", mC.getResources().getBoolean(R.bool.switch_manual_diceroll_damage_DEF));
-        aldrassil = settings.getBoolean("switch_aldrassil", mC.getResources().getBoolean(R.bool.switch_aldrassil_DEF));
-        if (aldrassil) {
-            allDiceList.add(new Dice(mA,mC, 8));
-        }
-        amulette = settings.getBoolean("switch_amulette", mC.getResources().getBoolean(R.bool.switch_amulette_DEF));
-        if (amulette) {
+        if (aquene.getInventory().getAllEquipments().testIfNameItemIsEquipped("Amulette des poings invincibles d'allonge de feu (+5)")) {
             allDiceList.add(new Dice(mA,mC, 6,"fire"));
         }
         int nHandDices = tools.toInt(settings.getString("number_main_dice_dmg", String.valueOf(mC.getResources().getInteger(R.integer.number_main_dice_dmg_DEF))));
@@ -76,14 +69,14 @@ public class DmgRoll {
         calcBonusDmg += tools.toInt(settings.getString("attack_dmg_epic", String.valueOf(mC.getResources().getInteger(R.integer.attack_dmg_epic_DEF))));
 
         if (aquene.getAllStances().isActive("stance_lion")) {
-            calcBonusDmg += (int) (1.5 * aquene.getAbilityMod(mC, "ability_force"));
+            calcBonusDmg += (int) (1.5 * aquene.getAbilityMod( "ability_force"));
         } else {
-            calcBonusDmg += aquene.getAbilityMod(mC, "ability_force");
+            calcBonusDmg += aquene.getAbilityMod( "ability_force");
         }
-        if (aldrassil) {
-            calcBonusDmg += 2;
+        if (aquene.getInventory().getAllEquipments().testIfNameItemIsEquipped("Cestes vampirique (+5)")) {
+            calcBonusDmg += 5;
         }
-        if (amulette) {
+        if (aquene.getInventory().getAllEquipments().testIfNameItemIsEquipped("Amulette des poings invincibles d'allonge de feu (+5)")) {
             calcBonusDmg += 5;
         }
         return calcBonusDmg;

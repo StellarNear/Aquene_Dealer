@@ -55,4 +55,9 @@ public class HallOfFame {
     public void refreshSave() {
         saveLocalHallOfFame();
     }
+
+    public void reset() {
+        this.hallOfFameList= new ArrayList<>();
+        saveLocalHallOfFame();
+    }
 }

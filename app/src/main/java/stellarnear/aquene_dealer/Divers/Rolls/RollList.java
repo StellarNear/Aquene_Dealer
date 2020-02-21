@@ -82,4 +82,21 @@ public class RollList {
         }
         return diceList;
     }
+
+    public int getHitsConfirmedCount() {
+        int sum=0;
+        for (Roll roll : this.rollList){
+            if(roll.isHitConfirmed()){sum++;}
+        }
+        return sum;
+    }
+
+
+    public int getCritsConfirmedCount() {
+        int sum=0;
+        for (Roll roll : this.rollList){
+            if(roll.isCritConfirmed()){sum++;}
+        }
+        return sum;
+    }
 }

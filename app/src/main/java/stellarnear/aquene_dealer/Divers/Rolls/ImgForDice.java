@@ -80,9 +80,9 @@ public class ImgForDice {
                             }
                         });
 
-                String message="Ressources :\n\nPoint(s) mythique restant(s) : "+aquene.getResourceValue(mC,"resource_mythic_points");
+                String message="Ressources :\n\nPoint(s) mythique restant(s) : "+aquene.getCurrentResourceValue("resource_mythic_points");
                 if(dice.hasLegendarySurge()){
-                    message+="\n" +  "Point(s) légendaire restant(s) : "+aquene.getResourceValue(mC,"resource_legendary_points");
+                    message+="\n" +  "Point(s) légendaire restant(s) : "+aquene.getCurrentResourceValue("resource_legendary_points");
                     alertBuild.setNegativeButton("Legendaire", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -99,9 +99,9 @@ public class ImgForDice {
     private void launchingMythicDice(String mode) {
         int points=0;
         if(mode.equalsIgnoreCase("légendaire")){
-            points = MainActivity.aquene.getResourceValue(mC,"resource_legendary_points");
+            points = MainActivity.aquene.getCurrentResourceValue("resource_legendary_points");
         } else {
-            points = MainActivity.aquene.getResourceValue(mC,"resource_mythic_points");
+            points = MainActivity.aquene.getCurrentResourceValue("resource_mythic_points");
         }
 
         if (points > 0 && dice.getMythicDice()==null) {

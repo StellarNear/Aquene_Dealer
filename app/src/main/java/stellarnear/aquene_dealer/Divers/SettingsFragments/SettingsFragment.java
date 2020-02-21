@@ -1,6 +1,7 @@
-package stellarnear.aquene_dealer.Divers;
+package stellarnear.aquene_dealer.Divers.SettingsFragments;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,7 +12,6 @@ import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.view.inputmethod.InputMethodManager;
@@ -22,14 +22,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import stellarnear.aquene_dealer.Activities.MainActivity;
-import stellarnear.aquene_dealer.Divers.SettingsFragments.PrefAllInventoryFragment;
-import stellarnear.aquene_dealer.Divers.SettingsFragments.PrefCapaFragment;
-import stellarnear.aquene_dealer.Divers.SettingsFragments.PrefFeatFragment;
-import stellarnear.aquene_dealer.Divers.SettingsFragments.PrefInfoScreenFragment;
-import stellarnear.aquene_dealer.Divers.SettingsFragments.PrefMythicCapaFragment;
-import stellarnear.aquene_dealer.Divers.SettingsFragments.PrefMythicFeatFragment;
-import stellarnear.aquene_dealer.Divers.SettingsFragments.PrefSkillFragment;
-import stellarnear.aquene_dealer.Divers.SettingsFragments.PrefXpFragment;
+import stellarnear.aquene_dealer.Divers.PostData;
+import stellarnear.aquene_dealer.Divers.PostDataElement;
+import stellarnear.aquene_dealer.Divers.Tools;
 import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.R;
 
@@ -54,11 +49,18 @@ public class SettingsFragment extends PreferenceFragment {
     private PrefInfoScreenFragment prefInfoScreenFragment;
 
     private Perso aquene = MainActivity.aquene;
-
+    private SharedPreferences.OnSharedPreferenceChangeListener listener =
+            new SharedPreferences.OnSharedPreferenceChangeListener() {
+                @Override
+                public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
+                    if (key.contains("switch_capacity_")){aquene.getAllResources().refreshCapaListResources();}
+                }
+            };
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.settings = PreferenceManager.getDefaultSharedPreferences(getContext());
+        settings.registerOnSharedPreferenceChangeListener(listener);
         this.mA=getActivity();
         this.mC=getContext();
         addPreferencesFromResource(R.xml.pref);
@@ -156,10 +158,7 @@ public class SettingsFragment extends PreferenceFragment {
                     setHasOptionsMenu(true);
                     break;
                 case "pref_character_capa":
-                    PreferenceCategory monk = (PreferenceCategory) findPreference("Capacité moine");
-                    PreferenceCategory ki = (PreferenceCategory) findPreference("Capacité de Ki");
-
-                    prefCapaFragment.addCapaList(monk,ki);
+                    prefCapaFragment.addCapaList(getPreferenceScreen());
                     setHasOptionsMenu(true);
                     break;
                 case "pref_mythic_feat":
@@ -173,11 +172,7 @@ public class SettingsFragment extends PreferenceFragment {
                     setHasOptionsMenu(true);
                     break;
                 case "pref_mythic_capa":
-                    PreferenceCategory common_myth = (PreferenceCategory) findPreference("Commun");
-                    PreferenceCategory protect_myth = (PreferenceCategory) findPreference("Voie du Protecteur");
-                    PreferenceCategory all_myth = (PreferenceCategory) findPreference("Voie Universelle");
-
-                    prefMythicCapaFragment.addMythicCapaList(common_myth,protect_myth,all_myth);
+                    prefMythicCapaFragment.addMythicCapaList(getPreferenceScreen());
                     setHasOptionsMenu(true);
                     break;
                 case "pref_character_skill":
@@ -276,7 +271,7 @@ public class SettingsFragment extends PreferenceFragment {
                 prefInfoScreenFragment.showInfo();
                 break;
             case "spend_myth_point":
-                if( aquene.getResourceValue(mC,"resource_mythic_points")>0) {
+                if( aquene.getCurrentResourceValue("resource_mythic_points")>0) {
                     new AlertDialog.Builder(mC)
                             .setTitle("Demande de confirmation")
                             .setMessage("Confirmes-tu la dépense d'un point mythique ?")
@@ -285,7 +280,7 @@ public class SettingsFragment extends PreferenceFragment {
                                 public void onClick(DialogInterface dialog, int whichButton) {
                                     aquene.getAllResources().getResource("resource_mythic_points").spend(1);
                                     new PostData(mC,new PostDataElement("Utilisation d'un pouvoir mythique","Dépense d' un point mythique"));
-                                    tools.customToast(mC,"Il te reste "+aquene.getResourceValue(mC,"resource_mythic_points")+" point(s) mythique(s)","center");
+                                    tools.customToast(mC,"Il te reste "+aquene.getCurrentResourceValue("resource_mythic_points")+" point(s) mythique(s)","center");
                                 }
                             })
                             .setNegativeButton(android.R.string.no, null).show();
@@ -294,7 +289,7 @@ public class SettingsFragment extends PreferenceFragment {
                 }
                 break;
             case "spend_leg_point":
-                if( aquene.getResourceValue(mC,"resource_legendary_points")>0) {
+                if( aquene.getCurrentResourceValue("resource_legendary_points")>0) {
                     new AlertDialog.Builder(mC)
                             .setTitle("Demande de confirmation")
                             .setMessage("Confirmes-tu la dépense d'un point légendaire ?")
@@ -303,7 +298,7 @@ public class SettingsFragment extends PreferenceFragment {
                                 public void onClick(DialogInterface dialog, int whichButton) {
                                     aquene.getAllResources().getResource("resource_legendary_points").spend(1);
                                     new PostData(mC,new PostDataElement("Surcharge légendaire du d20","-1pt légendaire"));
-                                    tools.customToast(mC,"Il te reste "+aquene.getResourceValue(mC,"resource_legendary_points")+" point(s) légendaire(s)","center");
+                                    tools.customToast(mC,"Il te reste "+aquene.getCurrentResourceValue("resource_legendary_points")+" point(s) légendaire(s)","center");
                                 }
                             })
                             .setNegativeButton(android.R.string.no, null).show();
@@ -311,6 +306,80 @@ public class SettingsFragment extends PreferenceFragment {
                     tools.customToast(mC,"Tu n'as plus de point légendaire","center");
                 }
                 break;
+            case "appli_refresh":
+                new AlertDialog.Builder(mC)
+                        .setTitle("Demande de confirmation")
+                        .setMessage("Confirmes-tu l'action de réinitialiser les attributs du personnage ?")
+                        .setIcon(android.R.drawable.ic_menu_help)
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                aquene.reset();
+                                tools.customToast(mC,"Rafraîchissement éffectué","center");
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, null).show();
+                break;
+            case "appli_reset_stuff":
+                new AlertDialog.Builder(mC)
+                        .setTitle("Demande de confirmation")
+                        .setMessage("Confirmes-tu l'action de réinitialiser l'équipement du personnage ?")
+                        .setIcon(android.R.drawable.ic_menu_help)
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                aquene.getInventory().getAllEquipments().reset();
+                                aquene.getAllResources().reset();
+                                tools.customToast(mC,"Rafraîchissement éffectué","center");
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, null).show();
+                break;
+            case "appli_reset_bag":
+                new AlertDialog.Builder(mC)
+                        .setTitle("Demande de confirmation")
+                        .setMessage("Confirmes-tu l'action de réinitialiser le sac du personnage ?")
+                        .setIcon(android.R.drawable.ic_menu_help)
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                aquene.getInventory().getBag().reset();
+                                tools.customToast(mC,"Rafraîchissement éffectué","center");
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, null).show();
+                break;
+            case "appli_reset_stats":
+                new AlertDialog.Builder(mC)
+                        .setTitle("Demande de confirmation")
+                        .setMessage("Confirmes-tu l'action de réinitialiser les statistiques du personnage ?")
+                        .setIcon(android.R.drawable.ic_menu_help)
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                aquene.getStats().reset();
+                                settings.edit().putString("highscore","0").apply();
+                                tools.customToast(mC,"Reset éffectué","center");
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, null).show();
+                break;
+            case "appli_reset_hall":
+                new AlertDialog.Builder(mC)
+                        .setTitle("Demande de confirmation")
+                        .setMessage("Confirmes-tu l'action de réinitialiser le Panthéon personnage ?")
+                        .setIcon(android.R.drawable.ic_menu_help)
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                aquene.getHallOfFame().reset();
+                                tools.customToast(mC,"Reset éffectué","center");
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, null).show();
+                break;
         }
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mC);
+        prefs.unregisterOnSharedPreferenceChangeListener(listener);
+        listener=null;
     }
 }

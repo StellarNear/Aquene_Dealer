@@ -146,5 +146,10 @@ public class Inventory {
         bag.refreshBag();
         allEquipments.refreshEquipment();
     }
+
+    public void reset() {
+        bag.reset();
+        allEquipments.reset();
+    }
 }
 

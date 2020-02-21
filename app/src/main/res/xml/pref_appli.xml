@@ -17,4 +17,12 @@
         android:summary="Réinitialise tout les paramètres"
         android:icon="@drawable/ic_undo_black_24dp"
         android:title="Reset des paramètres" />
+
+    <PreferenceScreen
+        android:key="pref_appli_refresh"
+        android:summary="Réinitialise des paramètres"
+        android:icon="@drawable/ic_refresh_black_24dp"
+        android:title="Refresh/Reset des paramètres" />
+
+
 </PreferenceScreen>

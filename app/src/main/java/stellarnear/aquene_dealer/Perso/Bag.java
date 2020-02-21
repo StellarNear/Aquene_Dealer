@@ -299,4 +299,9 @@ public class Bag {
             }
         });
     }
+
+    public void reset() {
+        buildBag();
+        saveLocalBag();
+    }
 }

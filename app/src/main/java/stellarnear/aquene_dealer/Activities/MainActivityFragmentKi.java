@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import stellarnear.aquene_dealer.Divers.CustomAlertDialog;
 import stellarnear.aquene_dealer.Divers.PostData;
@@ -66,7 +67,7 @@ public class MainActivityFragmentKi extends Fragment {
 
         TextView mainTitleKicount = returnFragView.findViewById(R.id.mainPanelKicount);
         String kiCount = "(";
-        int currentKi=aquene.getResourceValue(getContext(),"resource_ki");
+        int currentKi=aquene.getCurrentResourceValue("resource_ki");
         if(currentKi>0){
             kiCount+="points restants : "+currentKi;
         } else {
@@ -120,8 +121,11 @@ public class MainActivityFragmentKi extends Fragment {
             summary.setPadding(getResources().getDimensionPixelSize(R.dimen.general_margin),0,0,0);
             String descr = kiCapa.getShortdescr();
             if(kiCapa.getId().equalsIgnoreCase("kicapacity_step")){
-                int dist = 120+12*aquene.getAbilityScore(getContext(),"ability_lvl");
+                int dist = 120+12*aquene.getAbilityScore("ability_lvl");
                 descr+="\nDistance : "+dist+"m";
+            } else if(kiCapa.getId().equalsIgnoreCase("kicapacity_aaleilis")){
+                int skillHeal = aquene.getSkillBonus("skill_heal")+aquene.getAllSkills().getSkill("skill_heal").getRank()+aquene.getAbilityMod(aquene.getAllSkills().getSkill("skill_heal").getAbilityDependence());
+                descr+=" [1d20+"+skillHeal+"]";
             }
             summary.setText(descr);
             lineCapa.addView(summary);
@@ -182,13 +186,21 @@ public class MainActivityFragmentKi extends Fragment {
                     } else {
                         aquene.getAllResources().getResource("resource_ki").spend(kiCapaSelected.getCost());
                         new PostData(getContext(),new PostDataElement(kiCapaSelected));
-                        String txt = "Lancement de : " + kiCapaSelected.getName();
-                        if (kiCapaSelected.getId().equalsIgnoreCase("kicapacity_heal")) {
-                            int heal = aquene.getAbilityScore(getContext(), "ability_lvl");
-                            aquene.getAllResources().getResource("resource_hp").earn(heal);
-                            txt += " (+" + heal + "pv)";
-                        }
 
+                        if (kiCapaSelected.getId().equalsIgnoreCase("kicapacity_heal")) {
+                            int heal = aquene.getAbilityScore( "ability_lvl");
+                            aquene.getAllResources().getResource("resource_hp").earn(heal);
+                            tools.customToast(getContext(), "Soin personnel de +" + heal + "PVs","center");
+                            new PostData(getContext(),new PostDataElement(kiCapaSelected.getName(),"Soin personnel de +" + heal + "PVs"));
+                        } else  if(kiCapaSelected.getId().equalsIgnoreCase("kicapacity_aaleilis")){
+                            int skillHeal = aquene.getSkillBonus("skill_heal")+aquene.getAllSkills().getSkill("skill_heal").getRank()+aquene.getAbilityMod(aquene.getAllSkills().getSkill("skill_heal").getAbilityDependence());
+                            Random rand = new Random();
+                            int randVal = 1 + rand.nextInt(20);
+                            int sum = randVal+skillHeal;
+                            tools.customToast(getContext(),"Soin sur allié de "+sum+" PVs\n(résultat du dé : "+randVal+")","center");
+                            new PostData(getContext(),new PostDataElement(kiCapaSelected.getName(),"Soin sur allié de "+sum+" PVs\n(résultat du dé : "+randVal+")"));
+                        }
+                        String txt = "Lancement de : " + kiCapaSelected.getName();
                         Snackbar snackbar = Snackbar.make(view, txt, Snackbar.LENGTH_LONG);
                         snackbar.show();
                         backToMain();
@@ -220,8 +232,8 @@ public class MainActivityFragmentKi extends Fragment {
         final NumberPicker numberPicker = new NumberPicker(getContext());
         numberPicker.setMinValue(1);
 
-        int lvl = aquene.getAbilityScore(getContext(),"ability_lvl");
-        int kiPoint = aquene.getResourceValue(getContext(),"resource_ki");
+        int lvl = aquene.getAbilityScore("ability_lvl");
+        int kiPoint = aquene.getCurrentResourceValue("resource_ki");
         if(lvl/4<kiPoint) {
             numberPicker.setMaxValue(lvl / 4);
         }else{

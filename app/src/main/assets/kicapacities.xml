@@ -50,4 +50,11 @@
         <shortdescr>Action Rapide : bonus de +6m au déplacement pendant 1 round</shortdescr>
         <id>kicapacity_ms</id>
     </kicapacity>
+
+    <kicapacity>
+        <name>Soin d'Aaleilis</name>
+        <cost>1</cost>
+        <descr>Soigne un allié de (1d20+Premiers secours)</descr>
+        <id>kicapacity_aaleilis</id>
+    </kicapacity>
 </records>

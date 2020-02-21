@@ -8,6 +8,7 @@ import stellarnear.aquene_dealer.Divers.Rolls.Dice;
 import stellarnear.aquene_dealer.Divers.Rolls.Roll;
 import stellarnear.aquene_dealer.Divers.Rolls.RollList;
 import stellarnear.aquene_dealer.Perso.Attack;
+import stellarnear.aquene_dealer.Perso.Capacity;
 import stellarnear.aquene_dealer.Perso.KiCapacity;
 import stellarnear.aquene_dealer.Perso.Stance;
 
@@ -34,6 +35,17 @@ public class PostDataElement {
         } else {
             initDmg(rolls);
         }
+    }
+
+    public PostDataElement(Capacity capa) {
+        SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yy HH:mm:ss", Locale.FRANCE);
+        this.date=formater.format(new Date());
+        this.typeEvent="Lancement capacité "+capa.getName();
+        this.detail=capa.getDescr();
+        if(capa.getValue()>0) {
+            this.result = "Valeur : " + capa.getValue();
+        }
+
     }
 
     private void initAtk(RollList atkRolls){

@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="version">"v3.3.1"</string>
-    <string name="time_spend">"256h"</string>
+    <string name="version">"v4.0"</string>
+    <string name="time_spend">"276h"</string>
     <string name="basic_infos">"Cette application est développée par player 1 pour son player 2. Développée avec amour par Jérémie Chatron en fin 2017-2019." </string>
     <string name="patch_list">"----------------------------------------------------------------------------------
+v4.0
+-Mythique : Don Dual + Il y a toujours une chance
+-Nouvel eveil de Aaleilis (20 crit > 1pt ki) + capacité Ki Heal d'un allié
+-Don épique Parade exceptionnelle
+-Ajout de l'arme Cestes vampirique
+-Ajout des capacités active en page principale pour faciliter l'acces
+-Mise à jour des valeur par défaut pour le niveau 27
+----------------------------------------------------------------------------------
 v3.3.1
 -Stance mieux gérées dans le shadowlink
 -Gestion des points de vie avec la constitution

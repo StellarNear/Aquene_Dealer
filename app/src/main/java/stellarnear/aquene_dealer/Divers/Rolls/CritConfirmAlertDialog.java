@@ -31,7 +31,6 @@ public class CritConfirmAlertDialog {
     private AlertDialog alertDialog;
 
     private View dialogView;
-    private int atkVal;
 
     private int sumScore;
 
@@ -47,8 +46,7 @@ public class CritConfirmAlertDialog {
     public CritConfirmAlertDialog(Activity mA,Context mC,int atkVal) {
         this.mA=mA;
         this.mC=mC;
-        this.atkVal=atkVal;
-        this.sumScore = 0;
+        this.sumScore = atkVal;
         buildAlertDialog();
     }
 
@@ -65,9 +63,8 @@ public class CritConfirmAlertDialog {
         title.setTextSize(22);
         title.setText(titleTxt);
 
-        String summaryDetail="Bonus d'attaque de base (+"+atkVal+")";
+        String summaryDetail="Bonus d'attaque de base (+"+sumScore+")";
 
-        sumScore= atkVal;
         if(aquene.featIsActive("feat_crit")){
             sumScore+=4;
             summaryDetail+="\nBonus don pour les critiques (+4)";

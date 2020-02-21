@@ -49,4 +49,8 @@ public class Stats {
         saveLocalStats();
     }
 
+    public void reset() {
+        this.statsList =new StatsList();
+        saveLocalStats();
+    }
 }

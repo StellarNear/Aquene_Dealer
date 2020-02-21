@@ -38,12 +38,6 @@
         android:title="Premier éveil d'âme"
         />
     <Preference  android:layout="@layout/divider_pref" android:selectable="false"/>
-    <EditTextPreference
-        android:dependency="first_step_leg_ring"
-        android:title="Gain d'experience"
-        android:selectable="false"
-        android:summary="+5 % points d'experience"/>
-    <Preference  android:layout="@layout/divider_pref" android:selectable="false"/>
 
     <EditTextPreference
         android:dependency="first_step_leg_ring"
@@ -73,6 +67,17 @@
         android:singleLine="true"
         android:title="Troisième éveil d'âme"
         />
-
+    <Preference  android:layout="@layout/divider_pref" android:selectable="false"/>
+    <EditTextPreference
+        android:dependency="third_step_leg_ring"
+        android:title="Génération de Ki"
+        android:selectable="false"
+        android:summary="Confirmé un critique 20 sur le d20 donne un pt de Ki"/>
+    <Preference  android:layout="@layout/divider_pref" android:selectable="false"/>
+    <EditTextPreference
+        android:dependency="third_step_leg_ring"
+        android:title="Soin d'allié"
+        android:selectable="false"
+        android:summary="Peut soigner un allié pour un point de Ki (1d20+Premier secours)"/>
 
 </PreferenceScreen>
