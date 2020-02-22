@@ -33,6 +33,7 @@
 
     <!-- Switch des Dons Mythique -->
     <bool name="switch_mythicfeat_crit_sup_DEF">true</bool>
+    <bool name="switch_mythicfeat_dual_DEF">true</bool>
 
     <!-- Jet de save -->
     <bool name="switch_perma_resi_DEF">true</bool>

@@ -340,6 +340,10 @@ public class Perso {
                 if (allResources.getResource(atk.getId().replace("attack","resource")).getCurrent()>0){
                     selectedAttack.add(atk);
                 }
+            } else if (atk.getId().equalsIgnoreCase("attack_charge")){
+                if (allResources.getResource("resource_mythic_points").getCurrent()>0){
+                    selectedAttack.add(atk);
+                }
             } else {
                 selectedAttack.add(atk);
             }

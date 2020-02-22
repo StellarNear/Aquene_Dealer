@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import stellarnear.aquene_dealer.Activities.MainActivity;
 import stellarnear.aquene_dealer.Divers.PostData;
 import stellarnear.aquene_dealer.Divers.PostDataElement;
+import stellarnear.aquene_dealer.Divers.Tools;
 import stellarnear.aquene_dealer.Perso.Attack;
 import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.R;
@@ -22,6 +23,7 @@ import stellarnear.aquene_dealer.R;
 public class CombatAskerConfirmationLine {
     private LinearLayout lineStep;
     private Perso aquene = MainActivity.aquene;
+    private Tools tools=new Tools();
 
     public CombatAskerConfirmationLine(final Activity mA, final Context mC, final Attack selectedAttack, final View.OnClickListener backToMainListner, final Boolean kistep) {
         lineStep = new LinearLayout(mC);
@@ -52,6 +54,14 @@ public class CombatAskerConfirmationLine {
                     txt = "Lancement de : " + selectedAttack.getName();
                     if (aquene.getAllResources().getResource(selectedAttack.getId().replace("attack", "resource")) != null) {
                         aquene.getAllResources().getResource(selectedAttack.getId().replace("attack", "resource")).spend(1);
+                        tools.customToast(mC,"Il te reste "+
+                                aquene.getCurrentResourceValue(selectedAttack.getId().replace("attack", "resource"))
+                                +" utilisations","center");
+                    } else if (selectedAttack.getId().equalsIgnoreCase("attack_charge")){
+                        aquene.getAllResources().getResource("resource_mythic_points").spend(1);
+                        tools.customToast(mC,"Il te reste "+
+                                aquene.getCurrentResourceValue("resource_mythic_points")
+                                +" points mythiques","center");
                     }
                     if (kistep) {
                         aquene.getAllResources().getResource("resource_ki").spend(aquene.getAllKiCapacities().getKicapacity("kicapacity_step").getCost());

@@ -25,6 +25,7 @@ public class PostDataElement {
         SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yy HH:mm:ss", Locale.FRANCE);
         this.date=formater.format(new Date());
         this.typeEvent="Lancement de "+atk.getName();
+        this.detail=atk.getDescr();
     }
 
 

@@ -36,4 +36,12 @@
         <id>attack_palm</id>
     </attack>
 
+    <attack>
+        <name>Charge effrénée</name>
+        <shortname>Charge</shortname>
+        <type>simple</type>
+        <descr>Par une action rapide, le personnage peut dépenser une utilisation de pouvoir mythique pour se déplacer d’une distance équivalente à sa vitesse de déplacement. N’importe quand pendant ce déplacement, il peut effectuer une unique attaque au corps à corps ou à distance en appliquant son bonus d’attaque le plus élevé et en ajoutant son grade au jet d’attaque. Cette attaque vient en plus de celles effectuées au cours du même round. Les dégâts infligés par cette attaque ignorent toutes les réductions des dégâts.</descr>
+        <id>attack_charge</id>
+    </attack>
+
 </records>
