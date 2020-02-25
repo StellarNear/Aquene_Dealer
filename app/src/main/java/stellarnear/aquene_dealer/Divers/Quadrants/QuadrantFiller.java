@@ -299,6 +299,8 @@ public class QuadrantFiller {
                                                 aquene.getAllResources().getResource(res.getId()).spend(1);
                                                 if(res.getId().equalsIgnoreCase("resource_blinding_speed")){
                                                     PreferenceManager.getDefaultSharedPreferences(mC).edit().putBoolean("switch_blinding_speed", true).apply();
+                                                } else if(res.getId().equalsIgnoreCase("resource_legendary_defense")){
+                                                    aquene.getAllResources().getResource("resource_legendary_points").spend(1);
                                                 }
                                             }
                                             new PostData(mC, new PostDataElement(res.getCapa()));

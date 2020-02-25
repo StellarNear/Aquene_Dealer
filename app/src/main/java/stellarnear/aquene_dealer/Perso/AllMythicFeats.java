@@ -31,6 +31,8 @@ public class AllMythicFeats {
     }
 
     private void buildFeatsList() {
+        mapIdMythicFeat =new HashMap<>();
+        allMythicFeatsList = new ArrayList<>();
         try {
             InputStream is = mC.getAssets().open("mythicfeats.xml");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();

@@ -80,12 +80,12 @@ public class CombatLauncherDamageLines {
             sumFire += roll.getDmgSum("fire");
         }
 
-        testSelfHealVapirism();
 
         if (manualDiceDmg && !inputDone) {
             nDicesSet += selectedRolls.getDmgDiceList().size();
             putDicesSummary();
         } else {
+            testSelfHealVapirism();
             new PostData(mC,new PostDataElement(selectedRolls,"dmg"));
             for (Roll roll : selectedRolls.getList()){
                 roll.isDelt();
@@ -94,7 +94,6 @@ public class CombatLauncherDamageLines {
         }
         combatLauncherDamageDetailDialog = new CombatLauncherDamageDetailDialog( mC, selectedRolls);
         onChangeDiceListner();
-
     }
 
     private void testSelfHealVapirism() {

@@ -60,8 +60,8 @@ public class CombatLauncherDamageDetailDialog {
                 int critMultiplier=2;
                 if (aquene.mythicFeatIsActive("mythicfeat_crit_sup")){  critMultiplier+=1;  }
                 SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mC);
-                String nDice = settings.getString("number_main_dice_dmg", String.valueOf(mC.getResources().getInteger(R.integer.number_main_dice_dmg_DEF)));
-                String typeDice = settings.getString("main_dice_dmg_type", String.valueOf(mC.getResources().getInteger(R.integer.main_dice_dmg_type_DEF)));
+                String nDice = String.valueOf(aquene.getNMainDice());
+                String typeDice =  String.valueOf(aquene.getMainDiceType());
                 int bonusDamage=0;
                 if (!rollsToDisplay.isEmpty()){ bonusDamage=rollsToDisplay.get(0).getDmgBonus(); }
                 tools.customToast(mC, "Les lancées surlignés en rouge correpondent à des coups critiques.\nLes dégats des coups critiques voient leurs dégats physique de base (dégats des poings["+String.valueOf(nDice)+"d"+typeDice+"] + bonus dégats["+String.valueOf(bonusDamage)+"]) multiplié par "+String.valueOf(critMultiplier)+".", "center");

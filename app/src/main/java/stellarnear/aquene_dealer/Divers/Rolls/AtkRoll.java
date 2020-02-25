@@ -73,8 +73,12 @@ public class AtkRoll {
                             hitCheckbox.setChecked(true);
                             critConfirmed = true;
                             if(atkDice.getRandValue()==20){
-                                aquene.getAllResources().getResource("resource_ki").earn(1);
-                                tools.customToast(mC,"Grace à Aaleilis tu gagnes un point de Ki !","center");
+                                if( aquene.getCurrentResourceValue("resource_ki") == aquene.getAllResources().getResource("resource_ki").getMax()){
+                                    tools.customToast(mC, "Ta résèrve de ki est déjà à fond !", "center");
+                                } else {
+                                    aquene.getAllResources().getResource("resource_ki").earn(1);
+                                    tools.customToast(mC, "Grace à Aaleilis tu gagnes un point de Ki !", "center");
+                                }
                             }
                         }
                     });

@@ -134,6 +134,7 @@
         <name>Défense légendaire</name>
         <shortname>Def. Leg.</shortname>
         <descr>Quand une créature qui porte un objet ayant cette aptitude est victime d’un coup critique ou d’une attaque sournoise, elle peut dépenser une utilisation de pouvoir légendaire pour annuler le coup critique ou l’attaque sournoise et recevoir seulement les dégâts normaux. Cette aptitude n’est accessible qu’aux armures, aux boucliers et aux objets que l’on porte sur soi.</descr>
+        <dailyuse>leg_points</dailyuse>
         <id>capacity_legendary_defense</id>
     </capacity>
 

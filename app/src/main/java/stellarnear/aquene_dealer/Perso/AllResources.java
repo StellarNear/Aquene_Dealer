@@ -31,17 +31,19 @@ public class AllResources {
     private AllAbilities allAbilities;
     private AllCapacities allCapacities;
     private AllMythicCapacities allMythicCapacities;
+    private Inventory inventory;
     private AllFeats allFeats;
     private Map<String, Resource> mapIDRes = new HashMap<>();
     private List<Resource> listResources = new ArrayList<>();
     private SharedPreferences settings;
     private Tools tools = new Tools();
 
-    public AllResources(Context mC, AllFeats allFeats, AllAbilities allAbilities,AllCapacities allCapacities,AllMythicCapacities allMythicCapacities) {
+    public AllResources(Context mC, AllFeats allFeats, AllAbilities allAbilities,AllCapacities allCapacities,AllMythicCapacities allMythicCapacities,Inventory inventory) {
         this.mC = mC;
         this.allAbilities = allAbilities;
         this.allCapacities=allCapacities;
         this.allMythicCapacities=allMythicCapacities;
+        this.inventory=inventory;
         this.allFeats = allFeats;
         settings = PreferenceManager.getDefaultSharedPreferences(mC);
         try {
@@ -56,6 +58,8 @@ public class AllResources {
     }
 
     private void buildResourcesList() {
+        mapIDRes = new HashMap<>();
+       listResources = new ArrayList<>();
         try {
             InputStream is = mC.getAssets().open("resources.xml");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -105,7 +109,7 @@ public class AllResources {
         }
         //cas particulier une capa lié à une resource ...
         Capacity defLeg = allCapacities.getCapacity("capacity_legendary_defense");
-        Resource defLegRes = new Resource(defLeg.getName(),defLeg.getShortname(),true,false,"resource_legendary_points",mC);
+        Resource defLegRes = new Resource(defLeg.getName(),defLeg.getShortname(),true,false,defLeg.getId().replace("capacity_","resource_"),mC);
         defLegRes.setFromCapacity(defLeg);
         listResources.add(defLegRes);
         mapIDRes.put(defLegRes.getId(), defLegRes);
@@ -176,7 +180,7 @@ public class AllResources {
         getResource("resource_stun").setMax(lvl);
         getResource("resource_palm").setMax(1);
 
-        if (settings.getBoolean("switch_save_ref_boot", mC.getResources().getBoolean(R.bool.switch_save_ref_boot_DEF))) {
+        if (inventory.getAllEquipments().testIfNameItemIsEquipped("Bottes de rapidité")) {
             getResource("resource_boot_add_atk").setMax(1);
         }
         if (settings.getBoolean("switch_feat_inhuman_stamina_sup", mC.getResources().getBoolean(R.bool.switch_feat_inhuman_stamina_sup_DEF))) {
@@ -221,7 +225,6 @@ public class AllResources {
 
     public void refreshCapaListResources() {
         List<Resource> tempListIterate = new ArrayList<>(listResources);
-
         for(Resource res : tempListIterate){
             if(res.isFromCapacity() && !allCapacities.capacityIsActive(res.getId().replace("resource_", "capacity_"))){  //si la capacité n'est plus active on remove la resource
                 listResources.remove(res);

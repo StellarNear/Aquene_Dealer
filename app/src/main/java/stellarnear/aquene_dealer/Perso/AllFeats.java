@@ -31,6 +31,8 @@ public class AllFeats {
     }
 
     private void buildFeatsList() {
+        mapIdFeat=new HashMap<>();
+        allFeatsList = new ArrayList<>();
         try {
             InputStream is = mC.getAssets().open("feats.xml");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();

@@ -39,22 +39,22 @@ public class Perso {
 
     public Perso(Context mC) {
         this.mC=mC;
+        this.preferences=PreferenceManager.getDefaultSharedPreferences(mC);
         this.allStances = new AllStances(mC);
         this.allFeats = new AllFeats(mC);
         this.allMythicFeats = new AllMythicFeats(mC);
-        this.allAbilities = new AllAbilities(mC);
         this.allCapacities = new AllCapacities(mC);
         this.allSkills = new AllSkills(mC);
         this.allAttacks = new AllAttacks(mC);
-
         this.allKiCapacities = new AllKiCapacities(mC);
         this.allMythicCapacities = new AllMythicCapacities(mC);
+
         this.inventory = new Inventory(mC);
+        this.allAbilities = new AllAbilities(mC,this.inventory);
         computeCapacities(); // on a besoin de skill et abi pour les usages et valeur des capas
-        this.allResources = new AllResources(mC,allFeats,allAbilities,allCapacities,allMythicCapacities);
+        this.allResources = new AllResources(mC,allFeats,allAbilities,allCapacities,allMythicCapacities,inventory);
         this.stats = new Stats(mC);
         this.hallOfFame=new HallOfFame(mC);
-        this.preferences=PreferenceManager.getDefaultSharedPreferences(mC);
     }
 
     public void refresh() {
@@ -93,7 +93,34 @@ public class Perso {
                 abiScore= inventory.getAllItemsCount();
             }
 
+            if (abiId.equalsIgnoreCase("ability_ca")) {
+                abiScore = 10+ ((int) (getAbilityScore("ability_lvl")/4.0))+ getAbilityMod("ability_sagesse");
+                int abiMod = getAbilityMod("ability_dexterite");
+                if (inventory.getAllEquipments().hasArmorDexLimitation() && inventory.getAllEquipments().getArmorDexLimitation() < abiMod) {
+                    abiScore += inventory.getAllEquipments().getArmorDexLimitation();
+                } else {
+                    abiScore += abiMod;
+                }
+                abiScore += tools.toInt(preferences.getString("bonus_global_temp_ca",String.valueOf(0)));
+                abiScore += tools.toInt(preferences.getString("bonus_temp_ca",String.valueOf(0)));
+                if (allAttacks.getCombatMode().equals("mode_def")) {
+                    abiScore += getCaBonusCombatMode("mode_def");
+                } else if (allAttacks.getCombatMode().equals("mode_totaldef")) {
+                    abiScore += getCaBonusCombatMode("mode_totaldef");
+                }
+                if(allStances.isActive("stance_bear")) {
+                    abiScore += (int) (getAbilityScore("ability_lvl")/2.0);
+                }
+                if (preferences.getBoolean("switch_temp_rapid",mC.getResources().getBoolean(R.bool.switch_temp_rapid_DEF))|| preferences.getBoolean("switch_blinding_speed",mC.getResources().getBoolean(R.bool.switch_blinding_speed_DEF))) {
+                    abiScore += 1;
+                }
+                abiScore+=inventory.getAllEquipments().getArmorBonus();
+            } else if (abiId.equalsIgnoreCase("ability_dmd")) {
+                abiScore = 10+  getAbilityScore("ability_lvl") + getAbilityMod("ability_force") +  getAbilityMod("ability_dexterite") + ((int) ( getAbilityScore("ability_lvl")/4.0))+ getAbilityMod("ability_sagesse") ;
+            }
+
             if (abiId.equalsIgnoreCase("ability_rm")) {
+                abiScore = 10+ getAbilityScore("ability_lvl");
                 int bonusRm = tools.toInt(preferences.getString("bonus_temp_rm", String.valueOf(mC.getResources().getInteger(R.integer.bonus_temp_rm_DEF))));
                 if (bonusRm>abiScore) { abiScore = bonusRm; }
             }
@@ -122,6 +149,7 @@ public class Perso {
             }
 
             if (abiId.equalsIgnoreCase("ability_init")) {
+                abiScore=getAbilityMod("ability_dexterite");
                 if(getAllMythicCapacities().getMythiccapacity("mythiccapacity_init").isActive()) {
                     int currentTier = tools.toInt(preferences.getString("mythic_tier", String.valueOf(mC.getResources().getInteger(R.integer.mythic_tier_def))));
                     abiScore += currentTier;
@@ -132,6 +160,10 @@ public class Perso {
             }
 
             if (abiId.equalsIgnoreCase("ability_bmo") ) {
+                abiScore = getAbilityScore("ability_lvl") + getAbilityMod("ability_force");
+                if(inventory.getAllEquipments().testIfNameItemIsEquipped("Ceinture de Charge Tonitruante")){
+                    abiScore+=2;
+                }
                 if(allCapacities.capacityIsActive("capacity_insight_bmo")){
                     abiScore+=4;
                 }
@@ -140,22 +172,6 @@ public class Perso {
                 }
                 if(allStances.isActive("stance_octopus")){
                     abiScore += getAbilityMod( "ability_sagesse");
-                }
-            }
-
-            if (abiId.equalsIgnoreCase("ability_ca")) {
-                abiScore += tools.toInt(preferences.getString("bonus_temp_ca",String.valueOf(mC.getResources().getInteger(R.integer.bonus_temp_ca_DEF))));
-                abiScore += tools.toInt(preferences.getString("bonus_ki_armor",String.valueOf(mC.getResources().getInteger(R.integer.bonus_ki_armor_DEF))));
-                if (allAttacks.getCombatMode().equals("mode_def")) {
-                    abiScore += getCaBonusCombatMode("mode_def");
-                } else if (allAttacks.getCombatMode().equals("mode_totaldef")) {
-                    abiScore += getCaBonusCombatMode("mode_totaldef");
-                }
-                if(allStances.isActive("stance_bear")) {
-                    abiScore += (int) (getAbilityScore("ability_lvl")/2.0);
-                }
-                if (preferences.getBoolean("switch_temp_rapid",mC.getResources().getBoolean(R.bool.switch_temp_rapid_DEF))|| preferences.getBoolean("switch_blinding_speed",mC.getResources().getBoolean(R.bool.switch_blinding_speed_DEF))) {
-                    abiScore += 1;
                 }
             }
 
@@ -169,12 +185,6 @@ public class Perso {
                     abiScore+=1;
                 }
                 if (preferences.getBoolean("switch_perma_resi",mC.getResources().getBoolean(R.bool.switch_perma_resi_DEF))) {
-                    abiScore+=1;
-                }
-                if (preferences.getBoolean("switch_save_coat",mC.getResources().getBoolean(R.bool.switch_save_coat_DEF))) {
-                    abiScore+=5;
-                }
-                if (abiId.equalsIgnoreCase("ability_ref") && preferences.getBoolean("switch_save_ref_boot",mC.getResources().getBoolean(R.bool.switch_save_ref_boot_DEF))) {
                     abiScore+=1;
                 }
                 if (abiId.equalsIgnoreCase("ability_ref") && (preferences.getBoolean("switch_temp_rapid",mC.getResources().getBoolean(R.bool.switch_temp_rapid_DEF))|| preferences.getBoolean("switch_blinding_speed",mC.getResources().getBoolean(R.bool.switch_blinding_speed_DEF)))) {
@@ -231,6 +241,33 @@ public class Perso {
     }
 
     // calculs
+    public int getNMainDice() {
+        String[] baseFirstDmg = mC.getResources().getStringArray(R.array.base_dmg_fist);
+        int index = tools.toInt( preferences.getString("base_dmg_fist", mC.getResources().getString(R.string.base_dmg_fist_DEF)));
+        if(inventory.getAllEquipments().testIfNameItemIsEquipped("Ceinture de Charge Tonitruante")){
+            index++;
+        }
+        if(inventory.getAllEquipments().testIfNameItemIsEquipped("Anneau d'impact")){
+            index++;
+        }
+        String currentBaseDices = baseFirstDmg[index];
+        int baseN = tools.toInt(currentBaseDices.substring(0,currentBaseDices.indexOf("d")));
+        return baseN;
+    }
+
+    public int getMainDiceType() {
+        String[] baseFirstDmg = mC.getResources().getStringArray(R.array.base_dmg_fist);
+        int index = tools.toInt( preferences.getString("base_dmg_fist", mC.getResources().getString(R.string.base_dmg_fist_DEF)));
+        if(inventory.getAllEquipments().testIfNameItemIsEquipped("Ceinture de Charge Tonitruante")){
+            index++;
+        }
+        if(inventory.getAllEquipments().testIfNameItemIsEquipped("Anneau d'impact")){
+            index++;
+        }
+        String currentBaseDices = baseFirstDmg[index];
+        int baseType = tools.toInt(currentBaseDices.substring(currentBaseDices.indexOf("d")+1));
+        return baseType;
+    }
 
     private void computeCapacities() {
         for(Capacity cap : allCapacities.getAllCapacitiesList()){
@@ -249,6 +286,11 @@ public class Perso {
                 switch (cap.getDailyUseString()){
                     case "lvl":
                         dailyUse =mainPJlvl;
+                        break;
+                    case "leg_points":
+                        int resId = mC.getResources().getIdentifier("resource_legendary_points".toLowerCase() + "_def", "integer", mC.getPackageName());
+                        int valLeg = tools.toInt(preferences.getString("resource_legendary_points".toLowerCase(), String.valueOf(mC.getResources().getInteger(resId))));
+                        dailyUse=valLeg;
                         break;
                 }
             } else {
@@ -281,13 +323,9 @@ public class Perso {
 
     public Integer getSkillBonus(String skillId) {
         int bonusTemp = allSkills.getSkill(skillId).getBonus();
+        bonusTemp+= inventory.getAllEquipments().getSkillBonus(skillId);
         if (skillId.equalsIgnoreCase("skill_acrob")) {
             bonusTemp += getAbilityScore("ability_lvl");//on ajoute le niveau de moine au jet d'acrob
-
-            Equipment head = this.inventory.getAllEquipments().getEquipmentsEquiped("helm_slot");
-            if(head!= null && head.getName().equalsIgnoreCase("oreilles de lapin")){
-                bonusTemp+=30;
-            }
         }
 
         if (skillId.equalsIgnoreCase("skill_stealth") && allStances.isActive("stance_bat")) {
@@ -472,5 +510,4 @@ public class Perso {
         this.inventory.reset();
         reset();
     }
-
 }

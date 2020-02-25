@@ -19,6 +19,7 @@
         <slotId>neck_slot</slotId>
         <equipped>true</equipped>
     </equipment>
+
     <equipment>
         <name>Anneau d'impact</name>
         <descr>Les poings du porteur infligent des dégats comme si il était supérieur d'une taille</descr>
@@ -38,13 +39,18 @@ Troisièeme éveil: 20 confirmé en attaque génère un point de Ki, Soin d'un a
         <slotId>ring1_slot</slotId>
         <equipped>true</equipped>
     </equipment>
+
     <equipment>
         <name>Brassard de consitution</name>
         <descr>+4 constitution</descr>
         <imgId>equipment_wrist</imgId>
         <slotId>wrist_slot</slotId>
         <equipped>true</equipped>
+        <abilityUp>
+            <ability_constitution>4</ability_constitution>
+        </abilityUp>
     </equipment>
+
     <equipment>
         <name>Bottes de rapidité</name>
         <descr>+1 réflexe +3 CA
@@ -54,7 +60,12 @@ Troisièeme éveil: 20 confirmé en attaque génère un point de Ki, Soin d'un a
         <imgId>equipment_feet</imgId>
         <slotId>feet_slot</slotId>
         <equipped>true</equipped>
+        <armor>3</armor>
+        <abilityUp>
+            <ability_ref>1</ability_ref>
+        </abilityUp>
     </equipment>
+
     <equipment>
         <name>Cape de resistances draconique</name>
         <descr>+5 à tout les jet de resistances</descr>
@@ -62,7 +73,13 @@ Troisièeme éveil: 20 confirmé en attaque génère un point de Ki, Soin d'un a
         <imgId>equipment_cloak</imgId>
         <slotId>shoulder_slot</slotId>
         <equipped>true</equipped>
+        <abilityUp>
+            <ability_ref>5</ability_ref>
+            <ability_vig>5</ability_vig>
+            <ability_vol>5</ability_vol>
+        </abilityUp>
     </equipment>
+
     <equipment>
         <name>Toge de défense draconique</name>
         <descr>50 % de chance de rater la confirmation des critiques
@@ -73,6 +90,7 @@ Troisièeme éveil: 20 confirmé en attaque génère un point de Ki, Soin d'un a
         <slotId>armor_slot</slotId>
         <equipped>true</equipped>
     </equipment>
+
     <equipment>
         <name>Bandeau d’inspiration</name>
         <descr>+4 Sagesse</descr>
@@ -80,7 +98,11 @@ Troisièeme éveil: 20 confirmé en attaque génère un point de Ki, Soin d'un a
         <slotId>face_slot</slotId>
         <value>8000 po</value>
         <equipped>true</equipped>
+        <abilityUp>
+            <ability_sagesse>4</ability_sagesse>
+        </abilityUp>
     </equipment>
+
     <equipment>
         <name>Oreilles de lapin</name>
         <descr>Tant qu'elles sont équipées le porteur a un bonus de +30 aux jets d'acrobaties et de courir à x8 au lieu de x4.</descr>
@@ -88,15 +110,26 @@ Troisièeme éveil: 20 confirmé en attaque génère un point de Ki, Soin d'un a
         <slotId>helm_slot</slotId>
         <value>912000 po</value>
         <equipped>true</equipped>
+        <skillUp>
+            <skill_acrob>30</skill_acrob>
+        </skillUp>
     </equipment>
+
+
     <equipment>
-        <name>Ceinture de force de geant</name>
-        <descr>+4 Force</descr>
-        <value>16000 po</value>
+        <name>Ceinture de Charge Tonitruante</name>
+        <descr>Elle octroie à son porteur un bonus d’altération de +2 à la Force. Ce bonus est temporaire pendant les vingt-quatre premières heures où le personnage porte la ceinture. La ceinture renforce l’élan du porteur lorsqu’il charge et lui octroie un bonus de +2 aux manoeuvres de bousculade et de renversement. De plus, lorsque le porteur attaque en chargeant, on considère que ses armes de corps à corps et naturelles font une catégorie de taille de plus que la réalité en ce qui concerne les dégâts infligé</descr>
+        <value>10 500 po</value>
         <imgId>equipment_belt</imgId>
         <slotId>belt_slot</slotId>
         <equipped>true</equipped>
+        <abilityUp>
+            <ability_force>2</ability_force>
+            <ability_bmo>2</ability_bmo>
+        </abilityUp>
     </equipment>
+
+
 
     <!-- Hors slot -->
     <equipment>
@@ -106,7 +139,11 @@ Troisièeme éveil: 20 confirmé en attaque génère un point de Ki, Soin d'un a
         <imgId>equipment_ioun_dex</imgId>
         <slotId>other_slot</slotId>
         <equipped>true</equipped>
+        <abilityUp>
+            <ability_dexterite>2</ability_dexterite>
+        </abilityUp>
     </equipment>
+
     <equipment>
         <name>Pierres d'ioun d'intuition</name>
         <descr>+1 CA</descr>
@@ -114,7 +151,9 @@ Troisièeme éveil: 20 confirmé en attaque génère un point de Ki, Soin d'un a
         <imgId>equipment_ioun_ca</imgId>
         <slotId>other_slot</slotId>
         <equipped>true</equipped>
+        <armor>1</armor>
     </equipment>
+
     <equipment>
         <name>Pierres d'ioun</name>
         <descr>+1 CA</descr>
@@ -122,7 +161,9 @@ Troisièeme éveil: 20 confirmé en attaque génère un point de Ki, Soin d'un a
         <imgId>equipment_ioun_ca</imgId>
         <slotId>other_slot</slotId>
         <equipped>true</equipped>
+        <armor>1</armor>
     </equipment>
+
     <equipment>
         <name>Griffe du premier dragon du temps</name>
         <descr>Tout dragon est amical</descr>
@@ -141,6 +182,7 @@ Troisièeme éveil: 20 confirmé en attaque génère un point de Ki, Soin d'un a
         <slotId>mainhand_slot</slotId>
         <equipped>false</equipped>
     </equipment>
+
     <equipment>
         <name>Anneau de l'ours</name>
         <descr>+2 force +2 CA</descr>
@@ -197,14 +239,26 @@ Troisièeme éveil: 20 confirmé en attaque génère un point de Ki, Soin d'un a
         <imgId>equipment_neck_slot_def</imgId>
         <slotId>neck_slot</slotId>
         <equipped>false</equipped>
-    </equipment>
 
+    </equipment>
+    <equipment>
+        <name>Ceinture de force de geant</name>
+        <descr>+4 Force</descr>
+        <value>16000 po</value>
+        <imgId>equipment_belt</imgId>
+        <slotId>belt_slot</slotId>
+        <equipped>false</equipped>
+        <abilityUp>
+            <ability_force>4</ability_force>
+        </abilityUp>
+    </equipment>
 
     <!-- BAG -->
     <bag>Bracelets en or[100po](lien avec Halda pour Lien sacré)
         Anneau de platine[50po](pour halda sort : Protection d'autrui)
         Corde 15m
         Statue mouche[16500po](pégase 3/semaine pendant 12h)
-        Pierre d'alerte(cube antivol)</bag>
+        Pierre d'alerte(cube antivol)
+        Potion de résurrection[100000po](durée une semaine. Si mort retourne à la vie avec moitié de point de vie)</bag>
 </records>
 

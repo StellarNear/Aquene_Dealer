@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="version">"v4.1"</string>
-    <string name="time_spend">"278h"</string>
+    <string name="version">"v4.2"</string>
+    <string name="time_spend">"281h"</string>
     <string name="basic_infos">"Cette application est développée par player 1 pour son player 2. Développée avec amour par Jérémie Chatron en fin 2017-2019." </string>
     <string name="patch_list">"----------------------------------------------------------------------------------
+v4.2
+-Ajout de la ceinture Tonitruante
+-Ajout du smartItem system ! (creation et anciennes items transférées en smart)
+-Calcul des dégats des de base dynamique fonction de la taille
+----------------------------------------------------------------------------------
 v4.1
 -Ajout de l'attaque mythique : Charge effrénée
--Changemetn de certains nom pour un meilleur affichage
+-Changement de certains noms pour un meilleur affichage
 ----------------------------------------------------------------------------------
 v4.0
 -Mythique : Don Dual + Il y a toujours une chance

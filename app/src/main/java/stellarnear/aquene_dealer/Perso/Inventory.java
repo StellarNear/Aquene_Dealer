@@ -30,20 +30,19 @@ public class Inventory {
         this.allEquipments = new AllEquipments(mC);
     }
 
-    public void showEquipment(Activity mA, Boolean... canDelete) {
-        this.mA = mA;
+    public void showEquipment(Activity mA,Context mC, Boolean... canDelete) {
         editable = canDelete.length > 0 ? canDelete[0] : false;  //parametre optionnel pour editer le contenu de l'invertaire
-
         LayoutInflater inflater = mA.getLayoutInflater();
-        inventoryView = inflater.inflate(R.layout.equipment_dialog, null);
+        View inventoryView = inflater.inflate(R.layout.equipment_dialog, null);
         equipWindow = new CustomAlertDialog(mA, mC, inventoryView);
         equipWindow.setPermanent(true);
         equipWindow.clickToHide(inventoryView.findViewById(R.id.equipment_dialog_main_title_frame));
-        setImageOnDialog();
+        setImageOnDialog(mA,mC,inventoryView);
         equipWindow.showAlert();
     }
 
-    private void setImageOnDialog() {
+    private void setImageOnDialog(final Activity mA,final Context mC, View inventoryView) {
+
         float[] mat = new float[]
                 {
                         1, 0, 0, 0, 0,
@@ -62,7 +61,6 @@ public class Inventory {
                         0, 0, 0, 0, 1
                 };
         ColorMatrixColorFilter matrixBlue = new ColorMatrixColorFilter(mat2);
-
         if (bag.getBagSize() > 0) {
             int resID = mC.getResources().getIdentifier("bag", "id", mC.getPackageName());
             ImageView img = (ImageView) inventoryView.findViewById(resID);
@@ -83,13 +81,13 @@ public class Inventory {
                 img.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        allEquipments.showSlot(mA, equi.getSlotId(), editable);
+                        allEquipments.getDisplayManager().showSlot(mA, equi.getSlotId(), editable);
                         if (editable) {
-                            allEquipments.setRefreshEventListener(new AllEquipments.OnRefreshEventListener() {
+                            allEquipments.getDisplayManager().setRefreshEventListener(new DisplayEquipmentManager.OnRefreshEventListener() {
                                 @Override
                                 public void onEvent() {
                                     equipWindow.dismissAlert();
-                                    showEquipment(mA, editable);
+                                    showEquipment(mA, mC, editable);
                                 }
                             });
                         }
@@ -101,7 +99,7 @@ public class Inventory {
         }
 
         if (editable) {
-            for (final Equipment equi : allEquipments.getAllSpareEquipment()) {
+            for (final Equipment equi : allEquipments.getDisplayManager().getAllSpareEquipment()) {
                 try {
                     if (allEquipments.getEquipmentsEquiped(equi.getSlotId()) == null) {
                         int resID = mC.getResources().getIdentifier(equi.getSlotId(), "id", mC.getPackageName());
@@ -110,12 +108,12 @@ public class Inventory {
                         img.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                allEquipments.showSpareList(mA,allEquipments.getSpareEquipment(equi.getSlotId()),editable);
-                                allEquipments.setRefreshEventListener(new AllEquipments.OnRefreshEventListener() {
+                                allEquipments.getDisplayManager().showSpareList(mA,allEquipments.getDisplayManager().getSpareEquipment(equi.getSlotId()),editable);
+                                allEquipments.getDisplayManager().setRefreshEventListener(new DisplayEquipmentManager.OnRefreshEventListener() {
                                     @Override
                                     public void onEvent() {
                                         equipWindow.dismissAlert();
-                                        showEquipment(mA, editable);
+                                        showEquipment(mA,mC, editable);
                                     }
                                 });
 
@@ -142,14 +140,14 @@ public class Inventory {
         return bag.getBagSize() + allEquipments.getAllEquipmentsSize();
     }
 
-    public void resetInventory() {
-        bag.refreshBag();
-        allEquipments.refreshEquipment();
-    }
-
     public void reset() {
         bag.reset();
         allEquipments.reset();
+    }
+
+    public void loadFromSave() {
+        bag.loadFromSave();
+        allEquipments.loadFromSave();
     }
 }
 

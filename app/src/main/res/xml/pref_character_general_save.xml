@@ -18,10 +18,6 @@
             android:key="switch_save_race"
             android:title="Bonus racial +1 (halfelin)" />
         <SwitchPreference
-            android:defaultValue="@bool/switch_save_coat_DEF"
-            android:key="switch_save_coat"
-            android:title="Cape de résistances draconique +5" />
-        <SwitchPreference
             android:defaultValue="@bool/switch_perma_resi_DEF"
             android:key="switch_perma_resi"
             android:title="Permanence résistance +1" />
@@ -41,11 +37,6 @@
             android:singleLine="true"
             android:inputType="number"
             android:summary="Valeur : %s"/>
-
-        <SwitchPreference
-            android:defaultValue="@bool/switch_save_ref_boot_DEF"
-            android:key="switch_save_ref_boot"
-            android:title="Bottes de rapidité +1" />
     </PreferenceCategory>
     <Preference android:layout="@layout/divider_pref" android:selectable="false"/>
     <PreferenceCategory

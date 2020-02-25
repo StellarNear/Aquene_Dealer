@@ -37,8 +37,8 @@ public class DmgRoll {
         if (aquene.getInventory().getAllEquipments().testIfNameItemIsEquipped("Amulette des poings invincibles d'allonge de feu (+5)")) {
             allDiceList.add(new Dice(mA,mC, 6,"fire"));
         }
-        int nHandDices = tools.toInt(settings.getString("number_main_dice_dmg", String.valueOf(mC.getResources().getInteger(R.integer.number_main_dice_dmg_DEF))));
-        int handDiceType = tools.toInt(settings.getString("main_dice_dmg_type", String.valueOf(mC.getResources().getInteger(R.integer.main_dice_dmg_type_DEF))));
+        int nHandDices =  aquene.getNMainDice();
+        int handDiceType = aquene.getMainDiceType();
         for (int i = 1; i <= nHandDices; i++) {
             Dice hand = new Dice(mA,mC, handDiceType);
             hand.makeCritable();

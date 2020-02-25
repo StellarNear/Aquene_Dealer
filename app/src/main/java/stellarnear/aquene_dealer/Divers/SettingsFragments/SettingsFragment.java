@@ -195,7 +195,7 @@ public class SettingsFragment extends PreferenceFragment {
     private void action(Preference preference) {
         switch (preference.getKey()) {
             case "show_equipment":
-                aquene.getInventory().showEquipment(getActivity(), true);
+                aquene.getInventory().showEquipment(getActivity(), getContext(),true);
                 break;
             case "add_gold":
                 preference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {

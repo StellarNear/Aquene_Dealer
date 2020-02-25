@@ -35,6 +35,8 @@ public class AllMythicCapacities {
     }
 
     private void buildMythicCapacities() {
+        mapIdMythiccapacity =new HashMap<>();
+        allMythicCapacities = new ArrayList<>();
         try {
             InputStream is = mC.getAssets().open("mythiccapacities.xml");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
