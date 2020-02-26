@@ -34,7 +34,7 @@ public class CombatLauncherDamageDetailDialog {
     private AlertDialog dialog;
     private Context mC;
     private View dialogDamageDetail;
-    private Tools tools=new Tools();
+    private Tools tools=Tools.getTools();
     Perso aquene = MainActivity.aquene;
 
     public CombatLauncherDamageDetailDialog(Context mC, RollList rollsToDisplay) {

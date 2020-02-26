@@ -32,7 +32,7 @@ public class AllAbilities {
     private List<Ability> listAbilities= new ArrayList<>();
     private Context mC;
     private Inventory inventory;
-    private Tools tools=new Tools();
+    private Tools tools=Tools.getTools();
 
     public AllAbilities(Context mC,Inventory inventory) {
         this.inventory=inventory;

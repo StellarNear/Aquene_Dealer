@@ -31,7 +31,7 @@ public class AllAttacks {
     private Context mC;
     private String combatMode;
     private int atkRange;
-    private Tools tools=new Tools();
+    private Tools tools=Tools.getTools();
 
     public AllAttacks(Context mC) {
         this.mC = mC;

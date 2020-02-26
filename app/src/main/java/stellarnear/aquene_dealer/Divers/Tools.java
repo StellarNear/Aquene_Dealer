@@ -26,6 +26,18 @@ import stellarnear.aquene_dealer.R;
 
 public class Tools {
 
+    private static Tools instance;
+
+    public Tools(){  }
+
+    public static Tools getTools(){
+        if (instance==null){
+            instance = new Tools();
+        }
+        return instance;
+    }
+
+
     public Integer toInt(String key) {
         Integer value = 0;
         try {

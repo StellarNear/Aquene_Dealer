@@ -54,7 +54,7 @@ public class CombatLauncher {
     private CombatLauncherDamageLines combatLauncherDamageLines;
     private ImageButton addAtkButton;
     private OnFinishEventListener mListener;
-    private Tools tools=new Tools();
+    private Tools tools=Tools.getTools();
 
     public CombatLauncher(Activity mA, Context mC, Attack attack) {
         this.mA = mA;

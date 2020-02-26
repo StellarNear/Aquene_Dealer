@@ -16,7 +16,7 @@ public class PrefSkillFragment {
         private Perso aquene= MainActivity.aquene;
         private Activity mA;
         private Context mC;
-        private Tools tools=new Tools();
+        private Tools tools=Tools.getTools();
         public PrefSkillFragment(Activity mA,Context mC){
             this.mA=mA;
             this.mC=mC;

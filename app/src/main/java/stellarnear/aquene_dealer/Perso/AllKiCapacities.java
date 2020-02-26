@@ -26,7 +26,7 @@ public class AllKiCapacities {
     private Context mC;
     private List<KiCapacity> allKiCapacities = new ArrayList<>();
     private Map<String,KiCapacity> mapIdKicapacity=new HashMap<>();
-    private Tools tools=new Tools();
+    private Tools tools=Tools.getTools();
 
     public AllKiCapacities(Context mC)
     {

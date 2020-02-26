@@ -34,7 +34,7 @@ public class Perso {
     private Stats stats;
     private HallOfFame hallOfFame;
     private SharedPreferences preferences;
-    private Tools tools =new Tools();
+    private Tools tools =Tools.getTools();
     private Context mC;
 
     public Perso(Context mC) {

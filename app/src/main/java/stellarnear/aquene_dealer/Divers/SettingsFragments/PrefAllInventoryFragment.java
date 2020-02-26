@@ -32,7 +32,7 @@ public class PrefAllInventoryFragment {
     private Perso aquene= MainActivity.aquene;
     private Activity mA;
     private Context mC;
-    private Tools tools=new Tools();
+    private Tools tools=Tools.getTools();
     private Inventory inventory;
     private OnRefreshEventListener mListener;
 

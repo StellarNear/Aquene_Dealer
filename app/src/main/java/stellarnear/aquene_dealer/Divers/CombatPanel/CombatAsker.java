@@ -42,7 +42,7 @@ public class CombatAsker {
 
     private boolean kistep; //pour la dépense à la fin en confirmation
     private View.OnClickListener backToMainListner;
-    private Tools tools= new Tools();
+    private Tools tools= Tools.getTools();
 
     public CombatAsker(Activity mA,Context mC, LinearLayout layout, View.OnClickListener backToMainListner) {
         this.mA=mA;

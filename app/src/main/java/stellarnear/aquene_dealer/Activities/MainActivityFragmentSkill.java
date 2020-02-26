@@ -30,7 +30,7 @@ public class MainActivityFragmentSkill extends Fragment {
     private Perso aquene = MainActivity.aquene;
     private LinearLayout linearSkillScroll;
     private View returnFragView;
-    private Tools tools=new Tools();
+    private Tools tools=Tools.getTools();
     public MainActivityFragmentSkill() {
     }
 

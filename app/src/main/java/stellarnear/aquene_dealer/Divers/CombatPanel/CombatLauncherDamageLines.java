@@ -45,7 +45,7 @@ public class CombatLauncherDamageLines {
     private CombatLauncherDamageDetailDialog combatLauncherDamageDetailDialog;
     private boolean statsDisplayed = false;
     private LinearLayout statPanelLinear;
-    private Tools tools = new Tools();
+    private Tools tools = Tools.getTools();
     private Perso aquene= MainActivity.aquene;
 
     public CombatLauncherDamageLines(Context mC, View mainView, RollList allRolls) {

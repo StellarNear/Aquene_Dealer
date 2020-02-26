@@ -34,7 +34,7 @@ public class AtkRoll {
     private CheckBox hitCheckbox;
     private CheckBox critCheckbox;
     private OnRefreshEventListener mListener;
-    private Tools tools=new Tools();
+    private Tools tools=Tools.getTools();
 
     public AtkRoll(Activity mA,Context mC, Integer base) {
         this.mA= mA;

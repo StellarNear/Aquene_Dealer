@@ -41,7 +41,7 @@ public class CritConfirmAlertDialog {
     private OnSuccessEventListener mListenerSuccess;
     private OnFailEventListener mListenerFail;
 
-    private Tools tools = new Tools();
+    private Tools tools = Tools.getTools();
 
     public CritConfirmAlertDialog(Activity mA,Context mC,int atkVal) {
         this.mA=mA;

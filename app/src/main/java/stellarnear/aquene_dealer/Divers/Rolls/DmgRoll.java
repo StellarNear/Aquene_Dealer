@@ -24,7 +24,7 @@ public class DmgRoll {
 
     private DiceList allDiceList = new DiceList();
 
-    private Tools tools = new Tools();
+    private Tools tools = Tools.getTools();
 
     public DmgRoll(Activity mA,Context mC, Boolean critConfirmed) {
         this.mC = mC;

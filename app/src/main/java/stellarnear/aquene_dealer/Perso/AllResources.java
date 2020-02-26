@@ -36,7 +36,7 @@ public class AllResources {
     private Map<String, Resource> mapIDRes = new HashMap<>();
     private List<Resource> listResources = new ArrayList<>();
     private SharedPreferences settings;
-    private Tools tools = new Tools();
+    private Tools tools = Tools.getTools();
 
     public AllResources(Context mC, AllFeats allFeats, AllAbilities allAbilities,AllCapacities allCapacities,AllMythicCapacities allMythicCapacities,Inventory inventory) {
         this.mC = mC;
@@ -107,12 +107,6 @@ public class AllResources {
                 mapIDRes.put(capaRes.getId(), capaRes);
             }
         }
-        //cas particulier une capa lié à une resource ...
-        Capacity defLeg = allCapacities.getCapacity("capacity_legendary_defense");
-        Resource defLegRes = new Resource(defLeg.getName(),defLeg.getShortname(),true,false,defLeg.getId().replace("capacity_","resource_"),mC);
-        defLegRes.setFromCapacity(defLeg);
-        listResources.add(defLegRes);
-        mapIDRes.put(defLegRes.getId(), defLegRes);
     }
 
     public List<Resource> getResourcesListDisplay() {

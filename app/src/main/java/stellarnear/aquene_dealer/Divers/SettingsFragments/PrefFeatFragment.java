@@ -14,7 +14,7 @@ public class PrefFeatFragment {
     private Perso aquene= MainActivity.aquene;
     private Activity mA;
     private Context mC;
-    private Tools tools=new Tools();
+    private Tools tools=Tools.getTools();
     public PrefFeatFragment(Activity mA,Context mC){
         this.mA=mA;
         this.mC=mC;

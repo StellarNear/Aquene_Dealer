@@ -26,7 +26,7 @@ public class AllMythicCapacities {
     private Context mC;
     private List<MythicCapacity> allMythicCapacities = new ArrayList<>();
     private Map<String,MythicCapacity> mapIdMythiccapacity =new HashMap<>();
-    private Tools tools=new Tools();
+    private Tools tools=Tools.getTools();
 
     public AllMythicCapacities(Context mC)
     {

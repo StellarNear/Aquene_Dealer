@@ -28,7 +28,7 @@ public class ImgForDice {
     private Dice dice;
     private Dice surgeDice;
     private ImageView img;
-    private Tools tools = new Tools();
+    private Tools tools = Tools.getTools();
     private Perso aquene = MainActivity.aquene;
 
     public ImgForDice(Dice dice, Activity mA, Context mC) {

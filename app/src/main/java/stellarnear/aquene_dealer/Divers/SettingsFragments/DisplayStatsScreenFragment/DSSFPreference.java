@@ -19,7 +19,7 @@ import stellarnear.aquene_dealer.R;
 
 
 public class DSSFPreference extends Preference {
-    private Tools tools=new Tools();
+    private Tools tools=Tools.getTools();
     private Context mC;
     private View mainView;
     private ViewFlipper panel;

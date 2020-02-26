@@ -42,7 +42,7 @@ public class MainActivityFragmentKi extends Fragment {
     private List<LinearLayout> allKiCapa=new ArrayList<>();
     private KiCapacity kiCapaSelected;
     private Button valid;
-    private Tools tools=new Tools();
+    private Tools tools=Tools.getTools();
     public MainActivityFragmentKi() {
 
     }

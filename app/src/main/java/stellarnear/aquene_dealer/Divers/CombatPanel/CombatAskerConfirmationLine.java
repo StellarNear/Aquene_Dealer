@@ -23,7 +23,7 @@ import stellarnear.aquene_dealer.R;
 public class CombatAskerConfirmationLine {
     private LinearLayout lineStep;
     private Perso aquene = MainActivity.aquene;
-    private Tools tools=new Tools();
+    private Tools tools=Tools.getTools();
 
     public CombatAskerConfirmationLine(final Activity mA, final Context mC, final Attack selectedAttack, final View.OnClickListener backToMainListner, final Boolean kistep) {
         lineStep = new LinearLayout(mC);
