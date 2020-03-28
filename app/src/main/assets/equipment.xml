@@ -92,6 +92,18 @@ Troisièeme éveil: 20 confirmé en attaque génère un point de Ki, Soin d'un a
     </equipment>
 
     <equipment>
+        <name>Yeux Perçcants</name>
+        <descr>Ces lentilles de cristal se placent sur les yeux de leur porteur et octroient un bonus de compétence de +2 aux tests de Perception, ainsi que la vision nocturne. Si le porteur possède déjà cette capacité, la portée de la vision nocturne est doublée.</descr>
+        <imgId>equipment_keen_eyes</imgId>
+        <slotId>eyes_slot</slotId>
+        <value>6000 po</value>
+        <equipped>true</equipped>
+        <skillUp>
+            <skill_percept>2</skill_percept>
+        </skillUp>
+    </equipment>
+
+    <equipment>
         <name>Bandeau d’inspiration</name>
         <descr>+4 Sagesse</descr>
         <imgId>equipment_headband</imgId>

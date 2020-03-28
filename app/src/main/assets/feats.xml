@@ -43,7 +43,7 @@
         <name>Vitesse aveuglante</name>
         <type>feat_active</type>
         <descr>Le personnage peut agir comme si il avait le sort "rapidité" activé 5 rounds par jour. Il peut activer les rounds indépendamment. Activer ce pouvoir est une action libre.</descr>
-        <id>featblinding_speed</id>
+        <id>feat_blinding_speed</id>
     </feat>
 
 
@@ -98,7 +98,12 @@
         <id>feat_crit_sup</id>
     </feat>
 
-
+    <feat>
+        <name>Frappe de Ki absolue</name>
+        <type>feat_atk</type>
+        <descr>En action rapide le et dépensant 4 points de ki. Le corps du moine se met à briller d'un feu blanc bleuté, toutes les attaques qu'il réalise jusqu'au début de son prochain tour sont portées contre la CA au contact de sa cible.</descr>
+        <id>feat_absolute_ki_strike</id>
+    </feat>
 
     <!-- DEF -->
     <feat>

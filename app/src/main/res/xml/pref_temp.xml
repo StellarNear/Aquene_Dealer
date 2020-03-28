@@ -8,26 +8,6 @@
     <Preference  android:layout="@layout/divider_pref" android:selectable="false"/>
 
     <PreferenceCategory android:title="Buff personnels"/>
-    <Preference  android:layout="@layout/divider_pref" android:selectable="false"/>
-    <SwitchPreference
-        android:defaultValue="@bool/switch_blinding_speed_DEF"
-        android:key="switch_blinding_speed"
-        android:title="Rapidité (don:vitesse aveuglante)"
-        android:summary="+1 attaque, +1 jet  d'attaque, +1 CA, +1 reflexe, +9m déplacement"/>
-
-    <Preference  android:layout="@layout/divider_pref" android:selectable="false"/>
-
-
-    <stellarnear.aquene_dealer.Divers.EditTextPreference
-        android:defaultValue="@integer/blinding_speed_DEF"
-        android:key="blinding_speed_current_temp"
-        android:selectAllOnFocus="true"
-        android:singleLine="true"
-        android:summary="Utilisations journalières restantes : %s"
-        android:selectable="false"
-        android:inputType="number"
-        android:title="Nombre d'utilisations restantes"
-        />
 
     <Preference  android:layout="@layout/divider_pref" android:selectable="false"/>
 

@@ -15,6 +15,7 @@
     <bool name="switch_feat_total_evade_DEF">true</bool>
     <bool name="switch_feat_keen_strike_DEF">true</bool>
     <bool name="switch_feat_improved_ki_strike_DEF">true</bool>
+    <bool name="switch_feat_absolute_ki_strike_DEF">true</bool>
     <bool name="switch_feat_inhuman_evade_DEF">true</bool>
     <bool name="switch_feat_iron_will_DEF">true</bool>
     <bool name="switch_feat_inhuman_stamina_DEF">true</bool>

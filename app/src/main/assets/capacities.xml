@@ -130,13 +130,7 @@
         <id>capacity_insight_rd</id>
     </capacity>
 
-    <capacity>
-        <name>Défense légendaire</name>
-        <shortname>Def. Leg.</shortname>
-        <descr>Quand une créature qui porte un objet ayant cette aptitude est victime d’un coup critique ou d’une attaque sournoise, elle peut dépenser une utilisation de pouvoir légendaire pour annuler le coup critique ou l’attaque sournoise et recevoir seulement les dégâts normaux. Cette aptitude n’est accessible qu’aux armures, aux boucliers et aux objets que l’on porte sur soi.</descr>
-        <dailyuse>leg_points</dailyuse>
-        <id>capacity_legendary_defense</id>
-    </capacity>
+
 
     <capacity>
         <name>Vitesse aveuglante</name>
@@ -179,5 +173,20 @@
         <dailyuse>infinite</dailyuse>
     </capacity>
 
+    <capacity>
+        <name>Défense légendaire</name>
+        <shortname>Def. Leg.</shortname>
+        <descr>Quand une créature qui porte un objet ayant cette aptitude est victime d’un coup critique ou d’une attaque sournoise, elle peut dépenser une utilisation de pouvoir légendaire pour annuler le coup critique ou l’attaque sournoise et recevoir seulement les dégâts normaux. Cette aptitude n’est accessible qu’aux armures, aux boucliers et aux objets que l’on porte sur soi.</descr>
+        <dailyuse>leg_points</dailyuse>
+        <id>capacity_legendary_defense</id>
+    </capacity>
 
+    <capacity>
+        <name>Frappe de Ki absolue</name>
+        <shortname>Ki Absolu</shortname>
+        <type>Don</type>
+        <descr>[Vient du don]En action rapide le et dépensant 4 points de ki. Le corps du moine se met à briller d'un feu blanc bleuté, toutes les attaques qu'il réalise jusqu'au début de son prochain tour sont portées contre la CA au contact de sa cible.</descr>
+        <id>capacity_absolute_ki_strike</id>
+        <dailyuse>4ki_points</dailyuse>
+    </capacity>
 </records>

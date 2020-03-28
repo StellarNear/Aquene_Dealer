@@ -17,6 +17,7 @@ import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.TextView;
@@ -165,6 +166,31 @@ public class MainActivityFragmentKi extends Fragment {
                 setLinearCapaColor(lineCapa);
             }
         });
+        lineCapa.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                toastInfo(kiCapa);
+                return false;
+            }
+        });
+    }
+
+    public void toastInfo(KiCapacity kiCapacity) {
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View view = inflater.inflate(R.layout.custom_toast_info,(ViewGroup) getActivity().findViewById(R.id.toast_RelativeLayout));
+
+        ImageView img =  view.findViewById(R.id.toast_image);
+        int imgId = getResources().getIdentifier(kiCapacity.getId(), "drawable", getActivity().getPackageName());
+        img.setImageResource(imgId);
+        TextView name = view.findViewById(R.id.toast_textName);
+        name.setText(kiCapacity.getName());
+        TextView subTitle = view.findViewById(R.id.toast_textVal);
+        subTitle.setText("Cout en ki : "+kiCapacity.getCost());
+        TextView descr = view.findViewById(R.id.toast_textDescr);
+        descr.setText(kiCapacity.getDescr());
+        CustomAlertDialog ct = new CustomAlertDialog(getActivity(),getContext(),view);
+        ct.clickToHide(view.findViewById(R.id.toast_LinearLayout));
+        ct.showAlert();
     }
 
     private void setLinearCapaColor(LinearLayout lineCapa) {

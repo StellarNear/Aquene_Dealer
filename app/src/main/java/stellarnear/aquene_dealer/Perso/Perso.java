@@ -288,9 +288,12 @@ public class Perso {
                         dailyUse =mainPJlvl;
                         break;
                     case "leg_points":
-                        int resId = mC.getResources().getIdentifier("resource_legendary_points".toLowerCase() + "_def", "integer", mC.getPackageName());
-                        int valLeg = tools.toInt(preferences.getString("resource_legendary_points".toLowerCase(), String.valueOf(mC.getResources().getInteger(resId))));
-                        dailyUse=valLeg;
+                        cap.setDailyUse(null);
+                        cap.setJoinedResource(1,"resource_legendary_points");
+                        break;
+                    case "4ki_points":
+                        cap.setDailyUse(null);
+                        cap.setJoinedResource(4,"resource_ki");
                         break;
                 }
             } else {
@@ -465,10 +468,8 @@ public class Perso {
 
     public void endRound() {
         if( preferences.getBoolean("switch_blinding_speed",mC.getResources().getBoolean(R.bool.switch_blinding_speed_DEF))) {
-            getAllResources().getResource("resource_blinding_speed").spend(1);
             new PostData(mC,new PostDataElement("Dépense d'un round de Vitesse aveuglante","-"));
             preferences.edit().putBoolean("switch_blinding_speed", false).apply();
-            preferences.edit().putString("blinding_speed_current_temp", String.valueOf(getCurrentResourceValue("resource_blinding_speed"))).apply();
             tools.customToast(mC,"Vitesse aveuglante désactivée","center");
         }
     }

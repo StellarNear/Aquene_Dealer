@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="version">"v4.2"</string>
-    <string name="time_spend">"281h"</string>
+    <string name="version">"v4.3"</string>
+    <string name="time_spend">"283h"</string>
     <string name="basic_infos">"Cette application est développée par player 1 pour son player 2. Développée avec amour par Jérémie Chatron en fin 2017-2019." </string>
     <string name="patch_list">"----------------------------------------------------------------------------------
+v4.3
+-Maj des valeurs par defaut niveau 28
+-Ajout du dons et capacité frappe de ki absolue
+-Les capacités liées à des resources le sont de manière plus intelligente (evitant les dependance aller retour)
+-Ajout des lentilles Yeux percants
+----------------------------------------------------------------------------------
 v4.2
 -Ajout de la ceinture Tonitruante
 -Ajout du smartItem system ! (creation et anciennes items transférées en smart)

@@ -16,11 +16,12 @@ public class Capacity {
     private String id;
     private Context mC;
     private String dailyUseString;
-    private int dailyUse=0;
+    private Integer dailyUse=0;
     private boolean infinite=false;
     private String valueString;
-    private int value=0;
-
+    private Integer value=0;
+    private String joinedResourceId;
+    private Integer nSpendJoinedResource;
 
 
     public Capacity(String name,String shortname, String type, String descr, String id,String dailyUse,String valueString,Context mC){
@@ -37,12 +38,20 @@ public class Capacity {
         }
     }
 
-    public void setDailyUse(int dailyUse) {
+    public void setDailyUse(Integer dailyUse) {
         this.dailyUse = dailyUse;
     }
 
     public String getDailyUseString() {
         return dailyUseString;
+    }
+
+    public String getJoinedResourceId() {
+        return joinedResourceId;
+    }
+
+    public Integer getnSpendJoinedResource() {
+        return nSpendJoinedResource;
     }
 
     public String getValueString() {
@@ -90,7 +99,12 @@ public class Capacity {
         return value;
     }
 
-    public void setValue(int val) {
+    public void setValue(Integer val) {
         this.value=val;
+    }
+
+    public void setJoinedResource(Integer nSpendJoinedResource, String resId) {
+        this.nSpendJoinedResource=nSpendJoinedResource;
+        this.joinedResourceId=resId;
     }
 }

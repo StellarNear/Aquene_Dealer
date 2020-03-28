@@ -224,10 +224,11 @@ public class QuadrantFiller {
         text2.setTextSize(TypedValue.COMPLEX_UNIT_PX,textSize);
         String column2txt;
 
-
             if (res.isInfinite()) {
                 column2txt = String.valueOf(DecimalFormatSymbols.getInstance().getInfinity());
-            } else{
+            } else if(res.isFromCapacity() && res.getCapa().getJoinedResourceId()!=null){
+                column2txt = String.valueOf(aquene.getCurrentResourceValue(res.getCapa().getJoinedResourceId())/res.getCapa().getnSpendJoinedResource());//todo division par spend
+            } else {
                 column2txt = String.valueOf(aquene.getCurrentResourceValue(res.getId()));
             }
             if (mode.equalsIgnoreCase("mini") && res.getId().equalsIgnoreCase("resource_hp")) {
@@ -243,7 +244,7 @@ public class QuadrantFiller {
         text2.setText(column2txt);
         line.addView(subValue);
 
-        if(mode.equalsIgnoreCase("full") && res.isTestable()){ //correspond à hp
+        if(mode.equalsIgnoreCase("full") && res.isTestable()){ //correspond à hp ou capacity
             setListner(subLabel,res);
             setListner(subValue,res);
         }
@@ -288,7 +289,10 @@ public class QuadrantFiller {
             text.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(res.isInfinite() || aquene.getCurrentResourceValue(res.getId())>0) {
+                    boolean remainingUsage = res.getCapa().getJoinedResourceId()==null ?
+                            aquene.getCurrentResourceValue(res.getId())>0
+                            :aquene.getCurrentResourceValue(res.getCapa().getJoinedResourceId())-res.getCapa().getnSpendJoinedResource()>=0;
+                    if(res.isInfinite() || remainingUsage) {
                         new AlertDialog.Builder(mC)
                                 .setTitle("Utilisation de "+res.getName())
                                 .setMessage(res.getCapaDescr())
@@ -296,11 +300,13 @@ public class QuadrantFiller {
                                 .setPositiveButton("Utiliser", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int whichButton) {
                                             if (!res.isInfinite()) {
-                                                aquene.getAllResources().getResource(res.getId()).spend(1);
+                                                if(res.getCapa().getJoinedResourceId()!=null){
+                                                    aquene.getAllResources().getResource(res.getCapa().getJoinedResourceId()).spend(res.getCapa().getnSpendJoinedResource());
+                                                } else {
+                                                    aquene.getAllResources().getResource(res.getId()).spend(1);
+                                                }
                                                 if(res.getId().equalsIgnoreCase("resource_blinding_speed")){
                                                     PreferenceManager.getDefaultSharedPreferences(mC).edit().putBoolean("switch_blinding_speed", true).apply();
-                                                } else if(res.getId().equalsIgnoreCase("resource_legendary_defense")){
-                                                    aquene.getAllResources().getResource("resource_legendary_points").spend(1);
                                                 }
                                             }
                                             new PostData(mC, new PostDataElement(res.getCapa()));

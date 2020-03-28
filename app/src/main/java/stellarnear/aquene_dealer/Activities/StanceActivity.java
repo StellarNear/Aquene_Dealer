@@ -202,12 +202,12 @@ public class StanceActivity extends AppCompatActivity {
         name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toatInfo(stance);
+                toastInfo(stance);
             }
         });
     }
 
-    public void toatInfo(Stance stance) {
+    public void toastInfo(Stance stance) {
         LayoutInflater inflater = getLayoutInflater();
         View view = inflater.inflate(R.layout.custom_toast_info,(ViewGroup) findViewById(R.id.toast_RelativeLayout));
 

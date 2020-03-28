@@ -98,7 +98,7 @@ public class AllResources {
 
     private void addCapacitiesResources() {
         for(Capacity cap : allCapacities.getAllCapacitiesList()){
-            if ((cap.getDailyUse()>0|| cap.isInfinite()) && cap.isActive() && getResource(cap.getId().replace("capacity_", "resource_"))==null){
+            if ((cap.getDailyUse()>0|| cap.isInfinite() || cap.getJoinedResourceId()!=null) && cap.isActive() && getResource(cap.getId().replace("capacity_", "resource_"))==null){
                 //on test si elle est pas deja presente pour la pertie rebuild  de refreshCapaListResources
                 boolean testable = true; boolean hide=false;
                 Resource capaRes = new Resource(cap.getName(),cap.getShortname(),testable,hide,cap.getId().replace("capacity_","resource_"),mC);
