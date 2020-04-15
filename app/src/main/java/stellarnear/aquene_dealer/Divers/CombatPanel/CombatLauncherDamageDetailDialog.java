@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AlertDialog;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -16,6 +15,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AlertDialog;
 
 import stellarnear.aquene_dealer.Activities.MainActivity;
 import stellarnear.aquene_dealer.Divers.Rolls.Dice;

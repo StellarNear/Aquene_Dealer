@@ -493,7 +493,6 @@ public class Perso {
         resetTemp();
         refresh();
         sleep();
-
     }
 
     public void sleep() {
@@ -510,5 +509,12 @@ public class Perso {
         this.hallOfFame.reset();
         this.inventory.reset();
         reset();
+    }
+
+    public void loadFromSave() {
+        inventory.loadFromSave();
+        stats.loadFromSave();
+        hallOfFame.loadFromSave();
+        refresh();
     }
 }

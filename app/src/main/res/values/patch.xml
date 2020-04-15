@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="version">"v4.3"</string>
-    <string name="time_spend">"283h"</string>
+    <string name="time_spend">"284h"</string>
     <string name="basic_infos">"Cette application est développée par player 1 pour son player 2. Développée avec amour par Jérémie Chatron en fin 2017-2019." </string>
     <string name="patch_list">"----------------------------------------------------------------------------------
+v5.0
+-Maj automatique de l'application
+-Sauvegarde et chargement de l'ensemble des valeurs de l'application
+-Migration androidX
+----------------------------------------------------------------------------------
 v4.3
 -Maj des valeurs par defaut niveau 28
 -Ajout du dons et capacité frappe de ki absolue

@@ -53,4 +53,8 @@ public class Stats {
         this.statsList =new StatsList();
         saveLocalStats();
     }
+
+    public void loadFromSave() {
+        refreshStats();
+    }
 }

@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="stellarnear.aquene_dealer">
+    package="stellarnear.aquene_dealer"
+    android:versionCode="2"
+    android:versionName="5.0">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
     <application
         android:allowBackup="true"
@@ -43,6 +48,12 @@
             android:name=".Activities.HelpActivity"
             android:configChanges="orientation|screenSize"
             android:theme="@style/AppTheme.NoActionBarHelp"/>
+
+        <activity
+            android:name="stellarnear.aquene_dealer.Activities.SaveSharedPreferencesActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="@string/title_activity_saving"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

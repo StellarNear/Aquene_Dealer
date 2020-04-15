@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Point;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AlertDialog;
 import android.text.InputType;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -21,6 +20,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AlertDialog;
 
 import stellarnear.aquene_dealer.Activities.MainActivity;
 import stellarnear.aquene_dealer.Perso.Perso;

@@ -2,11 +2,12 @@ package stellarnear.aquene_dealer.Divers.CombatPanel;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.design.widget.Snackbar;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import stellarnear.aquene_dealer.Activities.MainActivity;
 import stellarnear.aquene_dealer.Divers.PostData;

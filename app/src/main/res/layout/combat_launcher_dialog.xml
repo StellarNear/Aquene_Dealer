@@ -180,29 +180,32 @@
         android:background="@color/transparent"
         app:srcCompat="@drawable/ic_info_outline_24dp" />
 
-    <android.support.design.widget.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_damage"
         android:layout_width="@dimen/floatin_button_combat_lancher_size"
         android:layout_height="@dimen/floatin_button_combat_lancher_size"
+        app:fabCustomSize="@dimen/floatin_button_combat_lancher_size"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:visibility="gone"
         app:backgroundTint="@android:color/holo_red_light"
         app:srcCompat="@drawable/ic_flare_black_24dp" />
 
-    <android.support.design.widget.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="@dimen/floatin_button_combat_lancher_size"
         android:layout_height="@dimen/floatin_button_combat_lancher_size"
+        app:fabCustomSize="@dimen/floatin_button_combat_lancher_size"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         app:backgroundTint="@android:color/white"
         app:srcCompat="@drawable/ic_filter_center_focus_black_24dp" />
 
-    <android.support.design.widget.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_detail"
         android:layout_width="@dimen/floatin_button_combat_lancher_size"
         android:layout_height="@dimen/floatin_button_combat_lancher_size"
+        app:fabCustomSize="@dimen/floatin_button_combat_lancher_size"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:visibility="gone"

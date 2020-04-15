@@ -7,8 +7,6 @@ import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Point;
 import android.preference.PreferenceManager;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AlertDialog;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +19,10 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AlertDialog;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Arrays;
 import java.util.List;

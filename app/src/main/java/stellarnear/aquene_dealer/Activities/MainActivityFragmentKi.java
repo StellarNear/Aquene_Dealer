@@ -8,7 +8,6 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.support.design.widget.Snackbar;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +20,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.TextView;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import stellarnear.aquene_dealer.BuildConfig;
 import stellarnear.aquene_dealer.Divers.CustomAlertDialog;
 import stellarnear.aquene_dealer.R;
 
@@ -30,7 +31,7 @@ public class PrefInfoScreenFragment {
         LinearLayout mainLin = mainView.findViewById(R.id.custom_info_patchnote);
 
         TextView version = new TextView(mC);
-        version.setText("Version actuelle : " + mC.getString(R.string.version));
+        version.setText("Version actuelle : " + BuildConfig.VERSION_NAME);
         version.setTextSize(22);
         mainLin.addView(version);
         TextView time = new TextView(mC);

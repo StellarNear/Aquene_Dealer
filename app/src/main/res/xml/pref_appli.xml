@@ -24,5 +24,16 @@
         android:icon="@drawable/ic_refresh_black_24dp"
         android:title="Refresh/Reset des paramètres" />
 
+    <PreferenceScreen
+        android:icon="@drawable/ic_file_upload_black_24dp"
+        android:key="import_save"
+        android:summary="Charge les informations"
+        android:title="Charger" />
+
+    <PreferenceScreen
+        android:icon="@drawable/ic_file_download_black_24dp"
+        android:key="export_save"
+        android:summary="Sauvegarde les informations"
+        android:title="Sauvegarder" />
 
 </PreferenceScreen>

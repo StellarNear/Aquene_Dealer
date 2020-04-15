@@ -46,6 +46,7 @@
     <string name="jet_att_DEF">15,10,5</string>
     <string name="jet_att_flurry_DEF">18,18,13,13,8,8,3</string>
     <string name="current_campaign">illu</string>
+    <string name="title_activity_saving">Sauvegarde</string>
 
     <string-array name="slot_choice_val">
         <item>eyes_slot</item>
