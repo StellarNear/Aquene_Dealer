@@ -17,6 +17,7 @@ import stellarnear.aquene_dealer.Divers.PostData;
 import stellarnear.aquene_dealer.Divers.PostDataElement;
 import stellarnear.aquene_dealer.Divers.Rolls.AtkRoll;
 import stellarnear.aquene_dealer.Divers.Rolls.Dice;
+import stellarnear.aquene_dealer.Divers.Rolls.Dice20;
 import stellarnear.aquene_dealer.Divers.Rolls.Roll;
 import stellarnear.aquene_dealer.Divers.Rolls.RollList;
 import stellarnear.aquene_dealer.Perso.Perso;
@@ -92,7 +93,7 @@ public class CombatLauncherHitCritLines {
                 }
 
             });
-            roll.getAtkDice().setMythicEventListener(new Dice.OnMythicEventListener() {
+            roll.getAtkDice().setMythicEventListener(new Dice20.OnMythicEventListener() {
                 @Override
                 public void onEvent() {
                     getRandValues();

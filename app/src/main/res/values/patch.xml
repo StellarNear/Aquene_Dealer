@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="time_spend">"284h"</string>
+    <string name="time_spend">"285h"</string>
     <string name="basic_infos">"Cette application est développée par player 1 pour son player 2. Développée avec amour par Jérémie Chatron en fin 2017-2019." </string>
     <string name="patch_list">"----------------------------------------------------------------------------------
 v5.0
 -Maj automatique de l'application
 -Sauvegarde et chargement de l'ensemble des valeurs de l'application
--Migration androidX
+-Migration android X (changement globaux de tout les resize d'images)
 ----------------------------------------------------------------------------------
 v4.3
 -Maj des valeurs par defaut niveau 28

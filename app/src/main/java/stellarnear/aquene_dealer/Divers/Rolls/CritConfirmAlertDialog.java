@@ -35,7 +35,7 @@ public class CritConfirmAlertDialog {
 
     private int sumScore;
 
-    private Dice dice;
+    private Dice20 dice;
 
     private Perso aquene = MainActivity.aquene;
 
@@ -130,7 +130,7 @@ public class CritConfirmAlertDialog {
     private void startRoll() {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mC);
 
-        dice = new Dice(mA,mC,20);
+        dice = new Dice20(mA,mC);
         if (settings.getBoolean("switch_manual_diceroll",mC.getResources().getBoolean(R.bool.switch_manual_diceroll_DEF))){
             dice.rand(true);
             dice.setRefreshEventListener(new Dice.OnRefreshEventListener() {
@@ -169,7 +169,7 @@ public class CritConfirmAlertDialog {
         alertDialog.getWindow().setLayout((int) (factor*size.x), (int)(factor*size.y));
     }
 
-    private void endSkillCalculation(final Dice dice) {
+    private void endSkillCalculation(final Dice20 dice) {
         FrameLayout resultDice= dialogView.findViewById(R.id.customDialogTestResultDice);
         resultDice.removeAllViews();
         resultDice.addView(dice.getImg());
@@ -186,7 +186,7 @@ public class CritConfirmAlertDialog {
         final TextView result = dialogView.findViewById(R.id.customDialogTestResult);
         result.setText(String.valueOf(sumResult));
 
-        dice.setMythicEventListener(new Dice.OnMythicEventListener() {
+        dice.setMythicEventListener(new Dice20.OnMythicEventListener() {
             @Override
             public void onEvent() {
                 int sumResult=dice.getRandValue()+ sumScore;

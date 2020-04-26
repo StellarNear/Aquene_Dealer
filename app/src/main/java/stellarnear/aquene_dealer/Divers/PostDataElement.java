@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import stellarnear.aquene_dealer.Divers.Rolls.Dice;
+import stellarnear.aquene_dealer.Divers.Rolls.Dice20;
 import stellarnear.aquene_dealer.Divers.Rolls.Roll;
 import stellarnear.aquene_dealer.Divers.Rolls.RollList;
 import stellarnear.aquene_dealer.Perso.Attack;
@@ -147,7 +147,7 @@ public class PostDataElement {
         this.result=resultTxt;
     }
 
-    public PostDataElement(String typeEvent, Dice oriDice, int result){
+    public PostDataElement(String typeEvent, Dice20 oriDice, int result){
         SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yy HH:mm:ss", Locale.FRANCE);
         this.date=formater.format(new Date());
 

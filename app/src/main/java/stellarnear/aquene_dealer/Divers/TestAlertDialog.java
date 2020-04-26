@@ -27,6 +27,7 @@ import java.util.List;
 
 import stellarnear.aquene_dealer.Activities.MainActivity;
 import stellarnear.aquene_dealer.Divers.Rolls.Dice;
+import stellarnear.aquene_dealer.Divers.Rolls.Dice20;
 import stellarnear.aquene_dealer.Perso.Ability;
 import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.Perso.Skill;
@@ -159,7 +160,7 @@ public class TestAlertDialog {
         passive.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Dice dice = new Dice(mA,mC,20);
+                Dice20 dice = new Dice20(mA,mC);
                 dice.setRand(10);
                 endSkillCalculation(dice);
             }
@@ -169,7 +170,7 @@ public class TestAlertDialog {
         focus.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Dice dice = new Dice(mA,mC,20);
+                Dice20 dice = new Dice20(mA,mC);
                 dice.setRand(20);
                 endSkillCalculation(dice);
             }
@@ -192,7 +193,7 @@ public class TestAlertDialog {
 
     private void startRoll() {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mC);
-        final Dice dice = new Dice(mA,mC,20);
+        final Dice20 dice = new Dice20(mA,mC);
         if (settings.getBoolean("switch_manual_diceroll",mC.getResources().getBoolean(R.bool.switch_manual_diceroll_DEF))){
             dice.rand(true);
             dice.setRefreshEventListener(new Dice.OnRefreshEventListener() {
@@ -222,10 +223,10 @@ public class TestAlertDialog {
         onlyButton.setBackground(mC.getDrawable(R.drawable.button_cancel_gradient));
     }
 
-    private void endSkillCalculation(final Dice dice) {
+    private void endSkillCalculation(final Dice20 dice) {
         List<String> listSave = Arrays.asList("ability_ref","ability_vig","ability_vol");
         if(abi!=null && listSave.contains(abi.getId())){
-            dice.setLegendarySurge(true); //la bague permet d'avoir un jet legendaire de montée en pusisance sur les jets de sauv
+            dice.canBeLegendarySurge(); //la bague permet d'avoir un jet legendaire de montée en pusisance sur les jets de sauv
         }
 
         FrameLayout resultDice= dialogView.findViewById(R.id.customDialogTestResultDice);
@@ -236,7 +237,7 @@ public class TestAlertDialog {
         onlyButton.setText("Ok");
         onlyButton.setBackground(mC.getDrawable(R.drawable.button_ok_gradient));
         displayResult(dice);
-        dice.setMythicEventListener(new Dice.OnMythicEventListener() {
+        dice.setMythicEventListener(new Dice20.OnMythicEventListener() {
             @Override
             public void onEvent() {
                 displayResult(dice);
@@ -244,7 +245,7 @@ public class TestAlertDialog {
         });
     }
 
-    private void displayResult(Dice dice) {
+    private void displayResult(Dice20 dice) {
         String modePostData; int sumResultPostData;
         TextView resultTitle = dialogView.findViewById(R.id.customDialogTitleResult);
         TextView callToAction = dialogView.findViewById(R.id.customDialogTestCallToAction);

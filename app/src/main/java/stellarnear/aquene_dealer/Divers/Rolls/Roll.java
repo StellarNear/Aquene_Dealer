@@ -58,7 +58,7 @@ public class Roll {
     public Integer getPreRandValue() {
         return atkRoll.getPreRandValue();
     }
-    public Dice getAtkDice() {
+    public Dice20 getAtkDice() {
         return atkRoll.getDice();
     }
     public int getAtkValue() {

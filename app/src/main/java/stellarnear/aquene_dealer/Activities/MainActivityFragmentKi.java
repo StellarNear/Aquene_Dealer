@@ -103,17 +103,32 @@ public class MainActivityFragmentKi extends Fragment {
             lineCapa.setGravity(Gravity.CENTER);
             lineCapa.setBackground(getResources().getDrawable(R.drawable.ki_bar_gradient));
 
-            TextView nameTxt = new TextView(getContext());
+            LinearLayout iconAndName = new LinearLayout(getContext());
+            iconAndName.setOrientation(LinearLayout.HORIZONTAL);
+            iconAndName.setGravity(Gravity.CENTER_VERTICAL);
             TextView nameTitle = returnFragView.findViewById(R.id.kiNameTitle);
-            nameTxt.setLayoutParams(nameTitle.getLayoutParams());
+            iconAndName.setLayoutParams(nameTitle.getLayoutParams());
+
+            ImageView icon = new ImageView(getContext());
+            int imgId = R.drawable.mire_test;
+            try {
+                imgId = getResources().getIdentifier(kiCapa.getId(), "drawable", getContext().getPackageName());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            icon.setImageDrawable(getContext().getDrawable(imgId));
+            tools.resize(icon,(int) (getResources().getDimensionPixelSize(R.dimen.icon_skills_list_height) * 0.8));
+            LinearLayout.LayoutParams para = (LinearLayout.LayoutParams) icon.getLayoutParams();
+            para.setMarginStart(getResources().getDimensionPixelSize(R.dimen.general_margin));
+            iconAndName.addView(icon);
+
+            TextView nameTxt = new TextView(getContext());
+            nameTxt.setLayoutParams(new LinearLayout.LayoutParams(0,LinearLayout.LayoutParams.WRAP_CONTENT,1));
             nameTxt.setText(kiCapa.getName());
-
-            int imgId = getResources().getIdentifier(kiCapa.getId(), "drawable", getContext().getPackageName());
-            nameTxt.setCompoundDrawablesWithIntrinsicBounds(tools.resize(getContext(),getContext().getDrawable(imgId),(int) (getResources().getDimensionPixelSize(R.dimen.icon_kicapacities_list))),null,null,null);
-            nameTxt.setPadding(getResources().getDimensionPixelSize(R.dimen.general_margin),0,0,0);
             nameTxt.setGravity(Gravity.CENTER);
+            iconAndName.addView(nameTxt);
 
-            lineCapa.addView(nameTxt);
+            lineCapa.addView(iconAndName);
 
             TextView summary = new TextView(getContext());
             TextView summaryTitle = returnFragView.findViewById(R.id.kiEffectTitle);

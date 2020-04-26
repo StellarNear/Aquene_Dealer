@@ -13,7 +13,7 @@ import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.R;
 
 public class AtkRoll {
-    private Dice atkDice;
+    private Dice20 atkDice;
 
     private Integer preRandValue = 0;
     private Integer atk = 0;
@@ -39,7 +39,7 @@ public class AtkRoll {
     public AtkRoll(Activity mA,Context mC, Integer base) {
         this.mA= mA;
         this.mC = mC;
-        this.atkDice = new Dice(mA,mC,20);
+        this.atkDice = new Dice20(mA,mC);
 
         settings = PreferenceManager.getDefaultSharedPreferences(mC);
         manualDice = settings.getBoolean("switch_manual_diceroll", mC.getResources().getBoolean(R.bool.switch_manual_diceroll_DEF));
@@ -119,7 +119,7 @@ public class AtkRoll {
 
     //getters
 
-    public Dice getDice() {
+    public Dice20 getDice() {
         return this.atkDice;
     }
 
@@ -176,7 +176,7 @@ public class AtkRoll {
         return this.miss;
     }
 
-    public Dice getAtkDice() {
+    public Dice20 getAtkDice() {
         return this.atkDice;
     }
 
@@ -203,7 +203,7 @@ public class AtkRoll {
 
     public void invalidated() {
         this.invalid = true;
-        atkDice.getImg().setImageDrawable(tools.resize(mC,R.drawable.d20_fail, mC.getResources().getDimensionPixelSize(R.dimen.icon_main_dices_combat_launcher_size)));
+        atkDice.invalidate();
         atkDice.getImg().setOnClickListener(null);
     }
 

@@ -2,6 +2,7 @@ package stellarnear.aquene_dealer.Divers.CombatPanel;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.preference.PreferenceManager;
 import android.view.Gravity;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -176,19 +178,27 @@ public class CombatLauncherDamageLines {
                 TextView sumPhyTxt = new TextView(mC);
                 sumPhyTxt.setGravity(Gravity.CENTER);
                 sumPhyTxt.setText(String.valueOf(sumPhy));
-                sumPhyTxt.setCompoundDrawablesWithIntrinsicBounds(null, null, tools.resize(mC, R.drawable.phy_dmg_type, (int) mC.getResources().getDimension(R.dimen.combat_launcher_dmg_type_icon_size)), null);
                 sumPhyTxt.setTextSize(18);
                 sumPhyTxt.setTypeface(null, Typeface.BOLD);
                 frame.addView(sumPhyTxt);
+
+                ImageView logoPhy = new ImageView(mC);
+                logoPhy.setImageDrawable(mC.getDrawable(R.drawable.phy_dmg_type));
+                tools.resize(logoPhy, (int) mC.getResources().getDimension(R.dimen.combat_launcher_dmg_type_icon_size));
+                frame.addView(logoPhy);
             }
             if (sumFire > 0) {
                 TextView sumFireTxt = new TextView(mC);
                 sumFireTxt.setGravity(Gravity.CENTER);
                 sumFireTxt.setText(String.valueOf(sumFire));
-                sumFireTxt.setCompoundDrawablesWithIntrinsicBounds(null, null, tools.resize(mC, R.drawable.fire_dmg_type, (int) mC.getResources().getDimension(R.dimen.combat_launcher_dmg_type_icon_size)), null);
                 sumFireTxt.setTextSize(18);
                 sumFireTxt.setTypeface(null, Typeface.BOLD);
                 frame.addView(sumFireTxt);
+
+                ImageView logoFire = new ImageView(mC);
+                logoFire.setImageDrawable(mC.getDrawable(R.drawable.fire_dmg_type));
+                tools.resize(logoFire, (int) mC.getResources().getDimension(R.dimen.combat_launcher_dmg_type_icon_size));
+                frame.addView(logoFire);
             }
             damageLine.addView(frame);
             setSummaryListnerToShowStats(frame);
@@ -223,9 +233,17 @@ public class CombatLauncherDamageLines {
                     nd8Text.setText(nDices + "d"+diceType);
                     nd8Text.setTextSize(18);
                     nd8Text.setTypeface(null, Typeface.BOLD);
-                    int drawableId = mC.getResources().getIdentifier("d" + diceType + "_main", "drawable", mC.getPackageName());
-                    nd8Text.setCompoundDrawablesWithIntrinsicBounds(tools.resize(mC, drawableId, mC.getResources().getDimensionPixelSize(R.dimen.icon_main_dices_combat_launcher_size)), null, null, null);
                     summary.addView(nd8Text);
+
+                    try {
+                        ImageView diceImg = new ImageView(mC);
+                        int drawableId = mC.getResources().getIdentifier("d" + diceType + "_main", "drawable", mC.getPackageName());
+                        diceImg.setImageDrawable(mC.getDrawable(drawableId));
+                        tools.resize(diceImg, mC.getResources().getDimensionPixelSize(R.dimen.icon_main_dices_combat_launcher_size));
+                        summary.addView(diceImg);
+                    } catch (Resources.NotFoundException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
             setSummaryListnerToInputManualDmg(summary);

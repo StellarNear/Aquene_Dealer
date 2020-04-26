@@ -120,7 +120,8 @@ public class PrefHallOfFameFragment extends Preference {
         ImageView img = new ImageView(mC);
         try {
             int imgId = mC.getResources().getIdentifier(attackID, "drawable", mC.getPackageName());
-            img.setImageDrawable(tools.resize(mC,imgId,120));
+            img.setImageDrawable(mC.getDrawable(imgId));
+            tools.resize(img,120);
         } catch (Exception e) {
             e.printStackTrace();
         }
