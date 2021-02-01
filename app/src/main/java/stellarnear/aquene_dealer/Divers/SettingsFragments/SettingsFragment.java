@@ -30,7 +30,7 @@ import stellarnear.aquene_dealer.Divers.Tools;
 import stellarnear.aquene_dealer.Perso.Perso;
 import stellarnear.aquene_dealer.R;
 
-public class SettingsFragment extends PreferenceFragment {
+public class SettingsFragment extends CustomPreferenceFragment {
     private Activity mA;
     private Context mC;
     private List<String> histoPrefKeys = new ArrayList<>();
@@ -40,7 +40,6 @@ public class SettingsFragment extends PreferenceFragment {
     private String currentPageTitle;
 
     private Tools tools = Tools.getTools();
-    private SharedPreferences settings;
     private PrefAllInventoryFragment prefAllInventoryFragment;
     private PrefXpFragment prefXpFragment;
     private PrefFeatFragment prefFeatFragment;
@@ -58,10 +57,9 @@ public class SettingsFragment extends PreferenceFragment {
                     if (key.contains("switch_capacity_")){aquene.getAllResources().refreshCapaListResources();}
                 }
             };
+
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        this.settings = PreferenceManager.getDefaultSharedPreferences(getContext());
+    protected void onCreateFragment() {
         settings.registerOnSharedPreferenceChangeListener(listener);
         this.mA=getActivity();
         this.mC=getContext();
@@ -104,7 +102,7 @@ public class SettingsFragment extends PreferenceFragment {
     }
 
     @Override
-    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
+    protected void onPreferenceTreeClickFragment(PreferenceScreen preferenceScreen, Preference preference) throws Exception {
         if (preference.getKey().contains("pref_")) {
             histoPrefKeys.add(preference.getKey());
             histoTitle.add(preference.getTitle().toString());
@@ -117,13 +115,17 @@ public class SettingsFragment extends PreferenceFragment {
         } else {
             action(preference);
         }
-        /*
+              /*
         // Top level PreferenceScreen
         if (key.equals("top_key_0")) {         changePrefScreen(R.xml.pref_general, preference.getTitle().toString()); // descend into second level    }
 
         // Second level PreferenceScreens
         if (key.equals("second_level_key_0")) {        // do something...    }       */
-        return true;
+    }
+
+    @Override
+    protected void onDestroyFragment() {
+        settings.unregisterOnSharedPreferenceChangeListener(listener);
     }
 
 
@@ -194,7 +196,7 @@ public class SettingsFragment extends PreferenceFragment {
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(currentPageTitle);
     }
 
-    private void action(Preference preference) {
+    private void action(Preference preference) throws Exception {
         switch (preference.getKey()) {
             case "show_equipment":
                 aquene.getInventory().showEquipment(getActivity(), getContext(),true);
@@ -387,13 +389,8 @@ public class SettingsFragment extends PreferenceFragment {
                 intentLoad.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 mC.startActivity(intentLoad);
                 break;
+            case "send_report":
+                log.sendReport(getActivity());
         }
-    }
-    @Override
-    public void onStop() {
-        super.onStop();
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mC);
-        prefs.unregisterOnSharedPreferenceChangeListener(listener);
-        listener=null;
     }
 }

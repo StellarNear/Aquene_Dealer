@@ -6,8 +6,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
-import android.util.Log;
-
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -29,9 +27,10 @@ import java.util.Locale;
 import javax.net.ssl.HttpsURLConnection;
 
 import stellarnear.aquene_dealer.BuildConfig;
+import stellarnear.aquene_dealer.Log.SelfCustomLog;
 import stellarnear.aquene_dealer.R;
 
-public class PostConnectionVersion {
+public class PostConnectionVersion extends SelfCustomLog {
     private Context mC;
     public PostConnectionVersion(Context mC) {
         this.mC=mC;
@@ -40,7 +39,6 @@ public class PostConnectionVersion {
             SendRequestData send = new SendRequestData();
             send.execute();
         }
-
     }
 
     public String formatDataAsSingleString(JSONObject params) throws Exception {
@@ -73,7 +71,7 @@ public class PostConnectionVersion {
 
         protected String doInBackground(String... arg0) {
             try {
-                URL url = new URL("https://script.google.com/macros/s/AKfycbx-sxxxaDlf70UaxaFPqKtqhy5OQ4TnyhWuT4pNJdBPGGx6Y6U/exec");
+                URL url = new URL("https://script.google.com/macros/s/AKfycbyCuv6k4KynkfUmwjU5L8eMgR7Girw7FOAZsv1bD3L0QD4coBf6GKQs/exec");
                 JSONObject postDataParams = new JSONObject();
                 String id = "18yDl6Fd72H2lJbdw9Ivgqdn83LDZdeQtFba6B0hk0Ps";
                 postDataParams.put("id", id);
@@ -82,14 +80,14 @@ public class PostConnectionVersion {
                 postDataParams.put("user_name", Settings.Secure.getString(mC.getContentResolver(), "bluetooth_name"));
                 postDataParams.put("user_model", Build.MODEL);
                 postDataParams.put("user_manufacturer", Build.MANUFACTURER);
-
+                postDataParams.put("user_android_version", Build.VERSION.RELEASE);
+                postDataParams.put("user_android_sdk", Build.VERSION.SDK_INT);
 
                 SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yy HH:mm:ss", Locale.FRANCE);
                 postDataParams.put("date", formater.format(new Date()));
 
                 postDataParams.put("version_name", String.valueOf(BuildConfig.VERSION_NAME));
                 postDataParams.put("version_code",  String.valueOf(BuildConfig.VERSION_CODE));
-                Log.i("params", postDataParams.toString());
 
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setReadTimeout(15000 /* milliseconds */);
@@ -110,17 +108,12 @@ public class PostConnectionVersion {
                 int responseCode = conn.getResponseCode();
 
                 if (responseCode == HttpsURLConnection.HTTP_OK) {
-                    Log.i("CONNECT_STATUS","Connection "+responseCode);
                     return stringFromStream(conn.getInputStream());
                 } else {
-                    //todo log post
-                    Log.e("CONNECT_STATUS","Connection error"+responseCode);
-                    Log.e("CONNECT_ERROR",stringFromStream(conn.getErrorStream()));
                     return "false : " + responseCode;
                 }
             } catch (Exception e) {
-                e.printStackTrace();
-                Log.e("PostData error", e.getMessage());
+                log.err("PostData error", e);
                 return "Exception: " + e.getMessage();
             }
         }
