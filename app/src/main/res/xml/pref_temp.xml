@@ -11,7 +11,7 @@
 
     <Preference  android:layout="@layout/divider_pref" android:selectable="false"/>
 
-    <stellarnear.aquene_dealer.Divers.EditTextPreference
+    <stellarnear.aquene_companion.Divers.EditTextPreference
         android:defaultValue="@integer/mythiccapacity_absorption_value_DEF"
         android:key="mythiccapacity_absorption_value"
         android:selectAllOnFocus="true"
@@ -25,7 +25,7 @@
     <Preference  android:layout="@layout/divider_pref" android:selectable="false"/>
 
 
-    <stellarnear.aquene_dealer.Divers.EditTextPreference
+    <stellarnear.aquene_companion.Divers.EditTextPreference
         android:defaultValue="@integer/bonus_ki_armor_DEF"
         android:key="bonus_ki_armor"
         android:selectAllOnFocus="true"
@@ -40,7 +40,7 @@
 
     <PreferenceCategory android:title="Autres buffs"/>
     <Preference  android:layout="@layout/divider_pref" android:selectable="false"/>
-    <stellarnear.aquene_dealer.Divers.EditTextPreference
+    <stellarnear.aquene_companion.Divers.EditTextPreference
         android:defaultValue="@integer/bonus_temp_jet_att_DEF"
         android:key="bonus_temp_jet_att"
         android:selectAllOnFocus="true"
@@ -50,7 +50,7 @@
         android:title="Bonus jet d'attaque"
         />
 
-    <stellarnear.aquene_dealer.Divers.EditTextPreference
+    <stellarnear.aquene_companion.Divers.EditTextPreference
         android:defaultValue="@integer/bonus_temp_jet_dmg_DEF"
         android:key="bonus_temp_jet_dmg"
         android:selectAllOnFocus="true"
@@ -66,7 +66,7 @@
         android:title="Rapidité"
         android:summary="+1 attaque, +1 jet  d'attaque, +1 CA, +1 reflexe, +9m déplacement"/>
 
-    <stellarnear.aquene_dealer.Divers.EditTextPreference
+    <stellarnear.aquene_companion.Divers.EditTextPreference
         android:defaultValue="@integer/bonus_temp_ca_DEF"
         android:key="bonus_temp_ca"
         android:selectAllOnFocus="true"
@@ -78,7 +78,7 @@
 
 
 
-    <stellarnear.aquene_dealer.Divers.EditTextPreference
+    <stellarnear.aquene_companion.Divers.EditTextPreference
         android:defaultValue="@integer/bonus_temp_save_DEF"
         android:key="bonus_temp_save"
         android:selectAllOnFocus="true"
@@ -88,7 +88,7 @@
         android:title="Bonus aux jets de sauvegardes"
         />
 
-    <stellarnear.aquene_dealer.Divers.EditTextPreference
+    <stellarnear.aquene_companion.Divers.EditTextPreference
         android:defaultValue="@integer/bonus_temp_rm_DEF"
         android:key="bonus_temp_rm"
         android:selectAllOnFocus="true"

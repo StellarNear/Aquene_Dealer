@@ -1,6 +1,6 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <stellarnear.aquene_dealer.Divers.EditTextPreference
+    <stellarnear.aquene_companion.Divers.EditTextPreference
         android:defaultValue="@integer/attack_range_DEF"
         android:key="attack_range"
         android:selectAllOnFocus="true"
@@ -10,7 +10,7 @@
         android:title="Portée des attaques"
         />
 
-    <stellarnear.aquene_dealer.Divers.EditTextPreference
+    <stellarnear.aquene_companion.Divers.EditTextPreference
         android:defaultValue="@string/jet_att_DEF"
         android:key="jet_att"
         android:selectAllOnFocus="true"
@@ -19,7 +19,7 @@
         android:title="Jets d'attaque de base (x,x,x)"
         />
 
-    <stellarnear.aquene_dealer.Divers.EditTextPreference
+    <stellarnear.aquene_companion.Divers.EditTextPreference
         android:defaultValue="@integer/attack_att_epic_DEF"
         android:key="attack_att_epic"
         android:selectAllOnFocus="true"
@@ -29,7 +29,7 @@
         android:title="Bonus d'attaque épique"
         />
 
-    <stellarnear.aquene_dealer.Divers.EditTextPreference
+    <stellarnear.aquene_companion.Divers.EditTextPreference
         android:defaultValue="@string/jet_att_flurry_DEF"
         android:key="jet_att_flurry"
         android:selectAllOnFocus="true"
@@ -50,7 +50,7 @@
         android:title="Dès pour les dégats à main nues"
         />
 
-    <stellarnear.aquene_dealer.Divers.EditTextPreference
+    <stellarnear.aquene_companion.Divers.EditTextPreference
         android:defaultValue="@integer/attack_dmg_epic_DEF"
         android:key="attack_dmg_epic"
         android:selectAllOnFocus="true"
@@ -60,7 +60,7 @@
         android:title="Bonus dégats épique"
         />
 
-    <stellarnear.aquene_dealer.Divers.EditTextPreference
+    <stellarnear.aquene_companion.Divers.EditTextPreference
         android:defaultValue="@integer/attack_prouesse_epic_DEF"
         android:key="attack_prouesse_epic"
         android:selectAllOnFocus="true"

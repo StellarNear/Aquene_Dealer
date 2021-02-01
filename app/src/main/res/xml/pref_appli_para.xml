@@ -27,7 +27,7 @@
         android:title="Popups éphémères"
         android:summary="Les fenetres d'infos se referment automatiquement"/>
 
-    <stellarnear.aquene_dealer.Divers.EditTextPreference
+    <stellarnear.aquene_companion.Divers.EditTextPreference
         android:defaultValue="@integer/custom_alert_long_duration_DEF"
         android:dependency="switch_autoclose_dialog"
         android:key="custom_alert_long_duration"

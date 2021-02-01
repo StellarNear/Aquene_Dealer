@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <stellarnear.aquene_dealer.Divers.EditTextPreference
+    <stellarnear.aquene_companion.Divers.EditTextPreference
         android:defaultValue="@integer/resource_hp_base_def"
         android:key="resource_hp_base"
         android:title="Base point de vie (que les DVs)"
@@ -9,7 +9,7 @@
         android:inputType="number"
         android:summary="Valeur : %s"/>
 
-    <stellarnear.aquene_dealer.Divers.EditTextPreference
+    <stellarnear.aquene_companion.Divers.EditTextPreference
         android:defaultValue="@integer/resource_regen_def"
         android:key="resource_regen"
         android:title="Régénération (/round)"
@@ -17,7 +17,7 @@
         android:singleLine="true"
         android:inputType="number"
         android:summary="Valeur : %s"/>
-    <stellarnear.aquene_dealer.Divers.EditTextPreference
+    <stellarnear.aquene_companion.Divers.EditTextPreference
         android:defaultValue="@integer/resource_heroic_def"
         android:key="resource_heroic"
         android:title="Points héroiques"

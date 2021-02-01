@@ -5,7 +5,7 @@
         android:title="Jets de sauvegarde">
         <Preference android:layout="@layout/divider_pref" android:selectable="false"/>
 
-        <stellarnear.aquene_dealer.Divers.EditTextPreference
+        <stellarnear.aquene_companion.Divers.EditTextPreference
             android:defaultValue="@integer/epic_save_def"
             android:key="epic_save"
             android:title="Bonus épique"
@@ -29,7 +29,7 @@
         android:key="REF"
         android:title="Jets de réflexe">
         <Preference android:layout="@layout/divider_pref" android:selectable="false"/>
-        <stellarnear.aquene_dealer.Divers.EditTextPreference
+        <stellarnear.aquene_companion.Divers.EditTextPreference
             android:defaultValue="@integer/ability_ref_def"
             android:key="ability_ref"
             android:title="Bonus de base"
@@ -43,7 +43,7 @@
         android:key="VIG"
         android:title="Jets de vigueur">
         <Preference android:layout="@layout/divider_pref" android:selectable="false"/>
-        <stellarnear.aquene_dealer.Divers.EditTextPreference
+        <stellarnear.aquene_companion.Divers.EditTextPreference
             android:defaultValue="@integer/ability_vig_def"
             android:key="ability_vig"
             android:title="Bonus de base"
@@ -57,7 +57,7 @@
         android:key="VOL"
         android:title="Jets de volonté">
         <Preference android:layout="@layout/divider_pref" android:selectable="false"/>
-        <stellarnear.aquene_dealer.Divers.EditTextPreference
+        <stellarnear.aquene_companion.Divers.EditTextPreference
             android:defaultValue="@integer/ability_vol_def"
             android:key="ability_vol"
             android:title="Bonus de base"

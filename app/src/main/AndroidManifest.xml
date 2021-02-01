@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="stellarnear.aquene_dealer"
+    package="stellarnear.aquene_companion"
     android:versionCode="3"
     android:versionName="5.1">
 
@@ -19,7 +19,7 @@
         android:largeHeap="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Activities.SplashActivity"
+            android:name="stellarnear.aquene_companion.Activities.SplashActivity"
             android:theme="@style/SplashTheme"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -30,29 +30,29 @@
         </activity>
 
         <activity
-            android:name=".Activities.MainActivity"
+            android:name="stellarnear.aquene_companion.Activities.MainActivity"
             android:label="@string/app_name"
             android:configChanges="orientation|screenSize"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
         <activity
-            android:name=".Activities.SettingsActivity"
+            android:name="stellarnear.aquene_companion.Activities.SettingsActivity"
             android:screenOrientation="portrait"
             android:label="@string/setting_activity"/>
 
         <activity android:label="@string/stance_activity"
-            android:name=".Activities.StanceActivity"
+            android:name="stellarnear.aquene_companion.Activities.StanceActivity"
             android:configChanges="orientation|screenSize"
             android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity android:label="@string/help_activity"
-            android:name=".Activities.HelpActivity"
+            android:name="stellarnear.aquene_companion.Activities.HelpActivity"
             android:configChanges="orientation|screenSize"
             android:theme="@style/AppTheme.NoActionBarHelp"/>
 
         <activity
-            android:name="stellarnear.aquene_dealer.Activities.SaveSharedPreferencesActivity"
+            android:name="stellarnear.aquene_companion.Activities.SaveSharedPreferencesActivity"
             android:configChanges="orientation|screenSize"
             android:label="@string/title_activity_saving"
             android:theme="@style/AppTheme.NoActionBar" />
